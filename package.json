@@ -1,12 +1,13 @@
 {
   "name": "canvas-take",
   "version": "0.1.0",
-  "private": true,
   "description": "Record HTML canvas to video with explicit resource lifecycle",
   "type": "module",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": {
@@ -17,12 +18,31 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test test/*.test.mjs"
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm test"
   },
   "devDependencies": {
     "typescript": "6.0.3"
   },
-  "engines": {
-    "node": ">=22"
-  }
+  "license": "MIT",
+  "author": {
+    "name": "Grundy",
+    "url": "https://grundyjs.ru/"
+  },
+  "homepage": "https://grundyjs.ru/algorithms/insertion-sort/",
+  "keywords": [
+    "canvas",
+    "video",
+    "recording",
+    "mediarecorder",
+    "typescript"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts"
 }
