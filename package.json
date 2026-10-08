@@ -1,5 +1,5 @@
 {
-  "name": "canvas-take",
+  "name": "@grundyjs/canvas-take",
   "version": "0.1.0",
   "description": "Record HTML canvas to video with explicit resource lifecycle",
   "type": "module",

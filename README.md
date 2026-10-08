@@ -5,13 +5,13 @@ Independent TypeScript library for silent HTML canvas video recording. No runtim
 ## Install
 
 ```sh
-npm install canvas-take
+npm install @grundyjs/canvas-take
 ```
 
 ## Record a canvas
 
 ```js
-import { createCanvasRecorder } from "canvas-take";
+import { createCanvasRecorder } from "@grundyjs/canvas-take";
 const recorder = createCanvasRecorder(canvas, { fps: 30 });
 await recorder.start();
 // Run your animation, then:
