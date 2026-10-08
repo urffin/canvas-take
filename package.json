@@ -1,0 +1,28 @@
+{
+  "name": "canvas-take",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Record HTML canvas to video with explicit resource lifecycle",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

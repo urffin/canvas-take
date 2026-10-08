@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CanvasTake recording test</title>
+<style>body{font:16px system-ui;background:#101827;color:#f1f5f9;margin:24px}main{max-width:960px;margin:auto}canvas,video{width:100%;height:auto}button,a{margin:12px 12px 12px 0;color:inherit}button{color:#101827}video{display:none}video[src]{display:block}</style>
+<main><h1>CanvasTake + AlgiViz</h1><p>Silent insertion sort recording · 1920×1080 · 30 fps</p><canvas width="1920" height="1080" aria-label="Sort animation"></canvas><button id="record">Record video</button><button id="cancel" disabled>Cancel</button><a id="download" hidden>Download video</a><p id="status" role="status">Ready</p><video controls playsinline></video></main>
+<script type="module">
+import { createCanvasRecorder } from '/canvas-take/dist/index.js';
+import { insertionSortSteps, createSortTimeline } from '/algiviz/dist/core/index.js';
+import { createSortRenderer } from '/algiviz/dist/canvas/index.js';
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),status=document.querySelector('#status'),record=document.querySelector('#record'),cancel=document.querySelector('#cancel'),download=document.querySelector('#download'),video=document.querySelector('video');
+const timeline=createSortTimeline(insertionSortSteps([5,2,4,2,1]),{stepDurationMs:130,finalHoldMs:1000}),renderer=createSortRenderer({theme:'dark'});
+let recorder,raf=0,url,abort;
+function draw(t){renderer.render(ctx,timeline.sample(t));ctx.fillStyle='#f1f5f9';ctx.font='24px sans-serif';ctx.fillText('grundyjs.ru',1560,1030)}draw(0);
+cancel.onclick=()=>{abort?.(new Error('Recording cancelled'));recorder?.dispose()};
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&!cancel.disabled){abort?.(new Error('Recording cancelled because the tab became hidden'));recorder?.dispose()}});
+record.onclick=async()=>{
+record.disabled=true;cancel.disabled=false;download.hidden=true;status.textContent='Recording…';
+try{
+ await document.fonts.ready;draw(0);recorder=createCanvasRecorder(canvas,{fps:30,videoBitsPerSecond:5000000});await recorder.start();
+ await new Promise((resolve,reject)=>{abort=reject;const start=performance.now();function frame(now){const time=Math.min(now-start,timeline.durationMs);draw(time);if(time<timeline.durationMs)raf=requestAnimationFrame(frame);else resolve()}raf=requestAnimationFrame(frame)});
+ const result=await recorder.stop();if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(result.blob);video.src=url;download.href=url;download.download='algiviz-insertion-sort.'+result.extension;download.hidden=false;
+ status.textContent=`Recorded ${result.blob.size} bytes · ${result.mimeType} · ${(result.durationMs/1000).toFixed(2)} s`;
+ // The local verification server saves this generated fixture for ffprobe checks.
+ if(location.hostname==='127.0.0.1')await fetch('/test-output',{method:'POST',headers:{'Content-Type':result.mimeType},body:result.blob});
+}catch(error){status.textContent=error.message}finally{cancelAnimationFrame(raf);abort=null;recorder?.dispose();record.disabled=false;cancel.disabled=true}
+};
+video.onloadedmetadata=()=>{status.textContent+=` · Playback ${video.videoWidth}×${video.videoHeight}`};
+addEventListener('pagehide',()=>{cancelAnimationFrame(raf);recorder?.dispose();if(url)URL.revokeObjectURL(url)});
+</script></html>
