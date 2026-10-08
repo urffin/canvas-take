@@ -50,4 +50,5 @@ The integration example was verified with an actual VP9 recording at 1920×1080.
 
 ## Release
 
-Run `npm test`, `npm pack --dry-run` and install the tarball in a separate consumer project. The archive contains dist, README, LICENSE, CHANGELOG and package metadata. Public source repository metadata will be added after the repository is created. Version 0.1 is an initial API and may change in later minor releases. Publishing is a separate maintainer action.
+Run `npm test`, `npm pack --dry-run` and install the tarball in a separate consumer project. The archive contains dist, README, LICENSE, CHANGELOG and package metadata. Source and issues: [urffin/canvas-take](https://github.com/urffin/canvas-take). Version 0.1 is an initial API and may change in later minor releases. Publishing is a separate maintainer action.
+

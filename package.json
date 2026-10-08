@@ -44,5 +44,12 @@
     "registry": "https://registry.npmjs.org/"
   },
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts"
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "url": "git+https://github.com/urffin/canvas-take.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/urffin/canvas-take/issues"
+  }
 }
