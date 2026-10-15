@@ -8,6 +8,8 @@ export interface RecorderOptions {
     readonly fps: number;
     readonly videoBitsPerSecond?: number;
     readonly mimeType?: string;
+    /** Live caller-owned audio tracks; recorder owns and stops only clones. */
+    readonly audioTracks?: readonly MediaStreamTrack[];
 }
 export type RecorderState = "idle" | "recording" | "stopping" | "stopped" | "disposed";
 export interface CanvasRecorder {
@@ -32,7 +34,7 @@ function extension(mime: string): "webm" | "mp4" {
     throw new TypeError(`Unsupported video container: ${mime}`);
 }
 
-/** One recorder instance produces one silent video; drawing is managed by the caller. */
+/** One recorder instance produces one video, optionally with supplied audio; drawing is managed by the caller. */
 export function createCanvasRecorder(canvas: HTMLCanvasElement, options: RecorderOptions): CanvasRecorder {
     if (!Number.isFinite(options.fps) || options.fps <= 0) throw new RangeError("fps must be positive and finite");
     if (options.videoBitsPerSecond !== undefined &&
@@ -42,9 +44,16 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
     if (typeof MediaRecorder === "undefined" || typeof canvas.captureStream !== "function") {
         throw new Error("Canvas video recording is not supported in this environment");
     }
+    const audioTracks = [...(options.audioTracks ?? [])];
+    for (const track of audioTracks) {
+        if (track.kind !== "audio" || track.readyState !== "live") throw new TypeError("audioTracks must contain live audio tracks");
+    }
     const requested = options.mimeType;
     if (requested !== undefined) extension(requested);
-    const mime = requested ?? ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm", "video/mp4"]
+    const candidates = audioTracks.length
+        ? ["video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm", "video/mp4"]
+        : ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm", "video/mp4"];
+    const mime = requested ?? candidates
         .find(candidate => MediaRecorder.isTypeSupported(candidate));
     if (!mime || !MediaRecorder.isTypeSupported(mime)) throw new Error(`Unsupported recording format: ${mime ?? "none"}`);
 
@@ -90,7 +99,7 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
     function onError(event: Event): void {
         fail((event as Event & { error?: Error }).error ?? new Error("Video recording failed"));
     }
-    function onEnded(): void { fail(new Error("Canvas capture track ended unexpectedly")); }
+    function onEnded(): void { fail(new Error("Recording track ended unexpectedly")); }
     function onStop(): void {
         if (!unchanged()) { fail(new Error("Canvas bitmap size changed during recording")); return; }
         if (state !== "stopping") { fail(new Error("Recording stopped unexpectedly")); return; }
@@ -125,6 +134,11 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
                 if (!width || !height) throw new RangeError("Canvas must have a positive bitmap size");
                 stream = canvas.captureStream(options.fps);
                 if (!stream.getVideoTracks().length) throw new Error("Canvas stream has no video track");
+                for (const track of audioTracks) {
+                    if (track.readyState !== "live") throw new Error("Audio track ended before recording");
+                    const clone = track.clone();
+                    try { stream.addTrack(clone); } catch (error) { clone.stop(); throw error; }
+                }
                 recorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: options.videoBitsPerSecond });
                 recorder.addEventListener("start", onStart);
                 recorder.addEventListener("dataavailable", onData);

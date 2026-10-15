@@ -1,6 +1,6 @@
 # CanvasTake
 
-Independent TypeScript library for silent HTML canvas video recording. No runtime dependencies or dependency on AlgiViz. ESM only, with TypeScript declarations. MIT licensed. The package does not start or draw your animation.
+Independent TypeScript library for HTML canvas video recording with optional audio tracks. No runtime dependencies or dependency on AlgiViz. ESM only, with TypeScript declarations. MIT licensed. The package does not start or draw your animation.
 
 ## Install
 
@@ -23,9 +23,9 @@ recorder.dispose();
 
 `start` resolves after the MediaRecorder start event. `stop` waits for the final dataavailable and stop events; repeated calls return the same promise. Errors reject pending operations, stop owned tracks and release chunks. `dispose` cancels an unfinished recording; it is idempotent. Each instance records once. State stays idle while start is pending; a second start is rejected.
 
-Auto format order: WebM VP9, VP8, generic WebM, MP4. An explicit unsupported MIME fails without silently changing the format. The result reports the actual MIME and matching extension. FPS and bitrate are targets, not guarantees. durationMs measures recording wall time, not parsed file duration.
+Auto format order: WebM VP9, VP8, generic WebM, MP4. With audio, the VP9 and VP8 candidates include Opus. An explicit unsupported MIME fails without silently changing the format. The result reports the actual MIME and matching extension. FPS and bitrate are targets, not guarantees. durationMs measures recording wall time, not parsed file duration.
 
-Keep canvas bitmap dimensions fixed from start until stop. CSS scaling is allowed. Size changes fail the recording. Canvas must remain origin-clean. No audio, screen capture, pause, frame-by-frame encoding or server upload. Chunks are retained in memory: the caller should limit duration. If background-tab throttling is unacceptable, the caller should dispose when the page becomes hidden. Codec support depends on the browser and available resources.
+Keep canvas bitmap dimensions fixed from start until stop. CSS scaling is allowed. Size changes fail the recording. Canvas must remain origin-clean. No screen capture, pause, frame-by-frame encoding or server upload. Chunks are retained in memory: the caller should limit duration. If background-tab throttling is unacceptable, the caller should dispose when the page becomes hidden. Codec support depends on the browser and available resources.
 
 Development: Node.js 22+, `npm install`, `npm test`, `npm pack`. ESM and declarations are emitted to dist. `npm pack` rebuilds automatically; `npm publish` runs tests before packing. The integration example expects AlgiViz in a sibling directory and is served by the included local server.
 
@@ -39,8 +39,54 @@ MediaRecorder WebM output may omit duration metadata: playback can work while th
 | `fps` | Required positive finite capture rate target |
 | `videoBitsPerSecond` | Optional positive finite encoder bitrate target |
 | `mimeType` | Optional explicit supported `video/webm` or `video/mp4` MIME, including codecs |
+| `audioTracks` | Optional readonly list of live audio `MediaStreamTrack`s; omitted or empty records silently |
 
 `stop()` returns `{ blob, mimeType, extension, durationMs }`. Keep the recorder in a try/finally and call `dispose()` even if your animation fails. Revoke object URLs when no longer needed.
+
+## Record with narration
+
+Mix audio into one Web Audio destination track (multiple audio tracks are not supported by every encoder). Decode your narration before starting. Call this from a user gesture so the browser can resume the audio context:
+
+```js
+async function recordNarration(canvas, narrationBytes) {
+    const audio = new AudioContext();
+    let recorder;
+    let destination;
+    try {
+        await audio.resume();
+        const buffer = await audio.decodeAudioData(narrationBytes);
+        destination = audio.createMediaStreamDestination();
+        const source = audio.createBufferSource();
+        source.buffer = buffer;
+        source.connect(destination);
+        recorder = createCanvasRecorder(canvas, {
+            fps: 30,
+            mimeType: "video/mp4",
+            audioTracks: destination.stream.getAudioTracks(),
+        });
+        const finished = new Promise(resolve => {
+            source.addEventListener("ended", resolve, { once: true });
+        });
+        await recorder.start();
+        source.start();
+        // Run your canvas animation while the narration plays.
+        await finished;
+        return await recorder.stop();
+    } finally {
+        recorder?.dispose();
+        destination?.stream.getTracks().forEach(track => track.stop());
+        await audio.close();
+    }
+}
+```
+
+MP4 with audio requires browser encoder support; an explicit MP4 request never falls back to WebM. CanvasTake uses MediaRecorder directly and does not transcode. Audio playback and canvas animation remain caller-controlled and use real time.
+
+`video/mp4` selects a container, not specific codecs: a browser may produce VP9/Opus in MP4. If your destination requires H.264/AAC, request an explicit codec MIME such as `video/mp4;codecs=avc1,mp4a.40.2` and handle unsupported-format errors.
+
+For a browser smoke test, run `node examples/server.cjs` after building and open `http://127.0.0.1:3012/canvas-take/examples/audio.html`. It records a generated tone and moving 1080×1920 canvas with explicit H.264/AAC, requests stop after two seconds, previews the result and saves it to `canvastake-test.mp4` in the server's temporary directory. Verified in the local browser: H.264 Constrained Baseline, progressive 4:2:0, stereo AAC-LC at 48 kHz, 2.476 seconds and approximately 29.1 fps. No transcoding or remuxing was used. Actual duration/frame rate and codec support depend on the browser and runtime load.
+
+The audio track list is copied at creation and validated again at start. CanvasTake clones the tracks at start and stops only its clones and canvas capture tracks on completion, disposal or failure. The caller owns the original tracks and AudioContext. Unexpected termination of a recorded clone fails recording. Calling `stop()` on an original track does not stop its clone; call `recorder.stop()` to finish the recording. Finishing an AudioBufferSource does not end the destination track either.
 
 ## Browser and server use
 

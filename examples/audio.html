@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CanvasTake MP4 audio check</title>
+<h1>CanvasTake MP4 audio check</h1>
+<p>Records a moving canvas and a generated tone for two seconds. No microphone access.</p>
+<button id="record">Record MP4</button>
+<pre id="status">Ready</pre>
+<canvas id="canvas" width="1080" height="1920" style="width:270px;height:480px"></canvas>
+<video id="preview" controls></video>
+<script type="module">
+import { createCanvasRecorder } from '../dist/index.js';
+const button = document.querySelector('#record');
+const status = document.querySelector('#status');
+const canvas = document.querySelector('#canvas');
+const preview = document.querySelector('#preview');
+let url;
+button.onclick = async () => {
+    button.disabled = true;
+    const audio = new AudioContext();
+    let recorder, destination, frame;
+    try {
+        await audio.resume();
+        destination = audio.createMediaStreamDestination();
+        const oscillator = audio.createOscillator();
+        const gain = audio.createGain();
+        gain.gain.value = 0.1;
+        oscillator.connect(gain).connect(destination);
+        const context = canvas.getContext('2d');
+        const draw = time => {
+            context.fillStyle = '#123'; context.fillRect(0, 0, canvas.width, canvas.height);
+            context.fillStyle = '#4df'; context.fillRect((time / 5) % (canvas.width - 60), 900, 60, 60);
+            frame = requestAnimationFrame(draw);
+        };
+        draw(0);
+        recorder = createCanvasRecorder(canvas, { fps: 30, mimeType: 'video/mp4;codecs=avc1,mp4a.40.2', audioTracks: destination.stream.getAudioTracks() });
+        status.textContent = 'Recording…';
+        await recorder.start();
+        oscillator.start();
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        const result = await recorder.stop();
+        oscillator.stop();
+        if (url) URL.revokeObjectURL(url);
+        url = URL.createObjectURL(result.blob);
+        preview.src = url;
+        await new Promise((resolve, reject) => {
+            preview.onloadedmetadata = resolve;
+            preview.onerror = () => reject(new Error('Playback failed'));
+        });
+        const saved = await fetch('/test-output', { method: 'POST', headers: { 'Content-Type': result.mimeType }, body: result.blob });
+        if (!saved.ok) throw new Error(`Save failed: ${saved.status}`);
+        status.textContent = JSON.stringify({ mimeType: result.mimeType, bytes: result.blob.size,
+            duration: preview.duration, width: preview.videoWidth, height: preview.videoHeight,
+            originalAudioState: destination.stream.getAudioTracks()[0].readyState,
+            saved: 'canvastake-test.mp4 in server temp directory' }, null, 2);
+    } catch (error) { status.textContent = String(error); }
+    finally {
+        cancelAnimationFrame(frame);
+        recorder?.dispose();
+        destination?.stream.getTracks().forEach(track => track.stop());
+        await audio.close();
+        button.disabled = false;
+    }
+};
+</script>
