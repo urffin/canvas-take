@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CanvasTake · AlgiViz BFS GIF integration</title>
+<style>body{font:16px system-ui;background:#101827;color:#e2e8f0;margin:24px}canvas,img{max-width:100%;display:block}button,a{font:inherit;color:inherit}button{background:#334155;padding:8px}a{display:block;margin:12px 0}</style>
+<h1>BFS · offline GIF integration</h1>
+<p>Uses the actual algorithm, renderer and timeline from the sibling AlgiViz checkout.</p>
+<button id="export">Export BFS GIF</button>
+<pre id="status">Ready</pre>
+<canvas width="800" height="560"></canvas>
+<a id="download" hidden download="algiviz-bfs.gif">Download BFS GIF</a>
+<img id="preview" alt="BFS GIF preview">
+<script type="importmap">{"imports":{"@grundyjs/algiviz/scene":"/algiviz/dist/scene/index.js","@grundyjs/algiviz/playback":"/algiviz/dist/playback/index.js"}}</script>
+<script type="module">
+import { createTimeline } from '@grundyjs/algiviz/playback';
+import { graphSteps, sampleGraph } from '/algiviz/examples/graph-algorithm.mjs';
+import { createGraphRenderer } from '/algiviz/examples/graph-scene.mjs';
+import { createGifExporter } from '../dist/gif.js';
+import { createGifencEncoder } from '../dist/gifenc.js';
+const canvas = document.querySelector('canvas'), ctx = canvas.getContext('2d');
+const renderer = createGraphRenderer();
+const steps = [...graphSteps(sampleGraph, 'A')];
+const activeMs = 7000, finalHoldMs = 2000, interval = 50;
+const timeline = createTimeline(steps, { stepDurationMs: activeMs / (steps.length - 1), finalHoldMs: 0 });
+const status = document.querySelector('#status'), button = document.querySelector('#export');
+let url;
+function draw(time) {
+    const frame = timeline.sample(time);
+    renderer.render(ctx, frame);
+    ctx.fillStyle = '#e2e8f0'; ctx.font = 'bold 18px system-ui'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+    ctx.fillText('BREADTH-FIRST SEARCH · start A', 24, 26);
+    ctx.font = '16px system-ui';
+    const label = frame.event.kind === 'finished' ? 'Complete · F and G are unreachable from A'
+        : `${frame.event.kind}${frame.event.target ? ' ' + frame.event.target : ''}`;
+    ctx.fillText(label, 24, 510);
+    ctx.font = '14px system-ui';
+    const colors = [['Current', '#fbbf24'], ['Queued', '#c4b5fd'], ['Completed', '#34d399'], ['Unseen', '#64748b']];
+    colors.forEach(([label, color], i) => { ctx.fillStyle = color; ctx.fillRect(24 + i * 175, 534, 12, 12); ctx.fillStyle = '#e2e8f0'; ctx.fillText(label, 44 + i * 175, 545); });
+}
+draw(0);
+button.onclick = async () => {
+    button.disabled = true;
+    const gif = createGifExporter({ encoder: createGifencEncoder({ maxColors: 128, quality: 'high' }), repeat: 0 });
+    const started = performance.now();
+    try {
+        await document.fonts.ready;
+        for (let time = 0; time < activeMs; time += interval) {
+            draw(time); await gif.addFrame(canvas, interval);
+            status.textContent = `Encoding ${time / interval + 1}/141`;
+        }
+        draw(activeMs); await gif.addFrame(canvas, finalHoldMs);
+        const blob = await gif.finish();
+        if (url) URL.revokeObjectURL(url);
+        url = URL.createObjectURL(blob);
+        const download = document.querySelector('#download'); download.href = url; download.hidden = false;
+        document.querySelector('#preview').src = url;
+        const saved = await fetch('/test-output', { method: 'POST', headers: { 'Content-Type': 'image/gif' }, body: blob });
+        if (!saved.ok) throw new Error(`Save failed: ${saved.status}`);
+        status.textContent = JSON.stringify({ steps: steps.length, frames: 141, durationMs: activeMs + finalHoldMs,
+            bytes: blob.size, encodeMs: Math.round(performance.now() - started), final: steps.at(-1).state.distances }, null, 2);
+    } catch (error) { status.textContent = String(error); }
+    finally { gif.dispose(); button.disabled = false; }
+};
+addEventListener('pagehide', () => { if (url) URL.revokeObjectURL(url); });
+</script>

@@ -1,29 +1,43 @@
 {
   "name": "@grundyjs/canvas-take",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Record HTML canvas to video with explicit resource lifecycle",
   "type": "module",
   "files": [
     "dist",
     "README.md",
     "LICENSE",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "docs/gif-encoder.md"
   ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
+    },
+    "./gif": {
+      "types": "./dist/gif.d.ts",
+      "import": "./dist/gif.js",
+      "default": "./dist/gif.js"
+    },
+    "./gif/gifenc": {
+      "types": "./dist/gifenc.d.ts",
+      "import": "./dist/gifenc.js",
+      "default": "./dist/gifenc.js"
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && node scripts/build-gif.mjs",
     "test": "npm run build && node --test test/*.test.mjs",
     "prepack": "npm run build",
     "prepublishOnly": "npm test",
     "test:package": "node scripts/test-package.mjs"
   },
   "devDependencies": {
+    "esbuild": "0.28.2",
+    "gifenc": "1.0.3",
+    "gifuct-js": "2.1.2",
     "typescript": "6.0.3"
   },
   "license": "MIT",

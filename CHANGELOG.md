@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 — 2026-10-15
+
+- Offline canvas GIF export via `@grundyjs/canvas-take/gif` with an injected encoder factory.
+- Optional isolated `gif/gifenc` adapter, configurable palette quality/color count, frame durations and repeat count.
+- AbortSignal cancellation, owned-resource cleanup and asynchronous/Worker adapter support.
+- Independent GIF decoding tests, package isolation checks and an offline canvas example.
+
 ## 0.2.0 — 2026-10-15
 
 - Optional caller-provided `audioTracks`, cloned at start to preserve caller ownership.

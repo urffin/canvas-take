@@ -1,6 +1,6 @@
 # CanvasTake
 
-Independent TypeScript library for HTML canvas video recording with optional audio tracks. No runtime dependencies or dependency on AlgiViz. ESM only, with TypeScript declarations. MIT licensed. The package does not start or draw your animation.
+Independent TypeScript library for HTML canvas video recording with optional audio tracks and offline GIF export through a separate entry point. No external runtime dependencies or dependency on AlgiViz. ESM only, with TypeScript declarations. MIT licensed. The package does not start or draw your animation.
 
 ## Install
 
@@ -88,6 +88,77 @@ For a browser smoke test, run `node examples/server.cjs` after building and open
 
 The audio track list is copied at creation and validated again at start. CanvasTake clones the tracks at start and stops only its clones and canvas capture tracks on completion, disposal or failure. The caller owns the original tracks and AudioContext. Unexpected termination of a recorded clone fails recording. Calling `stop()` on an original track does not stop its clone; call `recorder.stop()` to finish the recording. Finishing an AudioBufferSource does not end the destination track either.
 
+## Offline GIF export
+
+Available since version 0.3.0.
+
+```js
+import { createGifExporter } from '@grundyjs/canvas-take/gif';
+import { createGifencEncoder } from '@grundyjs/canvas-take/gif/gifenc';
+
+const controller = new AbortController();
+const gif = createGifExporter({
+    encoder: createGifencEncoder({ maxColors: 128, quality: 'high' }),
+    repeat: 0,
+    signal: controller.signal,
+});
+try {
+    for (let time = 0; time < 6000; time += 50) {
+        drawTimeline(time); // Your deterministic renderer draws into canvas.
+        await gif.addFrame(canvas, 50);
+    }
+    drawTimeline(6000);
+    await gif.addFrame(canvas, 2000); // Hold the final frame for two seconds.
+    const blob = await gif.finish(); // image/gif; 8 seconds, 121 frames.
+    // Download/preview blob; revoke any object URL when no longer needed.
+} finally {
+    gif.dispose();
+}
+```
+
+`encoder` is required and supplied by the caller. The `/gif` entry has no codec dependency; `/gif/gifenc` is an optional, self-contained adapter bundling the MIT-licensed gifenc codec. The root video import loads neither GIF module. You can replace the adapter without changing the export loop.
+
+| Setting | Meaning |
+| --- | --- |
+| `repeat` | Default `0`: forever. `-1`: play once. `1..65535`: extra repetitions after the first play |
+| `signal` | Optional AbortSignal; abort rejects pending work and disposes the encoder |
+| `background` | RGB byte tuple, default `[255, 255, 255]`; composites transparency onto an opaque background |
+| Adapter `maxColors` | Maximum palette colors per frame, integer `2..256`, default `256` |
+| Adapter `quality` | `high` (default, RGB565) or `fast` (RGB444); no dithering |
+
+`addFrame(canvas, durationMs)` snapshots a 2D HTMLCanvasElement or OffscreenCanvas immediately, then yields before encoding. Await each call before another frame or `finish()`. All frames must have identical positive dimensions (GIF limit 65535 per axis). Durations must be finite and between 10 and 655350 ms; they are rounded to the nearest 10 ms. GIF players may clamp short delays; 50 ms is a practical timeline step. The drawing time and encoding wall time do not affect the GIF duration. The canvas remains caller-owned and unmodified. Tainted canvases fail with the readback error.
+
+`finish()` requires at least one frame, returns a Blob and releases the encoder. Each exporter produces one GIF. `dispose()` is idempotent, cancels pending work and releases encoder resources. Invalid frame data, changed dimensions and encoder errors make the exporter terminal. Concurrent calls are rejected without cancelling the ongoing operation. State is `ready`, `encoding`, `finished`, `failed`, `aborted` or `disposed`.
+
+The built-in adapter incrementally encodes full frames with individual palettes, retaining compressed output rather than all raw frames. It performs synchronous work per frame on the calling thread, with cancellation serviced between frames. For expensive frames, run with OffscreenCanvas in a Worker or supply an asynchronous Worker adapter; there is no automatic Worker pool. GIF bytes and the final Blob consume memory, so callers should bound dimensions and frame count. File size depends on visual complexity; an 800 px, 6–10 second animation is a target, not a guaranteed 2–3 MB output.
+
+### Supplying another encoder
+
+Implement the exported `GifEncoderFactory` contract:
+
+```ts
+import type { GifEncoderFactory } from '@grundyjs/canvas-take/gif';
+
+const encoder: GifEncoderFactory = ({ repeat }) => ({
+    addFrame({ data, width, height, durationMs }) {
+        // Pass the opaque RGBA snapshot to your codec; may return Promise<void>.
+    },
+    async finish() {
+        // Return complete GIF bytes as Uint8Array.
+        return encodedBytes;
+    },
+    dispose() {
+        // Drop buffers, terminate owned Workers, settle pending operations.
+    },
+});
+```
+
+Each factory call must allocate a fresh encoder and honor the supplied repeat count. The exporter calls methods sequentially and invokes `dispose()` once on success, failure or cancellation. The adapter may transfer the owned frame buffer to a Worker; it must release frame references after each operation and support disposal during pending work. Cancellation rejects exporter operations immediately, but cleanup of external work belongs to the adapter. Synchronous codec work cannot be preempted on the same thread. Cleanup exceptions are suppressed to preserve the primary outcome.
+
+Run `node examples/server.cjs` after building and open `http://127.0.0.1:3012/canvas-take/examples/gif.html` for a standalone offline example with cancel, preview and download. Codec rationale and measured module sizes are in [docs/gif-encoder.md](docs/gif-encoder.md).
+
+With a built AlgiViz checkout in the sibling `algiviz` directory, open `http://127.0.0.1:3012/canvas-take/examples/gif-bfs.html` for the real BFS integration. Verified output: 800×560, 141 frames, 9 seconds including a 2-second final hold, about 1.60 MB. The example uses AlgiViz's existing algorithm and renderer and does not modify that project.
+
 ## Browser and server use
 
 Recording requires a browser with `canvas.captureStream`, `MediaRecorder` and `MutationObserver`. Importing the module does not access these APIs; creating a recorder checks capture/encoder support. Node.js has no recording implementation. Codec support is detected at runtime, not inferred from the browser name.
@@ -99,4 +170,3 @@ The integration example was verified with an actual VP9 recording at 1920×1080.
 Run `npm test` and `npm run test:package` (packs and installs the tarball in an isolated consumer, then checks TypeScript declarations and runtime imports). The archive contains dist, README, LICENSE, CHANGELOG and package metadata. Source and issues: [urffin/canvas-take](https://github.com/urffin/canvas-take). The 0.x API may change in later minor releases.
 
 After CI passes on the release commit, publish a stable GitHub Release tagged `v<package version>`. The `npm-publish.yml` workflow checks version consistency, verifies the packed consumer and publishes with OIDC/provenance. Configure npm's trusted publisher for owner `urffin`, repository `canvas-take`, workflow `npm-publish.yml` before the first automated release. No npm token is used. Publishing is a separate maintainer action.
-
