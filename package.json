@@ -1,6 +1,6 @@
 {
   "name": "@grundyjs/canvas-take",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Record HTML canvas to video with explicit resource lifecycle",
   "type": "module",
   "files": [
@@ -20,7 +20,8 @@
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test test/*.test.mjs",
     "prepack": "npm run build",
-    "prepublishOnly": "npm test"
+    "prepublishOnly": "npm test",
+    "test:package": "node scripts/test-package.mjs"
   },
   "devDependencies": {
     "typescript": "6.0.3"

@@ -1,0 +1,53 @@
+name: Publish npm package
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: ${{ !github.event.release.prerelease }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+      - name: Verify release version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const pkg = require('./package.json');
+          const lock = require('./package-lock.json');
+          assert.equal(pkg.name, '@grundyjs/canvas-take');
+          assert.match(pkg.version, /^\d+\.\d+\.\d+$/);
+          assert.equal(process.env.RELEASE_TAG, `v${pkg.version}`, 'Release tag must match package.json');
+          assert.equal(lock.version, pkg.version);
+          assert.equal(lock.packages[''].version, pkg.version);
+          NODE
+      - name: Install npm with trusted publishing support
+        run: npm install --global npm@11
+      - run: npm ci
+      - name: Verify packed consumer
+        run: npm run test:package
+      # prepublishOnly runs npm test; prepack rebuilds the package.
+      - name: Publish to npm
+        run: npm publish --access public --provenance
+

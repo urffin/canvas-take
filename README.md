@@ -96,5 +96,7 @@ The integration example was verified with an actual VP9 recording at 1920×1080.
 
 ## Release
 
-Run `npm test`, `npm pack --dry-run` and install the tarball in a separate consumer project. The archive contains dist, README, LICENSE, CHANGELOG and package metadata. Source and issues: [urffin/canvas-take](https://github.com/urffin/canvas-take). Version 0.1 is an initial API and may change in later minor releases. Publishing is a separate maintainer action.
+Run `npm test` and `npm run test:package` (packs and installs the tarball in an isolated consumer, then checks TypeScript declarations and runtime imports). The archive contains dist, README, LICENSE, CHANGELOG and package metadata. Source and issues: [urffin/canvas-take](https://github.com/urffin/canvas-take). The 0.x API may change in later minor releases.
+
+After CI passes on the release commit, publish a stable GitHub Release tagged `v<package version>`. The `npm-publish.yml` workflow checks version consistency, verifies the packed consumer and publishes with OIDC/provenance. Configure npm's trusted publisher for owner `urffin`, repository `canvas-take`, workflow `npm-publish.yml` before the first automated release. No npm token is used. Publishing is a separate maintainer action.
 
