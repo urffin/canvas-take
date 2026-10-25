@@ -1,5 +1,7 @@
 # CanvasTake
 
+[Русский](ru/README.md)
+
 Independent TypeScript library for HTML canvas video recording with optional audio tracks and offline GIF export through a separate entry point. No external runtime dependencies or dependency on AlgiViz. ESM only, with TypeScript declarations. MIT licensed. The package does not start or draw your animation.
 
 ## Install

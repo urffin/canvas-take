@@ -6,6 +6,7 @@
   "files": [
     "dist",
     "README.md",
+    "ru/README.md",
     "LICENSE",
     "CHANGELOG.md",
     "docs/gif-encoder.md"
