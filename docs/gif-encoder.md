@@ -25,13 +25,15 @@ The adapter is bundled at build time; gifenc, esbuild and the test decoder are d
 
 The supplied adapter runs on the calling thread. The controller snapshots pixels before its first yield and yields before each frame, allowing UI cancellation between frames. It cannot interrupt synchronous quantization halfway through a frame. For large workloads, the caller can run the exporter with OffscreenCanvas in a Worker or supply an async Worker adapter. The adapter owns its Workers; `dispose()` must terminate them, reject pending calls and release buffers. A real Node Worker integration test transfers the owned pixel copies and independently decodes the returned result, then verifies Worker termination.
 
-### Ready-made Worker adapter (unreleased)
+### Ready-made Worker adapter (0.4.0)
 
 The `/gif/worker` entry provides `createGifWorkerEncoder`, with one dedicated module Worker per export. It transfers owned pixel buffers and runs quantization and encoding in that Worker; canvas readback and alpha compositing stay on the calling thread. The default runtime URL is relative to the adapter. Serve the runtime and `gifenc.js` together, or configure `workerUrl` when deploying copied/bundled assets. The runtime is exported at `/gif/worker-runtime` for asset resolution only. Startup, frame and finish requests each have a configurable 30-second default timeout. Success, failure, cancellation and disposal terminate the Worker and settle pending calls. Real Worker tests independently decode its result and verify termination; fault tests cover startup cancellation, transport errors and timeouts.
 
 The controller's optional `onProgress` observer works with every encoder. It reports completed frames and their accumulated rounded duration, finalization, and terminal outcomes. `totalFrames` is an optional display hint, not a frame limit. See the README for event semantics and deployment details. The browser example now uses this adapter; the measurements below describe the synchronous adapter in 0.3.0.
 
 ## Verification
+
+`npm run test:next` packs the local library and builds an isolated Next.js 16.3.0 / React 19.2.8 consumer with Turbopack. These are the site's installed versions at the time this fixture was added. Its client component uses the default Worker URL, export progress and cancellation under `worker-src 'self'`. The temporary directory is printed and retained for browser checks with the printed `npm start` command. A build pass alone does not establish browser execution or cancellation; verify those separately. This check does not modify the website checkout or publish a package. CI runs the build as a separate job.
 
 Tests use gifuct-js as an independent parser/LZW decoder, checking full pixel patches, dimensions, frame delays, long final holds, loop extension values, alpha composition and palette limits. Lifecycle tests cover pre-abort, abort/dispose during pending frame/finalization calls, late rejection, codec exceptions, tainted canvas, resize, empty exports, duplicate operations and exactly-once adapter disposal. Releasing references makes buffers eligible for garbage collection; tests do not claim a particular GC schedule.
 

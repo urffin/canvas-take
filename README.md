@@ -134,7 +134,7 @@ try {
 
 The built-in adapter incrementally encodes full frames with individual palettes, retaining compressed output rather than all raw frames. It performs synchronous work per frame on the calling thread, with cancellation serviced between frames. For expensive frames, use the ready-made `/gif/worker` adapter, run with OffscreenCanvas in a Worker or supply an asynchronous Worker adapter; there is no automatic Worker pool. GIF bytes and the final Blob consume memory, so callers should bound dimensions and frame count. File size depends on visual complexity; an 800 px, 6–10 second animation is a target, not a guaranteed 2–3 MB output.
 
-### Worker adapter and progress (unreleased)
+### Worker adapter and progress (0.4.0)
 
 ```js
 import { createGifExporter } from '@grundyjs/canvas-take/gif';

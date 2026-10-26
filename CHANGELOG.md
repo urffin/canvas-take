@@ -1,10 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 — 2026-10-26
 
 - Ready-made `gif/worker` adapter with a dedicated module Worker, transferable frames, request timeouts and cleanup on completion/cancellation/errors.
 - Encoder-independent `onProgress` notifications with completed frame count, encoded duration, optional total frame hint and finalization/terminal phases.
-- Worker/progress example, integration tests and package asset checks; no version bump.
+- Worker/progress example, integration tests and package asset checks.
+- Packed Next.js 16.3 / Turbopack consumer build in CI; browser-verified Worker export, progress and cancellation under same-origin Worker CSP.
 
 ## 0.3.0 — 2026-10-15
 
