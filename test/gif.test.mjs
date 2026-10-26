@@ -142,7 +142,7 @@ test('invalid inputs, resizing, tainted canvas and codec failures release owned 
     assert.throws(() => create({ background: [256, 0, 0] }));
 });
 test('video and injected GIF core bundles contain no codec; adapter has no external runtime imports', async () => {
-    for (const entry of ['dist/index.js', 'dist/gif.js', 'dist/gifenc.js']) {
+    for (const entry of ['dist/index.js', 'dist/gif.js', 'dist/gifenc.js', 'dist/gif-worker.js']) {
         const bundle = await build({ entryPoints: [entry], bundle: true, write: false, metafile: true, format: 'esm', platform: 'browser' });
         assert.deepEqual(Object.keys(bundle.metafile.inputs), [entry]);
         assert.deepEqual(Object.values(bundle.metafile.outputs)[0].imports, []);

@@ -26,6 +26,16 @@ export interface GifExportOptions {
     readonly signal?: AbortSignal;
     /** Transparent pixels are composited onto this RGB color. Default: white. */
     readonly background?: readonly [number, number, number];
+    /** Optional display hint; does not limit the number of frames. */
+    readonly totalFrames?: number;
+    /** Observer exceptions are ignored. Called after frames and on terminal/finalizing states. */
+    readonly onProgress?: (progress: GifExportProgress) => void;
+}
+export interface GifExportProgress {
+    readonly phase: 'encoding' | 'finalizing' | 'finished' | 'failed' | 'aborted' | 'disposed';
+    readonly framesEncoded: number;
+    readonly durationMs: number;
+    readonly totalFrames?: number;
 }
 export type GifExportState = 'ready' | 'encoding' | 'finished' | 'failed' | 'aborted' | 'disposed';
 export interface GifExporter {
@@ -39,6 +49,8 @@ export interface GifExporter {
 /** Offline, sequential GIF export. No timers are used to determine frame durations. */
 export function createGifExporter(options: GifExportOptions): GifExporter {
     const { signal, encoder: factory } = options;
+    const { totalFrames, onProgress } = options;
+    if (totalFrames !== undefined && (!Number.isSafeInteger(totalFrames) || totalFrames < 1)) throw new RangeError('totalFrames must be a positive safe integer');
     const repeat = options.repeat ?? 0;
     const background = [...(options.background ?? [255, 255, 255])];
     if (typeof factory !== 'function') throw new TypeError('An encoder factory is required');
@@ -51,6 +63,11 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
     let encoder: GifFrameEncoder | undefined = factory(Object.freeze({ repeat }));
     let state: GifExportState = 'ready';
     let width = 0, height = 0, frames = 0;
+    let duration = 0;
+    function report(phase: GifExportProgress['phase']): void {
+        try { onProgress?.(Object.freeze({ phase, framesEncoded: frames, durationMs: duration,
+            ...(totalFrames === undefined ? {} : { totalFrames }) })); } catch {}
+    }
     let rejectCancelled!: (error: unknown) => void;
     const cancelled = new Promise<never>((_, reject) => { rejectCancelled = reject; });
     void cancelled.catch(() => {});
@@ -66,6 +83,7 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
         state = 'aborted';
         rejectCancelled(abortError());
         cleanup();
+        report('aborted');
     }
     signal?.addEventListener('abort', onAbort, { once: true });
     if (signal?.aborted) onAbort();
@@ -80,7 +98,7 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
         state = 'encoding';
         try { return await Promise.race([work(), cancelled]); }
         catch (error) {
-            if (state === 'encoding') { state = 'failed'; cleanup(); }
+            if (state === 'encoding') { state = 'failed'; cleanup(); report('failed'); }
             throw error;
         }
     }
@@ -111,12 +129,17 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
                 await encoder!.addFrame({ width: w, height: h, data, durationMs: Math.round(durationMs / 10) * 10 });
                 active();
                 width = w; height = h; frames++;
+                duration += Math.round(durationMs / 10) * 10;
+                report('encoding');
+                active();
                 state = 'ready';
             });
         },
         finish(): Promise<Blob> {
             return operation(async () => {
                 if (!frames) throw new Error('GIF export requires at least one frame');
+                report('finalizing');
+                active();
                 const bytes = await encoder!.finish();
                 active();
                 if (!(bytes instanceof Uint8Array) || bytes.length < 6 ||
@@ -126,14 +149,17 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
                 const blob = new Blob([new Uint8Array(bytes)], { type: 'image/gif' });
                 state = 'finished';
                 cleanup();
+                report('finished');
                 return blob;
             });
         },
         dispose(): void {
             if (state === 'disposed') return;
+            const unfinished = state === 'ready' || state === 'encoding';
             state = 'disposed';
-            rejectCancelled(new DOMException('GIF exporter disposed', 'AbortError'));
+            if (unfinished) rejectCancelled(new DOMException('GIF exporter disposed', 'AbortError'));
             cleanup();
+            if (unfinished) report('disposed');
         }
     });
 }

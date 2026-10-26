@@ -15,7 +15,7 @@ const run = (args, cwd) => execFileSync(process.execPath, [npm, ...args], {
 try {
     const [packed] = JSON.parse(run(['pack', '--json', '--pack-destination', workspace], root));
     assert.equal(packed.filename, packed.filename.split(/[\\/]/).at(-1));
-    for (const required of ['dist/index.js', 'dist/index.d.ts', 'dist/gif.js', 'dist/gif.d.ts', 'dist/gifenc.js', 'dist/gifenc.d.ts', 'dist/gifenc-LICENSE.txt', 'README.md', 'CHANGELOG.md', 'LICENSE']) {
+    for (const required of ['dist/index.js', 'dist/index.d.ts', 'dist/gif.js', 'dist/gif.d.ts', 'dist/gifenc.js', 'dist/gifenc.d.ts', 'dist/gifenc-LICENSE.txt', 'dist/gif-worker.js', 'dist/gif-worker.d.ts', 'dist/gif-worker-runtime.js', 'README.md', 'CHANGELOG.md', 'LICENSE']) {
         assert.ok(packed.files.some(file => file.path === required), `Missing ${required}`);
     }
     await writeFile(join(workspace, 'package.json'), JSON.stringify({ private: true, type: 'module' }));
@@ -27,8 +27,11 @@ try {
 import { createCanvasRecorder, type RecorderOptions, type RecordingResult } from '@grundyjs/canvas-take';
 import { createGifExporter, type GifEncoderFactory } from '@grundyjs/canvas-take/gif';
 import { createGifencEncoder } from '@grundyjs/canvas-take/gif/gifenc';
+import { createGifWorkerEncoder } from '@grundyjs/canvas-take/gif/worker';
+const workerFactory: GifEncoderFactory = createGifWorkerEncoder({ maxColors: 128, timeoutMs: 30000 });
+void workerFactory;
 const encoder: GifEncoderFactory = createGifencEncoder({ maxColors: 128, quality: 'fast' });
-const gif = createGifExporter({ encoder, repeat: -1 });
+const gif = createGifExporter({ encoder, repeat: -1, totalFrames: 1, onProgress(p) { const count: number = p.framesEncoded; void count; } });
 await gif.addFrame({ width: 1, height: 1, getContext: () => ({ getImageData: () => ({ data: new Uint8ClampedArray([255, 0, 0, 255]) }) }) } as unknown as HTMLCanvasElement, 50);
 const blob = await gif.finish();
 if (blob.type !== 'image/gif' || blob.size < 20) throw new Error('Invalid packed GIF result');

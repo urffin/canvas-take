@@ -26,7 +26,13 @@
       "types": "./dist/gifenc.d.ts",
       "import": "./dist/gifenc.js",
       "default": "./dist/gifenc.js"
-    }
+    },
+    "./gif/worker": {
+      "types": "./dist/gif-worker.d.ts",
+      "import": "./dist/gif-worker.js",
+      "default": "./dist/gif-worker.js"
+    },
+    "./gif/worker-runtime": "./dist/gif-worker-runtime.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json && node scripts/build-gif.mjs",

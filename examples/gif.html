@@ -11,7 +11,7 @@
 <img id="preview" alt="Exported GIF preview" style="max-width:100%">
 <script type="module">
 import { createGifExporter } from '../dist/gif.js';
-import { createGifencEncoder } from '../dist/gifenc.js';
+import { createGifWorkerEncoder } from '../dist/gif-worker.js';
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 const start = document.querySelector('#export');
@@ -33,16 +33,17 @@ function draw(time) {
 draw(0);
 start.onclick = async () => {
     const controller = new AbortController();
-    const gif = createGifExporter({ encoder: createGifencEncoder({ maxColors: 128, quality: 'high' }),
-        repeat: 0, signal: controller.signal });
+    let gif;
     start.disabled = true; cancel.disabled = false;
     cancel.onclick = () => controller.abort();
     const started = performance.now();
     try {
+        gif = createGifExporter({ encoder: createGifWorkerEncoder({ maxColors: 128, quality: 'high' }),
+            repeat: 0, signal: controller.signal, totalFrames: 121,
+            onProgress: p => { status.textContent = `${p.phase}: ${p.framesEncoded}/${p.totalFrames}, ${p.durationMs} ms`; } });
         for (let time = 0; time < 6000; time += 50) {
             draw(time);
             await gif.addFrame(canvas, 50);
-            status.textContent = `Encoding ${time / 50 + 1}/121`;
         }
         draw(6000); await gif.addFrame(canvas, 2000);
         const blob = await gif.finish();
@@ -53,7 +54,7 @@ start.onclick = async () => {
         status.textContent = JSON.stringify({ frames: 121, durationMs: 8000, bytes: blob.size,
             encodeMs: Math.round(performance.now() - started), state: gif.state }, null, 2);
     } catch (error) { status.textContent = `${error.name}: ${error.message}`; }
-    finally { gif.dispose(); start.disabled = false; cancel.disabled = true; cancel.onclick = null; }
+    finally { gif?.dispose(); start.disabled = false; cancel.disabled = true; cancel.onclick = null; }
 };
 addEventListener('pagehide', () => { if (url) URL.revokeObjectURL(url); });
 </script>

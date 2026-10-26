@@ -132,7 +132,33 @@ try {
 
 `finish()` requires at least one frame, returns a Blob and releases the encoder. Each exporter produces one GIF. `dispose()` is idempotent, cancels pending work and releases encoder resources. Invalid frame data, changed dimensions and encoder errors make the exporter terminal. Concurrent calls are rejected without cancelling the ongoing operation. State is `ready`, `encoding`, `finished`, `failed`, `aborted` or `disposed`.
 
-The built-in adapter incrementally encodes full frames with individual palettes, retaining compressed output rather than all raw frames. It performs synchronous work per frame on the calling thread, with cancellation serviced between frames. For expensive frames, run with OffscreenCanvas in a Worker or supply an asynchronous Worker adapter; there is no automatic Worker pool. GIF bytes and the final Blob consume memory, so callers should bound dimensions and frame count. File size depends on visual complexity; an 800 px, 6–10 second animation is a target, not a guaranteed 2–3 MB output.
+The built-in adapter incrementally encodes full frames with individual palettes, retaining compressed output rather than all raw frames. It performs synchronous work per frame on the calling thread, with cancellation serviced between frames. For expensive frames, use the ready-made `/gif/worker` adapter, run with OffscreenCanvas in a Worker or supply an asynchronous Worker adapter; there is no automatic Worker pool. GIF bytes and the final Blob consume memory, so callers should bound dimensions and frame count. File size depends on visual complexity; an 800 px, 6–10 second animation is a target, not a guaranteed 2–3 MB output.
+
+### Worker adapter and progress (unreleased)
+
+```js
+import { createGifExporter } from '@grundyjs/canvas-take/gif';
+import { createGifWorkerEncoder } from '@grundyjs/canvas-take/gif/worker';
+
+const gif = createGifExporter({
+    encoder: createGifWorkerEncoder({ maxColors: 128, quality: 'high' }),
+    signal: controller.signal,
+    totalFrames: 121,
+    onProgress({ phase, framesEncoded, totalFrames, durationMs }) {
+        status.textContent = `${phase}: ${framesEncoded}/${totalFrames}, ${durationMs} ms`;
+    },
+});
+```
+
+The dedicated module Worker performs quantization and GIF encoding. Canvas readback and alpha compositing remain on the calling thread. Each exporter owns one Worker, terminated on finish, cancellation, failure or disposal. Pixel buffers are transferred; the source canvas is unchanged. This adapter requires browser Worker support and does not silently fall back to main-thread encoding.
+
+The default Worker URL is resolved relative to the adapter module. For direct browser imports, serve `gif-worker.js`, `gif-worker-runtime.js` and `gifenc.js` together with JavaScript MIME types. With a bundler, ensure the Worker asset and its dependencies are emitted; if necessary, copy the runtime and `gifenc.js` to the same public directory and pass `workerUrl: '/assets/gif-worker-runtime.js'`. The runtime is also exported at `@grundyjs/canvas-take/gif/worker-runtime` for asset resolution (do not import it on the main thread). Follow your site's same-origin and CSP `worker-src` rules. No Blob URL or inline worker is required.
+
+`timeoutMs` defaults to 30000 ms **per request**, including startup, each frame and finalization. A timeout, script-load error or message-transfer error rejects work and terminates the Worker; increase the timeout explicitly for unusually expensive frames.
+
+Progress works with every encoder, not just the Worker adapter. Immutable snapshots arrive after each completed frame (`encoding`), before finishing (`finalizing`), and at `finished`, `failed`, `aborted` or unfinished `disposed`. `framesEncoded` and `durationMs` include only successfully encoded frames, using rounded GIF durations. `totalFrames` is an optional positive-integer display hint, not a limit; absent hints are omitted from events. No percentage or ETA is guessed; a full frame count does not mean finalization is complete. There is no initial event. Observer exceptions are ignored; aborting or disposing from an observer is supported. Disposing after a terminal outcome emits no additional event.
+
+The offline `examples/gif.html` now demonstrates this adapter, progress and cancellation.
 
 ### Supplying another encoder
 

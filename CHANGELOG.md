@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Ready-made `gif/worker` adapter with a dedicated module Worker, transferable frames, request timeouts and cleanup on completion/cancellation/errors.
+- Encoder-independent `onProgress` notifications with completed frame count, encoded duration, optional total frame hint and finalization/terminal phases.
+- Worker/progress example, integration tests and package asset checks; no version bump.
+
 ## 0.3.0 — 2026-10-15
 
 - Offline canvas GIF export via `@grundyjs/canvas-take/gif` with an injected encoder factory.
