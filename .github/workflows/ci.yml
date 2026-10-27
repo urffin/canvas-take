@@ -37,6 +37,30 @@ jobs:
       - name: Verify packed consumer
         run: npm run test:package
 
+  browser:
+    name: Browser GIF Worker (Chromium / Firefox)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox
+      - run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: browser-gif-results
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
   next-integration:
     name: Next.js packed Worker consumer
     runs-on: ubuntu-latest

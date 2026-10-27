@@ -1,7 +1,7 @@
 {
   "name": "@grundyjs/canvas-take",
   "version": "0.4.0",
-  "description": "Record HTML canvas to video with explicit resource lifecycle",
+  "description": "Record HTML canvas video with audio and export GIFs with pluggable encoders, Worker support and explicit resource cleanup",
   "type": "module",
   "files": [
     "dist",
@@ -40,9 +40,11 @@
     "prepack": "npm run build",
     "prepublishOnly": "npm test",
     "test:package": "node scripts/test-package.mjs",
-    "test:next": "node scripts/test-next.mjs"
+    "test:next": "node scripts/test-next.mjs",
+    "test:browser": "npm run build && playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "1.64.1",
     "esbuild": "0.28.2",
     "gifenc": "1.0.3",
     "gifuct-js": "2.1.2",
@@ -53,12 +55,15 @@
     "name": "Grundy",
     "url": "https://grundyjs.ru/"
   },
-  "homepage": "https://grundyjs.ru/algorithms/insertion-sort/",
+  "homepage": "https://grundyjs.ru/canvas-take/",
   "keywords": [
     "canvas",
     "video",
     "recording",
     "mediarecorder",
+    "gif",
+    "audio",
+    "web-worker",
     "typescript"
   ],
   "sideEffects": false,

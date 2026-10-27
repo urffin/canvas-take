@@ -1,0 +1,58 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>GIF Worker browser test</title>
+<button id="export">Export GIF</button>
+<button id="long">Export until cancelled</button>
+<button id="cancel" disabled>Cancel</button>
+<output id="state">ready</output>
+<output id="count">0</output>
+<pre id="details"></pre>
+<canvas width="32" height="24"></canvas>
+<a id="download" hidden download="worker.gif">Download GIF</a>
+<script type="module">
+import { createGifExporter } from '/dist/gif.js';
+import { createGifWorkerEncoder } from '/dist/gif-worker.js';
+const factory = createGifWorkerEncoder({ maxColors: 4 });
+const canvas = document.querySelector('canvas'), ctx = canvas.getContext('2d');
+const start = document.querySelector('#export'), long = document.querySelector('#long');
+const cancel = document.querySelector('#cancel'), state = document.querySelector('#state');
+const count = document.querySelector('#count'), details = document.querySelector('#details');
+const download = document.querySelector('#download');
+let controller, url;
+async function run(untilCancelled) {
+    start.disabled = long.disabled = true; cancel.disabled = false;
+    download.hidden = true;
+    if (url) { URL.revokeObjectURL(url); url = undefined; download.removeAttribute('href'); }
+    controller = new AbortController();
+    const events = [];
+    state.textContent = 'running'; count.textContent = '0'; details.textContent = '';
+    let gif;
+    try {
+        gif = createGifExporter({ encoder: factory, signal: controller.signal, repeat: 3,
+            ...(untilCancelled ? {} : { totalFrames: 3 }),
+            onProgress(p) { events.push(p); count.textContent = String(p.framesEncoded); }
+        });
+        // An open-ended producer makes UI cancellation independent of machine speed.
+        // The runner's timeout bounds a broken cancellation implementation.
+        for (let i = 0; untilCancelled || i < 3; i++) {
+            ctx.fillStyle = ['#ff0000', '#00ff00', '#0000ff'][i % 3];
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            await gif.addFrame(canvas, !untilCancelled && i === 2 ? 2000 : 54);
+        }
+        const blob = await gif.finish();
+        url = URL.createObjectURL(blob); download.href = url; download.hidden = false;
+        details.textContent = JSON.stringify({ events, type: blob.type, size: blob.size });
+        state.textContent = gif.state;
+    } catch (error) {
+        details.textContent = JSON.stringify({ events, error: error.name });
+        state.textContent = gif?.state ?? 'failed';
+    } finally {
+        gif?.dispose(); controller = undefined;
+        start.disabled = long.disabled = false; cancel.disabled = true;
+    }
+}
+start.onclick = () => run(false);
+long.onclick = () => run(true);
+cancel.onclick = () => controller?.abort();
+addEventListener('pagehide', () => { controller?.abort(); if (url) URL.revokeObjectURL(url); });
+</script>

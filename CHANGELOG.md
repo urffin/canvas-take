@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Correct package homepage to the CanvasTake page; refresh package description, keywords and English/Russian README navigation and test instructions.
+
+- Browser CI tests in Chromium and Firefox exercise the real GIF module Worker, cancellation and a fresh export on the same page. Downloaded GIFs are independently decoded to verify pixels, dimensions, frame timings and loop count.
+
 ## 0.4.0 — 2026-10-26
 
 - Ready-made `gif/worker` adapter with a dedicated module Worker, transferable frames, request timeouts and cleanup on completion/cancellation/errors.

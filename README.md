@@ -2,6 +2,8 @@
 
 [Русский](ru/README.md)
 
+[Website](https://grundyjs.ru/en/canvas-take/) · [npm](https://www.npmjs.com/package/@grundyjs/canvas-take) · [Issues](https://github.com/urffin/canvas-take/issues)
+
 Independent TypeScript library for HTML canvas video recording with optional audio tracks and offline GIF export through a separate entry point. No external runtime dependencies or dependency on AlgiViz. ESM only, with TypeScript declarations. MIT licensed. The package does not start or draw your animation.
 
 ## Install
@@ -27,7 +29,7 @@ recorder.dispose();
 
 Auto format order: WebM VP9, VP8, generic WebM, MP4. With audio, the VP9 and VP8 candidates include Opus. An explicit unsupported MIME fails without silently changing the format. The result reports the actual MIME and matching extension. FPS and bitrate are targets, not guarantees. durationMs measures recording wall time, not parsed file duration.
 
-Keep canvas bitmap dimensions fixed from start until stop. CSS scaling is allowed. Size changes fail the recording. Canvas must remain origin-clean. No screen capture, pause, frame-by-frame encoding or server upload. Chunks are retained in memory: the caller should limit duration. If background-tab throttling is unacceptable, the caller should dispose when the page becomes hidden. Codec support depends on the browser and available resources.
+Keep canvas bitmap dimensions fixed from start until stop. CSS scaling is allowed. Size changes fail the recording. Canvas must remain origin-clean. The video recorder does not support screen capture, pause, frame-by-frame video encoding or server upload. Chunks are retained in memory: the caller should limit duration. If background-tab throttling is unacceptable, the caller should dispose when the page becomes hidden. Codec support depends on the browser and available resources.
 
 Development: Node.js 22+, `npm install`, `npm test`, `npm pack`. ESM and declarations are emitted to dist. `npm pack` rebuilds automatically; `npm publish` runs tests before packing. The integration example expects AlgiViz in a sibling directory and is served by the included local server.
 
@@ -192,6 +194,10 @@ With a built AlgiViz checkout in the sibling `algiviz` directory, open `http://1
 Recording requires a browser with `canvas.captureStream`, `MediaRecorder` and `MutationObserver`. Importing the module does not access these APIs; creating a recorder checks capture/encoder support. Node.js has no recording implementation. Codec support is detected at runtime, not inferred from the browser name.
 
 The integration example was verified with an actual VP9 recording at 1920×1080. This is not a promise that every browser can produce WebM or MP4. A canvas containing cross-origin content without CORS may not be captured.
+
+## Development checks
+
+Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check GIF export, cancellation, a fresh export on the same page, Worker cleanup and independently decoded output. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification details](docs/gif-encoder.md#verification).
 
 ## Release
 
