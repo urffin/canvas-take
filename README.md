@@ -73,6 +73,8 @@ Build and serve `examples/video.html` with the example server for format selecti
 
 The [video verification notes](docs/video-recording.md) describe six flash/beep markers across two pauses, independent FFmpeg decoding with container timestamps, and a negative control with intentionally delayed audio. FFmpeg is a development-only dependency.
 
+Initial captured video material can precede the native start event, especially while an audio engine starts. The active-time budget does not trim such startup material from the file; file duration can therefore include additional startup time as well as finalization delay.
+
 ## Record with narration
 
 Mix audio into one Web Audio destination track (multiple audio tracks are not supported by every encoder). Decode your narration before starting. Call this from a user gesture so the browser can resume the audio context:

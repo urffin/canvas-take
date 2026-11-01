@@ -15,7 +15,7 @@ for (const mimeType of ['video/webm;codecs=vp8,opus', 'video/mp4;codecs=avc1,mp4
             const destination = audio.createMediaStreamDestination(), oscillator = audio.createOscillator(), gain = audio.createGain();
             gain.gain.value = 0; oscillator.frequency.value = 1000; oscillator.connect(gain).connect(destination); oscillator.start();
             const canvas = document.createElement('canvas'); canvas.width = 160; canvas.height = 90;
-            const context = canvas.getContext('2d'), pulses = [], drawLagMs = [];
+            const context = canvas.getContext('2d'), pulses = [], drawLagMs = [], expectedMarkersMs = [];
             let frame, recorder;
             const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
             try {
@@ -53,18 +53,23 @@ for (const mimeType of ['video/webm;codecs=vp8,opus', 'video/mp4;codecs=avc1,mp4
                 }
                 await recorder.start();
                 const wallStart = performance.now();
+                let activeAudioSince = audio.currentTime, activeAudioMs = 0;
                 for (let segment = 0; segment < 3; segment++) {
                     const base = audio.currentTime + 0.25;
                     for (const start of [base, base + 0.55]) {
+                        expectedMarkersMs.push(activeAudioMs + (start - activeAudioSince) * 1000);
                         pulses.push(start); gain.gain.setValueAtTime(0.3, start); gain.gain.setValueAtTime(0, start + 0.18);
                     }
                     while (audio.currentTime < base + 1.05) await sleep(10);
-                    if (segment < 2) { await recorder.pause(); await sleep(600); await recorder.resume(); }
+                    if (segment < 2) {
+                        await recorder.pause(); activeAudioMs += (audio.currentTime - activeAudioSince) * 1000;
+                        await sleep(600); await recorder.resume(); activeAudioSince = audio.currentTime;
+                    }
                 }
                 const recording = await recorder.stop(), wallMs = performance.now() - wallStart;
                 cancelAnimationFrame(frame);
                 const bytes = await recording.blob.arrayBuffer();
-                return { variant, mimeType: recording.mimeType, activeMs: recording.durationMs, wallMs, drawLagMs,
+                return { variant, mimeType: recording.mimeType, activeMs: recording.durationMs, wallMs, drawLagMs, expectedMarkersMs,
                     bytes: Array.from(new Uint8Array(bytes)) };
             } finally {
                 cancelAnimationFrame(frame); recorder?.dispose(); oscillator.stop();
@@ -76,7 +81,12 @@ for (const mimeType of ['video/webm;codecs=vp8,opus', 'video/mp4;codecs=avc1,mp4
         await writeFile(recordingPath, Buffer.from(bytes));
         await testInfo.attach('recording', { path: recordingPath, contentType: result.mimeType });
         const decoded = await decodeMarkers(recordingPath);
-        const metrics = { ...recorded, ...decoded };
+        const audioRelativeMs = decoded.audioMarkersMs.map(time => time - decoded.audioMarkersMs[0]);
+        const videoRelativeMs = decoded.videoMarkersMs.map(time => time - decoded.videoMarkersMs[0]);
+        const expectedRelativeMs = result.expectedMarkersMs.map(time => time - result.expectedMarkersMs[0]);
+        const metrics = { ...recorded, ...decoded, audioRelativeMs, videoRelativeMs, expectedRelativeMs,
+            audioStartupLeadMs: decoded.audioMarkersMs[0] - result.expectedMarkersMs[0],
+            videoStartupLeadMs: decoded.videoMarkersMs[0] - result.expectedMarkersMs[0] };
         const offsetsMs = decoded.videoMarkersMs.map((time, i) => time - decoded.audioMarkersMs[i]);
         const metricsPath = testInfo.outputPath('sync-metrics.json');
         const absoluteOffsetWithin120Ms = Math.max(...offsetsMs.map(Math.abs)) <= 120;
@@ -91,8 +101,13 @@ for (const mimeType of ['video/webm;codecs=vp8,opus', 'video/mp4;codecs=avc1,mp4
         expect(Math.max(...offsetsMs) - Math.min(...offsetsMs)).toBeLessThanOrEqual(80);
         expect(result.wallMs - result.activeMs).toBeGreaterThan(1100);
         expect(Math.abs(decoded.audioEndMs - decoded.videoLastFrameMs)).toBeLessThan(250);
-        expect(Math.abs(decoded.audioEndMs - result.activeMs)).toBeLessThan(300);
-        expect(Math.abs(decoded.videoLastFrameMs - result.activeMs)).toBeLessThan(300);
+        // Streams can start at nonzero PTS or contain an initial video frame before
+        // audio/MediaRecorder's start event. Compare active spans, not end PTS to a duration.
+        expect(Math.max(...audioRelativeMs.map((value, i) => Math.abs(value - expectedRelativeMs[i])))).toBeLessThan(150);
+        expect(Math.max(...videoRelativeMs.map((value, i) => Math.abs(value - expectedRelativeMs[i])))).toBeLessThan(150);
+        const expectedTailMs = result.activeMs - result.expectedMarkersMs[0];
+        expect(Math.abs(decoded.audioEndMs - decoded.audioMarkersMs[0] - expectedTailMs)).toBeLessThan(300);
+        expect(Math.abs(decoded.videoLastFrameMs - decoded.videoMarkersMs[0] - expectedTailMs)).toBeLessThan(300);
         if (variant === 'library' && testInfo.project.name === 'chromium' && mimeType.startsWith('video/webm')) {
             // Negative control: remux a known bad copy with delayed audio. No re-encoding.
             const controlPath = testInfo.outputPath('delayed-audio.webm');
