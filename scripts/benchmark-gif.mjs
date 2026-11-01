@@ -9,15 +9,17 @@ import assert from 'node:assert/strict';
 import ts from 'typescript';
 
 const args = process.argv.slice(2);
-if (args.some(arg => !['--quick', '--compare-opacity'].includes(arg))) throw Error('Usage: npm run benchmark:gif -- [--quick] [--compare-opacity]');
+if (args.some(arg => !['--quick', '--compare-opacity', '--gradient-study'].includes(arg))) throw Error('Usage: npm run benchmark:gif -- [--quick] [--compare-opacity] [--gradient-study]');
 const quick = args.includes('--quick');
-const compare = args.includes('--compare-opacity');
+const study = args.includes('--gradient-study');
+if (study && quick) throw Error('--gradient-study cannot be combined with --quick');
+const compare = study || args.includes('--compare-opacity');
 const baselineCommit = compare ? '2f71f3c' : undefined;
 const variants = compare ? ['before', 'after'] : ['after'];
-const settings = { fps: 20, maxColors: 128, quality: 'high', repeats: quick ? 1 : 3,
-    resolutions: quick ? [[640, 360], [1280, 720]] : [[640, 360], [1280, 720], [1920, 1080]],
+const settings = { fps: 20, maxColors: 128, quality: 'high', repeats: study ? 12 : quick ? 1 : 3,
+    resolutions: study ? [[1920, 1080]] : quick ? [[640, 360], [1280, 720]] : [[640, 360], [1280, 720], [1920, 1080]],
     durations: compare ? [3] : quick ? [3, 10] : [3, 10, 30],
-    scenes: compare ? ['opaque', 'mixed', 'gradient'] : ['opaque'] };
+    scenes: study ? ['gradient'] : compare ? ['opaque', 'mixed', 'gradient'] : ['opaque'] };
 const root = fileURLToPath(new URL('../', import.meta.url));
 const baselineSource = compare ? ts.transpileModule(execFileSync('git', ['show', `${baselineCommit}:src/gif.ts`], { cwd: root, encoding: 'utf8' }),
     { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText : undefined;
@@ -44,6 +46,7 @@ let browser, directory, metadata;
 const percentile = (values, p) => {
     if (!values.length) return null;
     const sorted = [...values].sort((a, b) => a - b);
+    if (p === 0.5 && sorted.length % 2 === 0) return (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2;
     return sorted[Math.max(0, Math.ceil(p * sorted.length) - 1)];
 };
 try {
@@ -81,15 +84,17 @@ try {
             ]);
         } finally { clearTimeout(timer); }
     };
-    console.log('Warm-up: both adapters, 320x180, 1 second (excluded)');
+    console.log(`Warm-up: both adapters, ${study ? '1920x1080, 3 seconds' : '320x180, 1 second'} (excluded)`);
     for (const scene of settings.scenes) for (const variant of variants) for (const adapter of ['sync', 'worker'])
-        await run(variant, { scene, adapter, width: 320, height: 180, seconds: 1 });
+        await run(variant, { scene, adapter, width: study ? 1920 : 320, height: study ? 1080 : 180, seconds: study ? 3 : 1 });
     let pair = 0;
     for (const [width, height] of settings.resolutions) for (const seconds of settings.durations) for (const scene of settings.scenes) {
         let expectedHash;
         for (let repeat = 1; repeat <= settings.repeats; repeat++) {
             // Alternate which adapter runs first to reduce systematic order bias.
-            for (const adapter of pair % 2 ? ['worker', 'sync'] : ['sync', 'worker']) for (const variant of pair % 2 ? [...variants].reverse() : variants) {
+            // Study: independently balance adapter order and before/after order in four-repeat blocks.
+            const reverseAdapters = study ? Math.floor((repeat - 1) / 2) % 2 : pair % 2;
+            for (const adapter of reverseAdapters ? ['worker', 'sync'] : ['sync', 'worker']) for (const variant of pair % 2 ? [...variants].reverse() : variants) {
                 console.log(`Run ${scene}/${variant}/${adapter}: ${width}x${height}, ${seconds}s, repeat ${repeat}/${settings.repeats}`);
                 const result = await run(variant, { scene, adapter, width, height, seconds });
                 expectedHash ??= result.sha256;

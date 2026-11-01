@@ -97,3 +97,33 @@ Times are medians; lag values are medians of per-run p95. Positive time reductio
 Opaque scenes took 24–29% less time and mixed-alpha scenes 10–14% less time in this run. Gradients showed no consistent benefit: the synchronous adapter was 1.4–6.4% slower, while Worker varied from 7.1% faster to 4.0% slower. At 1080p, both gradient medians regressed (Sync 6.4%, Worker 4.0%); this observed cost must not be described as a universal speedup. With three repeats and noticeable run-to-run variation, the experiment does not establish statistical significance or isolate the extra branch from runtime/system noise. More gradient repetitions and profiling would be appropriate before claiming a stable regression magnitude.
 
 At 1080p, Worker timer lag p95 improved from 80.5 to 33.1 ms for opaque frames and from 79.0 to 53.7 ms for mixed alpha, but increased from 125.8 to 128.9 ms for gradients. The optimization benefits pixels that can skip blending; it does not eliminate readback, copying, drawing or encoding work.
+
+## Gradient regression investigation: 2026-11-01
+
+The earlier 4–6% end-to-end gradient slowdown did **not** reproduce in a larger, warmed-up experiment. A small overhead of the added condition was measurable in an isolated loop, so the conclusion is not that the condition is free: the original export-level slowdown was not a stable estimate of its cost.
+
+Reproduce the two experiments sequentially, without other benchmarks or tests running:
+
+```sh
+npm run benchmark:gif -- --gradient-study
+node scripts/benchmark-gradient-loop.mjs
+# Run for each output directory printed by the commands above:
+node scripts/analyze-gif-gradient.mjs benchmark-results/<directory>
+```
+
+The export study uses 12 paired repeats per adapter (48 measured exports), 1920×1080, 60 frames/three seconds, 20 fps, 128 colors and high quality. Each core/adapter first completes a full-size, full-duration excluded warm-up. Adapter order and before/after order are independently balanced in four-repeat blocks. All output hashes matched. `--gradient-study` implies comparison against `2f71f3c` and cannot be combined with `--quick`.
+
+The loop probe extracts the actual old/new loops from source, asserts that their only difference is the opaque-pixel condition, and runs them as separate functions on six gradient frames. It includes a third function with identical baseline code as an A/A control. After warm-up, all six execution-order permutations are repeated six times (36 blocks, six frames per sample). Rendering, copying, scheduling and encoding are excluded from the loop timer; output bytes are checked before measurement. The standalone functions do not reproduce the JIT context of the production async exporter, so their overhead cannot be directly assigned to total export time.
+
+Environment: AMD FX-8350, Windows 10 build 19045, Chromium 156.0.8078.4, Node 22.17.0. Current production core: `971789a` (unchanged from the optimization); benchmark tooling was uncommitted. No outliers were removed. Effects below are geometric means of paired ratios; positive means slower. Intervals use 20,000 paired bootstrap resamples with fixed seed 1729. Adjacent runs can be correlated, so these intervals describe this session and are not universal guarantees.
+
+| Measurement | Pairs | Before median | After median | Paired change | Approximate 95% interval | Slower pairs |
+| --- | ---: | ---: | ---: | ---: | --- | ---: |
+| Full export, Sync | 12 | 13.154 s | 12.994 s | -1.20% | -1.74% to -0.68% | 1/12 |
+| Full export, Worker | 12 | 13.292 s | 13.210 s | +0.17% | -0.68% to +1.13% | 6/12 |
+| Extracted blending loop | 36 | 65.10 ms/frame | 66.68 ms/frame | +2.60% | +2.09% to +3.13% | 34/36 |
+| Identical-code loop control | 36 | 65.10 ms/frame | 65.19 ms/frame | approximately 0% | -0.43% to +0.40% | 18/36 |
+
+The loop slowdown appears with either ordering (+2.79% when baseline runs first, +2.42% when optimized runs first), while the identical-code control remains near zero. This supports a real small cost of the added condition in this isolated experiment. For full exports, Sync remains faster under either order (-0.71% / -1.69%); Worker crosses zero (-0.18% / +0.52%). The earlier 4–6% export regression is therefore best treated as run-to-run variability and measurement conditions, rather than a demonstrated repeatable regression of that size. The experiment does not identify whether the earlier variation came from CPU load, warm-up, JIT, GC or another source, nor prove zero overhead on other engines or hardware.
+
+Raw measurements and individual pairs are saved locally in `results.json` and `analysis.json`; `analysis.md` includes the paired intervals and exact two-sided sign test. The library implementation and package version were not changed by this investigation.
