@@ -22,6 +22,7 @@ try {
     run(['install', '--offline', '--ignore-scripts', '--no-audit', '--no-fund', join(workspace, packed.filename)], workspace);
     const pkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
     const installed = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/package.json'), 'utf8'));
+    assert.ok(packed.files.some(file => file.path === 'docs/video-recording.md'), 'Missing video verification documentation');
     assert.equal(installed.version, pkg.version);
     await writeFile(join(workspace, 'consumer.ts'), `
 import { createCanvasRecorder, type RecorderOptions, type RecordingResult } from '@grundyjs/canvas-take';
@@ -36,9 +37,13 @@ await gif.addFrame({ width: 1, height: 1, getContext: () => ({ getImageData: () 
 const blob = await gif.finish();
 if (blob.type !== 'image/gif' || blob.size < 20) throw new Error('Invalid packed GIF result');
 gif.dispose();
-const options: RecorderOptions = { fps: 30, audioTracks: [] as readonly MediaStreamTrack[], mimeType: 'video/mp4;codecs=avc1,mp4a.40.2' };
+const options: RecorderOptions = { fps: 30, audioTracks: [] as readonly MediaStreamTrack[], mimeType: 'video/mp4;codecs=avc1,mp4a.40.2', maxDurationMs: 30000 };
 function record(canvas: HTMLCanvasElement): Promise<RecordingResult> {
     const recorder = createCanvasRecorder(canvas, options);
+    const completed: Promise<RecordingResult> = recorder.finished;
+    const pause: () => Promise<void> = recorder.pause;
+    const resume: () => Promise<void> = recorder.resume;
+    void completed; void pause; void resume;
     return recorder.start().then(() => recorder.stop());
 }
 if (typeof createCanvasRecorder !== 'function') throw new Error('Missing runtime export');

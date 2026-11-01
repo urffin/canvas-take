@@ -1,0 +1,76 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CanvasTake video pause and duration limit</title>
+<h1>Video recording with pauses</h1>
+<p>Records a moving canvas and a generated tone. The duration limit excludes pauses.
+The animation and tone keep running while recording is paused.</p>
+<form>
+<label>Format <select id="format">
+<option value="video/webm;codecs=vp8,opus">WebM VP8 / Opus</option>
+<option value="video/mp4;codecs=avc1,mp4a.40.2">MP4 H.264 / AAC</option>
+</select></label>
+<label>Maximum active duration (ms) <input id="limit" type="number" min="1" step="1" max="9007199254740991" value="5000"></label>
+<button id="record">Record</button>
+<button id="pause" type="button" disabled>Pause</button>
+<button id="resume" type="button" disabled>Resume</button>
+<button id="stop" type="button" disabled>Stop</button>
+</form>
+<pre id="status" role="status">Ready</pre>
+<canvas width="640" height="360" style="max-width:100%"></canvas>
+<video controls style="max-width:100%"></video>
+<p><a id="download" hidden>Download video</a></p>
+<script type="module">
+import { createCanvasRecorder } from '../dist/index.js';
+const $ = selector => document.querySelector(selector);
+const canvas = $('canvas'), ctx = canvas.getContext('2d'), preview = $('video');
+const form = $('form'), format = $('#format'), limit = $('#limit'), status = $('#status'), download = $('#download');
+let recorder, url, frame, running = false;
+for (const option of format.options) option.disabled = typeof MediaRecorder === 'undefined' || !MediaRecorder.isTypeSupported(option.value);
+const supported = [...format.options].find(option => !option.disabled);
+if (supported) format.value = supported.value;
+else { $('#record').disabled = true; status.textContent = 'Neither offered audio/video format is supported in this browser.'; }
+function controls() {
+    const state = recorder?.state;
+    $('#pause').disabled = state !== 'recording'; $('#resume').disabled = state !== 'paused';
+    $('#stop').disabled = state !== 'recording' && state !== 'paused';
+}
+for (const action of ['pause', 'resume']) $('#' + action).onclick = async () => {
+    const current = recorder; if (!current) return;
+    $('#pause').disabled = $('#resume').disabled = true;
+    try { await current[action](); if (recorder === current) status.textContent = current.state; }
+    catch (error) { if (recorder === current && current.state !== 'stopped') status.textContent = String(error); }
+    finally { controls(); }
+};
+$('#stop').onclick = () => { void recorder.stop().catch(error => { status.textContent = String(error); }); controls(); };
+form.onsubmit = async event => {
+    event.preventDefault(); if (!form.reportValidity() || running) return; running = true;
+    $('#record').disabled = format.disabled = limit.disabled = true;
+    download.hidden = true; download.removeAttribute('href'); preview.removeAttribute('src'); preview.load();
+    if (url) { URL.revokeObjectURL(url); url = undefined; }
+    const audio = new AudioContext(); let destination, oscillator;
+    try {
+        await audio.resume(); destination = audio.createMediaStreamDestination(); oscillator = audio.createOscillator();
+        const gain = audio.createGain(); gain.gain.value = 0.1; oscillator.connect(gain).connect(destination); oscillator.start();
+        const draw = time => {
+            ctx.fillStyle = '#123'; ctx.fillRect(0, 0, 640, 360); ctx.fillStyle = '#4df';
+            ctx.fillRect((time / 5) % 580, 150, 60, 60); frame = requestAnimationFrame(draw);
+        };
+        draw(0);
+        recorder = createCanvasRecorder(canvas, { fps: 30, mimeType: format.value,
+            audioTracks: destination.stream.getAudioTracks(), ...(limit.value === '' ? {} : { maxDurationMs: limit.valueAsNumber }) });
+        await recorder.start(); status.textContent = 'recording'; controls();
+        const result = await recorder.finished;
+        url = URL.createObjectURL(result.blob); preview.src = url;
+        download.href = url; download.download = 'canvas-take.' + result.extension; download.hidden = false;
+        status.textContent = JSON.stringify({ state: recorder.state, stopReason: result.stopReason,
+            durationMs: Math.round(result.durationMs), mimeType: result.mimeType, bytes: result.blob.size }, null, 2);
+    } catch (error) { status.textContent = String(error); }
+    finally {
+        cancelAnimationFrame(frame); recorder?.dispose(); recorder = undefined; controls();
+        oscillator?.stop(); destination?.stream.getTracks().forEach(track => track.stop()); await audio.close();
+        $('#record').disabled = format.disabled = limit.disabled = false;
+        running = false;
+    }
+};
+addEventListener('pagehide', () => { recorder?.dispose(); if (url) URL.revokeObjectURL(url); });
+</script>

@@ -3,6 +3,7 @@ export interface RecordingResult {
     readonly mimeType: string;
     readonly extension: "webm" | "mp4";
     readonly durationMs: number;
+    readonly stopReason: "manual" | "duration-limit";
 }
 export interface RecorderOptions {
     readonly fps: number;
@@ -10,11 +11,17 @@ export interface RecorderOptions {
     readonly mimeType?: string;
     /** Live caller-owned audio tracks; recorder owns and stops only clones. */
     readonly audioTracks?: readonly MediaStreamTrack[];
+    /** Positive safe integer in ms; active recording time only, excluding pauses. */
+    readonly maxDurationMs?: number;
 }
-export type RecorderState = "idle" | "recording" | "stopping" | "stopped" | "disposed";
+export type RecorderState = "idle" | "recording" | "paused" | "stopping" | "stopped" | "disposed";
 export interface CanvasRecorder {
     readonly state: RecorderState;
+    /** Settles on manual/automatic completion or failure; does not initiate stopping. */
+    readonly finished: Promise<RecordingResult>;
     start(): Promise<void>;
+    pause(): Promise<void>;
+    resume(): Promise<void>;
     stop(): Promise<RecordingResult>;
     dispose(): void;
 }
@@ -37,6 +44,10 @@ function extension(mime: string): "webm" | "mp4" {
 /** One recorder instance produces one video, optionally with supplied audio; drawing is managed by the caller. */
 export function createCanvasRecorder(canvas: HTMLCanvasElement, options: RecorderOptions): CanvasRecorder {
     if (!Number.isFinite(options.fps) || options.fps <= 0) throw new RangeError("fps must be positive and finite");
+    const { maxDurationMs } = options;
+    if (maxDurationMs !== undefined && (!Number.isSafeInteger(maxDurationMs) || maxDurationMs < 1)) {
+        throw new RangeError("maxDurationMs must be a positive safe integer");
+    }
     if (options.videoBitsPerSecond !== undefined &&
         (!Number.isFinite(options.videoBitsPerSecond) || options.videoBitsPerSecond <= 0)) {
         throw new RangeError("videoBitsPerSecond must be positive and finite");
@@ -61,7 +72,10 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
     let recorder: MediaRecorder | undefined;
     let stream: MediaStream | undefined;
     let observer: MutationObserver | undefined;
-    let width = 0, height = 0, startedAt = 0, stoppedAt: number | undefined;
+    let width = 0, height = 0, activeMs = 0, activeSince: number | undefined;
+    let limitTimer: ReturnType<typeof setTimeout> | undefined;
+    let stopReason: RecordingResult['stopReason'] = "manual";
+    let transition: { action: "pause" | "resume"; result: ReturnType<typeof deferred<void>> } | undefined;
     let chunks: Blob[] = [];
     let startResult: ReturnType<typeof deferred<void>> | undefined;
     const result = deferred<RecordingResult>();
@@ -69,11 +83,14 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
     let failure: unknown;
 
     function cleanup(): void {
+        clearTimeout(limitTimer); limitTimer = undefined;
         observer?.disconnect();
         recorder?.removeEventListener("start", onStart);
         recorder?.removeEventListener("dataavailable", onData);
         recorder?.removeEventListener("stop", onStop);
         recorder?.removeEventListener("error", onError);
+        recorder?.removeEventListener("pause", onPause);
+        recorder?.removeEventListener("resume", onResume);
         for (const track of stream?.getTracks() ?? []) {
             track.removeEventListener("ended", onEnded);
         }
@@ -86,14 +103,40 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
         failure = error;
         state = "stopped";
         startResult?.reject(error);
+        transition?.result.reject(error); transition = undefined;
         result.reject(error);
         cleanup();
     }
     function unchanged(): boolean { return canvas.width === width && canvas.height === height; }
+    function accountActive(): void {
+        if (activeSince !== undefined) activeMs += Math.max(0, performance.now() - activeSince);
+        activeSince = undefined;
+        clearTimeout(limitTimer); limitTimer = undefined;
+    }
+    function armLimit(): void {
+        if (maxDurationMs === undefined || state !== "recording") return;
+        const remaining = maxDurationMs - activeMs - Math.max(0, performance.now() - activeSince!);
+        if (remaining <= 0) { void beginStop("duration-limit"); return; }
+        limitTimer = setTimeout(armLimit, Math.min(2147483647, Math.ceil(remaining)));
+    }
     function onStart(): void {
-        startedAt = performance.now();
+        activeSince = performance.now();
         state = "recording";
         startResult!.resolve();
+        armLimit();
+    }
+    function onPause(): void {
+        if (state !== "recording" || transition?.action !== "pause") return;
+        accountActive();
+        if (maxDurationMs !== undefined && activeMs >= maxDurationMs) { void beginStop("duration-limit"); return; }
+        state = "paused";
+        transition.result.resolve(); transition = undefined;
+    }
+    function onResume(): void {
+        if (state !== "paused" || transition?.action !== "resume") return;
+        activeSince = performance.now(); state = "recording";
+        transition.result.resolve(); transition = undefined;
+        armLimit();
     }
     function onData(event: BlobEvent): void { if (event.data.size) chunks.push(event.data); }
     function onError(event: Event): void {
@@ -110,22 +153,36 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
             if (!blob.size) throw new Error("Recording produced an empty video");
             state = "stopped";
             result.resolve(Object.freeze({ blob, mimeType: actualMime, extension: ext,
-                durationMs: Math.max(0, (stoppedAt ?? performance.now()) - startedAt) }));
+                durationMs: activeMs, stopReason }));
             cleanup();
         } catch (error) { fail(error); }
     }
-    function beginStop(): Promise<RecordingResult> {
+    function beginStop(reason: RecordingResult['stopReason'] = "manual"): Promise<RecordingResult> {
         if (state === "disposed") return Promise.reject(new Error("Recorder is disposed"));
         if (failure) return result.promise;
         if (state === "stopped" || state === "stopping") return result.promise;
         if (!unchanged()) { fail(new Error("Canvas bitmap size changed during recording")); return result.promise; }
         state = "stopping";
-        stoppedAt = performance.now();
+        stopReason = reason;
+        accountActive();
+        transition?.result.reject(new Error("Recording stopped before pause/resume completed")); transition = undefined;
         try { recorder!.stop(); } catch (error) { fail(error); }
         return result.promise;
     }
+    function change(action: "pause" | "resume"): Promise<void> {
+        if (state !== "recording" && state !== "paused") return Promise.reject(new Error(`Cannot ${action} recorder in ${state} state`));
+        if (transition) return transition.action === action ? transition.result.promise : Promise.reject(new Error("Pause/resume operation is pending"));
+        if ((action === "pause" && state === "paused") || (action === "resume" && state === "recording")) return Promise.resolve();
+        if (!unchanged()) { const error = new Error("Canvas bitmap size changed during recording"); fail(error); return Promise.reject(error); }
+        const pending = deferred<void>(); transition = { action, result: pending };
+        try { recorder![action](); } catch (error) { fail(error); }
+        return pending.promise;
+    }
     return Object.freeze({
         get state() { return state; },
+        get finished() { return result.promise; },
+        pause: () => change("pause"),
+        resume: () => change("resume"),
         start(): Promise<void> {
             if (state !== "idle" || startResult) return Promise.reject(new Error("Recorder can only start once"));
             startResult = deferred<void>();
@@ -144,6 +201,8 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
                 recorder.addEventListener("dataavailable", onData);
                 recorder.addEventListener("stop", onStop);
                 recorder.addEventListener("error", onError);
+                recorder.addEventListener("pause", onPause);
+                recorder.addEventListener("resume", onResume);
                 for (const track of stream.getTracks()) track.addEventListener("ended", onEnded);
                 if (typeof MutationObserver !== "undefined") {
                     observer = new MutationObserver(() => {
@@ -158,7 +217,7 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
         stop(): Promise<RecordingResult> {
             if (state === "disposed") return Promise.reject(new Error("Recorder is disposed"));
             if (!startResult) return Promise.reject(new Error("Recorder has not started"));
-            stopPromise ??= startResult.promise.then(beginStop);
+            stopPromise ??= startResult.promise.then(() => beginStop());
             return stopPromise;
         },
         dispose(): void {
@@ -166,6 +225,7 @@ export function createCanvasRecorder(canvas: HTMLCanvasElement, options: Recorde
             const error = new Error("Recording was disposed");
             state = "disposed";
             startResult?.reject(error);
+            transition?.result.reject(error); transition = undefined;
             result.reject(error);
             cleanup();
         }

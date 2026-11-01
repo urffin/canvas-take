@@ -5,7 +5,8 @@ import { readFile } from 'node:fs/promises';
 const routes = new Map([
     ['/', new URL('./fixture.html', import.meta.url)],
     ['/examples/gif.html', new URL('../../examples/gif.html', import.meta.url)],
-    ...['gif.js', 'gif-worker.js', 'gif-worker-runtime.js', 'gifenc.js'].map(name =>
+    ['/examples/video.html', new URL('../../examples/video.html', import.meta.url)],
+    ...['index.js', 'gif.js', 'gif-worker.js', 'gif-worker-runtime.js', 'gifenc.js'].map(name =>
         [`/dist/${name}`, new URL(`../../dist/${name}`, import.meta.url)])
 ]);
 createServer(async (req, res) => {
@@ -16,7 +17,7 @@ createServer(async (req, res) => {
     try {
         const body = await readFile(file);
         res.writeHead(200, {
-            'Content-Type': path === '/' || path === '/examples/gif.html' ? 'text/html; charset=utf-8' : 'text/javascript',
+            'Content-Type': path === '/' || path.startsWith('/examples/') ? 'text/html; charset=utf-8' : 'text/javascript',
             'Content-Security-Policy': "worker-src 'self'",
             'Cache-Control': 'no-store'
         });

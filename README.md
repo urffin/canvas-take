@@ -27,9 +27,9 @@ recorder.dispose();
 
 `start` resolves after the MediaRecorder start event. `stop` waits for the final dataavailable and stop events; repeated calls return the same promise. Errors reject pending operations, stop owned tracks and release chunks. `dispose` cancels an unfinished recording; it is idempotent. Each instance records once. State stays idle while start is pending; a second start is rejected.
 
-Auto format order: WebM VP9, VP8, generic WebM, MP4. With audio, the VP9 and VP8 candidates include Opus. An explicit unsupported MIME fails without silently changing the format. The result reports the actual MIME and matching extension. FPS and bitrate are targets, not guarantees. durationMs measures recording wall time, not parsed file duration.
+Auto format order: WebM VP9, VP8, generic WebM, MP4. With audio, the VP9 and VP8 candidates include Opus. An explicit unsupported MIME fails without silently changing the format. The result reports the actual MIME and matching extension. FPS and bitrate are targets, not guarantees. `durationMs` measures active recording time, excluding pauses; it is not parsed file duration.
 
-Keep canvas bitmap dimensions fixed from start until stop. CSS scaling is allowed. Size changes fail the recording. Canvas must remain origin-clean. The video recorder does not support screen capture, pause, frame-by-frame video encoding or server upload. Chunks are retained in memory: the caller should limit duration. If background-tab throttling is unacceptable, the caller should dispose when the page becomes hidden. Codec support depends on the browser and available resources.
+Keep canvas bitmap dimensions fixed from start until stop, including while paused. CSS scaling is allowed. Size changes fail the recording. Canvas must remain origin-clean. The video recorder does not support screen capture, frame-by-frame video encoding or server upload. Chunks are retained in memory: use a duration limit or stop explicitly. If background-tab throttling is unacceptable, the caller should dispose when the page becomes hidden. Codec support depends on the browser and available resources.
 
 Development: Node.js 22+, `npm install`, `npm test`, `npm pack`. ESM and declarations are emitted to dist. `npm pack` rebuilds automatically; `npm publish` runs tests before packing. The integration example expects AlgiViz in a sibling directory and is served by the included local server.
 
@@ -44,8 +44,34 @@ MediaRecorder WebM output may omit duration metadata: playback can work while th
 | `videoBitsPerSecond` | Optional positive finite encoder bitrate target |
 | `mimeType` | Optional explicit supported `video/webm` or `video/mp4` MIME, including codecs |
 | `audioTracks` | Optional readonly list of live audio `MediaStreamTrack`s; omitted or empty records silently |
+| `maxDurationMs` | Unreleased: optional positive safe integer; active-time budget in ms, excluding pauses |
 
-`stop()` returns `{ blob, mimeType, extension, durationMs }`. Keep the recorder in a try/finally and call `dispose()` even if your animation fails. Revoke object URLs when no longer needed.
+`stop()` returns `{ blob, mimeType, extension, durationMs, stopReason }` (`stopReason` is unreleased). Keep the recorder in a try/finally and call `dispose()` even if your animation fails. Revoke object URLs when no longer needed.
+
+### Pause, resume and active-time limit (unreleased)
+
+```js
+const recorder = createCanvasRecorder(canvas, { fps: 30, maxDurationMs: 30_000 });
+try {
+    await recorder.start();
+    // In your UI handlers: await recorder.pause(); await recorder.resume();
+    const result = await recorder.finished;
+    // finished waits for automatic completion; calling stop() would stop immediately.
+    console.log(result.stopReason, result.durationMs); // 'duration-limit' or 'manual'
+} finally {
+    recorder.dispose();
+}
+```
+
+`pause()` and `resume()` resolve after their native events. State changes between `recording` and `paused` at those events; the native recorder can change state earlier. Repeated calls toward the current stable state succeed without further action; repeated calls to the same pending operation return the same promise. An opposite operation while one is pending rejects. Calls before start completes, during stopping, or after completion/disposal reject. Stopping from a pause succeeds. Stopping, disposal or failure rejects an unfinished pause/resume operation; normal stopping still produces the final video.
+
+`finished` is a stable promise available from creation. It resolves with the final result on manual or automatic completion, and rejects on failure/disposal. `stop()` remains idempotent and returns that same result. `stopReason` is `manual` or `duration-limit`, according to the first stop request. Without `maxDurationMs` there is no automatic stop. Invalid limits throw before capture; supplied limits are snapshotted at creation.
+
+The budget starts at the start event, stops counting at the pause event, and resumes at the resume event. The limit requests normal stopping and retains the final chunk; it does not discard the recording. Timers, event delivery and encoding can be delayed, so this is not a frame-exact file-duration cap. The active time reported in `durationMs` can exceed the requested limit under load. Pause/stop never stop caller-owned audio tracks or pause your animation/narration source; coordinate those separately if their timeline should pause too. Owned capture tracks and audio clones are stopped, and timers/listeners/chunks released, on completion, failure or disposal.
+
+Build and serve `examples/video.html` with the example server for format selection, a generated tone, pause/resume, manual stop, an active-time limit, preview and download. Browser tests record and play real WebM and supported H.264/AAC MP4, check decoded audio, pause exclusion and track ownership; unavailable codecs are explicitly skipped. Native event behavior is specified by [MediaStream Recording](https://www.w3.org/TR/mediastream-recording/#methods).
+
+The [video verification notes](docs/video-recording.md) describe six flash/beep markers across two pauses, independent FFmpeg decoding with container timestamps, and a negative control with intentionally delayed audio. FFmpeg is a development-only dependency.
 
 ## Record with narration
 

@@ -38,7 +38,7 @@ jobs:
         run: npm run test:package
 
   browser:
-    name: Browser GIF Worker (Chromium / Firefox)
+    name: Browser video and GIF (Chromium / Firefox)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -55,7 +55,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: browser-gif-results
+          name: browser-results
           path: |
             playwright-report/
             test-results/
