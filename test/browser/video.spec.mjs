@@ -2,6 +2,11 @@ import { test, expect } from '@playwright/test';
 
 test('video example pauses past the budget and resumes to a downloadable result', async ({ page }) => {
     await page.goto('/examples/video.html');
+    await page.getByRole('heading').click();
+    await page.evaluate(async () => {
+        const { startAudioClock } = await import('/test-audio.js');
+        const audio = new AudioContext(); try { await startAudioClock(audio); } finally { await audio.close(); }
+    });
     await page.getByLabel('Maximum active duration').fill('1000');
     await page.getByRole('button', { name: 'Record', exact: true }).click();
     const pause = page.getByRole('button', { name: 'Pause', exact: true });
@@ -21,11 +26,14 @@ for (const mimeType of ['video/webm;codecs=vp8,opus', 'video/mp4;codecs=avc1,mp4
         await page.goto('/');
         const supported = await page.evaluate(mime => MediaRecorder.isTypeSupported(mime), mimeType);
         test.skip(!supported, 'Requested encoder is not available in this browser');
+        await page.locator('canvas').click();
         const result = await page.evaluate(async ({ mimeType, mode }) => {
             const { createCanvasRecorder } = await import('/dist/index.js');
             const canvas = document.createElement('canvas'); canvas.width = 160; canvas.height = 90;
             const ctx = canvas.getContext('2d');
-            const audio = new AudioContext(); await audio.resume();
+            const { startAudioClock } = await import('/test-audio.js');
+            const audio = new AudioContext();
+            try { await startAudioClock(audio); } catch (error) { await audio.close(); throw error; }
             const destination = audio.createMediaStreamDestination(), oscillator = audio.createOscillator();
             oscillator.connect(destination); oscillator.start();
             const source = destination.stream.getAudioTracks()[0];

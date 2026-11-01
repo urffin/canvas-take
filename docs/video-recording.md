@@ -16,6 +16,8 @@ Node tests use controlled clocks and a MediaRecorder fixture to verify active-ti
 
 Browser tests record actual WebM VP8/Opus and MP4 H.264/AAC when supported. They play recordings through the browser, check decoded audio and dimensions, verify that a pause longer than the budget does not stop recording, stop manually from a pause and complete automatically after resuming. Unsupported explicit codecs are skipped rather than substituted. Separate checks exercise the actual video example. Existing GIF tests run alongside these checks.
 
+On Linux CI, a PulseAudio null sink supplies a real virtual audio output for Firefox's audio engine. Without an output, Web Audio may never start its clock, affecting both the library and direct native control. The test preflight requires `AudioContext.currentTime` to advance within five seconds and fails with an audio-output diagnostic otherwise; audio samples and synchronization assertions are not mocked or skipped.
+
 ## A/V synchronization after pauses
 
 `video-sync.spec.mjs` records three active segments separated by two 600 ms pauses. Each segment contains two 180 ms white flashes and 1 kHz tone pulses driven from the same AudioContext clock, giving six marker pairs. The canvas is 160×90 at a target 30 fps. The producer schedules new pulses only within active segments; pausing the recorder does not pause the caller's audio clock or drawing.

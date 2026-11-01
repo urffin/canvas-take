@@ -9,7 +9,9 @@ for (const mimeType of ['video/webm;codecs=vp8,opus', 'video/mp4;codecs=avc1,mp4
         await page.locator('canvas').click();
         const result = await page.evaluate(async ({ mimeType, variant }) => {
             const { createCanvasRecorder } = await import('/dist/index.js');
-            const audio = new AudioContext(); await audio.resume();
+            const { startAudioClock } = await import('/test-audio.js');
+            const audio = new AudioContext();
+            try { await startAudioClock(audio); } catch (error) { await audio.close(); throw error; }
             const destination = audio.createMediaStreamDestination(), oscillator = audio.createOscillator(), gain = audio.createGain();
             gain.gain.value = 0; oscillator.frequency.value = 1000; oscillator.connect(gain).connect(destination); oscillator.start();
             const canvas = document.createElement('canvas'); canvas.width = 160; canvas.height = 90;
