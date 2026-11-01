@@ -1,0 +1,52 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CanvasTake GIF benchmark</title>
+<canvas></canvas>
+<script type="module">
+import { createGifExporter } from '/dist/gif.js';
+import { createGifencEncoder } from '/dist/gifenc.js';
+import { createGifWorkerEncoder } from '/dist/gif-worker.js';
+
+// No randomness, fonts, external assets or wall-clock input to frame rendering.
+function draw(ctx, index, width, height) {
+    ctx.fillStyle = '#102030'; ctx.fillRect(0, 0, width, height);
+    for (let bar = 0; bar < 16; bar++) {
+        const h = (0.15 + ((index * 7 + bar * 19) % 100) / 150) * height;
+        ctx.fillStyle = ['#44ddaa', '#ffbb44', '#dd5577', '#5599ff'][bar % 4];
+        ctx.fillRect(Math.floor(bar * width / 16), Math.floor(height - h), Math.ceil(width / 20), Math.ceil(h));
+    }
+}
+
+window.runBenchmark = async ({ adapter, width, height, seconds, fps, maxColors, quality }) => {
+    const canvas = document.querySelector('canvas'); canvas.width = width; canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    const frameCount = seconds * fps, delay = 1000 / fps;
+    const frameTimes = [], timerLag = [];
+    let previous = performance.now();
+    const timer = setInterval(() => {
+        const now = performance.now(); timerLag.push(Math.max(0, now - previous - 16)); previous = now;
+    }, 16);
+    let gif, blob, exportMs, finishMs;
+    const started = performance.now();
+    try {
+        gif = createGifExporter({ encoder: adapter === 'worker'
+            ? createGifWorkerEncoder({ maxColors, quality, timeoutMs: 120000 })
+            : createGifencEncoder({ maxColors, quality }) });
+        for (let i = 0; i < frameCount; i++) {
+            const frameStart = performance.now();
+            draw(ctx, i, width, height);
+            await gif.addFrame(canvas, delay);
+            frameTimes.push(performance.now() - frameStart);
+        }
+        const finishStart = performance.now();
+        blob = await gif.finish(); finishMs = performance.now() - finishStart;
+        exportMs = performance.now() - started;
+        // Drain a timer task to include lag caused by the final synchronous work.
+        await new Promise(resolve => setTimeout(resolve, 0));
+    } finally { clearInterval(timer); gif?.dispose(); }
+    // Hashing and output transfer are deliberately outside the export timing.
+    const hash = await crypto.subtle.digest('SHA-256', await blob.arrayBuffer());
+    return { exportMs, finishMs, frameTimes, timerLag, frameCount, bytes: blob.size,
+        sha256: Array.from(new Uint8Array(hash), x => x.toString(16).padStart(2, '0')).join('') };
+};
+</script>

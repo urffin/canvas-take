@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Reproducible GIF benchmarks comparing synchronous and Worker adapters across resolutions and durations, with byte equality checks, export timings, timer lag and JSON/CSV/Markdown reports.
+
 ## 0.4.1 — 2026-10-28
 
 - Correct package homepage to the CanvasTake page; refresh package description, keywords and English/Russian README navigation and test instructions.

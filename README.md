@@ -199,6 +199,8 @@ The integration example was verified with an actual VP9 recording at 1920×1080.
 
 Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check GIF export, cancellation, a fresh export on the same page, Worker cleanup and independently decoded output. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification details](docs/gif-encoder.md#verification).
 
+GIF performance comparisons: run `npm run benchmark:gif` (or add `-- --quick` for a short run). See [benchmark methodology and reports](docs/gif-benchmark.md) for the resolution/duration matrix, timing boundaries and limitations.
+
 ## Release
 
 Run `npm test` and `npm run test:package` (packs and installs the tarball in an isolated consumer, then checks TypeScript declarations and runtime imports). The archive contains dist, README, LICENSE, CHANGELOG and package metadata. Source and issues: [urffin/canvas-take](https://github.com/urffin/canvas-take). The 0.x API may change in later minor releases.
