@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Skip background blending for fully opaque GIF pixels while preserving composition for transparent pixels.
 - Reproducible GIF benchmarks comparing synchronous and Worker adapters across resolutions and durations, with byte equality checks, export timings, timer lag and JSON/CSV/Markdown reports.
 
 ## 0.4.1 — 2026-10-28

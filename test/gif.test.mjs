@@ -68,6 +68,30 @@ test('palette settings and alpha composition survive decoding without modifying 
         assert.deepEqual([...frames[0].patch], [0, 0, 255, 255, 128, 0, 127, 255]);
     }
 });
+test('mixed opacity preserves opaque RGB and blends boundary alpha values on an owned snapshot', async () => {
+    const source = canvas(5, 1, [200, 100, 50, 255]);
+    [255, 254, 128, 1, 0].forEach((alpha, i) => { source.data[i * 4 + 3] = alpha; });
+    const original = source.data.slice();
+    const { encoder, calls } = spy();
+    const gif = create({ encoder, background: [20, 40, 60] });
+    try {
+        const pending = gif.addFrame(source, 100);
+        source.data.fill(0); // Both paths must operate on the immediate, owned snapshot.
+        await pending;
+        assert.deepEqual([...calls.frames[0].data], [
+            200, 100, 50, 255,
+            199, 100, 50, 255,
+            110, 70, 55, 255,
+            21, 40, 60, 255,
+            20, 40, 60, 255
+        ]);
+        source.data.set(original);
+        await gif.addFrame(source, 100);
+        assert.deepEqual(source.data, original);
+        assert.notEqual(calls.frames[1].data.buffer, source.data.buffer);
+        await gif.finish();
+    } finally { gif.dispose(); }
+});
 test('injected async encoder receives normalized frames; concurrent operations are rejected', async () => {
     let release, entered;
     const started = new Promise(resolve => { entered = resolve; });
