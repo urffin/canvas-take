@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 // Only test page and shipped modules are served; no directory traversal or project files.
 const routes = new Map([
     ['/', new URL('./fixture.html', import.meta.url)],
+    ['/examples/gif.html', new URL('../../examples/gif.html', import.meta.url)],
     ...['gif.js', 'gif-worker.js', 'gif-worker-runtime.js', 'gifenc.js'].map(name =>
         [`/dist/${name}`, new URL(`../../dist/${name}`, import.meta.url)])
 ]);
@@ -15,7 +16,7 @@ createServer(async (req, res) => {
     try {
         const body = await readFile(file);
         res.writeHead(200, {
-            'Content-Type': path === '/' ? 'text/html; charset=utf-8' : 'text/javascript',
+            'Content-Type': path === '/' || path === '/examples/gif.html' ? 'text/html; charset=utf-8' : 'text/javascript',
             'Content-Security-Policy': "worker-src 'self'",
             'Cache-Control': 'no-store'
         });

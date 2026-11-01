@@ -78,3 +78,71 @@ test('progress observer can throw or cancel without corrupting counters', async 
     for (const totalFrames of [0, -1, 1.5, Infinity]) assert.throws(() => createGifExporter({ encoder: createGifencEncoder(), totalFrames }));
     for (const timeoutMs of [0, Infinity, 2147483648]) assert.throws(() => createGifWorkerEncoder({ timeoutMs }));
 });
+
+test('invalid GIF limits fail before allocating any encoder', () => {
+    let allocated = 0;
+    for (const key of ['maxFramePixels', 'maxFrames', 'maxDurationMs']) {
+        for (const value of [0, -1, 1.5, NaN, Infinity, Number.MAX_SAFE_INTEGER + 1, null, '10']) {
+            assert.throws(() => createGifExporter({ encoder() { allocated++; }, [key]: value }),
+                { name: 'RangeError', message: `${key} must be a positive safe integer` });
+        }
+    }
+    assert.equal(allocated, 0);
+});
+
+test('GIF limits reject before readback and release both real adapters; a fresh export succeeds', async () => {
+    const previous = globalThis.Worker; globalThis.Worker = BrowserWorker;
+    try {
+        for (const kind of ['sync', 'worker']) for (const key of ['maxFramePixels', 'maxFrames', 'maxDurationMs']) {
+            const factory = kind === 'sync' ? createGifencEncoder() : createGifWorkerEncoder();
+            const progress = [], controller = new AbortController();
+            const abortListeners = new Set();
+            const add = controller.signal.addEventListener.bind(controller.signal);
+            const remove = controller.signal.removeEventListener.bind(controller.signal);
+            controller.signal.addEventListener = (type, listener, options) => { if (type === 'abort') abortListeners.add(listener); add(type, listener, options); };
+            controller.signal.removeEventListener = (type, listener, options) => { if (type === 'abort') abortListeners.delete(listener); remove(type, listener, options); };
+            let disposed = 0, submitted = 0, reads = 0;
+            const source = { ...canvas, getContext() { reads++; return canvas.getContext(); } };
+            const limit = key === 'maxDurationMs' ? 100 : 1;
+            const gif = createGifExporter({ encoder(options) {
+                const encoder = factory(options);
+                return {
+                    addFrame(frame) { submitted++; return encoder.addFrame(frame); },
+                    finish: () => encoder.finish(),
+                    dispose() { disposed++; encoder.dispose(); }
+                };
+            }, [key]: limit, signal: controller.signal, onProgress: p => progress.push(p) });
+            const worker = kind === 'worker' ? BrowserWorker.instances.at(-1) : undefined;
+            try {
+                const accepted = key === 'maxFramePixels' ? 0 : 1;
+                if (accepted) await gif.addFrame(source, 54); // Stored as 50 ms.
+                await assert.rejects(gif.addFrame(source, 55), { name: 'RangeError', message: new RegExp(key) });
+                assert.equal(gif.state, 'failed');
+                assert.equal(reads, accepted); assert.equal(submitted, accepted);
+                assert.equal(disposed, 1);
+                assert.equal(abortListeners.size, 0);
+                assert.equal(progress.at(-1).phase, 'failed');
+                assert.equal(progress.at(-1).framesEncoded, accepted);
+                assert.equal(progress.at(-1).durationMs, accepted * 50);
+                controller.abort();
+                assert.equal(progress.filter(p => p.phase === 'failed').length, 1);
+                assert.ok(!progress.some(p => ['aborted', 'finished', 'finalizing'].includes(p.phase)));
+                await assert.rejects(gif.finish(), /failed/);
+                await assert.rejects(gif.addFrame(source, 50), /failed/);
+            } finally { gif.dispose(); }
+            assert.equal(disposed, 1);
+            if (worker) { await worker.exited; assert.equal(worker.terminated, 1); assert.equal(worker.node.threadId, -1); }
+
+            // Exact inclusive bounds, rounded-down total, and an unrelated display hint.
+            const fresh = createGifExporter({ encoder: factory, maxFramePixels: 2, maxFrames: 2, maxDurationMs: 100, totalFrames: 99 });
+            const freshWorker = kind === 'worker' ? BrowserWorker.instances.at(-1) : undefined;
+            try {
+                await fresh.addFrame(canvas, 54); await fresh.addFrame(canvas, 54);
+                const decoded = decompressFrames(parseGIF(await (await fresh.finish()).arrayBuffer()), true);
+                assert.deepEqual(decoded.map(frame => frame.delay), [50, 50]);
+                assert.deepEqual([...decoded[0].patch], [255,0,0,255,0,255,0,255]);
+            } finally { fresh.dispose(); }
+            if (freshWorker) { await freshWorker.exited; assert.equal(freshWorker.terminated, 1); assert.equal(freshWorker.node.threadId, -1); }
+        }
+    } finally { globalThis.Worker = previous; }
+});

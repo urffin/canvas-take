@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add optional GIF `maxFramePixels`, `maxFrames` and `maxDurationMs` limits, checked before readback, with terminal failure/cleanup, inclusive rounded-duration bounds and synchronous/Worker regression tests.
+- Add editable limits and actionable error/retry handling to the offline GIF example, with real-browser download, cleanup and cancellation checks.
 - Add a 12-repeat gradient regression study, an isolated compositing-loop probe with an identical-code control, and paired statistical reports.
 - Add opaque, mixed-alpha and translucent-gradient benchmark scenes with a reproducible before/after core comparison and actual canvas alpha checks.
 - Skip background blending for fully opaque GIF pixels while preserving composition for transparent pixels.

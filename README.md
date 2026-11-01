@@ -160,7 +160,33 @@ The default Worker URL is resolved relative to the adapter module. For direct br
 
 Progress works with every encoder, not just the Worker adapter. Immutable snapshots arrive after each completed frame (`encoding`), before finishing (`finalizing`), and at `finished`, `failed`, `aborted` or unfinished `disposed`. `framesEncoded` and `durationMs` include only successfully encoded frames, using rounded GIF durations. `totalFrames` is an optional positive-integer display hint, not a limit; absent hints are omitted from events. No percentage or ETA is guessed; a full frame count does not mean finalization is complete. There is no initial event. Observer exceptions are ignored; aborting or disposing from an observer is supported. Disposing after a terminal outcome emits no additional event.
 
-The offline `examples/gif.html` now demonstrates this adapter, progress and cancellation.
+The offline `examples/gif.html` demonstrates this adapter, progress and cancellation. Its limit controls (unreleased) default to the example's exact 800×450, 121-frame, 8,000 ms output, including the final hold. Empty fields omit limits. A limit error explains what to increase, restores the controls for retry, and clears any previous download/preview when a new attempt starts.
+
+### GIF limits (unreleased)
+
+Set optional limits on `createGifExporter`; they apply to every encoder, including the synchronous and Worker adapters:
+
+```js
+const gif = createGifExporter({
+    encoder: createGifWorkerEncoder(),
+    maxFramePixels: 1920 * 1080,
+    maxFrames: 600,
+    maxDurationMs: 30_000
+});
+try {
+    await gif.addFrame(canvas, 50);
+    const blob = await gif.finish();
+} catch (error) {
+    // A limit violation rejects addFrame with RangeError naming the limit.
+    console.error(error);
+} finally {
+    gif.dispose();
+}
+```
+
+All three values must be positive safe integers; omitting one leaves that dimension unlimited by this API (existing GIF format constraints still apply). Bounds are inclusive: `maxFramePixels` checks `width * height`, `maxFrames` counts successfully encoded frames, and `maxDurationMs` sums frame delays **after rounding each to GIF's 10 ms units**, excluding playback repetitions. For example, two 54 ms frames consume 100 ms; a 55 ms frame consumes 60 ms. `totalFrames` remains a display hint independent of `maxFrames`.
+
+Invalid limit values throw `RangeError` during creation, before allocating an encoder/Worker. Exceeding a limit rejects `addFrame` before reading pixels or submitting the rejected frame. The exporter enters terminal `failed`, emits one failed progress event with only previously completed frames/duration, detaches its abort listener and disposes its encoder (terminating the owned Worker). `finish` cannot return a partial GIF after this failure; create a fresh exporter to retry. Source canvases are retained. These limits bound input work, not exact memory usage or output byte size.
 
 ### Supplying another encoder
 

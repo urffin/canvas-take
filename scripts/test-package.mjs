@@ -31,7 +31,7 @@ import { createGifWorkerEncoder } from '@grundyjs/canvas-take/gif/worker';
 const workerFactory: GifEncoderFactory = createGifWorkerEncoder({ maxColors: 128, timeoutMs: 30000 });
 void workerFactory;
 const encoder: GifEncoderFactory = createGifencEncoder({ maxColors: 128, quality: 'fast' });
-const gif = createGifExporter({ encoder, repeat: -1, totalFrames: 1, onProgress(p) { const count: number = p.framesEncoded; void count; } });
+const gif = createGifExporter({ encoder, repeat: -1, totalFrames: 1, maxFramePixels: 1, maxFrames: 1, maxDurationMs: 50, onProgress(p) { const count: number = p.framesEncoded; void count; } });
 await gif.addFrame({ width: 1, height: 1, getContext: () => ({ getImageData: () => ({ data: new Uint8ClampedArray([255, 0, 0, 255]) }) }) } as unknown as HTMLCanvasElement, 50);
 const blob = await gif.finish();
 if (blob.type !== 'image/gif' || blob.size < 20) throw new Error('Invalid packed GIF result');

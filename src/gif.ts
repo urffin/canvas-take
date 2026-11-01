@@ -28,6 +28,12 @@ export interface GifExportOptions {
     readonly background?: readonly [number, number, number];
     /** Optional display hint; does not limit the number of frames. */
     readonly totalFrames?: number;
+    /** Inclusive width * height limit per frame. Positive safe integer; omitted means no extra limit. */
+    readonly maxFramePixels?: number;
+    /** Inclusive encoded-frame count limit. Positive safe integer; independent of totalFrames. */
+    readonly maxFrames?: number;
+    /** Inclusive sum of GIF-rounded frame durations, in ms. Positive safe integer; excludes repeat loops. */
+    readonly maxDurationMs?: number;
     /** Observer exceptions are ignored. Called after frames and on terminal/finalizing states. */
     readonly onProgress?: (progress: GifExportProgress) => void;
 }
@@ -50,6 +56,10 @@ export interface GifExporter {
 export function createGifExporter(options: GifExportOptions): GifExporter {
     const { signal, encoder: factory } = options;
     const { totalFrames, onProgress } = options;
+    const { maxFramePixels, maxFrames, maxDurationMs } = options;
+    for (const [name, value] of Object.entries({ maxFramePixels, maxFrames, maxDurationMs })) {
+        if (value !== undefined && (!Number.isSafeInteger(value) || value < 1)) throw new RangeError(`${name} must be a positive safe integer`);
+    }
     if (totalFrames !== undefined && (!Number.isSafeInteger(totalFrames) || totalFrames < 1)) throw new RangeError('totalFrames must be a positive safe integer');
     const repeat = options.repeat ?? 0;
     const background = [...(options.background ?? [255, 255, 255])];
@@ -114,6 +124,10 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
                     throw new RangeError('Canvas dimensions must be integers in 1..65535');
                 }
                 if (frames && (w !== width || h !== height)) throw new Error('GIF frame dimensions must remain fixed');
+                const frameDuration = Math.round(durationMs / 10) * 10;
+                if (maxFramePixels !== undefined && w * h > maxFramePixels) throw new RangeError('GIF frame exceeds maxFramePixels');
+                if (maxFrames !== undefined && frames >= maxFrames) throw new RangeError('GIF export exceeds maxFrames');
+                if (maxDurationMs !== undefined && frameDuration > maxDurationMs - duration) throw new RangeError('GIF export exceeds maxDurationMs');
                 const context = canvas.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D | null;
                 if (!context) throw new Error('GIF export requires a 2D canvas');
                 const data = new Uint8ClampedArray(context.getImageData(0, 0, w, h).data);
@@ -127,10 +141,10 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
                     for (let c = 0; c < 3; c++) data[i + c] = Math.round(data[i + c] * alpha + background[c] * (1 - alpha));
                     data[i + 3] = 255;
                 }
-                await encoder!.addFrame({ width: w, height: h, data, durationMs: Math.round(durationMs / 10) * 10 });
+                await encoder!.addFrame({ width: w, height: h, data, durationMs: frameDuration });
                 active();
                 width = w; height = h; frames++;
-                duration += Math.round(durationMs / 10) * 10;
+                duration += frameDuration;
                 report('encoding');
                 active();
                 state = 'ready';
