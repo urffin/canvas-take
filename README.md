@@ -201,6 +201,8 @@ Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an
 
 GIF performance comparisons: run `npm run benchmark:gif` (or add `-- --quick` for a short run). See [benchmark methodology and reports](docs/gif-benchmark.md) for the resolution/duration matrix, timing boundaries and limitations.
 
+Use `npm run benchmark:gif -- --compare-opacity` to compare the pre-optimization core with the current core on opaque, mixed-alpha and translucent-gradient scenes.
+
 ## Release
 
 Run `npm test` and `npm run test:package` (packs and installs the tarball in an isolated consumer, then checks TypeScript declarations and runtime imports). The archive contains dist, README, LICENSE, CHANGELOG and package metadata. Source and issues: [urffin/canvas-take](https://github.com/urffin/canvas-take). The 0.x API may change in later minor releases.

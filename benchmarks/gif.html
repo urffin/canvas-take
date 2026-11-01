@@ -8,16 +8,37 @@ import { createGifencEncoder } from '/dist/gifenc.js';
 import { createGifWorkerEncoder } from '/dist/gif-worker.js';
 
 // No randomness, fonts, external assets or wall-clock input to frame rendering.
-function draw(ctx, index, width, height) {
-    ctx.fillStyle = '#102030'; ctx.fillRect(0, 0, width, height);
+function draw(ctx, index, width, height, scene = 'opaque') {
+    ctx.clearRect(0, 0, width, height);
+    if (scene === 'gradient') {
+        const gradient = ctx.createLinearGradient(0, 0, width, height);
+        gradient.addColorStop(0, `rgba(${40 + index % 100}, 80, 220, 0.15)`);
+        gradient.addColorStop(1, `rgba(220, ${80 + index % 100}, 40, 0.85)`);
+        ctx.fillStyle = gradient; ctx.fillRect(0, 0, width, height);
+        return;
+    }
+    if (scene !== 'opaque' && scene !== 'mixed') throw new Error('Unknown benchmark scene');
+    ctx.fillStyle = '#102030'; ctx.fillRect(0, 0, scene === 'opaque' ? width : width / 3, height);
     for (let bar = 0; bar < 16; bar++) {
         const h = (0.15 + ((index * 7 + bar * 19) % 100) / 150) * height;
+        ctx.globalAlpha = scene === 'mixed' && bar % 2 ? 0.5 : 1;
         ctx.fillStyle = ['#44ddaa', '#ffbb44', '#dd5577', '#5599ff'][bar % 4];
         ctx.fillRect(Math.floor(bar * width / 16), Math.floor(height - h), Math.ceil(width / 20), Math.ceil(h));
     }
+    ctx.globalAlpha = 1;
 }
 
-window.runBenchmark = async ({ adapter, width, height, seconds, fps, maxColors, quality }) => {
+// Inspect actual canvas alpha values outside all export measurements.
+window.inspectScene = ({ scene, width, height }) => {
+    const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+    const ctx = canvas.getContext('2d'); draw(ctx, 0, width, height, scene);
+    const data = ctx.getImageData(0, 0, width, height).data;
+    const counts = { opaque: 0, transparent: 0, translucent: 0 };
+    for (let i = 3; i < data.length; i += 4) counts[data[i] === 255 ? 'opaque' : data[i] === 0 ? 'transparent' : 'translucent']++;
+    return counts;
+};
+
+window.runBenchmark = async ({ adapter, width, height, seconds, fps, maxColors, quality, scene = 'opaque' }) => {
     const canvas = document.querySelector('canvas'); canvas.width = width; canvas.height = height;
     const ctx = canvas.getContext('2d');
     const frameCount = seconds * fps, delay = 1000 / fps;
@@ -34,7 +55,7 @@ window.runBenchmark = async ({ adapter, width, height, seconds, fps, maxColors, 
             : createGifencEncoder({ maxColors, quality }) });
         for (let i = 0; i < frameCount; i++) {
             const frameStart = performance.now();
-            draw(ctx, i, width, height);
+            draw(ctx, i, width, height, scene);
             await gif.addFrame(canvas, delay);
             frameTimes.push(performance.now() - frameStart);
         }

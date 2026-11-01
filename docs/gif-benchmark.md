@@ -6,9 +6,17 @@ Install dependencies and Chromium (`npm ci`, `npx playwright install chromium`),
 npm run benchmark:gif
 # Short local check: two resolutions, two durations, one repeat
 npm run benchmark:gif -- --quick
+# Compare opacity scenes before/after the opaque-pixel optimization
+npm run benchmark:gif -- --compare-opacity
+# Smoke check of the comparison (one repeat, 360p and 720p)
+npm run benchmark:gif -- --compare-opacity --quick
 ```
 
 The full matrix uses 640×360, 1280×720 and 1920×1080; 3, 10 and 30 seconds; 20 fps; three repeats for each adapter. Both adapters use gifenc with 128 colors and `quality: 'high'`. The renderer generates identical opaque flat-graphics frames from the frame index, without random values, fonts, external images or wall-clock animation. Full output SHA-256 hashes must match across adapters and repeats for each case. Pixel/timing correctness is covered separately by the browser tests.
+
+`--compare-opacity` uses three-second clips at the same three resolutions, three repeats, both adapters and two core versions (108 exports). It compares the core from Git commit `2f71f3c` (before the optimization) with the current built core, sharing the current adapters and renderer. The baseline requires that commit in local Git history; its TypeScript is transpiled in memory, without changing the checkout. Before/after order alternates alongside adapter order. Every scene/core/adapter receives an excluded warm-up. Output hashes must match across both versions, both adapters and all repeats within each scene/resolution/duration. `comparison.md` adds paired medians and percentage changes to the raw JSON/CSV and full summary.
+
+The opacity scenes are `opaque` (solid background and moving bars), `mixed` (an opaque background on one third of the canvas, transparent gaps, and alternating opaque/half-alpha bars), and `gradient` (an animated color gradient with alpha from 0.15 to 0.85, without any opaque pixels). The canvas is cleared before each frame, preventing alpha accumulation. A separate, untimed inspection of the first frame asserts the expected alpha categories and records their pixel counts in metadata. The default exporter background is white for all scenes. Scene timings include drawing; compare versions within a scene rather than interpreting differences between scenes as pure encoding costs.
 
 Runs are sequential in headless Chromium, after an excluded one-second warm-up for each adapter. The first adapter alternates between pairs. Each export gets a fresh encoder/Worker. Startup, rendering, canvas readback, compositing, encoding and finalization are included in export time; module loading, hashing and transferring measurements to Node are excluded. Frame p95 includes rendering plus awaited addFrame. Finalization time is also retained in JSON/CSV.
 
@@ -56,3 +64,36 @@ A fresh before/after comparison used the core from commit `2f71f3c` and the opti
 | 1920×1080 | 10 | Worker | 30.04 | 23.65 | 21.3% | 63.0 | 29.2 |
 
 Values are medians across repeats (timer columns use per-run p95); reductions use unrounded timings. Export time decreased by 21–24% on this opaque scene. At 1080p, Worker timer lag p95 fell from about 63 ms to 27–29 ms. Lag did not improve uniformly: the 360p Worker value rose from 1.8 to 2.6 ms. These are measurements on one machine, with only three repeats; they do not establish a universal speedup or responsiveness guarantee. Scenes containing translucent pixels still perform blending for those pixels.
+
+## Opacity scene comparison: 2026-11-01
+
+Command: `npm run benchmark:gif -- --compare-opacity`. All 108 exports completed, with byte-identical results within each scene/resolution across both core versions, adapters and all three repeats. This is a fresh comparison against the pre-optimization core, not a comparison with historical wall times. Environment: AMD FX-8350, Windows 10 build 19045, Chromium 156.0.8078.4, Node 22.17.0; current core at `6930a09`, baseline at `2f71f3c`; benchmark changes were uncommitted.
+
+At 1080p, the first mixed frame contained 45.4% opaque, 40.4% fully transparent and 14.2% partially transparent pixels. The opaque scene was 100% opaque; the gradient was 100% partially transparent. These proportions describe the inspected first frame, not every animated frame.
+
+Times are medians; lag values are medians of per-run p95. Positive time reduction means faster; negative means slower.
+
+| Scene | Resolution | Seconds | Adapter | Before ms | After ms | Time reduction | Lag p95 before ms | Lag p95 after ms |
+| --- | --- | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| opaque | 640×360 | 3 | sync | 1406.5 | 1063.4 | 24.4% | 10.1 | 5.3 |
+| opaque | 640×360 | 3 | worker | 1260.2 | 933.5 | 25.9% | 4.9 | 2.8 |
+| opaque | 1280×720 | 3 | sync | 4584.4 | 3369.7 | 26.5% | 75.0 | 46.5 |
+| opaque | 1280×720 | 3 | worker | 4561.3 | 3227.2 | 29.2% | 35.2 | 13.9 |
+| opaque | 1920×1080 | 3 | sync | 9966.9 | 7116.1 | 28.6% | 163.3 | 158.6 |
+| opaque | 1920×1080 | 3 | worker | 10156.1 | 7261.3 | 28.5% | 80.5 | 33.1 |
+| mixed | 640×360 | 3 | sync | 1399.7 | 1252.5 | 10.5% | 10.0 | 7.8 |
+| mixed | 640×360 | 3 | worker | 1217.2 | 1060.0 | 12.9% | 4.6 | 2.6 |
+| mixed | 1280×720 | 3 | sync | 4604.9 | 4080.2 | 11.4% | 71.2 | 66.0 |
+| mixed | 1280×720 | 3 | worker | 4596.3 | 3955.7 | 13.9% | 31.9 | 22.4 |
+| mixed | 1920×1080 | 3 | sync | 10239.6 | 8883.4 | 13.2% | 199.3 | 191.7 |
+| mixed | 1920×1080 | 3 | worker | 10599.5 | 9097.6 | 14.2% | 79.0 | 53.7 |
+| gradient | 640×360 | 3 | sync | 1865.1 | 1929.0 | -3.4% | 20.9 | 21.1 |
+| gradient | 640×360 | 3 | worker | 1805.4 | 1678.0 | 7.1% | 12.9 | 11.4 |
+| gradient | 1280×720 | 3 | sync | 6168.2 | 6256.3 | -1.4% | 95.4 | 103.2 |
+| gradient | 1280×720 | 3 | worker | 6168.6 | 6112.9 | 0.9% | 53.0 | 52.8 |
+| gradient | 1920×1080 | 3 | sync | 13678.2 | 14551.0 | -6.4% | 279.2 | 306.8 |
+| gradient | 1920×1080 | 3 | worker | 14454.1 | 15027.8 | -4.0% | 125.8 | 128.9 |
+
+Opaque scenes took 24–29% less time and mixed-alpha scenes 10–14% less time in this run. Gradients showed no consistent benefit: the synchronous adapter was 1.4–6.4% slower, while Worker varied from 7.1% faster to 4.0% slower. At 1080p, both gradient medians regressed (Sync 6.4%, Worker 4.0%); this observed cost must not be described as a universal speedup. With three repeats and noticeable run-to-run variation, the experiment does not establish statistical significance or isolate the extra branch from runtime/system noise. More gradient repetitions and profiling would be appropriate before claiming a stable regression magnitude.
+
+At 1080p, Worker timer lag p95 improved from 80.5 to 33.1 ms for opaque frames and from 79.0 to 53.7 ms for mixed alpha, but increased from 125.8 to 128.9 ms for gradients. The optimization benefits pixels that can skip blending; it does not eliminate readback, copying, drawing or encoding work.
