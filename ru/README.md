@@ -197,6 +197,14 @@ CanvasTake клонирует дорожки при start и при заверш
 
 ## Контроллер офлайн-видео (с версии 0.5.0)
 
+Невыпущенные изменения после 0.5.0: тот же контроллер поддерживает явный экспорт
+**WebM VP8/Opus**. Упаковщик `createWebmMuxer` импортируется из `/video/webm`, нативный
+аудиокодировщик `createWebCodecsAudioEncoder` — из `/video/opus`, VP8 — через `/video/webcodecs`.
+Звук необязателен: 48 кГц, mono/stereo; CodecDelay и конечный DiscardPadding сохраняют
+число сэмплов представления. Подробности — в [руководстве WebM](../docs/offline-webm.md).
+В опубликованном пакете 0.5.0 этих новых точек входа ещё нет.
+У нативных/raw-декодеров есть описанные [ограничения обрезки и округления конца](../docs/offline-webm.md#independent-verification); число сэмплов в контейнере учитывается явно.
+
 `@grundyjs/canvas-take/video` содержит `createOfflineVideoExporter` и контракты
 подключаемых видео-/аудиокодировщиков и упаковщика контейнера. Отдельные импорты
 `/video/webcodecs` (`createWebCodecsVideoEncoder`), `/video/aac` (`createAacAudioEncoder`)

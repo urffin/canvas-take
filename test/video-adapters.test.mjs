@@ -26,13 +26,18 @@ function nativeFixture(mode = 'valid') {
             const frame = this.frame; this.frame = undefined;
             if (mode === 'missing') return;
             if (mode === 'native-error') { this.init.error(new Error('native error')); return; }
-            const d = { codec: config.codec, codedWidth: 2, codedHeight: 2,
+            const d = { codec: this.config.codec, codedWidth: 2, codedHeight: 2,
                 description: new Uint8Array([1, mode === 'high-profile' ? 100 : 66, 192, 31, 255, 225, 0]),
                 colorSpace: { primaries: 'bt709', transfer: 'bt709', matrix: 'bt709', fullRange: false } };
             if (mode === 'missing-color') delete d.colorSpace;
+            const vp8 = new Uint8Array([16,0,0,157,1,42,mode === 'vp8-dimensions' ? 4 : 2,0,2,0]);
+            if (mode === 'vp8-hidden') vp8[0] = 0;
+            if (mode === 'vp8-version') vp8[0] |= 2;
+            if (mode === 'vp8-key') vp8[0] |= 1;
+            if (this.config.codec === 'vp8') delete d.description;
             this.init.output({ timestamp: mode === 'timestamp' ? 1 : frame.init.timestamp, duration: 1,
-                type: mode === 'non-key' ? 'delta' : 'key', byteLength: mode === 'oversize' ? 10000 : 2,
-                copyTo(data) { data.fill(7); } }, mode === 'missing-description' ? {} : { decoderConfig: d });
+                type: mode === 'non-key' ? 'delta' : 'key', byteLength: this.config.codec === 'vp8' ? vp8.length : mode === 'oversize' ? 10000 : 2,
+                copyTo(data) { if (d.codec === 'vp8') data.set(vp8); else data.fill(7); } }, mode === 'missing-description' ? {} : { decoderConfig: d });
         }
         close() { this.closed++; this.state = 'closed'; }
     }
@@ -57,6 +62,24 @@ test('optional adapters import without browser globals; support rejects unavaila
         assert.equal((await muxer.checkSupport({ video: { ...config, codec: 'vp8' } })).supported, false);
         assert.equal(native.encoders.length, 0);
     } finally { native.restore(); }
+});
+
+test('VP8 preserves submitted timing without avcC and rejects invisible/version/key/dimension mismatches', async () => {
+    const vp8 = { ...config, codec: 'vp8', bitstreamFormat: 'vp8' };
+    for (const mode of ['valid','vp8-hidden','vp8-version','vp8-key','vp8-dimensions']) {
+        const native = nativeFixture(mode), events = [];
+        try {
+            const encoder = createWebCodecsVideoEncoder().create(vp8, context({ output: { async write(e) { events.push(e); }, fail() {} } }));
+            if (mode === 'valid') {
+                await encoder.encodeFrame(raw); await encoder.flush();
+                assert.equal(events[0].config.description, undefined);
+                assert.equal(events[1].packet.durationUs, raw.durationUs);
+                assert.equal(native.encoders[0].config.avc, undefined);
+            } else await assert.rejects(encoder.encodeFrame(raw), /VP8/);
+            encoder.dispose(); encoder.dispose();
+            assert.equal(native.encoders[0].closed, 1); assert.equal(native.frames[0].closed, 1);
+        } finally { native.restore(); }
+    }
 });
 
 test('native frame is always closed; submitted duration and actual color/avcC reach the sink', async () => {
@@ -119,7 +142,7 @@ test('MP4 rejects unrepresentable intervals and invalid final timelines; output 
 });
 
 test('separate entries keep the controller and WebCodecs provider free of bundled muxer code', async () => {
-    for (const entry of ['video', 'video-webcodecs', 'video-aac']) {
+    for (const entry of ['video', 'video-webcodecs', 'video-aac', 'video-opus']) {
         const result = await build({ entryPoints: [`dist/${entry}.js`], bundle: true, format:'esm',platform:'browser',write:false,metafile:true });
         assert.deepEqual(Object.keys(result.metafile.inputs), [`dist/${entry}.js`]);
     }

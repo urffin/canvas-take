@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Offline VP8 video and optional native 48 kHz mono/stereo Opus in WebM, using replaceable providers.
+- Explicit Opus pre-skip/CodecDelay and final DiscardPadding, microsecond WebM video timing and staging limits.
+- Real browser/independent decoder verification, separate public entries and a selectable MP4/WebM example.
+- MP4/WebM discard late sink writes after size failure or abort, preserving the original error without an extra asynchronous stream-close failure.
+
+## Unreleased
+
 ## 0.5.0 — 2026-11-02
 
 - Add offline video export through `/video` with caller-selected encoder/muxer factories, explicit frame/sample timing, prepared PCM, progress, bounded queues, limits and cancellation-safe resource ownership.

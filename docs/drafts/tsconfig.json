@@ -8,5 +8,5 @@
     "exactOptionalPropertyTypes": true,
     "noEmit": true
   },
-  "files": ["offline-video-example.ts"]
+  "files": ["offline-video-example.ts", "offline-webm-example.ts"]
 }

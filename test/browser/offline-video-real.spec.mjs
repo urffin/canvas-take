@@ -86,6 +86,7 @@ test('fractional timeline is identical with delayed rendering and has no accumul
 });
 
 test('real codec cancellation and MP4 size failure close resources; a fresh export works', async ({ page }, testInfo) => {
+    const errors=[];page.on('pageerror',error=>errors.push(error.message));
     await page.goto('/');
     const result = await page.evaluate(async () => {
         const { createOfflineVideoExporter } = await import('/dist/video.js');
@@ -117,6 +118,7 @@ test('real codec cancellation and MP4 size failure close resources; a fresh expo
     if (result.unsupported) { expect(testInfo.project.name, result.unsupported).not.toBe('chromium'); test.skip(true, result.unsupported); }
     expect(result.outcomes[0]).toContain('requested stop'); expect(result.outcomes[1]).toContain('maxOutputBytes'); expect(result.outcomes[2]).toBe('retry:ok');
     expect(result.states).toEqual(['closed','closed','closed']); expect(result.unsupportedAudio.supported).toBe(true);
+    expect(errors).toEqual([]);
 });
 
 test('offline example exports a playable five-second file and clears stale output on a failed retry', async ({ page }, testInfo) => {

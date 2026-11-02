@@ -1,5 +1,5 @@
 // Release smoke test: install the tarball, serve only its assets, encode full-HD portrait H.264/AAC.
-import {mkdtemp,mkdir,readFile,writeFile,realpath,rm} from 'node:fs/promises';
+import {mkdtemp,mkdir,readFile,writeFile,realpath,rm,readdir} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {resolve,join,dirname,relative,isAbsolute} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -22,9 +22,11 @@ try{
     await writeFile(join(workspace,'package.json'),JSON.stringify({private:true,type:'module'}));
     run(['install','--offline','--ignore-scripts','--no-audit','--no-fund',join(workspace,packed.filename)]);
     const installed=join(workspace,'node_modules/@grundyjs/canvas-take');
+    console.log('Packed candidate installed; starting Chromium');
     const pkg=JSON.parse(await readFile(join(installed,'package.json'),'utf8'));
     const candidate=JSON.parse(await readFile(join(root,'package.json'),'utf8'));assert.equal(pkg.version,candidate.version);
     const names=new Set(['video.js','video-webcodecs.js','video-mp4.js','video-aac.js','video-aac-worker.js']);
+    for(const name of await readdir(join(installed,'dist')))if(/^video-container-[A-Z0-9]+\.js$/.test(name))names.add(name);
     server=createServer(async(req,res)=>{
         const path=new URL(req.url,'http://localhost').pathname;
         if(path==='/'){res.writeHead(200,{'Content-Type':'text/html','Content-Security-Policy':"worker-src 'self'"}).end('<!doctype html><title>Packed CanvasTake release check</title>');return;}
@@ -37,10 +39,12 @@ try{
     page.on('console',message=>{if(message.type()==='log')console.log(message.text());});
     await page.goto('http://127.0.0.1:'+server.address().port);
     const result=await page.evaluate(async()=>{
+        try {
         const {createOfflineVideoExporter}=await import('/package/video.js');
         const {createWebCodecsVideoEncoder}=await import('/package/video-webcodecs.js');
         const {createAacAudioEncoder}=await import('/package/video-aac.js');
         const {createMp4Muxer}=await import('/package/video-mp4.js');
+        console.log('Packed providers loaded; initializing H.264/AAC');
         const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1920;const ctx=canvas.getContext('2d');
         const rate=48000,pcm=new Float32Array(rate*10),markers=[0.5,3,6,9];
         for(let i=0;i<pcm.length;i++)pcm[i]=0.02*Math.sin(i*2*Math.PI*221/rate)+(markers.some(t=>i>=t*rate&&i<(t+0.04)*rate)?0.6*Math.sin(i*2*Math.PI*2003/rate):0);
@@ -49,6 +53,7 @@ try{
             audio:{encoder:createAacAudioEncoder(),config:{codec:'mp4a.40.2',bitstreamFormat:'aac',sampleRate:rate,numberOfChannels:1,bitrate:128000},source:{sampleRate:rate,channels:[pcm]},endPolicy:'error'},
             muxer:createMp4Muxer(),totalFrames:300,maxFrames:300,maxDurationUs:10000000,maxOutputBytes:64000000
         });
+        console.log('Packed encoders ready');
         try{
             const boundary=i=>Math.round(i*1e6/30);
             for(let i=0;i<300;i++){
@@ -66,6 +71,10 @@ try{
                 return{bytes:[...new Uint8Array(await result.blob.arrayBuffer())],metadata,frames:result.videoFrames,samples:result.audioPresentationSamples,durationUs:result.durationUs};
             }finally{video.pause();video.removeAttribute('src');video.load();URL.revokeObjectURL(url);}
         }finally{exporter.dispose();}
+        } catch(error) {
+            const messages=[];for(let cause=error;cause;cause=cause.cause)messages.push(cause.message??String(cause));
+            throw new Error(messages.join(' <- '));
+        }
     });
     const bytes=Buffer.from(result.bytes),path=join(output,'portrait-1080x1920-h264-aac.mp4');await writeFile(path,bytes);
     const layout=readAudioLayout(bytes),decoded=await decodeOfflineAudio(path,1,layout);

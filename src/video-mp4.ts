@@ -37,9 +37,11 @@ export function createMp4Muxer(): MuxerFactory {
             try {
                 guard();
                 const target = new StreamTarget(new WritableStream({ write({ data, position }) {
-                    guard();
+                    // Preserve the first adapter error while allowing the vendor to close the
+                    // owned sink. Late queued writes after failure/abort retain no more pages.
+                    if (disposed || context.signal.aborted || outputError) return;
                     const end = position + data.byteLength;
-                    if (context.maxOutputBytes !== undefined && end > context.maxOutputBytes) throw new RangeError('MP4 maxOutputBytes exceeded');
+                    if (context.maxOutputBytes !== undefined && end > context.maxOutputBytes) { outputError = new RangeError('MP4 maxOutputBytes exceeded'); return; }
                     for (let offset = 0; offset < data.byteLength;) {
                         const absolute = position + offset, index = Math.floor(absolute / pageSize), within = absolute % pageSize;
                         let page = pages.get(index);

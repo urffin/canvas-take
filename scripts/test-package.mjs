@@ -25,6 +25,15 @@ try {
     assert.ok(packed.files.some(file => file.path === 'docs/video-recording.md'), 'Missing video verification documentation');
     for (const file of ['dist/video.js', 'dist/video.d.ts', 'dist/video-webcodecs.js', 'dist/video-webcodecs.d.ts', 'dist/video-mp4.js', 'dist/video-mp4.d.ts', 'dist/video-mp4.js.map', 'dist/mediabunny-LICENSE.txt', 'docs/offline-video-api.md', 'docs/offline-video-adapters.md']) assert.ok(packed.files.some(entry => entry.path === file), 'Missing offline video package file: ' + file);
     assert.equal(installed.version, pkg.version);
+    for(const file of ['dist/video-webm.js','dist/video-webm.d.ts','dist/video-opus.js','dist/video-opus.d.ts','docs/offline-webm.md','dist/webm-PROVENANCE.md','dist/webm-sources/matroska-muxer.ts','dist/webm-sources/matroska-muxer.js','dist/webm-sources/webm-muxer-patch.mjs']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing WebM file: '+file);
+    const sharedMaps=packed.files.filter(entry=>/^dist\/video-container-[A-Z0-9]+\.js\.map$/.test(entry.path));
+    assert.ok(sharedMaps.length>0,'Missing shared container sources');
+    for(const file of sharedMaps){
+        assert.ok(packed.files.some(entry=>entry.path===file.path.slice(0,-4)),'Missing shared runtime');
+        const map=JSON.parse(await readFile(join(workspace,'node_modules/@grundyjs/canvas-take',file.path),'utf8'));
+        assert.equal(map.sources.length,map.sourcesContent.length);assert.ok(map.sourcesContent.every(s=>typeof s==='string'&&s.length));
+        assert.ok(map.sourcesContent.some(s=>s.includes('canvastakeDiscardPaddingNs')),'Missing modified MPL source');
+    }
     const muxerMap = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/dist/video-mp4.js.map'), 'utf8'));
     assert.equal(muxerMap.sourcesContent.length, muxerMap.sources.length);
     assert.ok(muxerMap.sourcesContent.every(source => typeof source === 'string' && source.length > 0), 'Missing bundled MPL source text');
@@ -37,12 +46,17 @@ import { createGifWorkerEncoder } from '@grundyjs/canvas-take/gif/worker';
 import { createOfflineVideoExporter, type OfflineVideoOptions } from '@grundyjs/canvas-take/video';
 import { createWebCodecsVideoEncoder } from '@grundyjs/canvas-take/video/webcodecs';
 import { createMp4Muxer } from '@grundyjs/canvas-take/video/mp4';
+import { createWebmMuxer } from '@grundyjs/canvas-take/video/webm';
+import { createWebCodecsAudioEncoder } from '@grundyjs/canvas-take/video/opus';
 import { createAacAudioEncoder, type AacEncoderOptions } from '@grundyjs/canvas-take/video/aac';
 const aacOptions: AacEncoderOptions = { timeoutMs:30000, workerUrl:new URL('./aac-worker.js',import.meta.url) };
 const aac = createAacAudioEncoder(aacOptions);
 if ((await aac.checkSupport({codec:'mp4a.40.2',bitstreamFormat:'aac',sampleRate:48000,numberOfChannels:1,bitrate:128000})).supported) throw new Error('Unexpected browser Worker in Node');
 const nativeVideo = createWebCodecsVideoEncoder();
 const mp4 = createMp4Muxer();
+const webm = createWebmMuxer(), opus = createWebCodecsAudioEncoder();
+if (!(await webm.checkSupport({video:{codec:'vp8',bitstreamFormat:'vp8',width:2,height:2,bitrate:10000}})).supported) throw new Error('Invalid WebM provider');
+if ((await opus.checkSupport({codec:'opus',bitstreamFormat:'opus',sampleRate:48000,numberOfChannels:1,bitrate:128000})).supported) throw new Error('Unexpected native AudioEncoder in Node');
 const avcConfig = { codec: 'avc1.42E01F', bitstreamFormat: 'avc', width: 2, height: 2, bitrate: 1000 };
 if ((await nativeVideo.checkSupport(avcConfig)).supported) throw new Error('Unexpected native VideoEncoder in Node consumer');
 if (!(await mp4.checkSupport({ video: avcConfig })).supported || mp4.format.mimeType !== 'video/mp4') throw new Error('Invalid packed MP4 provider');

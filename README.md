@@ -122,6 +122,13 @@ The audio track list is copied at creation and validated again at start. CanvasT
 
 ## Offline video controller (since 0.5.0)
 
+Unreleased additions after 0.5.0: the same controller supports explicit **VP8/Opus WebM** through
+`createWebmMuxer` from `/video/webm`, native `createWebCodecsAudioEncoder` from `/video/opus`
+and VP8 in `/video/webcodecs`. Audio is optional, 48 kHz mono/stereo; CodecDelay and final
+DiscardPadding preserve presentation samples. See the [WebM guide](docs/offline-webm.md).
+These entries are not included in the published 0.5.0 package.
+Native/raw decoders have documented [leading-trim and endpoint-rounding limits](docs/offline-webm.md#independent-verification); container sample accounting remains explicit.
+
 `@grundyjs/canvas-take/video` exports `createOfflineVideoExporter` and adapter contracts for offline frame/audio timelines. Supply separate encoder and muxer factories. Optional `/video/webcodecs` (`createWebCodecsVideoEncoder`), `/video/aac` (`createAacAudioEncoder`) and `/video/mp4` (`createMp4Muxer`) entries export real **H.264 Baseline / AAC-LC MP4**, with optional prepared PCM audio. Video requires native WebCodecs support; AAC runs in a dedicated Worker using a bundled libavcodec WASM backend, including where native AAC encoding is unavailable. Independent FFmpeg decoding checks sample counts, priming, padding and A/V timing.
 
 ```js

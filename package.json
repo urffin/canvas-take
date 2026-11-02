@@ -15,9 +15,20 @@
     "docs/offline-video-api.md",
     "docs/offline-video-adapters.md",
     "docs/offline-aac.md",
+    "docs/offline-webm.md",
     "docs/drafts"
   ],
   "exports": {
+    "./video/webm": {
+      "types": "./dist/video-webm.d.ts",
+      "import": "./dist/video-webm.js",
+      "default": "./dist/video-webm.js"
+    },
+    "./video/opus": {
+      "types": "./dist/video-opus.d.ts",
+      "import": "./dist/video-opus.js",
+      "default": "./dist/video-opus.js"
+    },
     "./video/aac": {
       "types": "./dist/video-aac.d.ts",
       "import": "./dist/video-aac.js",

@@ -1,16 +1,17 @@
 import type { VideoEncodeConfig, VideoEncoderFactory, VideoDescription, CodecEvent } from './video.js';
 
-/** First profile: H.264 Baseline, AVC framing, quality mode, one drained native input at a time. */
+/** H.264 Baseline/AVC or VP8, quality mode, one drained native input at a time. */
 export function createWebCodecsVideoEncoder(): VideoEncoderFactory {
     function nativeConfig(config: VideoEncodeConfig): VideoEncoderConfig {
-        if (!/^avc1\.42[0-9a-f]{4}$/i.test(config.codec) || config.bitstreamFormat !== 'avc') {
-            throw new DOMException('WebCodecs adapter requires H.264 Baseline (avc1.42xxxx) with avc framing', 'NotSupportedError');
+        const avc = /^avc1\.42[0-9a-f]{4}$/i.test(config.codec) && config.bitstreamFormat === 'avc';
+        if (!avc && !(config.codec === 'vp8' && config.bitstreamFormat === 'vp8')) {
+            throw new DOMException('WebCodecs adapter requires H.264 Baseline (avc1.42xxxx/avc) or vp8/vp8', 'NotSupportedError');
         }
         if (![config.width, config.height, config.bitrate].every(n => Number.isSafeInteger(n) && n > 0) || config.width % 2 || config.height % 2) {
-            throw new RangeError('H.264 requires positive even dimensions and a positive integer bitrate');
+            throw new RangeError('Video requires positive even dimensions and a positive integer bitrate');
         }
         return { codec: config.codec, width: config.width, height: config.height, bitrate: config.bitrate,
-            latencyMode: 'quality', avc: { format: 'avc' },
+            latencyMode: 'quality', ...(avc ? { avc: { format: 'avc' as const } } : {}),
             ...(config.frameRateHint ? { framerate: config.frameRateHint.numerator / config.frameRateHint.denominator } : {}) };
     }
     return {
@@ -65,15 +66,21 @@ export function createWebCodecsVideoEncoder(): VideoEncoderFactory {
                             const c = metadata.decoderConfig, color = c.colorSpace;
                             const d = c.description;
                             const avcc = d ? (ArrayBuffer.isView(d) ? new Uint8Array(d.buffer, d.byteOffset, d.byteLength) : new Uint8Array(d)).slice() : undefined;
-                            if (!avcc || avcc.length < 7 || avcc[0] !== 1 || avcc[1] !== 66 || c.codec !== config.codec || c.codedWidth !== config.width || c.codedHeight !== config.height) throw new Error('WebCodecs returned incompatible AVC Baseline decoder configuration');
+                            if ((config.codec !== 'vp8' && (!avcc || avcc.length < 7 || avcc[0] !== 1 || avcc[1] !== 66)) ||
+                                c.codec !== config.codec || c.codedWidth !== config.width || c.codedHeight !== config.height) throw new Error('WebCodecs returned incompatible video decoder configuration');
                             if (color?.primaries !== 'bt709' || !['bt709', 'iec61966-2-1'].includes(color.transfer ?? '') || color.matrix !== 'bt709' || typeof color.fullRange !== 'boolean') throw new Error('WebCodecs returned unsupported or missing SDR color metadata');
-                            description = { codec: config.codec, bitstreamFormat: 'avc', width: config.width, height: config.height, description: avcc,
+                            description = { codec: config.codec, bitstreamFormat: config.bitstreamFormat, width: config.width, height: config.height, ...(avcc ? { description: avcc } : {}),
                                 color: { primaries: color.primaries, transfer: color.transfer!, matrix: color.matrix, fullRange: color.fullRange } };
-                            enqueue({ type: 'config', track: 'video', config: description }, avcc.byteLength + 64);
+                            enqueue({ type: 'config', track: 'video', config: description }, (avcc?.byteLength ?? 0) + 64);
                         }
-                        if (!description) throw new Error('WebCodecs did not provide an AVC decoder description');
+                        if (!description) throw new Error('WebCodecs did not provide a video decoder description');
                         if (chunk.byteLength + 64 > context.maxPendingBytes - bytes) throw new RangeError('WebCodecs maxPendingBytes exceeded');
                         const data = new Uint8Array(chunk.byteLength); chunk.copyTo(data);
+                        if (config.codec === 'vp8') {
+                            if (data.length < 3 || !(data[0] & 16) || ((data[0] >> 1) & 7) !== 0 || ((data[0] & 1) === 0) !== (chunk.type === 'key')) throw new Error('VP8 requires visible version-0 frames with matching keys');
+                            if (chunk.type === 'key' && (data.length < 10 || data[3] !== 157 || data[4] !== 1 || data[5] !== 42 ||
+                                ((data[6] | data[7] << 8) & 0x3fff) !== config.width || ((data[8] | data[9] << 8) & 0x3fff) !== config.height)) throw new Error('VP8 key-frame dimensions mismatch');
+                        }
                         // Duration comes from the submitted interval, including a long final hold.
                         enqueue({ type: 'packet', packet: { track: 'video', timestampUs: pending.timestampUs, decodeTimestampUs: pending.timestampUs,
                             durationUs: pending.durationUs, type: chunk.type, data } }, data.byteLength + 64);
