@@ -120,6 +120,25 @@ For a browser smoke test, run `node examples/server.cjs` after building and open
 
 The audio track list is copied at creation and validated again at start. CanvasTake clones the tracks at start and stops only its clones and canvas capture tracks on completion, disposal or failure. The caller owns the original tracks and AudioContext. Unexpected termination of a recorded clone fails recording. Calling `stop()` on an original track does not stop its clone; call `recorder.stop()` to finish the recording. Finishing an AudioBufferSource does not end the destination track either.
 
+## Offline video controller (unreleased)
+
+`@grundyjs/canvas-take/video` exports `createOfflineVideoExporter` and adapter contracts for offline frame/audio timelines. Supply separate video/audio encoder factories and a muxer factory; no concrete codecs or container writers are included yet. The controller is implemented and tested with injected fixtures, which deliberately return fake bytes rather than playable MP4/WebM files.
+
+```js
+import { createOfflineVideoExporter } from '@grundyjs/canvas-take/video';
+// options supplies video.encoder/config, optional prepared audio, and muxer.
+const exporter = await createOfflineVideoExporter(options);
+try {
+    drawFrame(0);
+    await exporter.addFrame(canvas, { timestampUs: 0, durationUs: 33_333 });
+    const result = await exporter.finish();
+} finally {
+    exporter.dispose();
+}
+```
+
+Frames form a contiguous timeline from zero in integer microseconds; durations and audio sample positions do not depend on encoding speed. The controller snapshots inputs, limits queues, serializes muxing and releases owned adapters on completion/failure/abort. Audio uses an explicit strict or trim/pad policy. See [API and protocol details](docs/offline-video-api.md) for adapter ownership, callback/flush rules, limits and the remaining real-encoder integration work.
+
 ## Offline GIF export
 
 Available since version 0.3.0.

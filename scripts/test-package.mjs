@@ -23,12 +23,14 @@ try {
     const pkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
     const installed = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/package.json'), 'utf8'));
     assert.ok(packed.files.some(file => file.path === 'docs/video-recording.md'), 'Missing video verification documentation');
+    for (const file of ['dist/video.js', 'dist/video.d.ts', 'docs/offline-video-api.md']) assert.ok(packed.files.some(entry => entry.path === file), 'Missing offline video package file: ' + file);
     assert.equal(installed.version, pkg.version);
     await writeFile(join(workspace, 'consumer.ts'), `
 import { createCanvasRecorder, type RecorderOptions, type RecordingResult } from '@grundyjs/canvas-take';
 import { createGifExporter, type GifEncoderFactory } from '@grundyjs/canvas-take/gif';
 import { createGifencEncoder } from '@grundyjs/canvas-take/gif/gifenc';
 import { createGifWorkerEncoder } from '@grundyjs/canvas-take/gif/worker';
+import { createOfflineVideoExporter, type OfflineVideoOptions } from '@grundyjs/canvas-take/video';
 const workerFactory: GifEncoderFactory = createGifWorkerEncoder({ maxColors: 128, timeoutMs: 30000 });
 void workerFactory;
 const encoder: GifEncoderFactory = createGifencEncoder({ maxColors: 128, quality: 'fast' });
@@ -37,6 +39,27 @@ await gif.addFrame({ width: 1, height: 1, getContext: () => ({ getImageData: () 
 const blob = await gif.finish();
 if (blob.type !== 'image/gif' || blob.size < 20) throw new Error('Invalid packed GIF result');
 gif.dispose();
+// Contract-only packed consumer: deliberately fake bytes, no real codec/container.
+let disposed = 0;
+const offlineOptions: OfflineVideoOptions = {
+    video: { config: { codec: 'test', bitstreamFormat: 'test', width: 1, height: 1, bitrate: 1000 }, encoder: {
+        async checkSupport() { return { supported: true }; },
+        create(config, context) { return {
+            async encodeFrame(frame) {
+                await context.output.write({ type: 'config', track: 'video', config: { codec: config.codec, bitstreamFormat: config.bitstreamFormat, width: 1, height: 1, color: { primaries: 'bt709', transfer: 'srgb', matrix: 'rgb', fullRange: true } } });
+                await context.output.write({ type: 'packet', packet: { track: 'video', timestampUs: frame.timestampUs, decodeTimestampUs: frame.timestampUs, durationUs: frame.durationUs, type: 'key', data: new Uint8Array([1]) } });
+            },
+            async flush() { await context.output.write({ type: 'end', track: 'video' }); },
+            dispose() { disposed++; }
+        }; }
+    } },
+    muxer: { format: { mimeType: 'video/x-test', extension: 'test' }, async checkSupport() { return { supported: true }; },
+        create() { return { async write() {}, async finalize() { return new Blob(['test'], { type: 'video/x-test' }); }, dispose() { disposed++; } }; } }
+};
+const offline = await createOfflineVideoExporter(offlineOptions);
+await offline.addFrame({ width: 1, height: 1, getContext: () => ({ getImageData: () => ({ data: new Uint8ClampedArray([0,0,0,255]) }) }) } as unknown as HTMLCanvasElement, { timestampUs: 0, durationUs: 1000 });
+const offlineResult = await offline.finish(); offline.dispose();
+if (offlineResult.durationUs !== 1000 || offlineResult.videoFrames !== 1 || disposed !== 2) throw new Error('Invalid offline packed result');
 const options: RecorderOptions = { fps: 30, audioTracks: [] as readonly MediaStreamTrack[], mimeType: 'video/mp4;codecs=avc1,mp4a.40.2', maxDurationMs: 30000 };
 function record(canvas: HTMLCanvasElement): Promise<RecordingResult> {
     const recorder = createCanvasRecorder(canvas, options);

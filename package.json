@@ -11,9 +11,16 @@
     "CHANGELOG.md",
     "docs/gif-encoder.md",
     "docs/gif-benchmark.md",
-    "docs/video-recording.md"
+    "docs/video-recording.md",
+    "docs/offline-video-api.md",
+    "docs/drafts"
   ],
   "exports": {
+    "./video": {
+      "types": "./dist/video.d.ts",
+      "import": "./dist/video.js",
+      "default": "./dist/video.js"
+    },
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
