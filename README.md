@@ -122,7 +122,7 @@ The audio track list is copied at creation and validated again at start. CanvasT
 
 ## Offline video controller (unreleased)
 
-`@grundyjs/canvas-take/video` exports `createOfflineVideoExporter` and adapter contracts for offline frame/audio timelines. Supply separate video/audio encoder factories and a muxer factory; no concrete codecs or container writers are included yet. The controller is implemented and tested with injected fixtures, which deliberately return fake bytes rather than playable MP4/WebM files.
+`@grundyjs/canvas-take/video` exports `createOfflineVideoExporter` and adapter contracts for offline frame/audio timelines. Supply separate encoder and muxer factories. Optional `/video/webcodecs` (`createWebCodecsVideoEncoder`) and `/video/mp4` (`createMp4Muxer`) entries now export real **H.264 Baseline MP4 without audio**. They preserve explicit frame intervals and are checked by independent FFmpeg decoding; native browser support is required. A real offline audio encoder is still future work.
 
 ```js
 import { createOfflineVideoExporter } from '@grundyjs/canvas-take/video';
@@ -137,7 +137,7 @@ try {
 }
 ```
 
-Frames form a contiguous timeline from zero in integer microseconds; durations and audio sample positions do not depend on encoding speed. The controller snapshots inputs, limits queues, serializes muxing and releases owned adapters on completion/failure/abort. Audio uses an explicit strict or trim/pad policy. See [API and protocol details](docs/offline-video-api.md) for adapter ownership, callback/flush rules, limits and the remaining real-encoder integration work.
+Frames form a contiguous timeline from zero in integer microseconds; durations and audio sample positions do not depend on encoding speed. The controller snapshots inputs, limits queues, serializes muxing and releases owned adapters on completion/failure/abort. Audio uses an explicit strict or trim/pad policy. See [real video adapters, usage and timing precision](docs/offline-video-adapters.md), the [runnable example](examples/offline-video.html) and [API and protocol details](docs/offline-video-api.md). The MP4 writer rounds absolute boundaries to 57,600 Hz ticks; the final hold and fractional-rate timeline are checked without accumulated drift. Audio is explicitly rejected by this first MP4 adapter.
 
 ## Offline GIF export
 

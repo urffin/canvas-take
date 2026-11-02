@@ -6,8 +6,9 @@ const routes = new Map([
     ['/', new URL('./fixture.html', import.meta.url)],
     ['/examples/gif.html', new URL('../../examples/gif.html', import.meta.url)],
     ['/examples/video.html', new URL('../../examples/video.html', import.meta.url)],
+    ['/examples/offline-video.html', new URL('../../examples/offline-video.html', import.meta.url)],
     ['/test-audio.js', new URL('./helpers/audio.mjs', import.meta.url)],
-    ...['index.js', 'video.js', 'gif.js', 'gif-worker.js', 'gif-worker-runtime.js', 'gifenc.js'].map(name =>
+    ...['index.js', 'video.js', 'video-webcodecs.js', 'video-mp4.js', 'gif.js', 'gif-worker.js', 'gif-worker-runtime.js', 'gifenc.js'].map(name =>
         [`/dist/${name}`, new URL(`../../dist/${name}`, import.meta.url)])
 ]);
 createServer(async (req, res) => {

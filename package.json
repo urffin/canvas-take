@@ -13,9 +13,20 @@
     "docs/gif-benchmark.md",
     "docs/video-recording.md",
     "docs/offline-video-api.md",
+    "docs/offline-video-adapters.md",
     "docs/drafts"
   ],
   "exports": {
+    "./video/webcodecs": {
+      "types": "./dist/video-webcodecs.d.ts",
+      "import": "./dist/video-webcodecs.js",
+      "default": "./dist/video-webcodecs.js"
+    },
+    "./video/mp4": {
+      "types": "./dist/video-mp4.d.ts",
+      "import": "./dist/video-mp4.js",
+      "default": "./dist/video-mp4.js"
+    },
     "./video": {
       "types": "./dist/video.d.ts",
       "import": "./dist/video.js",
@@ -44,7 +55,7 @@
     "./gif/worker-runtime": "./dist/gif-worker-runtime.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json && node scripts/build-gif.mjs",
+    "build": "tsc -p tsconfig.json && node scripts/build-adapters.mjs",
     "test": "npm run build && node --test test/*.test.mjs",
     "prepack": "npm run build",
     "prepublishOnly": "npm test",
@@ -59,6 +70,7 @@
     "ffmpeg-static": "5.3.0",
     "gifenc": "1.0.3",
     "gifuct-js": "2.1.2",
+    "mediabunny": "1.65.0",
     "typescript": "6.0.3"
   },
   "license": "MIT",

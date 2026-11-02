@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>CanvasTake offline MP4 export</title>
+<h1>Offline MP4 video</h1>
+<p>Renders a four-second portrait animation with a one-second final hold, without audio.
+Export speed does not change playback timing. Requires WebCodecs H.264 support on localhost or HTTPS.</p>
+<form>
+<label>H.264 Baseline codec <input id="codec" value="avc1.42E01F" required></label>
+<label>Bitrate <input id="bitrate" type="number" min="1" step="1" value="2000000" required></label>
+<button id="export">Export MP4</button>
+<button id="cancel" type="button" disabled>Cancel</button>
+</form>
+<pre id="status" role="status">Ready</pre>
+<canvas width="360" height="640" style="max-height:50vh;max-width:100%"></canvas>
+<video controls muted style="max-height:50vh;max-width:100%"></video>
+<p><a id="download" hidden>Download MP4</a></p>
+<script type="module">
+import { createOfflineVideoExporter } from '../dist/video.js';
+import { createWebCodecsVideoEncoder } from '../dist/video-webcodecs.js';
+import { createMp4Muxer } from '../dist/video-mp4.js';
+const $ = selector => document.querySelector(selector);
+const canvas = $('canvas'), ctx = canvas.getContext('2d'), preview = $('video');
+const status = $('#status'), form = $('form'), download = $('#download');
+let controller, exporter, url;
+function clearPreview() {
+    preview.pause(); preview.removeAttribute('src'); preview.load();
+    download.hidden = true; download.removeAttribute('href');
+    if (url) URL.revokeObjectURL(url); url = undefined;
+}
+$('#cancel').onclick = () => controller?.abort();
+form.onsubmit = async event => {
+    event.preventDefault(); if (controller || !form.reportValidity()) return;
+    clearPreview(); controller = new AbortController();
+    $('#export').disabled = $('#codec').disabled = $('#bitrate').disabled = true; $('#cancel').disabled = false;
+    try {
+        exporter = await createOfflineVideoExporter({
+            video: { encoder: createWebCodecsVideoEncoder(), config: {
+                codec: $('#codec').value, bitstreamFormat: 'avc', width: canvas.width, height: canvas.height,
+                bitrate: $('#bitrate').valueAsNumber, frameRateHint: { numerator: 30, denominator: 1 }
+            } }, muxer: createMp4Muxer(), signal: controller.signal,
+            totalFrames: 120, maxFrames: 120, maxDurationUs: 5_000_000, maxOutputBytes: 32_000_000,
+            onProgress(p) { status.textContent = `${p.phase}: ${p.framesAccepted}/120 frames, ${(p.durationUs / 1e6).toFixed(3)} s`; }
+        });
+        const boundary = i => Math.round(i * 1e6 / 30);
+        for (let i = 0; i < 120; i++) {
+            ctx.fillStyle = '#152b46'; ctx.fillRect(0, 0, 360, 640);
+            ctx.fillStyle = '#58d9bd'; ctx.fillRect(30 + i * 2, 180, 60, 60);
+            ctx.fillStyle = 'white'; ctx.font = '28px sans-serif'; ctx.fillText(`Frame ${i + 1}`, 30, 90);
+            const end = i === 119 ? 5_000_000 : boundary(i + 1);
+            await exporter.addFrame(canvas, { timestampUs: boundary(i), durationUs: end - boundary(i) });
+        }
+        const result = await exporter.finish(); url = URL.createObjectURL(result.blob); preview.src = url;
+        download.href = url; download.download = 'offline-video.mp4'; download.hidden = false;
+        status.textContent = `${result.videoFrames} frames, ${result.durationUs / 1e6} s, ${result.blob.size} bytes`;
+    } catch (error) {
+        const cause = error.cause instanceof Error ? `: ${error.cause.message}` : '';
+        status.textContent = controller.signal.aborted ? 'Cancelled' : `${error.message}${cause}`;
+    } finally {
+        exporter?.dispose(); exporter = undefined; controller = undefined;
+        $('#export').disabled = $('#codec').disabled = $('#bitrate').disabled = false; $('#cancel').disabled = true;
+    }
+};
+addEventListener('pagehide', () => { controller?.abort(); exporter?.dispose(); clearPreview(); });
+</script>

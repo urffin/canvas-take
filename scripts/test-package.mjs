@@ -23,14 +23,24 @@ try {
     const pkg = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
     const installed = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/package.json'), 'utf8'));
     assert.ok(packed.files.some(file => file.path === 'docs/video-recording.md'), 'Missing video verification documentation');
-    for (const file of ['dist/video.js', 'dist/video.d.ts', 'docs/offline-video-api.md']) assert.ok(packed.files.some(entry => entry.path === file), 'Missing offline video package file: ' + file);
+    for (const file of ['dist/video.js', 'dist/video.d.ts', 'dist/video-webcodecs.js', 'dist/video-webcodecs.d.ts', 'dist/video-mp4.js', 'dist/video-mp4.d.ts', 'dist/video-mp4.js.map', 'dist/mediabunny-LICENSE.txt', 'docs/offline-video-api.md', 'docs/offline-video-adapters.md']) assert.ok(packed.files.some(entry => entry.path === file), 'Missing offline video package file: ' + file);
     assert.equal(installed.version, pkg.version);
+    const muxerMap = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/dist/video-mp4.js.map'), 'utf8'));
+    assert.equal(muxerMap.sourcesContent.length, muxerMap.sources.length);
+    assert.ok(muxerMap.sourcesContent.every(source => typeof source === 'string' && source.length > 0), 'Missing bundled MPL source text');
     await writeFile(join(workspace, 'consumer.ts'), `
 import { createCanvasRecorder, type RecorderOptions, type RecordingResult } from '@grundyjs/canvas-take';
 import { createGifExporter, type GifEncoderFactory } from '@grundyjs/canvas-take/gif';
 import { createGifencEncoder } from '@grundyjs/canvas-take/gif/gifenc';
 import { createGifWorkerEncoder } from '@grundyjs/canvas-take/gif/worker';
 import { createOfflineVideoExporter, type OfflineVideoOptions } from '@grundyjs/canvas-take/video';
+import { createWebCodecsVideoEncoder } from '@grundyjs/canvas-take/video/webcodecs';
+import { createMp4Muxer } from '@grundyjs/canvas-take/video/mp4';
+const nativeVideo = createWebCodecsVideoEncoder();
+const mp4 = createMp4Muxer();
+const avcConfig = { codec: 'avc1.42E01F', bitstreamFormat: 'avc', width: 2, height: 2, bitrate: 1000 };
+if ((await nativeVideo.checkSupport(avcConfig)).supported) throw new Error('Unexpected native VideoEncoder in Node consumer');
+if (!(await mp4.checkSupport({ video: avcConfig })).supported || mp4.format.mimeType !== 'video/mp4') throw new Error('Invalid packed MP4 provider');
 const workerFactory: GifEncoderFactory = createGifWorkerEncoder({ maxColors: 128, timeoutMs: 30000 });
 void workerFactory;
 const encoder: GifEncoderFactory = createGifencEncoder({ maxColors: 128, quality: 'fast' });

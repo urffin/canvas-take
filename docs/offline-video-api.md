@@ -1,12 +1,12 @@
 # Offline video API and adapter protocol
 
-Status: controller implemented, unreleased (2026-11-02). `src/video.ts` and the `/video` package entry implement this protocol with injected adapters. Real codecs and container adapters have not been added yet. The [contract reference](drafts/offline-video-api.d.ts) re-exports the canonical declarations; the [usage example](drafts/offline-video-example.ts) is compile-only and requires actual providers. This is an API specification, not the personal development roadmap.
+Status: controller and first real video-only adapters implemented, unreleased (2026-11-02). `src/video.ts` and `/video` implement this protocol. Separate `/video/webcodecs` and `/video/mp4` providers export actual H.264 Baseline MP4 without audio; see [adapter usage, limits and verification](offline-video-adapters.md). The [contract reference](drafts/offline-video-api.d.ts) re-exports the canonical declarations; the [narrated usage example](drafts/offline-video-example.ts) remains compile-only because actual offline audio is still future work. This is an API specification, not the personal development roadmap.
 
 ## Goal and scope
 
 Export a supplied timeline to a complete video file, with optional prepared audio, regardless of rendering/encoding speed. The first integration target is portrait MP4 H.264/AAC for Shorts; WebM VP8/Opus follows using the same controller. Codec and container implementations are separate, caller-selected adapters. There is no implicit codec choice, real-time capture, audio device or MediaRecorder dependency in the offline controller.
 
-The existing recorder and GIF APIs keep their own lifecycles. `/video` is the implemented controller entry point. `/video/webcodecs` for optional encoder factories and independently imported container adapters remain future work. Adapter names and actual container packages remain provisional. The controller bundles no codec, muxer, FFmpeg or Worker implementation. No third-party muxer has been selected yet.
+The existing recorder and GIF APIs keep their own lifecycles. `/video` is the controller entry point and bundles no codec, muxer, FFmpeg or Worker implementation. `/video/webcodecs` supplies a native video encoder factory; `/video/mp4` separately bundles Mediabunny 1.65.0 as a video-only MP4 writer. These remain optional, independently replaceable factories. Real audio encoding/container trim integration remains future work.
 
 The first version accepts fixed-size 2D HTMLCanvasElement/OffscreenCanvas frames and one prepared PCM audio track. Native VideoFrame input, multiple tracks, mixing, resampling, arbitrary gaps, B-frame reordering, streaming file sinks and HDR are deferred. This bounds the first implementation without tying the adapter interfaces to WebCodecs objects.
 
@@ -143,12 +143,12 @@ Implementation acceptance checks:
 5. Silent video, strict narration mismatch, explicit trimming/padding, 44.1/48 kHz sample boundaries and unsupported AAC are explicit cases. Unsupported formats never silently switch. Full-file/container timing is checked directly, unlike real-time recorder tests that must account for capture startup material.
 6. Importing the controller loads no codec/muxer and touches no browser globals. A packed TypeScript consumer, direct browser loading, Worker ownership and a bundled consumer are verified once actual adapters exist.
 
-The controller/protocol is now covered by `test/offline-video.test.mjs`, including delayed output, sample-clock timing, explicit trim/pad, bounded queues, protocol failures, byte transfer, late factory resolution and cancellation at all asynchronous stages. Browser fixtures exercise actual canvas readback and disposal in Chromium/Firefox. The packed consumer checks `/video` types and runs the controller with deliberately fake bytes. These fixtures do not create playable video: they test control flow and contracts. Real codec/muxer integration, priming accuracy and independent media-file decoding remain the next implementation stage.
+The controller/protocol is covered by `test/offline-video.test.mjs`, including delayed output, sample-clock timing, explicit trim/pad, bounded queues, protocol failures, byte transfer, late factory resolution and cancellation at all asynchronous stages. Browser fixtures exercise actual canvas readback and disposal in Chromium/Firefox. In addition, `test/browser/offline-video-real.spec.mjs` independently demuxes and decodes real silent H.264/MP4 files using FFmpeg, checks variable/fractional timing, final hold, colors, container duration, native cancellation and retry. The packed consumer checks all three public entries without browser globals. AAC priming accuracy and real audio integration remain the next implementation stage.
 
 ## Typecheck and references
 
 ```sh
-node node_modules/typescript/bin/tsc --ignoreConfig --noEmit --strict --exactOptionalPropertyTypes --target ES2022 --module NodeNext --lib ES2022,DOM,DOM.Iterable docs/drafts/offline-video-example.ts
+node node_modules/typescript/bin/tsc -p docs/drafts/tsconfig.json
 ```
 
 The proposal uses microsecond packet time and explicit output draining in line with [WebCodecs](https://www.w3.org/TR/webcodecs/). AVC packet framing/decoder description and AAC framing/priming require codec-specific handling; see the [AVC registration](https://www.w3.org/TR/webcodecs-avc-codec-registration/) and [AAC registration](https://www.w3.org/TR/webcodecs-aac-codec-registration/). These sources specify codec interfaces, not a universally supported MP4 export pipeline. The packet ordering, memory budgets and public controller behavior above are CanvasTake design decisions.

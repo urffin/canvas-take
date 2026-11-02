@@ -1,4 +1,10 @@
 {
-  "compilerOptions": { "target": "ES2022", "module": "NodeNext", "moduleResolution": "NodeNext", "lib": ["ES2022", "DOM"], "strict": true, "declaration": true, "rootDir": "src", "outDir": "dist", "noEmitOnError": true },
+  "compilerOptions": {
+    "target": "ES2022", "module": "NodeNext", "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM"], "types": [],
+    // Mediabunny references legacy DOM/WebCodecs declarations that overlap TS 6's lib.dom.
+    "skipLibCheck": true,
+    "strict": true, "declaration": true, "rootDir": "src", "outDir": "dist", "noEmitOnError": true
+  },
   "include": ["src/**/*.ts"]
 }

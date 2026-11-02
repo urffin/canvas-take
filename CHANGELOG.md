@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add separate WebCodecs H.264 Baseline and Mediabunny MP4 adapters for silent offline video, with absolute-boundary timestamp quantization, bounded native output, output-size checks, a browser example and independent FFmpeg decoding/timeline tests. Offline audio is not yet supported by these adapters.
 - Add the adapter-neutral `/video` offline controller with explicit frame/sample timing, bounded packet queues, PCM trim/pad, cancellation-safe initialization/finalization and fixture-based Node/browser/package tests. Concrete encoders and container writers remain future work.
 - Add video pause/resume, a pause-aware `maxDurationMs` budget, a `finished` promise and `stopReason`, with active-time accounting, terminal cleanup, a video example and real-browser audio/video playback tests.
 - Verify post-pause A/V sync using six flash/tone markers, independent FFmpeg decoding with container timestamps, actual codec checks and a delayed-audio negative control; retain recordings and sync metrics in browser artifacts.
