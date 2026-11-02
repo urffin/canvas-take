@@ -1,7 +1,7 @@
 {
   "name": "@grundyjs/canvas-take",
-  "version": "0.4.1",
-  "description": "Record HTML canvas video with audio and export GIFs with pluggable encoders, Worker support and explicit resource cleanup",
+  "version": "0.5.0",
+  "description": "Record canvas video with audio and export offline H.264/AAC MP4 or GIF with pluggable encoders, Worker support and explicit resource cleanup",
   "type": "module",
   "files": [
     "dist",
@@ -67,6 +67,7 @@
     "prepack": "npm run build",
     "prepublishOnly": "npm test",
     "test:package": "node scripts/test-package.mjs",
+    "test:release-video": "node scripts/test-release-video.mjs",
     "test:next": "node scripts/test-next.mjs",
     "test:browser": "npm run build && playwright test",
     "benchmark:gif": "npm run build && node scripts/benchmark-gif.mjs"
@@ -95,7 +96,11 @@
     "gif",
     "audio",
     "web-worker",
-    "typescript"
+    "typescript",
+    "webcodecs",
+    "mp4",
+    "aac",
+    "offline-video"
   ],
   "sideEffects": false,
   "publishConfig": {

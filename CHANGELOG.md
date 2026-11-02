@@ -2,17 +2,14 @@
 
 ## Unreleased
 
-- Add a dedicated AAC-LC WASM Worker adapter and optional audio in offline MP4, with packet-derived encoder delay, priming edit lists, final-sample trimming, 44.1/48 kHz mono/stereo and independent sample-count/correlation/A-V tests. Document raw decoder padding behavior and bundled WASM licensing/provenance.
-- Add separate WebCodecs H.264 Baseline and Mediabunny MP4 adapters for silent offline video, with absolute-boundary timestamp quantization, bounded native output, output-size checks, a browser example and independent FFmpeg decoding/timeline tests. Offline audio is not yet supported by these adapters.
-- Add the adapter-neutral `/video` offline controller with explicit frame/sample timing, bounded packet queues, PCM trim/pad, cancellation-safe initialization/finalization and fixture-based Node/browser/package tests. Concrete encoders and container writers remain future work.
-- Add video pause/resume, a pause-aware `maxDurationMs` budget, a `finished` promise and `stopReason`, with active-time accounting, terminal cleanup, a video example and real-browser audio/video playback tests.
-- Verify post-pause A/V sync using six flash/tone markers, independent FFmpeg decoding with container timestamps, actual codec checks and a delayed-audio negative control; retain recordings and sync metrics in browser artifacts.
-- Add optional GIF `maxFramePixels`, `maxFrames` and `maxDurationMs` limits, checked before readback, with terminal failure/cleanup, inclusive rounded-duration bounds and synchronous/Worker regression tests.
-- Add editable limits and actionable error/retry handling to the offline GIF example, with real-browser download, cleanup and cancellation checks.
-- Add a 12-repeat gradient regression study, an isolated compositing-loop probe with an identical-code control, and paired statistical reports.
-- Add opaque, mixed-alpha and translucent-gradient benchmark scenes with a reproducible before/after core comparison and actual canvas alpha checks.
-- Skip background blending for fully opaque GIF pixels while preserving composition for transparent pixels.
-- Reproducible GIF benchmarks comparing synchronous and Worker adapters across resolutions and durations, with byte equality checks, export timings, timer lag and JSON/CSV/Markdown reports.
+## 0.5.0 — 2026-11-02
+
+- Add offline video export through `/video` with caller-selected encoder/muxer factories, explicit frame/sample timing, prepared PCM, progress, bounded queues, limits and cancellation-safe resource ownership.
+- Add separate WebCodecs H.264 Baseline, AAC-LC WASM Worker and MP4 adapters. Support 44.1/48 kHz mono/stereo audio, packet-derived priming, MP4 edit lists and final sample trimming; document decoder padding behavior, timebase precision, runtime assets and bundled licenses.
+- Add recording `pause()`/`resume()`, a pause-aware `maxDurationMs`, the `finished` promise and `stopReason`, plus an audio/video browser example.
+- Add GIF `maxFramePixels`, `maxFrames` and `maxDurationMs` limits, checked before readback, with terminal cleanup and actionable retry controls in the example.
+- Skip blending for fully opaque GIF pixels. Add reproducible sync/Worker benchmarks, opacity scenes and paired gradient-regression tools/results, including measurement-noise caveats.
+- Verify actual H.264/AAC and WebM recordings, offline MP4 sample counts and A/V markers with independent FFmpeg decoding, cancellation/retry, packed TypeScript consumers and browser CI. Add a packed-package 1080×1920 H.264/AAC release smoke test.
 
 ## 0.4.1 — 2026-10-28
 

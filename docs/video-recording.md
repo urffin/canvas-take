@@ -1,6 +1,6 @@
 # Video recording verification
 
-The unreleased pause/resume and active-time limit API is described in the English and Russian README. `examples/video.html` demonstrates manual controls, automatic completion, a generated audio track, preview and download.
+The pause/resume and active-time limit API introduced in 0.5.0 is described in the English and Russian README. `examples/video.html` demonstrates manual controls, automatic completion, a generated audio track, preview and download.
 
 ## Automated checks
 

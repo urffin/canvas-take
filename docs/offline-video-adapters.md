@@ -1,4 +1,4 @@
-# Offline H.264 / AAC / MP4 adapters (unreleased)
+# Offline H.264 / AAC / MP4 adapters (since 0.5.0)
 
 The offline pipeline exports **H.264 video with optional AAC-LC audio**. The snippet below is video-only; see the [AAC guide](offline-aac.md) for prepared narration, delay, trimming, sample counts and runtime deployment. Import the controller and providers separately:
 

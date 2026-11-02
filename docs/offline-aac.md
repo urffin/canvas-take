@@ -1,4 +1,4 @@
-# Offline AAC-LC in MP4 (unreleased)
+# Offline AAC-LC in MP4 (since 0.5.0)
 
 Use the optional AAC factory with the existing controller, H.264 provider and MP4 writer:
 
@@ -75,6 +75,8 @@ Local verification on 2026-11-02: 60 Node tests passed; the complete one-worker 
 | 48 kHz A/V markers | 137,003 | 1,024 | 213 | 137,216 |
 
 Both browsers produced the same sample accounting. Correlation of the first and last signal windows in each non-padded channel found zero-sample lag. The MP4 movie/edit duration remains quantized as described above.
+
+The 0.5.0 release candidate was also installed from its tarball and served using only its installed assets (`npm run test:release-video`). A real portrait 1080×1920 H.264 Baseline/AAC MP4 contained 300 decoded frames over exactly 10 seconds and 480,000 presentation samples at 48 kHz. Native playback reached `ended`; independent decoding and a PNG frame confirmed dimensions. Priming was 1,024 samples and padding 256; four flash/tone markers at 0.5, 3, 6 and 9 seconds had 0 ms measured offset at 1 ms detector resolution. The local fixture file was 498,885 bytes; compressed bytes can vary by native encoder/backend.
 
 ## Distribution and source
 

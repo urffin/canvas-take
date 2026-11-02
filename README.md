@@ -4,7 +4,7 @@
 
 [Website](https://grundyjs.ru/en/canvas-take/) · [npm](https://www.npmjs.com/package/@grundyjs/canvas-take) · [Issues](https://github.com/urffin/canvas-take/issues)
 
-Independent TypeScript library for HTML canvas video recording with optional audio tracks and offline GIF export through a separate entry point. No external runtime dependencies or dependency on AlgiViz. ESM only, with TypeScript declarations. MIT licensed. The package does not start or draw your animation.
+Independent TypeScript library for HTML canvas recording with audio, offline H.264/AAC MP4 and GIF export through separate entry points. ESM with TypeScript declarations, no external runtime npm dependencies or dependency on AlgiViz. CanvasTake source is MIT licensed; optional adapters include [Mediabunny MPL-2.0](docs/offline-video-adapters.md#distribution-and-sources) and [AAC WASM / FFmpeg LGPL components](docs/offline-aac.md#distribution-and-source). The package does not start or draw your animation.
 
 ## Install
 
@@ -44,11 +44,11 @@ MediaRecorder WebM output may omit duration metadata: playback can work while th
 | `videoBitsPerSecond` | Optional positive finite encoder bitrate target |
 | `mimeType` | Optional explicit supported `video/webm` or `video/mp4` MIME, including codecs |
 | `audioTracks` | Optional readonly list of live audio `MediaStreamTrack`s; omitted or empty records silently |
-| `maxDurationMs` | Unreleased: optional positive safe integer; active-time budget in ms, excluding pauses |
+| `maxDurationMs` | Since 0.5.0: optional positive safe integer; active-time budget in ms, excluding pauses |
 
-`stop()` returns `{ blob, mimeType, extension, durationMs, stopReason }` (`stopReason` is unreleased). Keep the recorder in a try/finally and call `dispose()` even if your animation fails. Revoke object URLs when no longer needed.
+`stop()` returns `{ blob, mimeType, extension, durationMs, stopReason }` (`stopReason` is available since 0.5.0). Keep the recorder in a try/finally and call `dispose()` even if your animation fails. Revoke object URLs when no longer needed.
 
-### Pause, resume and active-time limit (unreleased)
+### Pause, resume and active-time limit (since 0.5.0)
 
 ```js
 const recorder = createCanvasRecorder(canvas, { fps: 30, maxDurationMs: 30_000 });
@@ -120,7 +120,7 @@ For a browser smoke test, run `node examples/server.cjs` after building and open
 
 The audio track list is copied at creation and validated again at start. CanvasTake clones the tracks at start and stops only its clones and canvas capture tracks on completion, disposal or failure. The caller owns the original tracks and AudioContext. Unexpected termination of a recorded clone fails recording. Calling `stop()` on an original track does not stop its clone; call `recorder.stop()` to finish the recording. Finishing an AudioBufferSource does not end the destination track either.
 
-## Offline video controller (unreleased)
+## Offline video controller (since 0.5.0)
 
 `@grundyjs/canvas-take/video` exports `createOfflineVideoExporter` and adapter contracts for offline frame/audio timelines. Supply separate encoder and muxer factories. Optional `/video/webcodecs` (`createWebCodecsVideoEncoder`), `/video/aac` (`createAacAudioEncoder`) and `/video/mp4` (`createMp4Muxer`) entries export real **H.264 Baseline / AAC-LC MP4**, with optional prepared PCM audio. Video requires native WebCodecs support; AAC runs in a dedicated Worker using a bundled libavcodec WASM backend, including where native AAC encoding is unavailable. Independent FFmpeg decoding checks sample counts, priming, padding and A/V timing.
 
@@ -207,9 +207,9 @@ The default Worker URL is resolved relative to the adapter module. For direct br
 
 Progress works with every encoder, not just the Worker adapter. Immutable snapshots arrive after each completed frame (`encoding`), before finishing (`finalizing`), and at `finished`, `failed`, `aborted` or unfinished `disposed`. `framesEncoded` and `durationMs` include only successfully encoded frames, using rounded GIF durations. `totalFrames` is an optional positive-integer display hint, not a limit; absent hints are omitted from events. No percentage or ETA is guessed; a full frame count does not mean finalization is complete. There is no initial event. Observer exceptions are ignored; aborting or disposing from an observer is supported. Disposing after a terminal outcome emits no additional event.
 
-The offline `examples/gif.html` demonstrates this adapter, progress and cancellation. Its limit controls (unreleased) default to the example's exact 800×450, 121-frame, 8,000 ms output, including the final hold. Empty fields omit limits. A limit error explains what to increase, restores the controls for retry, and clears any previous download/preview when a new attempt starts.
+The offline `examples/gif.html` demonstrates this adapter, progress and cancellation. Its limit controls (since 0.5.0) default to the example's exact 800×450, 121-frame, 8,000 ms output, including the final hold. Empty fields omit limits. A limit error explains what to increase, restores the controls for retry, and clears any previous download/preview when a new attempt starts.
 
-### GIF limits (unreleased)
+### GIF limits (since 0.5.0)
 
 Set optional limits on `createGifExporter`; they apply to every encoder, including the synchronous and Worker adapters:
 
@@ -270,7 +270,9 @@ The integration example was verified with an actual VP9 recording at 1920×1080.
 
 ## Development checks
 
-Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check GIF export, cancellation, a fresh export on the same page, Worker cleanup and independently decoded output. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification details](docs/gif-encoder.md#verification).
+Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC and GIF export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
+
+`npm run test:release-video` packs and installs the candidate, then exports a 10-second 1080×1920 H.264/AAC video from only the installed assets. It checks all 300 decoded frames, 480,000 presentation audio samples, playback, dimensions and four independent A/V markers. MP4 and metrics are saved under `test-results/release-video/`.
 
 GIF performance comparisons: run `npm run benchmark:gif` (or add `-- --quick` for a short run). See [benchmark methodology and reports](docs/gif-benchmark.md) for the resolution/duration matrix, timing boundaries and limitations.
 
