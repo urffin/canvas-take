@@ -108,7 +108,7 @@ test('abort/dispose interrupts a blocked native output and suppresses late callb
 test('MP4 rejects unrepresentable intervals and invalid final timelines; output budget covers headers', async () => {
     const factory = createMp4Muxer();
     await assert.rejects(factory.create({ video: config }, context({ maxOutputBytes: 1 })), /maxOutputBytes/);
-    await assert.rejects(factory.create({ video: config, audio: {} }, context()), /without audio/);
+    await assert.rejects(factory.create({ video: config, audio: {} }, context()), /MP4 audio requires/);
     const muxer = await factory.create({ video: config }, context());
     try {
         await muxer.write({ type: 'config', track: 'video', config: { ...config, description: new Uint8Array([1]),
@@ -119,7 +119,7 @@ test('MP4 rejects unrepresentable intervals and invalid final timelines; output 
 });
 
 test('separate entries keep the controller and WebCodecs provider free of bundled muxer code', async () => {
-    for (const entry of ['video', 'video-webcodecs']) {
+    for (const entry of ['video', 'video-webcodecs', 'video-aac']) {
         const result = await build({ entryPoints: [`dist/${entry}.js`], bundle: true, format:'esm',platform:'browser',write:false,metafile:true });
         assert.deepEqual(Object.keys(result.metafile.inputs), [`dist/${entry}.js`]);
     }

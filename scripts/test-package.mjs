@@ -28,6 +28,7 @@ try {
     const muxerMap = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/dist/video-mp4.js.map'), 'utf8'));
     assert.equal(muxerMap.sourcesContent.length, muxerMap.sources.length);
     assert.ok(muxerMap.sourcesContent.every(source => typeof source === 'string' && source.length > 0), 'Missing bundled MPL source text');
+    for (const file of ['dist/video-aac.js','dist/video-aac.d.ts','dist/video-aac-worker.js','dist/video-aac-worker.js.map','dist/aac-PROVENANCE.md','dist/aac-licenses/MPL-2.0.txt','dist/aac-licenses/COPYING.LGPLv2.1','dist/aac-licenses/bridge.c','docs/offline-aac.md']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing AAC file: '+file);
     await writeFile(join(workspace, 'consumer.ts'), `
 import { createCanvasRecorder, type RecorderOptions, type RecordingResult } from '@grundyjs/canvas-take';
 import { createGifExporter, type GifEncoderFactory } from '@grundyjs/canvas-take/gif';
@@ -36,6 +37,10 @@ import { createGifWorkerEncoder } from '@grundyjs/canvas-take/gif/worker';
 import { createOfflineVideoExporter, type OfflineVideoOptions } from '@grundyjs/canvas-take/video';
 import { createWebCodecsVideoEncoder } from '@grundyjs/canvas-take/video/webcodecs';
 import { createMp4Muxer } from '@grundyjs/canvas-take/video/mp4';
+import { createAacAudioEncoder, type AacEncoderOptions } from '@grundyjs/canvas-take/video/aac';
+const aacOptions: AacEncoderOptions = { timeoutMs:30000, workerUrl:new URL('./aac-worker.js',import.meta.url) };
+const aac = createAacAudioEncoder(aacOptions);
+if ((await aac.checkSupport({codec:'mp4a.40.2',bitstreamFormat:'aac',sampleRate:48000,numberOfChannels:1,bitrate:128000})).supported) throw new Error('Unexpected browser Worker in Node');
 const nativeVideo = createWebCodecsVideoEncoder();
 const mp4 = createMp4Muxer();
 const avcConfig = { codec: 'avc1.42E01F', bitstreamFormat: 'avc', width: 2, height: 2, bitrate: 1000 };

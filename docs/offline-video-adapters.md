@@ -1,6 +1,6 @@
-# Offline H.264 / MP4 adapters (unreleased)
+# Offline H.264 / AAC / MP4 adapters (unreleased)
 
-The first real offline pipeline exports **video without audio**. Import the controller and providers separately:
+The offline pipeline exports **H.264 video with optional AAC-LC audio**. The snippet below is video-only; see the [AAC guide](offline-aac.md) for prepared narration, delay, trimming, sample counts and runtime deployment. Import the controller and providers separately:
 
 ```js
 import { createOfflineVideoExporter } from '@grundyjs/canvas-take/video';
@@ -33,11 +33,11 @@ try {
 The caller supplies `canvas`, `drawFrame` and `signal`. Native codec support depends on the browser, OS and configuration. Use localhost or HTTPS; initialization checks the exact configuration and rejects unsupported choices. It never silently selects another codec or container. The controller still accepts other independently implemented factories.
 
 For a runnable preview/download UI, build, run `node examples/server.cjs`, and open
-`http://127.0.0.1:3012/canvas-take/examples/offline-video.html`. It renders 120 portrait frames, then holds the last frame until five seconds. Cancellation releases the session; the next export creates fresh providers. Starting another export clears and revokes the previous preview URL.
+`http://127.0.0.1:3012/canvas-take/examples/offline-video.html`. It renders 120 portrait frames, then holds the last frame until five seconds; an optional generated AAC tone covers the same timeline. Cancellation releases the session; the next export creates fresh providers. Starting another export clears and revokes the previous preview URL.
 
 ## WebCodecs video profile
 
-`createWebCodecsVideoEncoder()` implements `VideoEncoderFactory`. This initial profile accepts explicit H.264 Baseline codec strings (`avc1.42xxxx`), AVC packet framing, positive even dimensions and an explicit bitrate. High/Main profiles, Annex B, other codecs, alpha and HDR are rejected. No audio encoder is included. A `checkSupport` success is a native capability check, not a guarantee that later allocation/output succeeds; incompatible decoder descriptions fail during export.
+`createWebCodecsVideoEncoder()` implements `VideoEncoderFactory`. This initial profile accepts explicit H.264 Baseline codec strings (`avc1.42xxxx`), AVC packet framing, positive even dimensions and an explicit bitrate. High/Main profiles, Annex B, other codecs, alpha and HDR are rejected. The AAC audio factory is a separate optional import. A `checkSupport` success is a native capability check, not a guarantee that later allocation/output succeeds; incompatible decoder descriptions fail during export.
 
 The provider uses native **quality** mode, which does not permit frame dropping. Baseline excludes B pictures, and the adapter checks the returned avcC profile as well as packet timestamps/keys. It drains the native encoder after each input and waits for output consumption before accepting another frame. This intentionally favors bounded memory and deterministic timing over maximum encoding throughput. This native drain does not end the adapter track: only the adapter's final `flush()` emits `end`. It creates one temporary VideoFrame per input and closes it immediately after native encode submission.
 
@@ -47,7 +47,7 @@ The input snapshot is opaque sRGB RGBA8. Its native VideoFrame declares BT.709 p
 
 ## MP4 writer and timeline precision
 
-`createMp4Muxer()` implements `MuxerFactory`, using bundled Mediabunny 1.65.0. It accepts Baseline AVC video and explicitly rejects audio. Decoder descriptions, packet bytes and actual color metadata pass through to the container. The result is a regular MP4 with `moov` after `mdat`, rather than fragmented MP4 or an in-memory fast-start layout. No reencoding occurs in the writer.
+`createMp4Muxer()` implements `MuxerFactory`, using bundled Mediabunny 1.65.0. It accepts Baseline AVC video and optional AAC-LC audio at 44.1/48 kHz, mono/stereo. Audio descriptions and sample-unit accounting pass through the [AAC protocol](offline-aac.md); unsupported formats are rejected. Decoder descriptions, packet bytes and actual color metadata pass through to the container. The result is a regular MP4 with `moov` after `mdat`, rather than fragmented MP4 or an in-memory fast-start layout. No reencoding occurs in the writer.
 
 The pinned writer uses a **57,600 Hz movie/track timescale** without a `frameRate` track option. A frame-rate hint configures encoding only; it must not snap variable intervals in the muxer. The adapter rounds **absolute** microsecond boundaries to ticks and subtracts adjacent tick positions. This preserves the final hold and prevents accumulated rounding drift at fractional rates. Timeline endpoints differ from requested time by at most half a tick (about 8.68 µs), while individual intervals can differ by up to one tick (about 17.36 µs). Positive intervals that collapse to zero ticks, or intervals exceeding the MP4 sample-duration field, are rejected. Result `durationUs` remains the requested timeline; container time is the quantized value.
 
@@ -73,9 +73,9 @@ Both browsers produced these independently measured timelines:
 | 30000/1001 + final hold, fast | 61 | 2,502,001 | 144,115 | −4.4722 |
 | Same timeline, delayed rendering | 61 | 2,502,001 | 144,115 | −4.4722 |
 
-The full Node suite passed 56 tests. The final complete browser run with one worker passed 34 tests and skipped four older MediaRecorder MP4/audio cases unavailable in Firefox. An earlier two-worker run completed all new checks but hit a Firefox `Browser.removeBrowserContext` teardown error after a successful GIF export; the complete single-worker rerun passed without library changes. Local MP4s and inspection JSON are saved under `test-results/`; CI collects them through the existing browser artifact upload.
+Before AAC integration, the Node suite passed 56 tests. That complete browser run with one worker passed 34 tests and skipped four older MediaRecorder MP4/audio cases unavailable in Firefox. An earlier two-worker run completed all new checks but hit a Firefox `Browser.removeBrowserContext` teardown error after a successful GIF export; the complete single-worker rerun passed without library changes. Local MP4s and inspection JSON are saved under `test-results/`; CI collects them through the existing browser artifact upload.
 
-FFmpeg is a development/test dependency only. Decoding uses FFmpeg's independent MP4/H.264 implementation, not Mediabunny's reader. Native codec output bytes may vary across backends; timeline equality and decodability are the assertions. AAC priming/trimming, real offline audio, WebM and higher-throughput native scheduling remain separate future work. This step does not establish a complete narrated Shorts export pipeline.
+The independent FFmpeg executable remains a development/test dependency. The new optional AAC Worker includes a separate pinned libavcodec WASM encoder at runtime; see its [licenses, provenance and sample-count verification](offline-aac.md). Native video bytes may vary across backends; timeline equality and decodability are the assertions. Real AAC/MP4 priming, padding and A/V are now tested. WebM and higher-throughput scheduling remain future work.
 
 ## Distribution and sources
 

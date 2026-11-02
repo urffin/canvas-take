@@ -2,11 +2,12 @@
 <meta charset="utf-8">
 <title>CanvasTake offline MP4 export</title>
 <h1>Offline MP4 video</h1>
-<p>Renders a four-second portrait animation with a one-second final hold, without audio.
+<p>Renders a four-second portrait animation with a one-second final hold and optional AAC audio.
 Export speed does not change playback timing. Requires WebCodecs H.264 support on localhost or HTTPS.</p>
 <form>
 <label>H.264 Baseline codec <input id="codec" value="avc1.42E01F" required></label>
 <label>Bitrate <input id="bitrate" type="number" min="1" step="1" value="2000000" required></label>
+<label><input id="audio" type="checkbox" checked>Include generated tone (AAC)</label>
 <button id="export">Export MP4</button>
 <button id="cancel" type="button" disabled>Cancel</button>
 </form>
@@ -18,6 +19,7 @@ Export speed does not change playback timing. Requires WebCodecs H.264 support o
 import { createOfflineVideoExporter } from '../dist/video.js';
 import { createWebCodecsVideoEncoder } from '../dist/video-webcodecs.js';
 import { createMp4Muxer } from '../dist/video-mp4.js';
+import { createAacAudioEncoder } from '../dist/video-aac.js';
 const $ = selector => document.querySelector(selector);
 const canvas = $('canvas'), ctx = canvas.getContext('2d'), preview = $('video');
 const status = $('#status'), form = $('form'), download = $('#download');
@@ -31,13 +33,18 @@ $('#cancel').onclick = () => controller?.abort();
 form.onsubmit = async event => {
     event.preventDefault(); if (controller || !form.reportValidity()) return;
     clearPreview(); controller = new AbortController();
-    $('#export').disabled = $('#codec').disabled = $('#bitrate').disabled = true; $('#cancel').disabled = false;
+    $('#export').disabled = $('#codec').disabled = $('#bitrate').disabled = $('#audio').disabled = true; $('#cancel').disabled = false;
     try {
+        const sampleRate=48000, pcm=new Float32Array(sampleRate*5);
+        if($('#audio').checked)for(let i=0;i<pcm.length;i++)pcm[i]=0.2*Math.sin(i*2*Math.PI*440/sampleRate);
         exporter = await createOfflineVideoExporter({
             video: { encoder: createWebCodecsVideoEncoder(), config: {
                 codec: $('#codec').value, bitstreamFormat: 'avc', width: canvas.width, height: canvas.height,
                 bitrate: $('#bitrate').valueAsNumber, frameRateHint: { numerator: 30, denominator: 1 }
-            } }, muxer: createMp4Muxer(), signal: controller.signal,
+            } }, ...($('#audio').checked?{audio:{encoder:createAacAudioEncoder(),
+                config:{codec:'mp4a.40.2',bitstreamFormat:'aac',sampleRate,numberOfChannels:1,bitrate:128000},
+                source:{sampleRate,channels:[pcm]},endPolicy:'error'}}:{}),
+            muxer: createMp4Muxer(), signal: controller.signal,
             totalFrames: 120, maxFrames: 120, maxDurationUs: 5_000_000, maxOutputBytes: 32_000_000,
             onProgress(p) { status.textContent = `${p.phase}: ${p.framesAccepted}/120 frames, ${(p.durationUs / 1e6).toFixed(3)} s`; }
         });
@@ -57,7 +64,7 @@ form.onsubmit = async event => {
         status.textContent = controller.signal.aborted ? 'Cancelled' : `${error.message}${cause}`;
     } finally {
         exporter?.dispose(); exporter = undefined; controller = undefined;
-        $('#export').disabled = $('#codec').disabled = $('#bitrate').disabled = false; $('#cancel').disabled = true;
+        $('#export').disabled = $('#codec').disabled = $('#bitrate').disabled = $('#audio').disabled = false; $('#cancel').disabled = true;
     }
 };
 addEventListener('pagehide', () => { controller?.abort(); exporter?.dispose(); clearPreview(); });

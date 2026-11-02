@@ -14,9 +14,16 @@
     "docs/video-recording.md",
     "docs/offline-video-api.md",
     "docs/offline-video-adapters.md",
+    "docs/offline-aac.md",
     "docs/drafts"
   ],
   "exports": {
+    "./video/aac": {
+      "types": "./dist/video-aac.d.ts",
+      "import": "./dist/video-aac.js",
+      "default": "./dist/video-aac.js"
+    },
+    "./video/aac-worker": "./dist/video-aac-worker.js",
     "./video/webcodecs": {
       "types": "./dist/video-webcodecs.d.ts",
       "import": "./dist/video-webcodecs.js",
@@ -65,6 +72,7 @@
     "benchmark:gif": "npm run build && node scripts/benchmark-gif.mjs"
   },
   "devDependencies": {
+    "@mediabunny/aac-encoder": "1.65.0",
     "@playwright/test": "1.64.1",
     "esbuild": "0.28.2",
     "ffmpeg-static": "5.3.0",

@@ -197,10 +197,11 @@ CanvasTake клонирует дорожки при start и при заверш
 
 `@grundyjs/canvas-take/video` содержит `createOfflineVideoExporter` и контракты
 подключаемых видео-/аудиокодировщиков и упаковщика контейнера. Отдельные импорты
-`/video/webcodecs` (`createWebCodecsVideoEncoder`) и `/video/mp4` (`createMp4Muxer`)
-теперь создают реальный **MP4 H.264 Baseline без аудио**. Готовые файлы проверяются
-независимым FFmpeg-декодером. Нужна поддержка WebCodecs браузером; настоящий
-офлайн-аудиокодировщик пока не добавлен.
+`/video/webcodecs` (`createWebCodecsVideoEncoder`), `/video/aac` (`createAacAudioEncoder`)
+и `/video/mp4` (`createMp4Muxer`) создают реальный **MP4 H.264 Baseline / AAC-LC**.
+Видео требует WebCodecs; AAC кодируется в отдельном Worker через встроенный
+libavcodec WASM, включая браузеры без нативного AAC-кодировщика. Подготовленный PCM
+необязателен. Файлы, задержка, обрезка и A/V проверяются независимым FFmpeg-декодером.
 
 ```js
 import { createOfflineVideoExporter } from '@grundyjs/canvas-take/video';
@@ -225,7 +226,9 @@ flush, отмену и лимиты. [Реальные адаптеры и то�
 содержат рабочий пример API; [браузерный пример](../examples/offline-video.html) позволяет
 экспортировать, отменить и скачать MP4. Упаковщик округляет абсолютные границы кадров
 до шкалы 57 600 Гц: дробная частота и финальное удержание проверены без накопления
-ошибки. Аудио первый MP4-адаптер отклоняет явно.
+ошибки. [AAC: задержка и число сэмплов](../docs/offline-aac.md) описывает проверку
+44,1/48 кГц, mono/stereo, priming и padding. Длительность представления MP4 исключает
+AAC padding; при выводе полных AAC-кадров в сырой PCM нужно применять конечную границу контейнера.
 
 ## Покадровый экспорт GIF
 

@@ -116,7 +116,7 @@ test('real codec cancellation and MP4 size failure close resources; a fresh expo
     });
     if (result.unsupported) { expect(testInfo.project.name, result.unsupported).not.toBe('chromium'); test.skip(true, result.unsupported); }
     expect(result.outcomes[0]).toContain('requested stop'); expect(result.outcomes[1]).toContain('maxOutputBytes'); expect(result.outcomes[2]).toBe('retry:ok');
-    expect(result.states).toEqual(['closed','closed','closed']); expect(result.unsupportedAudio.supported).toBe(false);
+    expect(result.states).toEqual(['closed','closed','closed']); expect(result.unsupportedAudio.supported).toBe(true);
 });
 
 test('offline example exports a playable five-second file and clears stale output on a failed retry', async ({ page }, testInfo) => {

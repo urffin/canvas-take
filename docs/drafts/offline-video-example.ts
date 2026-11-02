@@ -1,10 +1,13 @@
-// Compile-only usage example. Concrete codec/container providers are placeholders.
+// Compile-only usage example; the caller supplies the canvas, renderer and prepared narration.
 import { createOfflineVideoExporter } from '@grundyjs/canvas-take/video';
-import type { VideoEncoderFactory, AudioEncoderFactory, MuxerFactory, PreparedAudio } from '@grundyjs/canvas-take/video';
+import type { PreparedAudio } from '@grundyjs/canvas-take/video';
+import { createWebCodecsVideoEncoder } from '@grundyjs/canvas-take/video/webcodecs';
+import { createAacAudioEncoder } from '@grundyjs/canvas-take/video/aac';
+import { createMp4Muxer } from '@grundyjs/canvas-take/video/mp4';
 
-declare const videoEncoder: VideoEncoderFactory;
-declare const audioEncoder: AudioEncoderFactory;
-declare const mp4Muxer: MuxerFactory;
+const videoEncoder = createWebCodecsVideoEncoder();
+const audioEncoder = createAacAudioEncoder();
+const mp4Muxer = createMp4Muxer();
 declare const canvas: HTMLCanvasElement;
 declare const narration: PreparedAudio;
 declare function drawFrame(index: number): void;

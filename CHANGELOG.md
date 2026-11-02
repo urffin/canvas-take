@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add a dedicated AAC-LC WASM Worker adapter and optional audio in offline MP4, with packet-derived encoder delay, priming edit lists, final-sample trimming, 44.1/48 kHz mono/stereo and independent sample-count/correlation/A-V tests. Document raw decoder padding behavior and bundled WASM licensing/provenance.
 - Add separate WebCodecs H.264 Baseline and Mediabunny MP4 adapters for silent offline video, with absolute-boundary timestamp quantization, bounded native output, output-size checks, a browser example and independent FFmpeg decoding/timeline tests. Offline audio is not yet supported by these adapters.
 - Add the adapter-neutral `/video` offline controller with explicit frame/sample timing, bounded packet queues, PCM trim/pad, cancellation-safe initialization/finalization and fixture-based Node/browser/package tests. Concrete encoders and container writers remain future work.
 - Add video pause/resume, a pause-aware `maxDurationMs` budget, a `finished` promise and `stopReason`, with active-time accounting, terminal cleanup, a video example and real-browser audio/video playback tests.
