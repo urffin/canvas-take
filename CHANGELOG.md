@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.6.0 — 2026-11-05
 
 - Cooperative GIF alpha composition with cancellation between chunks, owned snapshot/task cleanup and unchanged encoder contracts.
 - Paired preparation latency/scheduler benchmarks, retained-exporter GC checks and real-browser cancellation/retry coverage.
@@ -8,8 +8,8 @@
 - Explicit Opus pre-skip/CodecDelay and final DiscardPadding, microsecond WebM video timing and staging limits.
 - Real browser/independent decoder verification, separate public entries and a selectable MP4/WebM example.
 - MP4/WebM discard late sink writes after size failure or abort, preserving the original error without an extra asynchronous stream-close failure.
-
-## Unreleased
+- Reproducible GIF memory/cancellation benchmarks and reports, with explicit measurement limits and Worker cleanup checks.
+- Verify installed release assets with real H.264/AAC MP4, VP8/Opus WebM and both GIF adapters, including independent decoding and timeline/sample checks.
 
 ## 0.5.0 — 2026-11-02
 

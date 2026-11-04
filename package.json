@@ -1,7 +1,7 @@
 {
   "name": "@grundyjs/canvas-take",
-  "version": "0.5.0",
-  "description": "Record canvas video with audio and export offline H.264/AAC MP4 or GIF with pluggable encoders, Worker support and explicit resource cleanup",
+  "version": "0.6.0",
+  "description": "Record canvas video with audio and export offline H.264/AAC MP4, VP8/Opus WebM or GIF with pluggable encoders, Worker support and explicit resource cleanup",
   "type": "module",
   "files": [
     "dist",
@@ -115,6 +115,9 @@
     "webcodecs",
     "mp4",
     "aac",
+    "webm",
+    "vp8",
+    "opus",
     "offline-video"
   ],
   "sideEffects": false,

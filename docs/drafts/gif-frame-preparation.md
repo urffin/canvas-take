@@ -3,7 +3,7 @@
 Status: Path A implemented locally, Path B remains a proposal, 2026-11-04. Based on commit `fe2f6f3`
 and the [memory/cancellation report](../gif-memory-benchmark.md). The follow-up
 [preparation comparison](../gif-preparation-benchmark.md) records implementation measurements.
-Public API, package version and codec algorithms stay unchanged.
+The public GIF API and codec algorithms stay unchanged. Path A is included in release 0.6.0.
 
 ## Decision
 

@@ -4,7 +4,7 @@
 
 [Website](https://grundyjs.ru/en/canvas-take/) · [npm](https://www.npmjs.com/package/@grundyjs/canvas-take) · [Issues](https://github.com/urffin/canvas-take/issues)
 
-Independent TypeScript library for HTML canvas recording with audio, offline H.264/AAC MP4 and GIF export through separate entry points. ESM with TypeScript declarations, no external runtime npm dependencies or dependency on AlgiViz. CanvasTake source is MIT licensed; optional adapters include [Mediabunny MPL-2.0](docs/offline-video-adapters.md#distribution-and-sources) and [AAC WASM / FFmpeg LGPL components](docs/offline-aac.md#distribution-and-source). The package does not start or draw your animation.
+Independent TypeScript library for HTML canvas recording with audio, offline H.264/AAC MP4, VP8/Opus WebM and GIF export through separate entry points. ESM with TypeScript declarations, no external runtime npm dependencies or dependency on AlgiViz. CanvasTake source is MIT licensed; optional adapters include [Mediabunny MPL-2.0](docs/offline-video-adapters.md#distribution-and-sources) and [AAC WASM / FFmpeg LGPL components](docs/offline-aac.md#distribution-and-source). The package does not start or draw your animation.
 
 ## Install
 
@@ -122,11 +122,11 @@ The audio track list is copied at creation and validated again at start. CanvasT
 
 ## Offline video controller (since 0.5.0)
 
-Unreleased additions after 0.5.0: the same controller supports explicit **VP8/Opus WebM** through
+Since 0.6.0, the same controller supports explicit **VP8/Opus WebM** through
 `createWebmMuxer` from `/video/webm`, native `createWebCodecsAudioEncoder` from `/video/opus`
 and VP8 in `/video/webcodecs`. Audio is optional, 48 kHz mono/stereo; CodecDelay and final
 DiscardPadding preserve presentation samples. See the [WebM guide](docs/offline-webm.md).
-These entries are not included in the published 0.5.0 package.
+Use version 0.6.0 or later for these entries.
 Native/raw decoders have documented [leading-trim and endpoint-rounding limits](docs/offline-webm.md#independent-verification); container sample accounting remains explicit.
 
 `@grundyjs/canvas-take/video` exports `createOfflineVideoExporter` and adapter contracts for offline frame/audio timelines. Supply separate encoder and muxer factories. Optional `/video/webcodecs` (`createWebCodecsVideoEncoder`), `/video/aac` (`createAacAudioEncoder`) and `/video/mp4` (`createMp4Muxer`) entries export real **H.264 Baseline / AAC-LC MP4**, with optional prepared PCM audio. Video requires native WebCodecs support; AAC runs in a dedicated Worker using a bundled libavcodec WASM backend, including where native AAC encoding is unavailable. Independent FFmpeg decoding checks sample counts, priming, padding and A/V timing.
@@ -284,7 +284,7 @@ The integration example was verified with an actual VP9 recording at 1920×1080.
 
 Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC and GIF export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 
-`npm run test:release-video` packs and installs the candidate, then exports a 10-second 1080×1920 H.264/AAC video from only the installed assets. It checks all 300 decoded frames, 480,000 presentation audio samples, playback, dimensions and four independent A/V markers. MP4 and metrics are saved under `test-results/release-video/`.
+`npm run test:release-video` packs and installs the candidate, then exports a 10-second 1080×1920 H.264/AAC video from only the installed assets. It checks all 300 decoded frames, 480,000 presentation audio samples, playback, dimensions and four independent A/V markers. It also verifies VP8/Opus WebM with exact samples, a final frame hold and A/V markers, plus byte-identical sync/Worker GIFs after cancellation/retry. Files and metrics are saved under `test-results/release-video/`.
 
 GIF performance comparisons: run `npm run benchmark:gif` (or add `-- --quick` for a short run). See [benchmark methodology and reports](docs/gif-benchmark.md) for the resolution/duration matrix, timing boundaries and limitations.
 

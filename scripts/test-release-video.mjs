@@ -1,4 +1,4 @@
-// Release smoke test: install the tarball, serve only its assets, encode full-HD portrait H.264/AAC.
+// Release smoke test: installed assets only, full-HD H.264/AAC, VP8/Opus and both GIF adapters.
 import {mkdtemp,mkdir,readFile,writeFile,realpath,rm,readdir} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {resolve,join,dirname,relative,isAbsolute} from 'node:path';
@@ -9,6 +9,7 @@ import assert from 'node:assert/strict';
 import {chromium} from '@playwright/test';
 import ffmpeg from 'ffmpeg-static';
 import {readAudioLayout,decodeOfflineAudio,toneStarts} from '../test/browser/helpers/offline-audio.mjs';
+import {verifyPackedFormats} from './lib/release-formats.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'),npm=process.env.npm_execpath;
 if(!npm)throw new Error('Use npm run test:release-video');
@@ -25,7 +26,7 @@ try{
     console.log('Packed candidate installed; starting Chromium');
     const pkg=JSON.parse(await readFile(join(installed,'package.json'),'utf8'));
     const candidate=JSON.parse(await readFile(join(root,'package.json'),'utf8'));assert.equal(pkg.version,candidate.version);
-    const names=new Set(['video.js','video-webcodecs.js','video-mp4.js','video-aac.js','video-aac-worker.js']);
+    const names=new Set(['video.js','video-webcodecs.js','video-mp4.js','video-aac.js','video-aac-worker.js','video-webm.js','video-opus.js','gif.js','gifenc.js','gif-worker.js','gif-worker-runtime.js']);
     for(const name of await readdir(join(installed,'dist')))if(/^video-container-[A-Z0-9]+\.js$/.test(name))names.add(name);
     server=createServer(async(req,res)=>{
         const path=new URL(req.url,'http://localhost').pathname;
@@ -35,7 +36,8 @@ try{
         if(!path.startsWith('/package/')||!names.has(name)){res.writeHead(404).end();return;}
         try{res.writeHead(200,{'Content-Type':'text/javascript'}).end(await readFile(join(installed,'dist',name)));}catch{res.writeHead(404).end();}
     }).listen(0,'127.0.0.1');await new Promise(r=>server.on('listening',r));
-    browser=await chromium.launch();const page=await browser.newPage();
+    browser=await chromium.launch();const page=await browser.newPage(),errors=[];
+    page.on('pageerror',error=>errors.push(error.message));
     page.on('console',message=>{if(message.type()==='log')console.log(message.text());});
     await page.goto('http://127.0.0.1:'+server.address().port);
     const result=await page.evaluate(async()=>{
@@ -89,6 +91,15 @@ try{
     assert.equal(image.readUInt32BE(16),1080);assert.equal(image.readUInt32BE(20),1920);await writeFile(join(output,'first-frame.png'),image);
     const metrics={version:pkg.version,package:packed.filename,bytes:bytes.length,video:result.metadata,frames:result.frames,samples:result.samples,layout,avShiftsMs:shifts};
     await writeFile(join(output,'metrics.json'),JSON.stringify(metrics,null,2));console.log(JSON.stringify(metrics,null,2));
+    await verifyPackedFormats(page,output);
+    const cdp=await browser.newBrowserCDPSession();
+    for(let i=0;i<100;i++){
+        if(!(await cdp.send('Target.getTargets')).targetInfos.some(t=>t.type==='worker'))break;
+        await new Promise(r=>setTimeout(r,20));
+    }
+    assert.ok(!(await cdp.send('Target.getTargets')).targetInfos.some(t=>t.type==='worker'),'Packed export left a Worker alive');
+    assert.deepEqual(errors,[],'Packed export page errors');
+    console.log('Packed MP4/WebM/GIF checks passed; no live Worker targets');
 }finally{
     await browser?.close();if(server)await new Promise(r=>server.close(r));
     const parent=await realpath(tmpdir()),target=await realpath(workspace),child=relative(parent,target);

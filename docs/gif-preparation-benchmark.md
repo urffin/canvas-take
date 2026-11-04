@@ -1,6 +1,7 @@
 # Cooperative GIF preparation: latency comparison
 
-Status: implemented locally, not released. Public API and package version remain unchanged.
+Included in version 0.6.0 with the existing public GIF API. Measurements below were recorded
+on the development tree at version 0.5.0 before release preparation.
 This report compares the controller at `fe2f6f397a311e3b70ea4aae05840ba144a9b2b3`
 with cooperative alpha composition. Preparation in the encoder Worker is still a
 [separate proposal](drafts/gif-frame-preparation.md).
@@ -174,7 +175,8 @@ and a synthetic clock make the functional boundary deterministic; they are not l
 
 Validation: 78 Node tests, 18 GIF browser tests across Chromium/Firefox, the isolated packed
 TypeScript/runtime consumer and Next.js/Turbopack production build passed. Generated public GIF
-declarations match the baseline; package and lockfile versions remain 0.5.0.
+declarations matched the baseline; the measurement candidate used package/lock version 0.5.0.
+Release 0.6.0 includes this implementation with the same public GIF contract.
 
 The next separate stage is raw-RGBA preparation in the existing Worker. No codec changes,
 public scheduling knobs, protocol negotiation or new release are included in this implementation.

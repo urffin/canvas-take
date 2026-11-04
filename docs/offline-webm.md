@@ -1,7 +1,7 @@
-# Offline VP8 / Opus / WebM (unreleased)
+# Offline VP8 / Opus / WebM (since 0.6.0)
 
 The same offline controller can export VP8 video with optional prepared Opus audio.
-These additions are local development after 0.5.0; they are not in the published 0.5.0 package.
+VP8/Opus providers and the WebM muxer are available from version 0.6.0.
 Providers are explicit and replaceable; unsupported native configurations reject without switching formats.
 
 ```js
