@@ -25,6 +25,7 @@ const baselineSource = compare ? ts.transpileModule(execFileSync('git', ['show',
     { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 } }).outputText : undefined;
 const routes = new Map([
     ['/', new URL('../benchmarks/gif.html', import.meta.url)],
+    ['/benchmarks/gif-scene.mjs', new URL('../benchmarks/gif-scene.mjs', import.meta.url)],
     ...['gif.js', 'gifenc.js', 'gif-worker.js', 'gif-worker-runtime.js'].map(name =>
         [`/dist/${name}`, new URL(`../dist/${name}`, import.meta.url)])
 ]);

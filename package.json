@@ -11,6 +11,7 @@
     "CHANGELOG.md",
     "docs/gif-encoder.md",
     "docs/gif-benchmark.md",
+    "docs/gif-memory-benchmark.md",
     "docs/video-recording.md",
     "docs/offline-video-api.md",
     "docs/offline-video-adapters.md",
@@ -81,7 +82,8 @@
     "test:release-video": "node scripts/test-release-video.mjs",
     "test:next": "node scripts/test-next.mjs",
     "test:browser": "npm run build && playwright test",
-    "benchmark:gif": "npm run build && node scripts/benchmark-gif.mjs"
+    "benchmark:gif": "npm run build && node scripts/benchmark-gif.mjs",
+    "benchmark:gif:lifecycle": "npm run build && node scripts/benchmark-gif-lifecycle.mjs"
   },
   "devDependencies": {
     "@mediabunny/aac-encoder": "1.65.0",

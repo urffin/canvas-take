@@ -1,0 +1,11 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {join,resolve} from 'node:path';
+import {validateResources,summarize,markdownReport} from './lib/gif-lifecycle-metrics.mjs';
+const directory=process.argv[2];
+if(!directory||process.argv.length!==3)throw new Error('Usage: node scripts/analyze-gif-lifecycle.mjs <result-directory>');
+const report=JSON.parse(await readFile(join(directory,'results.json'),'utf8'));
+for(const row of report.rows)validateResources(row);
+report.summary=summarize(report.rows);
+await writeFile(join(directory,'analysis.json'),JSON.stringify({metadata:report.metadata,status:report.status,calibration:report.calibration,summary:report.summary},null,2));
+await writeFile(join(directory,'summary.md'),markdownReport(report));
+console.log(`${report.status}: ${report.rows.length} checked cases. Report: ${resolve(directory,'summary.md')}`);

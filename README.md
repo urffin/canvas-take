@@ -283,6 +283,8 @@ Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an
 
 GIF performance comparisons: run `npm run benchmark:gif` (or add `-- --quick` for a short run). See [benchmark methodology and reports](docs/gif-benchmark.md) for the resolution/duration matrix, timing boundaries and limitations.
 
+For process memory, cancellation delivery/settlement and repeated-session cleanup, run `npm run benchmark:gif:lifecycle` (smoke: add `-- --quick`). See the separate [memory and cancellation report](docs/gif-memory-benchmark.md), including Worker/native-memory coverage, GC controls and measurement limits.
+
 Use `npm run benchmark:gif -- --compare-opacity` to compare the pre-optimization core with the current core on opaque, mixed-alpha and translucent-gradient scenes.
 
 ## Release

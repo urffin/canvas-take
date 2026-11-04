@@ -1,5 +1,8 @@
 # GIF adapter benchmark
 
+Process memory, cancellation latency and repeated-export cleanup have a separate
+[lifecycle benchmark and report](gif-memory-benchmark.md): `npm run benchmark:gif:lifecycle`.
+
 Install dependencies and Chromium (`npm ci`, `npx playwright install chromium`), then run:
 
 ```sh
