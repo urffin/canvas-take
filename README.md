@@ -186,6 +186,11 @@ try {
 
 `addFrame(canvas, durationMs)` snapshots a 2D HTMLCanvasElement or OffscreenCanvas immediately, then yields before encoding. Await each call before another frame or `finish()`. All frames must have identical positive dimensions (GIF limit 65535 per axis). Durations must be finite and between 10 and 655350 ms; they are rounded to the nearest 10 ms. GIF players may clamp short delays; 50 ms is a practical timeline step. The drawing time and encoding wall time do not affect the GIF duration. The canvas remains caller-owned and unmodified. Tainted canvases fail with the readback error.
 
+Alpha composition runs in cooperative chunks, allowing cancellation during preparation. Internal tasks
+target about 4 ms, using MessageChannel between chunks with a timer fallback. This is not a wall-clock
+deadline: the full snapshot/copy and synchronous codec calls remain uninterrupted. Abort/disposal clears
+pending preparation tasks and releases its owned snapshot without submitting a partial frame.
+
 `finish()` requires at least one frame, returns a Blob and releases the encoder. Each exporter produces one GIF. `dispose()` is idempotent, cancels pending work and releases encoder resources. Invalid frame data, changed dimensions and encoder errors make the exporter terminal. Concurrent calls are rejected without cancelling the ongoing operation. State is `ready`, `encoding`, `finished`, `failed`, `aborted` or `disposed`.
 
 The built-in adapter incrementally encodes full frames with individual palettes, retaining compressed output rather than all raw frames. It performs synchronous work per frame on the calling thread, with cancellation serviced between frames. For expensive frames, use the ready-made `/gif/worker` adapter, run with OffscreenCanvas in a Worker or supply an asynchronous Worker adapter; there is no automatic Worker pool. GIF bytes and the final Blob consume memory, so callers should bound dimensions and frame count. File size depends on visual complexity; an 800 px, 6–10 second animation is a target, not a guaranteed 2–3 MB output.
@@ -284,6 +289,10 @@ Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an
 GIF performance comparisons: run `npm run benchmark:gif` (or add `-- --quick` for a short run). See [benchmark methodology and reports](docs/gif-benchmark.md) for the resolution/duration matrix, timing boundaries and limitations.
 
 For process memory, cancellation delivery/settlement and repeated-session cleanup, run `npm run benchmark:gif:lifecycle` (smoke: add `-- --quick`). See the separate [memory and cancellation report](docs/gif-memory-benchmark.md), including Worker/native-memory coverage, GC controls and measurement limits.
+
+Run `npm run benchmark:gif:preparation` for paired comparisons against the pre-chunking controller
+(`-- --tune` compares schedulers/budgets; `-- --quick` is a smoke run). See the
+[preparation latency report](docs/gif-preparation-benchmark.md) for results and timing boundaries.
 
 Use `npm run benchmark:gif -- --compare-opacity` to compare the pre-optimization core with the current core on opaque, mixed-alpha and translucent-gradient scenes.
 

@@ -2,6 +2,9 @@ import { build } from 'esbuild';
 import { copyFile, mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { patchWebmMuxer } from './webm-muxer-patch.mjs';
+// Inline internal preparation helpers; keep the public controller entry standalone and codec-free.
+await build({ entryPoints: ['src/gif.ts'], outfile: 'dist/gif.js', bundle: true,
+    format: 'esm', platform: 'browser', target: 'es2022' });
 await build({ entryPoints: ['src/gifenc.ts'], outfile: 'dist/gifenc.js', bundle: true,
     format: 'esm', platform: 'browser', target: 'es2022', minify: true,
     banner: { js: '/*! Includes gifenc (MIT). See gifenc-LICENSE.txt. */' } });

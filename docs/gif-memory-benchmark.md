@@ -174,6 +174,12 @@ preserving output and snapshot ownership. The data does not justify changing enc
 claiming that Worker minimizes memory. No production optimization or public API change is part of
 this benchmark task.
 
+The follow-up [frame preparation design draft](drafts/gif-frame-preparation.md) compares
+cooperative composition with preparation in the existing encoder Worker. It specifies snapshot
+ownership, compatibility, cancellation and measurement gates. Cooperative preparation was implemented
+after this measurement; see its separate [comparison report](gif-preparation-benchmark.md). Raw-RGBA
+preparation in the encoder Worker remains a proposal. The historical measurements above are unchanged.
+
 Full raw checkpoints/samples, scalar CSV, independently decoded GIF fixtures and the generated report
 are saved locally in `benchmark-results/gif-lifecycle-2026-11-04T16-17-46-575Z/`. These raw artifacts
 are ignored by Git, following the existing benchmark convention. The tables above preserve the recorded

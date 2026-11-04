@@ -23,13 +23,27 @@ Measured emitted files in release 0.3.0 (uncompressed / gzip, before Worker/prog
 
 The adapter is bundled at build time; gifenc, esbuild and the test decoder are development dependencies. Consumers install no additional runtime packages. Bundle-graph tests verify that each entry is standalone. Packed-consumer tests import all three public entries, compile their types and produce GIF bytes after installing the tarball in an isolated project.
 
-The supplied adapter runs on the calling thread. The controller snapshots pixels before its first yield and yields before each frame, allowing UI cancellation between frames. It cannot interrupt synchronous quantization halfway through a frame. For large workloads, the caller can run the exporter with OffscreenCanvas in a Worker or supply an async Worker adapter. The adapter owns its Workers; `dispose()` must terminate them, reject pending calls and release buffers. A real Node Worker integration test transfers the owned pixel copies and independently decodes the returned result, then verifies Worker termination.
+The supplied adapter runs on the calling thread. The controller snapshots pixels before its first yield
+and composites owned pixels in cooperative chunks, permitting cancellation between preparation tasks.
+It cannot interrupt snapshot acquisition or synchronous quantization halfway through a frame. For large
+workloads, the caller can run the exporter with OffscreenCanvas in a Worker or supply an async Worker
+adapter. The adapter owns its Workers; `dispose()` must terminate them, reject pending calls and release
+buffers. A real Node Worker integration test transfers owned pixel copies and independently decodes
+the returned result, then verifies Worker termination.
 
 ### Ready-made Worker adapter (0.4.0)
 
 The `/gif/worker` entry provides `createGifWorkerEncoder`, with one dedicated module Worker per export. It transfers owned pixel buffers and runs quantization and encoding in that Worker; canvas readback and alpha compositing stay on the calling thread. The default runtime URL is relative to the adapter. Serve the runtime and `gifenc.js` together, or configure `workerUrl` when deploying copied/bundled assets. The runtime is exported at `/gif/worker-runtime` for asset resolution only. Startup, frame and finish requests each have a configurable 30-second default timeout. Success, failure, cancellation and disposal terminate the Worker and settle pending calls. Real Worker tests independently decode its result and verify termination; fault tests cover startup cancellation, transport errors and timeouts.
 
 The controller's optional `onProgress` observer works with every encoder. It reports completed frames and their accumulated rounded duration, finalization, and terminal outcomes. `totalFrames` is an optional display hint, not a frame limit. See the README for event semantics and deployment details. The browser example now uses this adapter; the measurements below describe the synchronous adapter in 0.3.0.
+
+Cooperative composition uses a private approximately 4 ms budget, checked every 16,384 pixels,
+with at most 1,048,576 pixels per task. After the initial timer yield, MessageChannel schedules further
+chunks; environments without it use timers. Each continuation closes its two ports, and cancellation
+clears the pending task and owned snapshot. These are tuning details, not API guarantees. See the
+[measured comparison](gif-preparation-benchmark.md). The [design draft](drafts/gif-frame-preparation.md)
+also describes future negotiated raw-RGBA preparation in the existing Worker; that path is unimplemented.
+Current adapters still receive pixels composited by the controller.
 
 ## Verification
 

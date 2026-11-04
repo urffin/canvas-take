@@ -1,3 +1,5 @@
+import { createFramePreparation } from './gif-preparation.js';
+
 /** An immutable frame description; the encoder may use the owned pixel copy until addFrame settles. */
 export interface GifFrame {
     readonly width: number;
@@ -71,6 +73,7 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
     const abortError = () => signal?.reason ?? new DOMException('GIF export aborted', 'AbortError');
     if (signal?.aborted) throw abortError();
     let encoder: GifFrameEncoder | undefined = factory(Object.freeze({ repeat }));
+    const preparation = createFramePreparation();
     let state: GifExportState = 'ready';
     let width = 0, height = 0, frames = 0;
     let duration = 0;
@@ -79,10 +82,12 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
             ...(totalFrames === undefined ? {} : { totalFrames }) })); } catch {}
     }
     let rejectCancelled!: (error: unknown) => void;
+    let cancellation: { reason: unknown } | undefined;
     const cancelled = new Promise<never>((_, reject) => { rejectCancelled = reject; });
     void cancelled.catch(() => {});
     function cleanup(): void {
         signal?.removeEventListener('abort', onAbort);
+        preparation.dispose();
         const owned = encoder;
         encoder = undefined;
         // Preserve the original failure/cancellation even if an adapter's cleanup throws.
@@ -91,7 +96,8 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
     function onAbort(): void {
         if (state !== 'ready' && state !== 'encoding') return;
         state = 'aborted';
-        rejectCancelled(abortError());
+        cancellation ??= { reason: abortError() };
+        rejectCancelled(cancellation.reason);
         cleanup();
         report('aborted');
     }
@@ -108,6 +114,7 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
         state = 'encoding';
         try { return await Promise.race([work(), cancelled]); }
         catch (error) {
+            if (cancellation) throw cancellation.reason;
             if (state === 'encoding') { state = 'failed'; cleanup(); report('failed'); }
             throw error;
         }
@@ -130,18 +137,10 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
                 if (maxDurationMs !== undefined && frameDuration > maxDurationMs - duration) throw new RangeError('GIF export exceeds maxDurationMs');
                 const context = canvas.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D | null;
                 if (!context) throw new Error('GIF export requires a 2D canvas');
-                const data = new Uint8ClampedArray(context.getImageData(0, 0, w, h).data);
-                if (data.length !== w * h * 4) throw new Error('Invalid canvas pixel data');
-                // Yield between frames so UI cancellation can be delivered; snapshot is already owned.
-                await new Promise<void>(resolve => setTimeout(resolve, 0));
+                preparation.capture(context.getImageData(0, 0, w, h).data, w * h * 4);
+                await preparation.prepare(background, active);
                 active();
-                for (let i = 0; i < data.length; i += 4) {
-                    if (data[i + 3] === 255) continue;
-                    const alpha = data[i + 3] / 255;
-                    for (let c = 0; c < 3; c++) data[i + c] = Math.round(data[i + c] * alpha + background[c] * (1 - alpha));
-                    data[i + 3] = 255;
-                }
-                await encoder!.addFrame({ width: w, height: h, data, durationMs: frameDuration });
+                await encoder!.addFrame({ width: w, height: h, data: preparation.take(), durationMs: frameDuration });
                 active();
                 width = w; height = h; frames++;
                 duration += frameDuration;
@@ -172,7 +171,10 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
             if (state === 'disposed') return;
             const unfinished = state === 'ready' || state === 'encoding';
             state = 'disposed';
-            if (unfinished) rejectCancelled(new DOMException('GIF exporter disposed', 'AbortError'));
+            if (unfinished) {
+                cancellation ??= { reason: new DOMException('GIF exporter disposed', 'AbortError') };
+                rejectCancelled(cancellation.reason);
+            }
             cleanup();
             if (unfinished) report('disposed');
         }

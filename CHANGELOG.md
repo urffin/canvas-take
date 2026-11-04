@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Cooperative GIF alpha composition with cancellation between chunks, owned snapshot/task cleanup and unchanged encoder contracts.
+- Paired preparation latency/scheduler benchmarks, retained-exporter GC checks and real-browser cancellation/retry coverage.
 - Offline VP8 video and optional native 48 kHz mono/stereo Opus in WebM, using replaceable providers.
 - Explicit Opus pre-skip/CodecDelay and final DiscardPadding, microsecond WebM video timing and staging limits.
 - Real browser/independent decoder verification, separate public entries and a selectable MP4/WebM example.
