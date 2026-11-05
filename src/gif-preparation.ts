@@ -43,9 +43,16 @@ export function createFramePreparation() {
             pixels = new Uint8ClampedArray(data);
             if (pixels.length !== expectedBytes) throw new Error('Invalid canvas pixel data');
         },
-        async prepare(background: readonly number[], active: () => void): Promise<void> {
+        async prepare(background: readonly number[], active: () => void,
+            tryRaw?: (data: Uint8ClampedArray) => Promise<'declined' | 'encoded'>): Promise<boolean> {
             // Always yield once after the immediate snapshot, even for tiny/opaque frames.
             await yieldTask(true); active();
+            if (tryRaw) {
+                const outcome = await tryRaw(pixels!);
+                active();
+                if (outcome === 'encoded') { pixels = undefined; return true; }
+                if (outcome !== 'declined') throw new Error('Invalid GIF raw preparation outcome');
+            }
             let offset = 0;
             while (pixels && offset < pixels.length / 4) {
                 const deadline = performance.now() + budgetMs;
@@ -57,6 +64,7 @@ export function createFramePreparation() {
                 } while (offset < endTask && performance.now() < deadline);
                 if (offset < pixels.length / 4) { await yieldTask(); active(); }
             }
+            return false;
         },
         take(): Uint8ClampedArray {
             if (!pixels || closed) throw new Error('GIF preparation has no frame');

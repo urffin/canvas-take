@@ -1,4 +1,5 @@
 import { createFramePreparation } from './gif-preparation.js';
+import { rawPreparation, type InternalGifEncoder } from './gif-internal.js';
 
 /** An immutable frame description; the encoder may use the owned pixel copy until addFrame settles. */
 export interface GifFrame {
@@ -138,9 +139,15 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
                 const context = canvas.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D | null;
                 if (!context) throw new Error('GIF export requires a 2D canvas');
                 preparation.capture(context.getImageData(0, 0, w, h).data, w * h * 4);
-                await preparation.prepare(background, active);
+                const owned = encoder as InternalGifEncoder;
+                let raw: InternalGifEncoder[typeof rawPreparation] = undefined;
+                // Optional optimization discovery must not break strict third-party Proxy objects.
+                try { if (Object.hasOwn(owned, rawPreparation)) raw = owned[rawPreparation]; } catch {}
                 active();
-                await encoder!.addFrame({ width: w, height: h, data: preparation.take(), durationMs: frameDuration });
+                const encoded = await preparation.prepare(background, active, typeof raw === 'function'
+                    ? data => raw.call(owned, { width: w, height: h, data, durationMs: frameDuration }, background) : undefined);
+                active();
+                if (!encoded) await encoder!.addFrame({ width: w, height: h, data: preparation.take(), durationMs: frameDuration });
                 active();
                 width = w; height = h; frames++;
                 duration += frameDuration;

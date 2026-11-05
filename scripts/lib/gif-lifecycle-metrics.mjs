@@ -25,6 +25,7 @@ export function validateResources(row) {
     const s=row.stats;
     assert.equal(s.created,1);assert.equal(s.disposed,1);
     assert.equal(s.listeners,0);assert.equal(s.abortListeners,0);assert.equal(row.timers,0);assert.equal(row.liveWorkers,0);assert.equal(row.cornerUnchanged,true);
+    if (row.ports !== undefined) assert.equal(row.ports,0,'Preparation MessagePorts still open');
     const worker=row.adapter==='worker';
     assert.equal(s.workersCreated,worker?1:0);assert.equal(s.terminateCalls,worker?1:0);assert.equal(s.transfers,s.detached);
     if(worker)assert.ok(s.transfers>0||row.mode==='prepare');
@@ -63,11 +64,11 @@ export function summarize(rows) {
     const memory=[],cancellation=[],repeated=[];
     const groups=new Map();
     for(const row of rows){
-        const key=[row.lane,row.adapter,row.width,row.height,row.frames,row.mode].join('/');
+        const key=[row.lane,row.adapter,row.width,row.height,row.frames,row.mode,row.scene].join('/');
         if(!groups.has(key))groups.set(key,[]);groups.get(key).push(row);
     }
     for(const group of groups.values()){
-        const row=group[0],common={adapter:row.adapter,width:row.width,height:row.height,frames:row.frames,n:group.length};
+        const row=group[0],common={adapter:row.adapter,width:row.width,height:row.height,frames:row.frames,n:group.length,...(row.scene===undefined?{}:{scene:row.scene})};
         if(row.lane==='memory')memory.push({...common,seconds:row.frames/row.fps,
             peakPrivateDeltaBytes:median(group.map(r=>r.peakPrivateDeltaBytes)),peakPrivateBytes:median(group.map(r=>r.peakPrivateBytes)),
             heldPrivateDeltaBytes:median(group.map(r=>r.held.privateFootprintBytes-r.before.privateFootprintBytes)),
@@ -103,12 +104,12 @@ export function markdownReport(data) {
         'Main-isolate JS heap/ArrayBuffer backing storage and forced-GC cleanup snapshots are separate, overlapping diagnostics, never added to the process total. Retained process memory can include allocator/JIT caches.', '',
         '| Resolution | GIF s | Adapter | n | Sampled peak Δ MiB | Peak total MiB | Held canvas/Blob Δ MiB (GC) | Released Δ MiB (GC) | Released JS Δ MiB | Released backing Δ MiB | Min samples |',
         '| --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |'];
-    for(const r of summary.memory)lines.push(`| ${r.width}×${r.height} | ${r.seconds} | ${r.adapter} | ${r.n} | ${mb(r.peakPrivateDeltaBytes)} | ${mb(r.peakPrivateBytes)} | ${mb(r.heldPrivateDeltaBytes)} | ${mb(r.releasedPrivateDeltaBytes)} | ${mb(r.releasedHeapDeltaBytes)} | ${mb(r.releasedBackingDeltaBytes)} | ${r.minSamples} |`);
+    for(const r of summary.memory)lines.push(`| ${r.width}×${r.height} | ${r.seconds} | ${r.adapter}${r.scene?'/'+r.scene:''} | ${r.n} | ${mb(r.peakPrivateDeltaBytes)} | ${mb(r.peakPrivateBytes)} | ${mb(r.heldPrivateDeltaBytes)} | ${mb(r.releasedPrivateDeltaBytes)} | ${mb(r.releasedHeapDeltaBytes)} | ${mb(r.releasedBackingDeltaBytes)} | ${r.minSamples} |`);
     lines.push('','Memory table values are medians across repeats, relative to each run\'s post-GC baseline. Instrumented export timings are not throughput benchmarks.','',
         '| Target phase | Resolution | Adapter | n | Delivery lag ms | Abort→settled ms | Deadline→settled ms | Deadline→settled range ms | Extra accepted frames |',
         '| --- | --- | --- | ---: | ---: | ---: | ---: | --- | ---: |');
     for(const r of summary.cancellation)lines.push(`| ${r.mode} | ${r.width}×${r.height} | ${r.adapter} | ${r.n} | ${ms(r.deliveryLagMs)} | ${ms(r.settleAfterAbortMs)} | ${ms(r.deadlineToSettleMs)} | ${r.rangeDeadlineToSettleMs.map(ms).join('–')} | ${r.framesAfterArm} |`);
-    lines.push('','Cancellation runs have no memory sampling/tracing. Deadline is one millisecond after phase start, not when abort() finally executes. Sync work may complete before the timer can run. Worker encoding uses a marker immediately before the shipped codec handler. Prepare targets real full-frame getImageData/readback and the owned snapshot before the exporter yield. Blend observes the existing yield resolver immediately before compositing on an all-translucent gradient; it includes any subsequent work that blocks cancellation. The probe does not preempt JavaScript or add a yield inside the loop.','',
+    lines.push('','Cancellation runs have no memory sampling/tracing. Deadline is one millisecond after phase start, not when abort() finally executes. Sync work may complete before the timer can run. Worker probes mark real frame-handler entry: encoding for opaque frames, preparation plus encoding for raw frames. Prepare targets full-frame getImageData/readback and the owned snapshot. Blend observes the initial yield resolver before main-thread compositing or negotiated raw handoff; it includes subsequent blocking work. The probe does not preempt JavaScript or add a yield inside the loop.','',
         '| Adapter | Operations (success/abort) | Post-GC private first→last MiB | JS first→last MiB | Backing first→last MiB | Backing slope bytes/op |',
         '| --- | --- | --- | --- | --- | ---: |');
     for(const r of summary.repeated)lines.push(`| ${r.adapter} | ${r.operations} (${r.successful}/${r.aborted}) | ${mb(r.privateFootprint.first)}→${mb(r.privateFootprint.last)} | ${mb(r.heap.first)}→${mb(r.heap.last)} | ${mb(r.backing.first)}→${mb(r.backing.last)} | ${r.backing.theilSenBytesPerOperation} |`);

@@ -33,7 +33,15 @@ the returned result, then verifies Worker termination.
 
 ### Ready-made Worker adapter (0.4.0)
 
-The `/gif/worker` entry provides `createGifWorkerEncoder`, with one dedicated module Worker per export. It transfers owned pixel buffers and runs quantization and encoding in that Worker; canvas readback and alpha compositing stay on the calling thread. The default runtime URL is relative to the adapter. Serve the runtime and `gifenc.js` together, or configure `workerUrl` when deploying copied/bundled assets. The runtime is exported at `/gif/worker-runtime` for asset resolution only. Startup, frame and finish requests each have a configurable 30-second default timeout. Success, failure, cancellation and disposal terminate the Worker and settle pending calls. Real Worker tests independently decode its result and verify termination; fault tests cover startup cancellation, transport errors and timeouts.
+The `/gif/worker` entry provides `createGifWorkerEncoder`, with one dedicated module Worker per export.
+It transfers owned pixel buffers and runs quantization and encoding there. Unreleased development after
+0.6.0 also composites alpha in the same Worker after capability negotiation; older runtime assets use
+cooperative preparation on the calling thread. Canvas readback and the immediate owned copy always
+stay on the calling thread. The default runtime URL is relative to the adapter. Serve the runtime and
+`gifenc.js` together, or configure `workerUrl` when deploying copied/bundled assets. The runtime is
+exported at `/gif/worker-runtime` for asset resolution only. Startup, frame and finish requests each
+have a configurable 30-second default timeout. Terminal outcomes terminate the Worker and settle
+pending calls. See [raw preparation and compatibility](gif-worker-preparation.md).
 
 The controller's optional `onProgress` observer works with every encoder. It reports completed frames and their accumulated rounded duration, finalization, and terminal outcomes. `totalFrames` is an optional display hint, not a frame limit. See the README for event semantics and deployment details. The browser example now uses this adapter; the measurements below describe the synchronous adapter in 0.3.0.
 
@@ -42,8 +50,8 @@ with at most 1,048,576 pixels per task. After the initial timer yield, MessageCh
 chunks; environments without it use timers. Each continuation closes its two ports, and cancellation
 clears the pending task and owned snapshot. These are tuning details, not API guarantees. See the
 [measured comparison](gif-preparation-benchmark.md). The [design draft](drafts/gif-frame-preparation.md)
-also describes future negotiated raw-RGBA preparation in the existing Worker; that path is unimplemented.
-Current adapters still receive pixels composited by the controller.
+describes the negotiated raw-RGBA path now implemented locally. Public adapter `addFrame()` calls
+still receive opaque pixels; the raw handoff is private to the supplied controller/Worker adapter.
 
 ## Verification
 

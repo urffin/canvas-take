@@ -1,11 +1,13 @@
-import {createGifExporter} from '/dist/gif.js';
-import {createGifencEncoder} from '/dist/gifenc.js';
-import {createGifWorkerEncoder} from '/dist/gif-worker.js';
 import {draw} from './gif-scene.mjs';
+const base = new URLSearchParams(location.search).get('variant') === 'before' ? '/before/dist/' : '/dist/';
+const {createGifExporter} = await import(base + 'gif.js');
+const {createGifencEncoder} = await import(base + 'gifenc.js');
+const {createGifWorkerEncoder} = await import(base + 'gif-worker.js');
+const rawKey = Symbol.for('@grundyjs/canvas-take/gif/raw-preparation/v1');
 
 // Observers retain scalar counters only. Live Worker references are dropped on terminate.
 const nativeTimeout = window.setTimeout.bind(window), nativeClear = window.clearTimeout.bind(window);
-const NativeWorker = window.Worker, timers = new Set(), workers = new Set();
+const NativeWorker = window.Worker, NativeChannel = window.MessageChannel, timers = new Set(), workers = new Set(), ports = new Set();
 let current, output, calibration;
 window.setTimeout = (callback, delay, ...args) => {
     // The core's existing zero-delay yield follows the owned snapshot. Observe its
@@ -42,9 +44,10 @@ class ObservedWorker extends NativeWorker {
     }
     postMessage(message, transfer) {
         super.postMessage(message, transfer);
-        if (message.action === 'frame') {
+        if (message.action === 'frame' || message.action === 'raw-frame-v1') {
             this.benchmarkStats.transfers++;
             if (message.value.data.byteLength === 0) this.benchmarkStats.detached++;
+            if (message.action === 'raw-frame-v1') { this.benchmarkStats.rawFrames++; this.benchmarkStats.submitted++; current.phase='worker-preparation'; }
         }
     }
     terminate() {
@@ -54,6 +57,11 @@ class ObservedWorker extends NativeWorker {
     }
 }
 window.Worker = ObservedWorker;
+window.MessageChannel = class extends NativeChannel {
+    constructor() { super(); for (const port of [this.port1,this.port2]) {
+        ports.add(port); const close=port.close.bind(port); port.close=()=>{ports.delete(port);close();};
+    } }
+};
 
 function arm(record, phaseStartAt) {
     if (record.armedAt !== undefined) return;
@@ -70,13 +78,18 @@ const idle = () => new Promise(resolve => nativeTimeout(resolve, 0));
 window.lifecycle = {
     async run(options) {
         if (output || current) throw new Error('Release previous case before starting another');
-        const stats = {created:0,disposed:0,submitted:0,accepted:0,finished:0,workersCreated:0,terminateCalls:0,listeners:0,transfers:0,detached:0,abortListeners:0};
+        const stats = {created:0,disposed:0,submitted:0,accepted:0,finished:0,workersCreated:0,terminateCalls:0,listeners:0,transfers:0,detached:0,abortListeners:0,rawFrames:0,rawAttempts:0};
         const controller = new AbortController();
         const abortListeners = new Set();
         const add = controller.signal.addEventListener.bind(controller.signal), remove = controller.signal.removeEventListener.bind(controller.signal);
         controller.signal.addEventListener = (type, fn, opts) => { if (type === 'abort') abortListeners.add(fn); stats.abortListeners=abortListeners.size; return add(type,fn,opts); };
         controller.signal.removeEventListener = (type, fn, opts) => { if (type === 'abort') abortListeners.delete(fn); stats.abortListeners=abortListeners.size; return remove(type,fn,opts); };
         const record = current = {options,stats,controller,phase:'initializing'};
+        const scheduling=[]; let heartbeat, due;
+        if(options.measureHeartbeat){
+            const beat=()=>{const now=performance.now();scheduling.push(Math.max(0,now-due));due=now+16;heartbeat=nativeTimeout(beat,16);};
+            due=performance.now()+16;heartbeat=nativeTimeout(beat,16);
+        }
         const canvas = document.createElement('canvas'); canvas.width = options.width; canvas.height = options.height;
         record.canvas = canvas; document.body.append(canvas);
         const ctx = canvas.getContext('2d'), read = ctx.getImageData.bind(ctx);
@@ -88,14 +101,14 @@ window.lifecycle = {
             return read(...args);
         };
         const workerOptions = {maxColors:options.maxColors,quality:options.quality};
-        if (options.mode === 'encode') workerOptions.workerUrl = new URL(`/benchmarks/gif-lifecycle-worker.mjs?frame=${options.cancelFrame}`,location.href);
+        if (options.mode === 'encode') workerOptions.workerUrl = new URL(`/benchmarks/gif-lifecycle-worker.mjs?frame=${options.cancelFrame}&variant=${base.startsWith('/before/')?'before':'after'}`,location.href);
         const factory = options.adapter === 'worker' ? createGifWorkerEncoder(workerOptions) : createGifencEncoder(workerOptions);
         let gif;
         const started = performance.now();
         try {
             gif = createGifExporter({signal:controller.signal, repeat:0, encoder(settings) {
                 stats.created++; const real = factory(settings);
-                return {
+                const methods = {
                     addFrame(frame) {
                         const index = stats.submitted++; record.phase = 'encoding';
                         if (options.mode === 'encode' && options.adapter === 'sync' && index === options.cancelFrame) arm(record,performance.now());
@@ -106,6 +119,13 @@ window.lifecycle = {
                     finish() { stats.finished++; return real.finish(); },
                     dispose() { stats.disposed++; real.dispose(); }
                 };
+                // Preserve private capabilities; copying only public methods silently benchmarks fallback.
+                return new Proxy(real,{get(target,key){
+                    if(key in methods)return methods[key];
+                    const value=Reflect.get(target,key,target);
+                    if(key===rawKey&&typeof value==='function')return(...args)=>{stats.rawAttempts++;return Reflect.apply(value,target,args);};
+                    return value;
+                }});
             },onProgress(progress) { stats.accepted = progress.framesEncoded; record.phase = progress.phase === 'encoding' ? 'between-frames' : progress.phase; }});
             const count = options.mode === 'success' ? options.frames : options.cancelFrame + 10000;
             for (let i = 0; i < count; i++) {
@@ -121,11 +141,13 @@ window.lifecycle = {
             record.outcome = 'aborted'; record.error = error.name;
         } finally {
             record.settledAt = performance.now(); record.state = gif?.state;
+            if(heartbeat!==undefined)nativeClear(heartbeat);
             gif?.dispose(); await idle();
         }
         const cornerUnchanged = record.sourceCorner.every((v,i)=>v===read(0,0,1,1).data[i]);
         const result = {outcome:record.outcome,state:record.state,elapsedMs:record.settledAt-started,bytes:record.bytes??0,stats:{...stats},
-            timers:timers.size,liveWorkers:workers.size,cornerUnchanged};
+            timers:timers.size,liveWorkers:workers.size,ports:ports.size,cornerUnchanged};
+        if(options.measureHeartbeat){const sorted=scheduling.sort((a,b)=>a-b);result.scheduling={samples:sorted.length,p95Ms:sorted.length?sorted[Math.ceil(sorted.length*.95)-1]:null,maxMs:sorted.length?sorted.at(-1):null};}
         if (options.mode !== 'success') result.cancellation = {
             phaseStartAt:record.phaseStartAt,armedAt:record.armedAt,dueAt:record.dueAt,abortAt:record.abortAt,settledAt:record.settledAt,
             deliveryLagMs:record.abortAt-record.dueAt,settleAfterAbortMs:record.settledAt-record.abortAt,

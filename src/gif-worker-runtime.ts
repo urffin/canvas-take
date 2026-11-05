@@ -1,6 +1,8 @@
 import { createGifencEncoder } from './gifenc.js';
 import type { GifFrame, GifFrameEncoder } from './gif.js';
 import type { GifencOptions } from './gifenc.js';
+import { blendRange } from './gif-preparation.js';
+import { validateRawFrame } from './gif-internal.js';
 
 const scope = globalThis as unknown as {
     onmessage: (event: MessageEvent) => void;
@@ -14,8 +16,17 @@ scope.onmessage = event => {
             if (encoder) throw new Error('GIF Worker already initialized');
             const options = value as GifencOptions & { repeat: number };
             encoder = createGifencEncoder(options)({ repeat: options.repeat });
+            scope.postMessage({ id, rawPreparationVersion: 1 });
+            return;
         } else if (!encoder) throw new Error('GIF Worker is not initialized');
         else if (action === 'frame') encoder.addFrame(value as GifFrame);
+        else if (action === 'raw-frame-v1') {
+            validateRawFrame(value, value?.background);
+            blendRange(value.data, 0, value.width * value.height, value.background);
+            encoder.addFrame(value as GifFrame);
+            scope.postMessage({ id, rawFrameEncoded: 1 });
+            return;
+        }
         else if (action === 'finish') {
             const bytes = encoder.finish() as Uint8Array;
             encoder.dispose(); encoder = undefined;

@@ -120,7 +120,7 @@ async function run(options, record = true) {
         const { createGifencEncoder } = await import('/gifenc.js'), { createGifWorkerEncoder } = await import('/gif-worker.js'), { draw } = await import('/scene.js');
         const nativeSet = window.setTimeout.bind(window), nativeClear = window.clearTimeout.bind(window), NativeChannel = window.MessageChannel, NativeWorker = window.Worker;
         const timers = new Set(), ports = new Set(), events = [], tasks = [];
-        let startedTask, armedAt, abortAt, submitted = 0, disposed = 0, prefixMs = 0, readbackMs = 0, cancelTimer, inputTimestamp, trustedInput, workersConstructed = 0, workersTerminated = 0;
+        let startedTask, armedAt, abortAt, submitted = 0, disposed = 0, prefixMs = 0, readbackMs = 0, cancelTimer, inputTimestamp, trustedInput, workersConstructed = 0, workersTerminated = 0, rawFrames = 0;
         const controller = new AbortController();
         const cancel = event => { abortAt = performance.now(); inputTimestamp = event?.timeStamp; trustedInput = event?.isTrusted; controller.abort(); };
         document.querySelector('#cancel').onclick = cancel;
@@ -129,6 +129,7 @@ async function run(options, record = true) {
         window.MessageChannel = class extends NativeChannel { constructor() { super(); for (const port of [this.port1, this.port2]) {
             ports.add(port); const close = port.close.bind(port); port.close = () => { ports.delete(port); close(); }; } } };
         window.Worker = class extends NativeWorker { constructor(...args) { super(...args); workersConstructed++; }
+            postMessage(message,...args) { if(message.action==='raw-frame-v1')rawFrames++;return super.postMessage(message,...args); }
             terminate() { workersTerminated++; super.terminate(); } };
         window.__prepProbe = { begin() { startedTask = performance.now(); if (armedAt === undefined && options.lane === 'cancel') {
             armedAt = startedTask; cancelTimer = nativeSet(cancel, 1);
@@ -154,7 +155,7 @@ async function run(options, record = true) {
         const result = { outcome, elapsedMs: settledAt - start, prefixMs, readbackMs, tasks, blendMs: tasks.reduce((n, t) => n + t, 0), maxTaskMs: Math.max(0, ...tasks),
             deadlineToSettleMs: options.lane !== 'cancel' || armedAt === undefined ? null : settledAt - armedAt - 1, abortToSettleMs: abortAt === undefined ? null : settledAt - abortAt,
             inputToSettleMs: inputTimestamp === undefined ? null : settledAt - inputTimestamp, inputQueueMs: inputTimestamp === undefined ? null : abortAt - inputTimestamp, trustedInput,
-            submitted, disposed, workersConstructed, workersTerminated, timersAtSettle: timers.size, portsAtSettle: ports.size, events: events.map(e => [e.phase, e.framesEncoded]) };
+            submitted, disposed, workersConstructed, workersTerminated, rawFrames, timersAtSettle: timers.size, portsAtSettle: ports.size, events: events.map(e => [e.phase, e.framesEncoded]) };
         // The old controller races cancellation but leaves its initial-yield timer queued.
         // Preserve that observation, then drain late work before measuring final cleanup.
         await new Promise(resolve => nativeSet(resolve, 20));
@@ -170,6 +171,7 @@ async function run(options, record = true) {
     }
     const row = await work;
     assert.equal(row.disposed, 1); assert.equal(row.timers, 0); assert.equal(row.ports, 0);
+    assert.equal(row.rawFrames,0,'This historical study intentionally isolates chunk preparation via public-method wrappers; use benchmark:gif:worker-preparation for raw handoff');
     if (options.variant === 'after') { assert.equal(row.timersAtSettle, 0); assert.equal(row.portsAtSettle, 0); }
     const cancelling = options.lane === 'cancel' || options.lane === 'input';
     row.cancelMissed = cancelling && row.outcome !== 'aborted';

@@ -5,6 +5,10 @@ import { patchWebmMuxer } from './webm-muxer-patch.mjs';
 // Inline internal preparation helpers; keep the public controller entry standalone and codec-free.
 await build({ entryPoints: ['src/gif.ts'], outfile: 'dist/gif.js', bundle: true,
     format: 'esm', platform: 'browser', target: 'es2022' });
+await build({ entryPoints: ['src/gif-worker.ts'], outfile: 'dist/gif-worker.js', bundle: true,
+    format: 'esm', platform: 'browser', target: 'es2022' });
+await build({ entryPoints: ['src/gif-worker-runtime.ts'], outfile: 'dist/gif-worker-runtime.js', bundle: true,
+    external: ['./gifenc.js'], format: 'esm', platform: 'browser', target: 'es2022' });
 await build({ entryPoints: ['src/gifenc.ts'], outfile: 'dist/gifenc.js', bundle: true,
     format: 'esm', platform: 'browser', target: 'es2022', minify: true,
     banner: { js: '/*! Includes gifenc (MIT). See gifenc-LICENSE.txt. */' } });

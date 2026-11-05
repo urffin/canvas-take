@@ -3,8 +3,12 @@
 Included in version 0.6.0 with the existing public GIF API. Measurements below were recorded
 on the development tree at version 0.5.0 before release preparation.
 This report compares the controller at `fe2f6f397a311e3b70ea4aae05840ba144a9b2b3`
-with cooperative alpha composition. Preparation in the encoder Worker is still a
+with cooperative alpha composition. Preparation in the encoder Worker was designed in the
 [separate proposal](drafts/gif-frame-preparation.md).
+
+The subsequent unreleased implementation is measured separately in the
+[Worker preparation report](gif-worker-preparation.md). This historical study and its command
+deliberately retain main-thread cooperative preparation through public-method wrappers.
 
 ## Implementation
 

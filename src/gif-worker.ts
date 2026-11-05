@@ -1,5 +1,6 @@
 import type { GifEncoderFactory, GifFrame } from './gif.js';
 import type { GifencOptions } from './gifenc.js';
+import { rawPreparation, validateRawFrame } from './gif-internal.js';
 
 export interface GifWorkerOptions extends GifencOptions {
     /** Override the module Worker asset URL when copying assets or using a bundler. */
@@ -23,7 +24,8 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
             : new Worker(workerUrl, { type: 'module' });
         let nextId = 0;
         let failure: Error | undefined;
-        const pending = new Map<number, { resolve: (value: Uint8Array | undefined) => void; reject: (error: Error) => void; timer: ReturnType<typeof setTimeout> }>();
+        type Reply = { bytes?: unknown; rawPreparationVersion?: unknown; rawFrameEncoded?: unknown };
+        const pending = new Map<number, { action: string; resolve: (value: Reply) => void; reject: (error: Error) => void; timer: ReturnType<typeof setTimeout> }>();
         function close(error: Error): void {
             failure ??= error;
             const owned = worker; worker = undefined;
@@ -41,38 +43,56 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
             const request = pending.get(message?.id);
             if (!request) return;
             if (typeof message.error === 'string') { close(new Error(message.error)); return; }
-            pending.delete(message.id); clearTimeout(request.timer); request.resolve(message.bytes);
+            if (request.action === 'raw-frame-v1' && message.rawFrameEncoded !== 1) {
+                close(new Error('GIF Worker returned invalid raw frame acknowledgement')); return;
+            }
+            pending.delete(message.id); clearTimeout(request.timer); request.resolve(message);
         }
         function onError(event: ErrorEvent): void { close(new Error(event.message || 'GIF Worker failed to load or execute')); }
         function onMessageError(): void { close(new Error('GIF Worker message could not be decoded')); }
         worker.addEventListener('message', onMessage);
         worker.addEventListener('error', onError);
         worker.addEventListener('messageerror', onMessageError);
-        function send(action: string, value?: unknown, transfer: Transferable[] = []): Promise<Uint8Array | undefined> {
+        function send(action: string, value?: unknown, transfer: Transferable[] = []): Promise<Reply> {
             if (!worker) return Promise.reject(failure ?? new Error('GIF Worker is disposed'));
             return new Promise((resolve, reject) => {
                 const id = ++nextId;
                 const timer = setTimeout(() => close(new Error(`GIF Worker ${action} timed out`)), timeoutMs);
-                pending.set(id, { resolve, reject, timer });
+                pending.set(id, { action, resolve, reject, timer });
                 try { worker!.postMessage({ id, action, value }, transfer); }
                 catch (error) { close(error instanceof Error ? error : new Error(String(error))); }
             });
         }
-        const initialized = send('init', { repeat, maxColors, quality });
+        const initialized = send('init', { repeat, maxColors, quality }).then(reply => reply.rawPreparationVersion === 1);
         void initialized.catch(() => {});
-        return {
+        const encoder = {
             async addFrame(frame: GifFrame) {
                 await initialized;
                 await send('frame', frame, [frame.data.buffer as ArrayBuffer]);
             },
             async finish() {
                 await initialized;
-                const bytes = await send('finish');
+                const { bytes } = await send('finish');
                 if (!(bytes instanceof Uint8Array)) { const error = new Error('GIF Worker returned invalid bytes'); close(error); throw error; }
                 close(new Error('GIF Worker finished'));
                 return bytes;
             },
             dispose() { close(new DOMException('GIF Worker disposed', 'AbortError')); }
         };
+        const originalAddFrame = encoder.addFrame;
+        return Object.defineProperty(encoder, rawPreparation, {
+            configurable: true, // Transparent Proxy wrappers may forward/bind the private operation.
+            async value(this: unknown, frame: GifFrame, background: readonly number[]) {
+                // Do not bypass public addFrame hooks installed by a decorator or an unbound Proxy.
+                if (this !== encoder || encoder.addFrame !== originalAddFrame) return 'declined';
+                const supported = await initialized;
+                if (!worker) throw failure ?? new Error('GIF Worker is disposed');
+                if (!supported) return 'declined'; // No transfer or mutation before a decline.
+                try { validateRawFrame(frame, background); }
+                catch (error) { close(error instanceof Error ? error : new Error(String(error))); throw failure; }
+                await send('raw-frame-v1', { ...frame, background }, [frame.data.buffer as ArrayBuffer]);
+                return 'encoded';
+            }
+        });
     };
 }

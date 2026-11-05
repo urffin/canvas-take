@@ -186,7 +186,7 @@ try {
 
 `addFrame(canvas, durationMs)` snapshots a 2D HTMLCanvasElement or OffscreenCanvas immediately, then yields before encoding. Await each call before another frame or `finish()`. All frames must have identical positive dimensions (GIF limit 65535 per axis). Durations must be finite and between 10 and 655350 ms; they are rounded to the nearest 10 ms. GIF players may clamp short delays; 50 ms is a practical timeline step. The drawing time and encoding wall time do not affect the GIF duration. The canvas remains caller-owned and unmodified. Tainted canvases fail with the readback error.
 
-Alpha composition runs in cooperative chunks, allowing cancellation during preparation. Internal tasks
+With synchronous/custom encoders and legacy Worker runtimes, alpha composition runs in cooperative chunks, allowing cancellation during preparation. Internal tasks
 target about 4 ms, using MessageChannel between chunks with a timer fallback. This is not a wall-clock
 deadline: the full snapshot/copy and synchronous codec calls remain uninterrupted. Abort/disposal clears
 pending preparation tasks and releases its owned snapshot without submitting a partial frame.
@@ -211,7 +211,16 @@ const gif = createGifExporter({
 });
 ```
 
-The dedicated module Worker performs quantization and GIF encoding. Canvas readback and alpha compositing remain on the calling thread. Each exporter owns one Worker, terminated on finish, cancellation, failure or disposal. Pixel buffers are transferred; the source canvas is unchanged. This adapter requires browser Worker support and does not silently fall back to main-thread encoding.
+The dedicated module Worker performs quantization and GIF encoding. Canvas readback and the owned
+snapshot remain on the calling thread. Each exporter owns one Worker, terminated on finish,
+cancellation, failure or disposal. Pixel buffers are transferred; the source canvas is unchanged.
+This adapter requires browser Worker support and does not silently fall back to main-thread encoding.
+
+Unreleased development after 0.6.0 also moves alpha composition into that same Worker when its runtime
+advertises support. Older/custom Worker files keep the opaque-frame protocol and cooperative preparation
+on the calling thread. Third-party encoders keep their existing public contract; wrappers exposing only
+public methods use the same fallback. No new option or deployment asset is required. See
+[compatibility and measured comparison](docs/gif-worker-preparation.md). Published 0.6.0 still composites on the calling thread.
 
 The default Worker URL is resolved relative to the adapter module. For direct browser imports, serve `gif-worker.js`, `gif-worker-runtime.js` and `gifenc.js` together with JavaScript MIME types. With a bundler, ensure the Worker asset and its dependencies are emitted; if necessary, copy the runtime and `gifenc.js` to the same public directory and pass `workerUrl: '/assets/gif-worker-runtime.js'`. The runtime is also exported at `@grundyjs/canvas-take/gif/worker-runtime` for asset resolution (do not import it on the main thread). Follow your site's same-origin and CSP `worker-src` rules. No Blob URL or inline worker is required.
 
@@ -293,6 +302,11 @@ For process memory, cancellation delivery/settlement and repeated-session cleanu
 Run `npm run benchmark:gif:preparation` for paired comparisons against the pre-chunking controller
 (`-- --tune` compares schedulers/budgets; `-- --quick` is a smoke run). See the
 [preparation latency report](docs/gif-preparation-benchmark.md) for results and timing boundaries.
+
+`npm run benchmark:gif:worker-preparation` compares actual 0.6.0 Worker assets with raw preparation,
+including process-memory samples, cancellation, throughput and repeated cleanup. Add `-- --quick`
+for smoke or `-- --full` to include ten-second memory cases. The older preparation command deliberately
+isolates the cooperative fallback; the new comparison asserts actual raw protocol use.
 
 Use `npm run benchmark:gif -- --compare-opacity` to compare the pre-optimization core with the current core on opaque, mixed-alpha and translucent-gradient scenes.
 

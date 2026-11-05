@@ -2,6 +2,8 @@
 
 Process memory, cancellation latency and repeated-export cleanup have a separate
 [lifecycle benchmark and report](gif-memory-benchmark.md): `npm run benchmark:gif:lifecycle`.
+The isolated 0.6.0 versus raw-Worker comparison is documented in
+[Worker preparation](gif-worker-preparation.md): `npm run benchmark:gif:worker-preparation`.
 
 Install dependencies and Chromium (`npm ci`, `npx playwright install chromium`), then run:
 
@@ -23,7 +25,7 @@ The opacity scenes are `opaque` (solid background and moving bars), `mixed` (an 
 
 Runs are sequential in headless Chromium, after an excluded one-second warm-up for each adapter. The first adapter alternates between pairs. Each export gets a fresh encoder/Worker. Startup, rendering, canvas readback, compositing, encoding and finalization are included in export time; module loading, hashing and transferring measurements to Node are excluded. Frame p95 includes rendering plus awaited addFrame. Finalization time is also retained in JSON/CSV.
 
-An independent 16 ms timer records excess main-thread scheduling delay during each export. The p95 and maximum help compare responsiveness, but are not measurements of input latency. Worker export still reads and composites pixels on the main thread. A faster export is not necessarily more responsive. Memory consumption and cancellation latency are **not measured** by this benchmark; JS heap alone would omit Worker/native buffers and would not be a fair memory comparison.
+An independent 16 ms timer records excess main-thread scheduling delay during each export. The p95 and maximum help compare responsiveness, but are not measurements of input latency. Readback/copy stay on the calling thread; unreleased raw-Worker preparation can move composition too. The historical tables below predate that path. `--compare-opacity` compares a historical core to the current core, so later chunking/raw preparation changes can also contribute; it no longer isolates the alpha-255 shortcut alone. A faster export is not necessarily more responsive. Memory consumption and cancellation latency are **not measured** by this benchmark; JS heap alone would omit Worker/native buffers and would not be a fair memory comparison.
 
 Timestamped `benchmark-results/` directories contain raw per-frame/timer samples and environment information in JSON, per-run CSV, and a Markdown table of medians. Partial JSON survives a later failure; a failing or timed-out case stops the command with a nonzero exit code. Each case has a five-minute timeout. Generated results are ignored by Git. A quick run is a smoke measurement, not a statistically robust comparison.
 

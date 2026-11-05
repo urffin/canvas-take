@@ -13,6 +13,7 @@
     "docs/gif-benchmark.md",
     "docs/gif-memory-benchmark.md",
     "docs/gif-preparation-benchmark.md",
+    "docs/gif-worker-preparation.md",
     "docs/video-recording.md",
     "docs/offline-video-api.md",
     "docs/offline-video-adapters.md",
@@ -85,7 +86,8 @@
     "test:browser": "npm run build && playwright test",
     "benchmark:gif": "npm run build && node scripts/benchmark-gif.mjs",
     "benchmark:gif:lifecycle": "npm run build && node scripts/benchmark-gif-lifecycle.mjs",
-    "benchmark:gif:preparation": "npm run build && node scripts/benchmark-gif-preparation.mjs"
+    "benchmark:gif:preparation": "npm run build && node scripts/benchmark-gif-preparation.mjs",
+    "benchmark:gif:worker-preparation": "npm run build && node scripts/benchmark-gif-worker-preparation.mjs"
   },
   "devDependencies": {
     "@mediabunny/aac-encoder": "1.65.0",

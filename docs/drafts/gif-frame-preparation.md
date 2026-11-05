@@ -1,9 +1,10 @@
 # GIF frame preparation latency: design draft
 
-Status: Path A implemented locally, Path B remains a proposal, 2026-11-04. Based on commit `fe2f6f3`
+Status: both paths implemented; Path B is unreleased development after 0.6.0, 2026-11-05. Based on commit `fe2f6f3`
 and the [memory/cancellation report](../gif-memory-benchmark.md). The follow-up
 [preparation comparison](../gif-preparation-benchmark.md) records implementation measurements.
 The public GIF API and codec algorithms stay unchanged. Path A is included in release 0.6.0.
+Path B implementation and measurements: [Worker preparation](../gif-worker-preparation.md).
 
 ## Decision
 
@@ -240,15 +241,14 @@ the intended cancellation point. Keep normal memory runs on the shipped runtime 
 
 1. Completed locally: shared composition, cancellable chunk preparation and ownership tests;
    task schedulers/budgets and baseline compared with custom-adapter spies and real adapters.
-2. Future, separately authorized: add the private bridge and version negotiation, raw Worker preparation and compatibility/fault
-   tests. Fix benchmark observers and verify actual raw-path execution before comparing adapters.
-3. Chunk timing/cancellation and cleanup comparison is recorded in the linked report. Extend it with
-   raw Worker timing/memory before enabling that path; select settings from measured results and
-   repeat package/browser checks. Sending changes to GitHub and checking CI is a separate request.
+2. Implemented locally by separate request: private bridge/version negotiation, raw Worker preparation,
+   compatibility/fault tests and benchmark observers asserting actual raw-path execution.
+3. Worker timing/memory comparison is recorded in the linked Worker report. Sending changes to GitHub,
+   checking CI and publishing any new release remain separate requests.
 
 The separately requested Path A implementation inlines the shared helper into the standalone
 controller and uses a 4 ms budget, 16,384-pixel blocks and a 1,048,576-pixel task ceiling. It keeps
 the initial timer boundary, uses MessageChannel for subsequent chunks and timers when unavailable.
 The measurements rejected scheduler continuations because the cancellation timer could be starved.
-Path B, commits/push and releases still need their own request. Palette/dithering changes and other
+Commits/push and releases still need their own request. Palette/dithering changes and other
 roadmap stages do not start here.

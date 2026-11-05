@@ -16,6 +16,18 @@ test('cleanup checks detect an unterminated Worker, detached-buffer failure and 
     validateResources(row);
     for(const change of[{terminateCalls:0},{detached:1},{abortListeners:1},{disposed:2}])assert.throws(()=>validateResources({...row,stats:{...row.stats,...change}}));
     assert.throws(()=>validateResources({...row,liveWorkers:1}));
+    assert.throws(()=>validateResources({...row,ports:1}),/MessagePorts/);
+});
+
+test('memory summaries keep distinct opacity scenes and their repeat counts',()=>{
+    const rows=['opaque','mixed','gradient'].flatMap((scene,i)=>[1,2,3].map(repeat=>({
+        lane:'memory',adapter:'worker',mode:'success',scene,width:640,height:360,frames:60,fps:20,
+        before:{privateFootprintBytes:1000,heap:{usedSize:0,backingStorageSize:0}},held:{privateFootprintBytes:1100},
+        after:{privateFootprintBytes:1000,heap:{usedSize:0,backingStorageSize:0}},
+        peakPrivateDeltaBytes:(i+1)*100+repeat,peakPrivateBytes:1000+(i+1)*100+repeat,samples:[{}]
+    })));
+    const groups=summarize(rows).memory;
+    assert.deepEqual(groups.map(r=>[r.scene,r.n,r.peakPrivateDeltaBytes]),[['opaque',3,102],['mixed',3,202],['gradient',3,302]]);
 });
 test('independent decoding rejects a truncated file and wrong durations/counts; summaries retain growth',()=>{
     const encoder=createGifencEncoder({maxColors:4})({repeat:0});
