@@ -101,6 +101,73 @@ test("validation and unsupported MIME before capture", async () => {
     await assert.rejects(createCanvasRecorder(canvas, { fps: 30 }).stop(), /not started/);
 });
 
+test('deferred contract: recorder keeps result/stop identity and event-before-reaction ordering', async t => {
+    const trace = [], { canvas, track } = fixture();
+    t.mock.method(FakeRecorder.prototype, 'start', function () { this.state = 'recording'; trace.push('native:start'); });
+    t.mock.method(FakeRecorder.prototype, 'stop', function () { this.state = 'inactive'; trace.push('native:stop'); });
+    const recorder = createCanvasRecorder(canvas, { fps: 30 }), finished = recorder.finished;
+    assert.equal(recorder.finished, finished); assert.equal(recorder.state, 'idle');
+    void finished.then(() => trace.push('finished.then'), () => {});
+    try {
+        const starting = recorder.start(); void starting.then(() => trace.push('start.then'), () => {});
+        const stopping = recorder.stop(); void stopping.then(() => trace.push('stop.then'), () => {});
+        assert.equal(recorder.stop(), stopping); assert.notEqual(stopping, finished);
+        assert.equal(recorder.state, 'idle'); assert.deepEqual(trace, ['native:start']);
+        const native = FakeRecorder.instances.at(-1); native.dispatchEvent(new Event('start'));
+        trace.push('start:event-return'); assert.equal(recorder.state, 'recording');
+        assert.deepEqual(trace, ['native:start', 'start:event-return']);
+        queueMicrotask(() => trace.push('start:checkpoint')); await Promise.resolve();
+        assert.equal(recorder.state, 'stopping');
+        assert.deepEqual(trace, ['native:start', 'start:event-return', 'start.then', 'native:stop', 'start:checkpoint']);
+        const data = new Event('dataavailable'); data.data = new Blob(['controlled last chunk'], { type: native.mimeType });
+        native.dispatchEvent(data); native.dispatchEvent(new Event('stop')); trace.push('stop:event-return');
+        assert.equal(recorder.state, 'stopped'); assert.ok(track.stopped); assert.ok(!trace.includes('finished.then'));
+        const result = await stopping;
+        assert.equal(await finished, result); assert.equal(recorder.stop(), stopping); assert.equal(recorder.finished, finished);
+        assert.equal(await result.blob.text(), 'controlled last chunk');
+        assert.ok(trace.indexOf('stop:event-return') < trace.indexOf('finished.then'));
+        assert.ok(trace.indexOf('finished.then') < trace.indexOf('stop.then'));
+    } finally { recorder.dispose(); }
+});
+
+test('deferred contract: recorder pause/resume reuse pending promises and settle after native events', async t => {
+    const trace = [], { canvas } = fixture();
+    for (const action of ['pause', 'resume']) t.mock.method(FakeRecorder.prototype, action, function () {
+        this.state = action === 'pause' ? 'paused' : 'recording'; trace.push('native:' + action);
+    });
+    const recorder = createCanvasRecorder(canvas, { fps: 30 });
+    try {
+        await recorder.start(); const native = FakeRecorder.instances.at(-1);
+        for (const action of ['pause', 'resume']) {
+            const before = recorder.state, pending = recorder[action]();
+            void pending.then(() => trace.push(action + '.then'), () => {});
+            assert.equal(recorder[action](), pending); assert.equal(recorder.state, before);
+            await assert.rejects(recorder[action === 'pause' ? 'resume' : 'pause'](), /pending/);
+            assert.ok(!trace.includes(action + '.then'));
+            native.dispatchEvent(new Event(action)); trace.push(action + ':event-return');
+            assert.equal(recorder.state, action === 'pause' ? 'paused' : 'recording');
+            assert.ok(!trace.includes(action + '.then')); await pending;
+            assert.ok(trace.indexOf(action + ':event-return') < trace.indexOf(action + '.then'));
+        }
+        await recorder.stop();
+    } finally { recorder.dispose(); }
+});
+
+test('deferred contract: recorder preserves the first native error object across pending results', async t => {
+    const { canvas, track } = fixture(), reason = new Error('original native error', { cause: new Error('original cause') });
+    t.mock.method(FakeRecorder.prototype, 'start', function () { this.state = 'recording'; });
+    t.mock.method(FakeRecorder.prototype, 'stop', function () { this.state = 'inactive'; });
+    const recorder = createCanvasRecorder(canvas, { fps: 30 }), finished = recorder.finished;
+    const starting = recorder.start(), stopping = recorder.stop();
+    const observed = [starting, stopping, finished].map(promise => promise.then(() => assert.fail('unexpected success'), error => error));
+    const native = FakeRecorder.instances.at(-1), error = new Event('error'); error.error = reason;
+    native.dispatchEvent(error); assert.equal(recorder.state, 'stopped'); assert.equal(recorder.stop(), stopping);
+    recorder.dispose(); native.dispatchEvent(new Event('start')); native.dispatchEvent(new Event('stop'));
+    assert.deepEqual(await Promise.all(observed), [reason, reason, reason]);
+    for (const promise of [starting, stopping, finished]) await assert.rejects(promise, error => error === reason);
+    assert.equal(recorder.finished, finished); assert.ok(track.stopped);
+});
+
 test("audio clones are recorded with Opus and originals survive stop", async () => {
     const supported = FakeRecorder.supported;
     FakeRecorder.supported = ["video/webm;codecs=vp8,opus"];

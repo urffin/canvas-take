@@ -1,7 +1,8 @@
 # Shared export mechanisms: design
 
 Status: design established 2026-11-06; M1 RGBA extraction implemented locally after 0.6.0,
-with [verification](shared-rgba-verification.md). M2/M3 remain proposals. Baseline:
+with [verification](shared-rgba-verification.md). [M2 evaluated](shared-deferred-evaluation.md):
+extraction deferred; M3 remains a proposal. Baseline:
 `7362c6c71c194e1c7165d83bcb428a2915b598ab` (Worker GIF preparation committed after release 0.6.0).
 Public types/options/exports and package version remain unchanged.
 The personal roadmap remains outside the repository. Acceptance gates are in the separate
@@ -11,7 +12,8 @@ The personal roadmap remains outside the repository. Acceptance gates are in the
 
 Share small mechanisms with demonstrated duplication, keeping the three controllers and their
 format/clock policies separate. Start with the identical RGBA composition algorithm. Consider
-the identical deferred-promise primitive and the MP4/WebM paged byte store in separate changes.
+the MP4/WebM paged byte store separately. The identical deferred-promise primitive was evaluated
+and is kept local for now; its small duplication does not justify adding recorder bundling yet.
 Each extraction must pass its own compatibility gate before another mechanism is moved.
 
 There is no proposed public `Exporter`, universal frame union, unified state enum or common
@@ -82,7 +84,7 @@ choice, input validation order, copy count or the synchronous prefix of `addFram
 ## Proposed internal modules
 
 The following paths and signatures describe internal boundaries. They are not package entry points
-or supported deep imports. M1 is implemented; M2/M3 are future work.
+or supported deep imports. M1 is implemented; M2 extraction is deferred after evaluation; M3 is future work.
 
 ### M1. Pure RGBA composition
 
@@ -104,6 +106,11 @@ scheduling policies. See [M1 verification](shared-rgba-verification.md) and gate
 in the checklist.
 
 ### M2. Deferred promise
+
+Evaluation complete: [decision and compatibility evidence](shared-deferred-evaluation.md).
+Keep the current local helpers. The boundary below describes a possible later extraction, not
+an implemented module. Reconsider when another justified change already needs recorder bundling
+or repeated maintenance drift gives a concrete benefit.
 
 Proposed home: `src/internal/deferred.ts`, matching the existing `deferred<T>()` in video/recorder.
 It creates one original promise and exposes its native resolve/reject functions. Attach the existing
@@ -259,8 +266,9 @@ Calling `Blob.stream()` after finalization does not establish bounded-memory exp
 2. **M1 implemented locally**, with only the required build changes. Video stays synchronous and
    both GIF paths remain selected as before. See byte/range, snapshot, real-file, Worker compatibility
    and packaging evidence in [M1 verification](shared-rgba-verification.md).
-3. **Evaluate M2 separately** at identical video/recorder call sites, preserving promise identity and
-   error ordering. Skip extraction if the build/abstraction cost outweighs this small duplication.
+3. **M2 evaluated: extraction deferred.** An isolated candidate preserves the checked promise/error/
+   order contracts, but the build cost outweighs the small duplication. Keep the new characterization
+   tests; see the [decision](shared-deferred-evaluation.md) for conditions to reconsider.
 4. **Extract M3 separately** after output-write characterization. Keep all adapter policies local;
    verify rewinds, bounds, failed/late writes, Blob independence and both real A/V containers.
 5. **Reassess remaining duplication**. Session gates, clocks, queues and progress types need a concrete
@@ -280,4 +288,5 @@ script and package exports. The accompanying checklist separates existing covera
 characterization and implementation-time checks. It does not claim those future checks have run.
 The initial design task changed documentation only. The later M1 extraction changes its listed
 runtime consumers/tests/build, with evidence in [M1 verification](shared-rgba-verification.md).
-The package metadata/lockfile, public API and version remain unchanged; M2/M3 are not implemented.
+The [M2 evaluation](shared-deferred-evaluation.md) adds public-contract tests and retains both local
+helpers. Package metadata/lockfile, public API and version remain unchanged; M2/M3 are not implemented.

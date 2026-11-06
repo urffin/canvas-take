@@ -97,6 +97,56 @@ function adapters(hooks = {}) {
 }
 const allDisposed = stats => assert.ok(stats.resources.every(r => r.disposed === 1), JSON.stringify(stats.resources.map(r => [r.name, r.disposed])));
 
+test('deferred contract: video finish preserves identity, reentrancy and flush/finalize ordering', async () => {
+    const trace = [], gate = deferred(), entered = deferred(); let exporter, reentrant, reported = false;
+    const a = adapters({ async videoFlush() { trace.push('flush:enter'); entered.resolve(); await gate.promise; trace.push('flush:exit'); },
+        finalize() { trace.push('muxer:finalize'); return new Blob(['complete'], { type: 'video/x-test' }); } });
+    exporter = await createOfflineVideoExporter(a.options({ onProgress(p) {
+        if (p.phase === 'finalizing' && !reported) { reported = true; trace.push('progress:finalizing'); reentrant = exporter.finish(); }
+        if (p.phase === 'finished') { assert.equal(exporter.state, 'finished'); trace.push('progress:finished'); }
+    } }));
+    try {
+        await exporter.addFrame(canvas(), { timestampUs: 0, durationUs: 1000 });
+        const finishing = exporter.finish(); trace.push('finish:return');
+        void finishing.then(() => trace.push('finish.then'), () => {});
+        assert.equal(exporter.state, 'finalizing'); assert.equal(reentrant, finishing); assert.equal(exporter.finish(), finishing);
+        assert.deepEqual(trace, ['progress:finalizing', 'finish:return']);
+        await entered.promise; assert.deepEqual(trace, ['progress:finalizing', 'finish:return', 'flush:enter']);
+        await assert.rejects(exporter.addFrame(canvas(), { timestampUs: 1000, durationUs: 1000 }), /finalizing/);
+        queueMicrotask(() => trace.push('checkpoint')); gate.resolve();
+        const result = await finishing;
+        assert.deepEqual(trace, ['progress:finalizing', 'finish:return', 'flush:enter', 'checkpoint', 'flush:exit', 'muxer:finalize', 'progress:finished', 'finish.then']);
+        assert.equal(exporter.finish(), finishing); assert.equal(await exporter.finish(), result);
+    } finally { gate.resolve(); exporter.dispose(); }
+    allDisposed(a.stats);
+});
+
+test('deferred contract: video pending finish keeps abort/failure identity despite cleanup and late rejection', async () => {
+    for (const mode of ['abort', 'failure']) {
+        const gate = deferred(), entered = deferred(), controller = new AbortController(), reason = new Error('original ' + mode);
+        const a = adapters({ async videoFlush() { entered.resolve(); await gate.promise; }, dispose() { throw new Error('cleanup must not replace reason'); } });
+        const exporter = await createOfflineVideoExporter(a.options({ signal: controller.signal }));
+        try {
+            await exporter.addFrame(canvas(), { timestampUs: 0, durationUs: 1000 });
+            const finishing = exporter.finish(); let observed;
+            const rejected = assert.rejects(finishing, error => {
+                observed = error;
+                return mode === 'abort' ? error === reason : error.message.includes('video encoder') && error.cause === reason;
+            });
+            assert.equal(exporter.finish(), finishing); await entered.promise;
+            if (mode === 'abort') controller.abort(reason); else a.stats.contexts.video.output.fail(reason);
+            assert.equal(exporter.state, mode === 'abort' ? 'aborted' : 'failed');
+            a.stats.contexts.video.output.fail(new Error('later failure'));
+            await rejected;
+            const repeated = exporter.finish(); assert.notEqual(repeated, finishing);
+            await assert.rejects(repeated, error => error === observed);
+            exporter.dispose(); gate.resolve(); await turn();
+            await assert.rejects(finishing, error => error === observed);
+        } finally { gate.resolve(); exporter.dispose(); }
+        allDisposed(a.stats);
+    }
+});
+
 test('video composition finishes synchronously on one owned copy before its first task', async () => {
     const { code } = await transform(await readFile(new URL('../dist/video.js', import.meta.url), 'utf8'), { format: 'cjs' });
     const module = { exports: {} }, copies = [], tasks = new Map(); let nextTask = 0;

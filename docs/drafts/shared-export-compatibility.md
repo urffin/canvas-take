@@ -60,6 +60,10 @@ still be synchronous at its current call site; GIF retains its initial timer and
 
 ### M2 promises and observation
 
+The [M2 evaluation](shared-deferred-evaluation.md) records the new controller characterization,
+isolated candidate and negative controls. Extraction is deferred; these checks do not certify a
+future production migration or replace its packaging/browser gates.
+
 Verify deferred resolves/rejects the original promise with the supplied value/reason, no converted
 error and no added task. An internal ignored rejection handler must not make consumers observe a
 resolved/undefined promise. Exercise rejection before consumer attachment and rejected late work
@@ -181,5 +185,6 @@ Shared CI verifies output/ownership/cleanup; machine-dependent timing/memory thr
 - Performance/memory results when relevant, unresolved failures/skips and reason to accept or reject.
 
 The initial design task checked these documents and unchanged runtime/API/version files. The later
-[M1 verification](shared-rgba-verification.md) records checks for the first extraction. It does not
-mark future M2/M3 gates as executed or complete.
+[M1 verification](shared-rgba-verification.md) records checks for the first extraction. The
+[M2 evaluation](shared-deferred-evaluation.md) records characterization and prototype checks;
+production M2/M3 gates remain pending if those extractions are later requested.
