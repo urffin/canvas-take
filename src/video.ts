@@ -1,3 +1,5 @@
+import { blendRange } from './internal/rgba.js';
+
 /** Adapter-neutral offline video contracts. Concrete codecs and containers are supplied by the caller. */
 export type Awaitable<T> = T | Promise<T>;
 export type Support = { readonly supported: true } | { readonly supported: false; readonly reason: string };
@@ -466,12 +468,7 @@ export async function createOfflineVideoExporter(options: OfflineVideoOptions): 
                     if (!ctx) throw new TypeError('Offline video requires a 2D canvas');
                     const data = new Uint8ClampedArray(ctx.getImageData(0, 0, canvas.width, canvas.height, { colorSpace: 'srgb' }).data);
                     if (data.length !== pixels * 4) throw new RangeError('Invalid frame pixel data');
-                    for (let i = 0; i < data.length; i += 4) {
-                        if (data[i + 3] === 255) continue;
-                        const alpha = data[i + 3] / 255;
-                        for (let c = 0; c < 3; c++) data[i + c] = Math.round(data[i + c] * alpha + cfg.background[c] * (1 - alpha));
-                        data[i + 3] = 255;
-                    }
+                    blendRange(data, 0, pixels, cfg.background);
                     await wait(new Promise<void>(resolve => setTimeout(resolve, 0)));
                     expectedVideo.set(timestampUs, frameDuration); submittedFrames++;
                     await invoke('video encoder.encodeFrame', () => video!.encodeFrame(Object.freeze({ width: cfg.videoConfig.width, height: cfg.videoConfig.height, data,

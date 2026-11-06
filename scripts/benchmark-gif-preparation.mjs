@@ -68,7 +68,7 @@ for (const variant of variants) for (const instrument of [false, true]) {
     if (variant.startsWith('baseline')) code = (await transform(instrument ? instrumentCore(before) : before, { loader: 'ts', format: 'esm', target: 'es2022' })).code;
     else code = (await build({ stdin: { contents: current, resolveDir: join(root, 'src'), sourcefile: 'gif.ts', loader: 'ts' },
         bundle: true, write: false, format: 'esm', target: 'es2022', plugins: [{ name: 'benchmark-only-preparation', setup(b) {
-            b.onLoad({ filter: /gif-preparation\.ts$/ }, () => ({ contents: experimentalHelper(variant, instrument), loader: 'ts' }));
+            b.onLoad({ filter: /gif-preparation\.ts$/ }, () => ({ contents: experimentalHelper(variant, instrument), loader: 'ts', resolveDir: join(root, 'src') }));
         } }] })).outputFiles[0].text;
     const name = `${variant}${instrument ? '-probe' : ''}.js`;
     routes.set('/' + name, { code }); await writeFile(join(directory, name), code);

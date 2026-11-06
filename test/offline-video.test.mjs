@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createOfflineVideoExporter } from '../dist/video.js';
-import { build } from 'esbuild';
+import { build, transform } from 'esbuild';
+import { readFile } from 'node:fs/promises';
+import { runInNewContext } from 'node:vm';
 
 const deferred = () => { let resolve, reject; const promise = new Promise((yes, no) => { resolve = yes; reject = no; }); return { promise, resolve, reject }; };
 const turn = () => new Promise(resolve => setTimeout(resolve, 0));
@@ -94,6 +96,37 @@ function adapters(hooks = {}) {
     return { stats, video, audio, muxer, config, options, withAudio };
 }
 const allDisposed = stats => assert.ok(stats.resources.every(r => r.disposed === 1), JSON.stringify(stats.resources.map(r => [r.name, r.disposed])));
+
+test('video composition finishes synchronously on one owned copy before its first task', async () => {
+    const { code } = await transform(await readFile(new URL('../dist/video.js', import.meta.url), 'utf8'), { format: 'cjs' });
+    const module = { exports: {} }, copies = [], tasks = new Map(); let nextTask = 0;
+    function Pixels(input) { const copy = new Uint8ClampedArray(input); copies.push(copy); return copy; }
+    runInNewContext(code, { module, exports: module.exports, Uint8ClampedArray: Pixels, Uint8Array, Float32Array, ArrayBuffer, Blob, DOMException, AbortController,
+        setTimeout(callback) { const id = ++nextTask; tasks.set(id, callback); return id; }, clearTimeout(id) { tasks.delete(id); } });
+    const a = adapters(), source = canvas(7, 5), reads = [], background = [7, 101, 239];
+    Object.assign(a.config, { width: 7, height: 5 });
+    for (let p = 0; p < 35; p++) source.data.set([p * 7 % 256, 255 - p * 5, p * 13 % 256, [0, 1, 127, 128, 254, 255][p % 6]], p * 4);
+    const original = source.data.slice(), expected = original.map((value, i) => i % 4 === 3 ? 255
+        : Math.floor((value * original[i - i % 4 + 3] + background[i % 4] * (255 - original[i - i % 4 + 3]) + 127) / 255));
+    source.getContext = kind => { assert.equal(kind, '2d'); return { getImageData(...args) { reads.push(args); return { data: source.data }; } }; };
+    const exporter = await module.exports.createOfflineVideoExporter(a.options({ background }));
+    try {
+        const pending = exporter.addFrame(source, { timestampUs: 0, durationUs: 123457 }); void pending.catch(() => {});
+        assert.equal(copies.length, 1);
+        assert.deepEqual(copies[0], expected, 'composition must finish before addFrame returns its promise');
+        assert.notEqual(copies[0].buffer, source.data.buffer);
+        assert.deepEqual(source.data, original);
+        assert.deepEqual(JSON.parse(JSON.stringify(reads)), [[0, 0, 7, 5, { colorSpace: 'srgb' }]]);
+        assert.equal(a.stats.frames.length, 0); assert.equal(tasks.size, 1);
+        source.data.fill(0); source.width = 1; background.fill(255);
+        const [id, resume] = tasks.entries().next().value; tasks.delete(id); resume(); await pending;
+        assert.deepEqual(a.stats.frames[0].data, expected);
+        assert.equal(a.stats.frames[0].timestampUs, 0); assert.equal(a.stats.frames[0].durationUs, 123457);
+        assert.equal(a.stats.frames[0].keyFrame, true); assert.equal(copies.length, 1);
+        const result = await exporter.finish(); assert.equal(result.durationUs, 123457); assert.equal(result.videoFrames, 1);
+    } finally { exporter.dispose(); tasks.clear(); }
+    allDisposed(a.stats);
+});
 
 test('offline video preserves supplied frame intervals, final hold and immediate snapshot with delayed outputs', async () => {
     const a = adapters({ delayedVideo: true }), source = canvas(), progress = [];

@@ -1,7 +1,7 @@
 import { createGifencEncoder } from './gifenc.js';
 import type { GifFrame, GifFrameEncoder } from './gif.js';
 import type { GifencOptions } from './gifenc.js';
-import { blendRange } from './gif-preparation.js';
+import { blendRange } from './internal/rgba.js';
 import { validateRawFrame } from './gif-internal.js';
 
 const scope = globalThis as unknown as {

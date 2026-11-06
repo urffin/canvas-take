@@ -291,6 +291,11 @@ The integration example was verified with an actual VP9 recording at 1920×1080.
 
 ## Development checks
 
+The [shared export mechanisms design](docs/drafts/shared-export-mechanisms.md) compares the current
+GIF, offline-video and recorder implementations. Its [compatibility gates](docs/drafts/shared-export-compatibility.md)
+define checks for individual internal extractions. [Shared RGBA verification](docs/drafts/shared-rgba-verification.md)
+records the first implementation slice; public APIs remain unchanged.
+
 Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC and GIF export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 
 `npm run test:release-video` packs and installs the candidate, then exports a 10-second 1080×1920 H.264/AAC video from only the installed assets. It checks all 300 decoded frames, 480,000 presentation audio samples, playback, dimensions and four independent A/V markers. It also verifies VP8/Opus WebM with exact samples, a final frame hold and A/V markers, plus byte-identical sync/Worker GIFs after cancellation/retry. Files and metrics are saved under `test-results/release-video/`.

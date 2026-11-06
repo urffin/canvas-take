@@ -420,6 +420,11 @@ AlgiViz и не изменяет тот проект.
 
 ## Проверки при разработке
 
+В [проекте общих механизмов экспорта](../docs/drafts/shared-export-mechanisms.md) сопоставлены
+текущие реализации GIF, офлайн-видео и записи. [Критерии совместимости](../docs/drafts/shared-export-compatibility.md)
+задают проверки выделения внутренних частей. [Отчёт общего RGBA](../docs/drafts/shared-rgba-verification.md)
+описывает первый реализованный шаг; публичный API сохранён.
+
 `npm test` запускает модульные тесты и проверки Node Worker, а `npm run test:package`
 проверяет установку упакованной библиотеки в отдельный проект. Для настоящих браузеров
 сначала выполните `npx playwright install chromium firefox`, затем `npm run test:browser`.
