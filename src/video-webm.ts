@@ -1,5 +1,6 @@
 import {Output,StreamTarget,WebMOutputFormat,EncodedVideoPacketSource,EncodedAudioPacketSource,EncodedPacket} from 'mediabunny';
 import type {MuxerFactory,MuxerConfig,VideoDescription,AudioDescription,EncodedPacket as Packet} from './video.js';
+import {createPagedByteStore} from './internal/paged-bytes.js';
 
 function unsupported(c:MuxerConfig):string|undefined {
     if(c.video.codec!=='vp8'||c.video.bitstreamFormat!=='vp8')return 'WebM requires vp8/vp8 video';
@@ -18,12 +19,12 @@ export function createWebmMuxer():MuxerFactory {
             let output:Output|undefined,video:EncodedVideoPacketSource|undefined,audio:EncodedAudioPacketSource|undefined;
             let videoConfig:VideoDescription|undefined,audioConfig:AudioDescription|undefined,lastAudio:Packet|undefined;
             let endedVideo=false,endedAudio=false,frames=0,videoEnd=0,audioNext:number|undefined,preSkip:number|undefined,audioSamples:number|undefined;
-            let size=0,mediaBytes=0,disposed=false,outputError:Error|undefined;
-            const pageSize=65536,pages=new Map<number,Uint8Array<ArrayBuffer>>();
+            let mediaBytes=0,disposed=false,outputError:Error|undefined;
+            const bytes=createPagedByteStore();
             const guard=()=>{if(outputError)throw outputError;if(disposed||context.signal.aborted)throw context.signal.reason??new DOMException('WebM muxer disposed','AbortError');};
             function dispose():void{
                 if(disposed)return;disposed=true;context.signal.removeEventListener('abort',dispose);
-                const previous=output;output=undefined;video=undefined;audio=undefined;lastAudio=undefined;videoConfig=undefined;audioConfig=undefined;pages.clear();
+                const previous=output;output=undefined;video=undefined;audio=undefined;lastAudio=undefined;videoConfig=undefined;audioConfig=undefined;bytes.clear();
                 if(previous&&previous.state!=='finalized'&&previous.state!=='canceled')void previous.cancel().catch(()=>{});
             }
             function reserve(bytes:number):void{
@@ -37,11 +38,7 @@ export function createWebmMuxer():MuxerFactory {
                     if(disposed||context.signal.aborted||outputError)return;
                     const end=position+data.byteLength;
                     if(context.maxOutputBytes!==undefined&&end>context.maxOutputBytes){outputError=new RangeError('WebM maxOutputBytes exceeded');return;}
-                    for(let offset=0;offset<data.byteLength;){
-                        const absolute=position+offset,index=Math.floor(absolute/pageSize),within=absolute%pageSize;
-                        let page=pages.get(index);if(!page){page=new Uint8Array(pageSize);pages.set(index,page);}
-                        const count=Math.min(pageSize-within,data.byteLength-offset);page.set(data.subarray(offset,offset+count),within);offset+=count;
-                    }size=Math.max(size,end);
+                    bytes.write(position,data);
                 }}),{chunked:false});
                 target.on('write',({end})=>{if(context.maxOutputBytes!==undefined&&end>context.maxOutputBytes)outputError??=new RangeError('WebM maxOutputBytes exceeded');});
                 const format=Object.assign(new WebMOutputFormat(),{canvastakeMaxPendingBytes:context.maxPendingBytes});
@@ -85,9 +82,8 @@ export function createWebmMuxer():MuxerFactory {
                 },
                 async finalize(timeline){
                     guard();if(!endedVideo||frames!==timeline.videoFrames||videoEnd!==timeline.durationUs||(config.audio?!endedAudio||audioSamples!==timeline.audioPresentationSamples:timeline.audioPresentationSamples!==undefined))throw new Error('WebM final timeline mismatch');
-                    await output!.finalize();guard();if(!size)throw new Error('WebM output missing');
-                    const parts:Uint8Array<ArrayBuffer>[]=[];for(let offset=0;offset<size;offset+=pageSize)parts.push(pages.get(offset/pageSize)!.subarray(0,Math.min(pageSize,size-offset)));
-                    const blob=new Blob(parts,{type:'video/webm'});pages.clear();return blob;
+                    await output!.finalize();guard();if(!bytes.size)throw new Error('WebM output missing');
+                    const blob=new Blob(bytes.parts(),{type:'video/webm'});bytes.clear();return blob;
                 },dispose
             };
         }

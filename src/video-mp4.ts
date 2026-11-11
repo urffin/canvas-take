@@ -1,5 +1,6 @@
 import { Output, StreamTarget, Mp4OutputFormat, EncodedVideoPacketSource, EncodedAudioPacketSource, EncodedPacket } from 'mediabunny';
 import type { MuxerFactory, MuxerConfig, VideoDescription, AudioDescription, EncodedPacket as Packet } from './video.js';
+import { createPagedByteStore } from './internal/paged-bytes.js';
 
 // Mediabunny 1.65 uses this movie/track timebase when no frameRate snapping is requested.
 const TIMESCALE = 57_600;
@@ -22,8 +23,8 @@ export function createMp4Muxer(): MuxerFactory {
             let audioDescription: AudioDescription | undefined, audioEnded = false, audioSamples: number | undefined;
             let audioFirst: number | undefined, audioNext: number | undefined, audioLast: Packet | undefined;
             const sample = (timeUs:number) => Math.sign(timeUs)*Number((BigInt(Math.abs(timeUs))*BigInt(config.audio!.sampleRate)+500_000n)/1_000_000n);
-            let size = 0, outputError: Error | undefined;
-            const pageSize = 64 * 1024, pages = new Map<number, Uint8Array<ArrayBuffer>>();
+            let outputError: Error | undefined;
+            const bytes = createPagedByteStore();
             const guard = () => {
                 if (outputError) throw outputError;
                 if (disposed || context.signal.aborted) throw context.signal.reason ?? new DOMException('MP4 muxer disposed', 'AbortError');
@@ -31,7 +32,7 @@ export function createMp4Muxer(): MuxerFactory {
             function dispose(): void {
                 if (disposed) return; disposed = true; context.signal.removeEventListener('abort', dispose);
                 const previous = output; output = undefined; source = undefined; audio = undefined; audioLast = undefined;
-                pages.clear(); description = undefined; audioDescription = undefined;
+                bytes.clear(); description = undefined; audioDescription = undefined;
                 if (previous && previous.state !== 'finalized' && previous.state !== 'canceled') void previous.cancel().catch(() => {});
             }
             try {
@@ -42,14 +43,7 @@ export function createMp4Muxer(): MuxerFactory {
                     if (disposed || context.signal.aborted || outputError) return;
                     const end = position + data.byteLength;
                     if (context.maxOutputBytes !== undefined && end > context.maxOutputBytes) { outputError = new RangeError('MP4 maxOutputBytes exceeded'); return; }
-                    for (let offset = 0; offset < data.byteLength;) {
-                        const absolute = position + offset, index = Math.floor(absolute / pageSize), within = absolute % pageSize;
-                        let page = pages.get(index);
-                        if (!page) { page = new Uint8Array(pageSize); pages.set(index, page); }
-                        const count = Math.min(pageSize - within, data.byteLength - offset);
-                        page.set(data.subarray(offset, offset + count), within); offset += count;
-                    }
-                    size = Math.max(size, end);
+                    bytes.write(position, data);
                 } }), { chunked: false });
                 // Event listeners are observers: Mediabunny swallows their exceptions. Record an error and
                 // reject operations/stream writes explicitly instead of relying on a throwing listener.
@@ -122,12 +116,8 @@ export function createMp4Muxer(): MuxerFactory {
                     guard();
                     if (!ended || frames !== timeline.videoFrames || endUs !== timeline.durationUs || (config.audio ? !audioEnded || audioSamples !== timeline.audioPresentationSamples : timeline.audioPresentationSamples !== undefined)) throw new Error('MP4 final timeline does not match written tracks');
                     await output!.finalize(); guard();
-                    if (!size) throw new Error('MP4 output buffer missing');
-                    const parts: Uint8Array<ArrayBuffer>[] = [];
-                    for (let offset = 0; offset < size; offset += pageSize) {
-                        parts.push(pages.get(offset / pageSize)!.subarray(0, Math.min(pageSize, size - offset)));
-                    }
-                    const blob = new Blob(parts, { type: 'video/mp4' }); pages.clear();
+                    if (!bytes.size) throw new Error('MP4 output buffer missing');
+                    const blob = new Blob(bytes.parts(), { type: 'video/mp4' }); bytes.clear();
                     return blob;
                 },
                 dispose

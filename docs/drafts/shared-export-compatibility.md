@@ -85,6 +85,10 @@ or unified progress shape is added.
 
 ### M3 positioned bytes and error propagation
 
+The [M3 verification report](shared-paged-bytes-verification.md) records before-extraction golden
+writer traces, page/adapter/retention tests and real-codec integration results. Keep these gates for
+subsequent output changes; do not regenerate a golden hash simply to accept a changed result.
+
 Use valid writer traces starting with actual data coverage. Test writes ending on a page boundary,
 crossing 65,536 bytes, appending small pieces, and rewriting overlapping earlier bytes without
 shrinking the high-water length. Mutate the source Uint8Array immediately after the synchronous
@@ -187,4 +191,5 @@ Shared CI verifies output/ownership/cleanup; machine-dependent timing/memory thr
 The initial design task checked these documents and unchanged runtime/API/version files. The later
 [M1 verification](shared-rgba-verification.md) records checks for the first extraction. The
 [M2 evaluation](shared-deferred-evaluation.md) records characterization and prototype checks;
-production M2/M3 gates remain pending if those extractions are later requested.
+production M2 gates remain pending if extraction is later requested. [M3 verification](shared-paged-bytes-verification.md)
+records the implemented storage extraction and its local evidence.

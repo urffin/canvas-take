@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Share positioned 64 KiB output-page storage between MP4 and WebM while retaining container-specific limits, errors and stream cleanup.
 - Share the existing RGBA composition algorithm between GIF fallback/Worker preparation and offline video, preserving snapshot and scheduling behavior.
 - Prepare raw GIF pixels in the existing encoder Worker after private version negotiation, retaining opaque-frame fallback for legacy assets and third-party encoders.
 - Verify mixed Worker/adapter versions, cancellation after handoff and retained-exporter cleanup; compare latency, throughput and process memory against 0.6.0.

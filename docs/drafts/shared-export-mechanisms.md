@@ -2,7 +2,7 @@
 
 Status: design established 2026-11-06; M1 RGBA extraction implemented locally after 0.6.0,
 with [verification](shared-rgba-verification.md). [M2 evaluated](shared-deferred-evaluation.md):
-extraction deferred; M3 remains a proposal. Baseline:
+extraction deferred; [M3 paged bytes implemented locally](shared-paged-bytes-verification.md). Baseline:
 `7362c6c71c194e1c7165d83bcb428a2915b598ab` (Worker GIF preparation committed after release 0.6.0).
 Public types/options/exports and package version remain unchanged.
 The personal roadmap remains outside the repository. Acceptance gates are in the separate
@@ -37,7 +37,8 @@ its formula was duplicated inline in `video.ts`. M1 moves both to [one pure modu
 `deferred<T>()` in `video.ts` and `index.ts` already has the same
 promise/rejection-handling behavior. [MP4](../../src/video-mp4.ts) and
 [WebM](../../src/video-webm.ts) each collect positioned writes into owned 65,536-byte pages,
-track the maximum written endpoint and assemble a Blob at finalization.
+track the maximum written endpoint and assemble a Blob at finalization. M3 now shares those storage
+mechanics in [one internal module](../../src/internal/paged-bytes.ts), retaining adapter policies.
 
 These are source observations at the baseline, not evidence that a generalized session engine
 or output queue would improve either controller. The [Worker comparison](../gif-worker-preparation.md)
@@ -84,7 +85,7 @@ choice, input validation order, copy count or the synchronous prefix of `addFram
 ## Proposed internal modules
 
 The following paths and signatures describe internal boundaries. They are not package entry points
-or supported deep imports. M1 is implemented; M2 extraction is deferred after evaluation; M3 is future work.
+or supported deep imports. M1/M3 are implemented locally; M2 extraction is deferred after evaluation.
 
 ### M1. Pure RGBA composition
 
@@ -124,7 +125,8 @@ helper does not decide which public outcome or error should win. See gates K5, K
 
 ### M3. Paged in-memory bytes for MP4/WebM
 
-Proposed home: `src/internal/paged-bytes.ts`. Limit it to positioned copying, high-water length,
+Implemented home: [src/internal/paged-bytes.ts](../../src/internal/paged-bytes.ts), with
+[verification](shared-paged-bytes-verification.md). Limit it to positioned copying, high-water length,
 ordered used-page views and clearing owned pages. Preserve 65,536-byte pages, synchronous copying,
 last-write-wins overlapping updates, and Blob assembly without an extra contiguous full-file copy.
 Data passed to a positioned write is borrowed only for that synchronous call.
@@ -269,8 +271,9 @@ Calling `Blob.stream()` after finalization does not establish bounded-memory exp
 3. **M2 evaluated: extraction deferred.** An isolated candidate preserves the checked promise/error/
    order contracts, but the build cost outweighs the small duplication. Keep the new characterization
    tests; see the [decision](shared-deferred-evaluation.md) for conditions to reconsider.
-4. **Extract M3 separately** after output-write characterization. Keep all adapter policies local;
-   verify rewinds, bounds, failed/late writes, Blob independence and both real A/V containers.
+4. **M3 implemented locally** after output-write characterization. Adapter policies remain local;
+   rewinds, bounds, failed/late writes, Blob independence and real A/V containers are checked in
+   [M3 verification](shared-paged-bytes-verification.md).
 5. **Reassess remaining duplication**. Session gates, clocks, queues and progress types need a concrete
    second compatible use case and evidence before abstraction. External receivers require their own
    target/result proposal. APNG/WebP can later reuse pure mechanisms without inheriting video clocks.
@@ -289,4 +292,5 @@ characterization and implementation-time checks. It does not claim those future 
 The initial design task changed documentation only. The later M1 extraction changes its listed
 runtime consumers/tests/build, with evidence in [M1 verification](shared-rgba-verification.md).
 The [M2 evaluation](shared-deferred-evaluation.md) adds public-contract tests and retains both local
-helpers. Package metadata/lockfile, public API and version remain unchanged; M2/M3 are not implemented.
+helpers. [M3 verification](shared-paged-bytes-verification.md) records the shared output-store extraction.
+Package metadata/lockfile, public API and version remain unchanged; M2 is not implemented.

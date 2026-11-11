@@ -1,0 +1,137 @@
+{
+  "baseline": "09cd09c16d874b22422bf7f938ff4a05f825f97c",
+  "writer": "Mediabunny 1.65.0 with existing guarded WebM patch",
+  "metadataClock": "2025-01-01T00:00:00.000Z",
+  "random": 0.25,
+  "payloads": "Deterministic synthetic coded packets for writer traces; independent decoding is a separate real-codec browser gate",
+  "cases": {
+    "mp4-silent": {
+      "bytes": 73995,
+      "sha256": "ebe4a1010b65ada4f3292c812eb785420b656f75e12035702284966a27a6684e",
+      "rewinds": 1,
+      "trace": [
+        {
+          "position": 0,
+          "bytes": 44,
+          "sha256": "e8b01900d0f4b3c838f8bd8e8d913f8b572d36d717ab4fab942b20c7d7f0a398"
+        },
+        {
+          "position": 44,
+          "bytes": 73304,
+          "sha256": "2e6c49b7b314c2f5312d12c0600b030bdb08c0bd9303ec23324edb8e8b6dbb61"
+        },
+        {
+          "position": 28,
+          "bytes": 8,
+          "sha256": "c55622a1032fe6796f1f3e99a90bcdffbe3dbcaf71a619fb50f6870de4cd8284"
+        },
+        {
+          "position": 73348,
+          "bytes": 647,
+          "sha256": "53dbcc805e16f1f03147e5c5d6568dc122cb1a62a332a61b53b1ce8b87319ea8"
+        }
+      ]
+    },
+    "mp4-audio": {
+      "bytes": 74585,
+      "sha256": "57cd34339db271daa0160f290d684b6623111169b726e03f266aced1b9d351ac",
+      "rewinds": 1,
+      "trace": [
+        {
+          "position": 0,
+          "bytes": 44,
+          "sha256": "e8b01900d0f4b3c838f8bd8e8d913f8b572d36d717ab4fab942b20c7d7f0a398"
+        },
+        {
+          "position": 44,
+          "bytes": 6,
+          "sha256": "5e479f6ad758d90b8e57e47a2ad966c8a01fb6e275d2cf0783c79d236e0d74e1"
+        },
+        {
+          "position": 50,
+          "bytes": 73304,
+          "sha256": "2e6c49b7b314c2f5312d12c0600b030bdb08c0bd9303ec23324edb8e8b6dbb61"
+        },
+        {
+          "position": 28,
+          "bytes": 8,
+          "sha256": "c27f5244368109ffd6f4c5be58670222f6d107ebaa1de4e59f37fb68952c73c8"
+        },
+        {
+          "position": 73354,
+          "bytes": 1231,
+          "sha256": "34efce5686b68b824426fbfd25af8939fd6a9d44cc0261a8162186653f7ebc84"
+        }
+      ]
+    },
+    "webm-silent": {
+      "bytes": 73644,
+      "sha256": "88f500ac2dc7bc5d936898e55f8e10cccea4e547d466da38c40f5d24a000018d",
+      "rewinds": 2,
+      "trace": [
+        {
+          "position": 0,
+          "bytes": 39,
+          "sha256": "6bbe0646a523d5d4814bf0ffbc9954d8e6bf2a92f726b501201ff5b0e2209de1"
+        },
+        {
+          "position": 39,
+          "bytes": 232,
+          "sha256": "4ef1a63d3e82dbcb21b6f8d176e6952e70322b279bcc0db29497dd1c91beaff9"
+        },
+        {
+          "position": 43,
+          "bytes": 77,
+          "sha256": "4a13c92e5a2feaedd5d4f8a023b7e3ac647eeb1f0de8b3775e5636dc6bb88bfe"
+        },
+        {
+          "position": 134,
+          "bytes": 11,
+          "sha256": "2199df92a079da5d06aa2ba4d8cceb5ba82817688a8373f8de1a26a7ffee49d3"
+        },
+        {
+          "position": 271,
+          "bytes": 73373,
+          "sha256": "785214041a69020632af18db5df7e25f85ba112e83399e9e805cb2edd53b7cef"
+        }
+      ]
+    },
+    "webm-audio": {
+      "bytes": 73840,
+      "sha256": "7f3c3f05575ffa3ae03aae398d01337e7e709d8dbd0905e6f210d5c71d4ab0b5",
+      "rewinds": 2,
+      "trace": [
+        {
+          "position": 0,
+          "bytes": 39,
+          "sha256": "6bbe0646a523d5d4814bf0ffbc9954d8e6bf2a92f726b501201ff5b0e2209de1"
+        },
+        {
+          "position": 39,
+          "bytes": 314,
+          "sha256": "d84158154e883984c13691046c64786d89254ca5c46d57d481c53b1b0506677e"
+        },
+        {
+          "position": 353,
+          "bytes": 73374,
+          "sha256": "8bb534157a03a9ee103d265782292a73cb74d9f7b95610b4f653b212c08a7790"
+        },
+        {
+          "position": 43,
+          "bytes": 77,
+          "sha256": "8d5696a99ea504cb945079f6eaffa03e59c3c645215a62027ad4a39bf2a45b5f"
+        },
+        {
+          "position": 134,
+          "bytes": 11,
+          "sha256": "2199df92a079da5d06aa2ba4d8cceb5ba82817688a8373f8de1a26a7ffee49d3"
+        },
+        {
+          "position": 73727,
+          "bytes": 113,
+          "sha256": "8e7cfb98481405e1154c6d9c05621f83f16df10dd28e9001cb9ea5a8236ea912"
+        }
+      ]
+    }
+  }
+}

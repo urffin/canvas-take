@@ -297,6 +297,8 @@ define checks for individual internal extractions. [Shared RGBA verification](do
 records the first implementation slice; public APIs remain unchanged.
 The [deferred evaluation](docs/drafts/shared-deferred-evaluation.md) retains the small local helpers
 and records promise-identity, ordering and error checks for future work.
+[Paged output verification](docs/drafts/shared-paged-bytes-verification.md) records shared MP4/WebM
+byte storage, positioned-write compatibility and cleanup checks in unreleased development.
 
 Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC and GIF export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 
