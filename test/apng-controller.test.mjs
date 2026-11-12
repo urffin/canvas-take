@@ -210,10 +210,11 @@ test('internal APNG removes signal listeners on terminal outcomes and preserves 
     }
 });
 
-test('internal APNG remains absent from public package entries and has codec-free imports', async () => {
+test('public APNG entry exposes the controller and types without importing a codec', async () => {
     const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
-    assert.equal(pkg.exports['./apng'], undefined);
-    await assert.rejects(import('@grundyjs/canvas-take/apng'), e => e.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED');
+    assert.equal(pkg.exports['./apng'].import, './dist/apng.js');
+    const publicEntry = await import('@grundyjs/canvas-take/apng'); assert.equal(typeof publicEntry.createApngExporter, 'function');
+    assert.deepEqual(Object.keys(publicEntry), ['createApngExporter']);
     const module = await import('../dist/internal/apng-controller.js'); assert.equal(typeof module.createApngController, 'function');
     const bundle = await build({ entryPoints: ['dist/internal/apng-controller.js'], bundle: true, write: false, metafile: true, format: 'esm', platform: 'browser' });
     assert.ok(Object.keys(bundle.metafile.inputs).every(path => path.startsWith('dist/internal/apng-')));
@@ -343,20 +344,25 @@ test('internal APNG validates multi-frame sequence/default-image bounds and corr
     }
 });
 
-test('internal APNG contracts match the draft types without exposing a new package API', async () => {
+test('internal and public APNG contracts match the draft types', async () => {
     const workspace = await mkdtemp(join(tmpdir(), 'canvastake-apng-types-'));
     try {
         const internal = fileURLToPath(new URL('../src/internal/apng-types.js', import.meta.url)).replaceAll('\\', '/');
         const draft = fileURLToPath(new URL('../docs/drafts/apng-export-api.js', import.meta.url)).replaceAll('\\', '/');
         const controller = fileURLToPath(new URL('../src/internal/apng-controller.js', import.meta.url)).replaceAll('\\', '/');
+        const publicEntry = fileURLToPath(new URL('../src/apng.js', import.meta.url)).replaceAll('\\', '/');
         const names = ['ApngFrame', 'ApngEncoderContext', 'ApngFrameEncoder', 'ApngEncoderFactory', 'ApngExportState', 'ApngExportProgress', 'ApngExportOptions', 'ApngExporter'];
         await writeFile(join(workspace, 'check.mts'), `import type * as I from ${JSON.stringify(internal)};
 import type * as D from ${JSON.stringify(draft)};
+import type * as P from ${JSON.stringify(publicEntry)};
+import {createApngExporter} from ${JSON.stringify(publicEntry)};
 import {createApngController} from ${JSON.stringify(controller)};
 type Equal<A,B> = (<T>()=>T extends A?1:2) extends (<T>()=>T extends B?1:2) ? true : false;
 const checks: [${names.map(n => 'Equal<I.' + n + ',D.' + n + '>').join(',')}] = [${names.map(() => 'true').join(',')}];
 const create: typeof D.createApngExporter = createApngController;
-void checks; void create;\n`);
+const publicChecks: [${names.map(n => 'Equal<P.' + n + ',D.' + n + '>').join(',')}] = [${names.map(() => 'true').join(',')}];
+const publicCreate: typeof D.createApngExporter = createApngExporter;
+void checks; void create; void publicChecks; void publicCreate;\n`);
         execFileSync(process.execPath, [fileURLToPath(new URL('../node_modules/typescript/bin/tsc', import.meta.url)), '--ignoreConfig', '--strict', '--noEmit', '--target', 'ES2022', '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--lib', 'ES2022,DOM', join(workspace, 'check.mts')], { encoding: 'utf8', timeout: 30000 });
     } finally {
         const parent = await realpath(tmpdir()), target = await realpath(workspace), child = relative(parent, target);

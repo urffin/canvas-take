@@ -407,6 +407,30 @@ BFS. Ранее проверенный результат: 800×560, 141 кад�
 кадра 2 секунды, около 1,60 МБ. Пример использует существующие алгоритм и рендерер
 AlgiViz и не изменяет тот проект.
 
+## Экспорт APNG (ещё не выпущен)
+
+Публичные точки входа APNG реализованы в текущей рабочей копии. Опубликованная npm-версия 0.6.1 их пока не содержит.
+
+```js
+import { createApngExporter } from '@grundyjs/canvas-take/apng';
+import { createApngWorkerEncoder } from '@grundyjs/canvas-take/apng/worker';
+
+const exporter = createApngExporter({ encoder: createApngWorkerEncoder(), plays: 3 });
+try {
+    await exporter.addFrame(canvas, 55); // Полный прозрачный снимок; следующий кадр рисует приложение.
+    const blob = await exporter.finish(); // image/apng, расширение .apng
+} finally {
+    exporter.dispose();
+}
+```
+
+Задержки — точные целые миллисекунды от 1 до 65535. Один кадр сохраняет метаданные анимации;
+одинаковые кадры и прозрачное стирание не теряются. Worker хранит входы до finish; лимит сырых
+данных 64 МиБ по умолчанию не ограничивает всю пиковую память. Для отмены передайте AbortSignal;
+дожидайтесь каждой операции. Файл Worker доступен через `@grundyjs/canvas-take/apng/worker-runtime`.
+[Описание API и развёртывания](../docs/apng-export.md) охватывает лимиты, прогресс, свой кодировщик,
+URL Worker и ограничения просмотрщиков. [Пример](../examples/apng.html) использует публичные импорты.
+
 ## Использование в браузере и на сервере
 
 Для записи нужен браузер с `canvas.captureStream`, `MediaRecorder` и `MutationObserver`.
@@ -430,23 +454,22 @@ AlgiViz и не изменяет тот проект.
 хранилище MP4/WebM, совместимость записей по позициям и очистку, включённые в 0.6.1.
 [Оценка оставшихся механизмов](../docs/drafts/shared-export-policy-evaluation.md) сохраняет локальные
 правила времени, владения, отмены и прогресса и фиксирует условия будущего выделения.
-[Проект APNG](../docs/drafts/apng-export.md) описывает прозрачные кадры и подключаемые кодировщики;
-публичный экспорт APNG пока недоступен в пакете.
-[Изолированный прототип APNG-backend](../docs/drafts/apng-backend-spike.md) проверяет RGBA, задержки
-и отмену реального Worker; публичного APNG-экспортера он не добавляет.
-[Проверки внутреннего контроллера](../docs/drafts/apng-controller-verification.md) охватывают тестовые
-кодировщики, лимиты, прогресс, отмену и освобождение буферов. Этот код ещё не выпущен;
-настоящий backend и отдельный Worker теперь проверены в [отчёте интеграции](../docs/drafts/apng-integration-verification.md),
-включая независимое декодирование, установленный пакет и Next.js.
-[Пример для разработки](../examples/apng.html) использует внутренние файлы; публичные точки входа APNG ещё не добавлены.
+[Проект APNG](../docs/drafts/apng-export.md), [прототип backend](../docs/drafts/apng-backend-spike.md),
+[проверки контроллера](../docs/drafts/apng-controller-verification.md) и
+[отчёт интеграции Worker](../docs/drafts/apng-integration-verification.md) сохраняют результаты предыдущих этапов.
+Актуальные публичные импорты и размещение файлов описаны в [руководстве APNG](../docs/apng-export.md).
 
 `npm test` запускает модульные тесты и проверки Node Worker, а `npm run test:package`
 проверяет установку упакованной библиотеки в отдельный проект. Для настоящих браузеров
 сначала выполните `npx playwright install chromium firefox`, затем `npm run test:browser`.
-Проверяются запись видео, офлайн MP4/AAC, WebM/Opus, GIF и внутренний APNG, отмена, повторный экспорт, освобождение
+Проверяются запись видео, офлайн MP4/AAC, WebM/Opus, GIF и APNG, отмена, повторный экспорт, освобождение
 ресурсов и независимое декодирование звука/временной шкалы. `npm run test:next` проверяет сборку
 упакованной библиотеки с Next.js/Turbopack. Подробности — в
 [описании проверок GIF](../docs/gif-encoder.md#verification).
+
+`npm run test:apng:package` проверяет публичные APNG-типы и реальные Worker из установленного tarball.
+`npm run test:next -- --apng-browser` дополнительно проверяет в браузерах сборку Next.js и
+три варианта URL Worker: автоматический, через package entry и явно скопированный файл.
 
 `npm run test:release-video` устанавливает tarball кандидата и из его ассетов экспортирует
 10-секундный MP4 H.264/AAC, 1080×1920. Проверяет все 300 декодированных кадров,

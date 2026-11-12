@@ -2,8 +2,8 @@
 
 ## Unreleased
 
-- Implement a private APNG controller with injected test encoders, exact frame delays, owned RGBA snapshots, limits, progress and cancellation-safe cleanup; public APNG entries remain pending.
-- Integrate a private pinned UPNG/Pako backend and dedicated cancellable APNG Worker, with source/license checks, a development example, independent browser decoding and installed-package/Next.js checks. No public APNG entry or new release yet.
+- Add public `/apng`, `/apng/worker` and `/apng/worker-runtime` entries with a caller-selected encoder, transparent owned RGBA snapshots, exact delays, limits, progress and cancellation-safe cleanup.
+- Supply a dedicated APNG Worker backed by pinned UPNG/Pako with guarded source/license checks; verify independent decoding, public types, installed packages and Next.js Worker deployment. Update the API guide and public-import example. No new release yet.
 
 ## 0.6.1 — 2026-11-12
 

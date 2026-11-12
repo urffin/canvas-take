@@ -44,6 +44,7 @@ test('APNG real canvas/Worker preserves alpha, single frame, plays and exact fil
     const withoutPlays = bytes => { const copy = Buffer.from(bytes), chunk = inspect(copy).chunks.find(c => c.type === 'acTL'); copy.fill(0, chunk.offset + 12, chunk.end); return copy; };
     expect(withoutPlays(outputs[3])).toEqual(withoutPlays(outputs[4]));
     await expect.poll(() => observed.closed.length).toBe(cases.length); expect(observed.workers).toHaveLength(cases.length);
+    expect(new URL(observed.workers[0].url()).pathname).toBe('/dist/apng-worker-runtime.js');
     expect(observed.workers.at(-1).url()).toContain('/custom-apng-worker.js'); expect(observed.errors).toEqual([]);
 });
 
@@ -60,15 +61,15 @@ test('APNG cancels inside real deflate and exports again on the same page', asyn
 test('APNG limits, early abort, invalid Worker and fresh retry release owned Workers', async ({ page }, testInfo) => {
     const observed = observe(page); await page.goto('/');
     const result = await page.evaluate(async () => {
-        const { createApngController } = await import('/dist/internal/apng-controller.js');
-        const { createApngWorkerEncoder } = await import('/dist/internal/apng-worker.js');
+        const { createApngExporter } = await import('@grundyjs/canvas-take/apng');
+        const { createApngWorkerEncoder } = await import('@grundyjs/canvas-take/apng/worker');
         const canvas = new OffscreenCanvas(2, 2), ctx = canvas.getContext('2d'); ctx.fillStyle = 'red'; ctx.fillRect(0, 0, 2, 2);
         const NativeWorker = window.Worker; let created = 0, terminated = 0;
         window.Worker = class extends NativeWorker { constructor(...args) { super(...args); created++; } terminate() { terminated++; return super.terminate(); } };
         const results = [];
         for (const mode of ['input', 'output', 'abort', 'invalid']) {
             const abort = new AbortController(), original = new Error('early abort');
-            const e = createApngController({ encoder: createApngWorkerEncoder(mode === 'invalid' ? { workerUrl: '/fixtures/apng-invalid.js', timeoutMs: 1000 } : {}),
+            const e = createApngExporter({ encoder: createApngWorkerEncoder(mode === 'invalid' ? { workerUrl: '/fixtures/apng-invalid.js', timeoutMs: 1000 } : {}),
                 signal: abort.signal, maxInputBytes: mode === 'input' ? 15 : 64, maxOutputBytes: mode === 'output' ? 1 : undefined });
             try { const pending = e.addFrame(canvas, 55); if (mode === 'abort') abort.abort(original); await pending; await e.finish(); results.push({ mode, success: true }); }
             catch (error) { results.push({ mode, state: e.state, same: error === original, message: error.message }); }
@@ -85,7 +86,7 @@ test('APNG limits, early abort, invalid Worker and fresh retry release owned Wor
     await expect.poll(() => observed.closed.length).toBe(observed.workers.length); expect(observed.errors).toEqual([]);
 });
 
-test('APNG development example exports, cancels, clears its result and retries', async ({ page }) => {
+test('APNG public example exports, cancels, clears its result and retries', async ({ page }) => {
     const observed = observe(page); await page.goto('/examples/apng.html');
     await page.getByRole('button', { name: 'Export APNG', exact: true }).click();
     await expect(page.locator('#status')).toContainText('finished: 24 frames, 2265 ms');

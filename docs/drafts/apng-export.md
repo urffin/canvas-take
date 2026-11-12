@@ -4,10 +4,11 @@ Status: design, locally verified [backend feasibility prototype](apng-backend-sp
 unreleased [private controller with contract tests](apng-controller-verification.md) and
 [real Worker/backend integration](apng-integration-verification.md), 2026-11-12,
 after the separate `0.6.1` release (`b9bb4d9e662208a8b77c8bf5025371b17669e02d`).
-The backend is pinned/vendored and integrated into private build assets; no public export or further version change. The
-[draft declarations](apng-export-api.d.ts) are a design artifact, not an available import.
-The [typed usage sketch](apng-export-example.ts) likewise demonstrates a future injected encoder,
-not an executable browser example.
+This document preserves the design history. The public `/apng`, `/apng/worker` and
+`/apng/worker-runtime` entries are now implemented in the working tree, without a version change
+or publication. See the [current API guide](../apng-export.md) and
+[public-entry verification](apng-public-verification.md). The [draft declarations](apng-export-api.d.ts)
+and [typed sketch](apng-export-example.ts) remain historical artifacts; public declarations are authoritative.
 The personal roadmap remains outside the repository. Acceptance is defined in
 [APNG compatibility gates](apng-export-compatibility.md).
 
@@ -18,7 +19,7 @@ optional supplied backend in a separate entry. Preserve full-frame transparency.
 video and MediaRecorder unchanged, following the [policy evaluation](shared-export-policy-evaluation.md).
 Do not turn the GIF controller into a format switch or introduce a universal exporter.
 
-Proposed future entry: `/apng`; public Worker entry names remain subject to the next API review.
+Public entries: `/apng`, `/apng/worker`, `/apng/worker-runtime` (implemented, not yet released).
 The first complete feature should have a supplied cancellable Worker backend. A custom synchronous
 encoder remains possible through the contract, with its non-preemptible execution documented.
 No audio, palette/quality controls, external streaming, frame rectangles, user disposal/blend modes,
@@ -192,6 +193,6 @@ The later [integration report](apng-integration-verification.md) records the pin
 Worker, real-canvas decoding, development example and private installed-package/Next.js checks.
 The new tests are part of the existing Node/browser jobs; local results are distinct from remote CI.
 
-Next requested implementation slice: review and expose public APNG controller/Worker entries,
-promote the usage documentation and run the public typed/packed/Next/CI acceptance gates.
-Do not start that slice, commit or release automatically.
+The public-entry slice is documented in [its verification report](apng-public-verification.md).
+The historical snapshots above are not rewritten as evidence for later code. Commit/push and
+exact-candidate CI remain separate from local public-entry verification; releases require a separate request.

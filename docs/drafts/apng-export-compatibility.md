@@ -4,7 +4,7 @@ Status: acceptance gates with partial implementation evidence, 2026-11-12. Compa
 [APNG design](apng-export.md) and [draft declarations](apng-export-api.d.ts).
 The [private controller](apng-controller-verification.md) is tested after release `b9bb4d9`;
 the later [private Worker integration](apng-integration-verification.md) has real-file/browser evidence,
-while public APNG exports remain pending. The [backend spike](apng-backend-spike.md)
+followed by the [unreleased public entries](apng-public-verification.md). The [backend spike](apng-backend-spike.md)
 verifies real files and Worker interruption for its limited profile; it does not satisfy all controller gates.
 Existing GIF/video tests cannot establish these new gates. Apply the [shared compatibility rules](shared-export-compatibility.md)
 where relevant, keeping APNG policies distinct.
@@ -73,10 +73,11 @@ See the [controller report](apng-controller-verification.md) for commands and li
 
 The later private integration adds actual canvas color/alpha round trips, Worker initialization,
 protocol/timeout failures, real compression cancellation, independent decoding, repeated browser
-exports and private packed/Next static-copy deployment. Public-entry resolution/typed consumers and
-remote CI on the eventual candidate still remain pending. OVER/rectangle optimization is not
-certified. Preserve both reports' explicit decoder/viewer limitations; private-file deployment is
-not evidence for a public package entry or automatic bundler URL handling.
+exports and private packed/Next static-copy deployment. The subsequent public-entry slice adds
+public declarations/typed imports, installed public-module browser exports and Next.js package
+imports with automatic/package/copied Worker URL checks. See its separate report for current results.
+Remote CI on the eventual candidate remains a distinct gate. OVER/rectangle optimization is not
+certified. Preserve decoder/viewer limitations and the boundaries of each historical report.
 
 For runtime integration run `npm test`, `npm run test:package`, `npm run test:browser` and
 `npm run test:next`; compare old export keys/declarations, Worker fixtures and independent files.

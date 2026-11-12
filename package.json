@@ -19,9 +19,21 @@
     "docs/offline-video-adapters.md",
     "docs/offline-aac.md",
     "docs/offline-webm.md",
+    "docs/apng-export.md",
     "docs/drafts"
   ],
   "exports": {
+    "./apng": {
+      "types": "./dist/apng.d.ts",
+      "import": "./dist/apng.js",
+      "default": "./dist/apng.js"
+    },
+    "./apng/worker": {
+      "types": "./dist/apng-worker.d.ts",
+      "import": "./dist/apng-worker.js",
+      "default": "./dist/apng-worker.js"
+    },
+    "./apng/worker-runtime": "./dist/apng-worker-runtime.js",
     "./video/webm": {
       "types": "./dist/video-webm.d.ts",
       "import": "./dist/video-webm.js",

@@ -283,6 +283,29 @@ Run `node examples/server.cjs` after building and open `http://127.0.0.1:3012/ca
 
 With a built AlgiViz checkout in the sibling `algiviz` directory, open `http://127.0.0.1:3012/canvas-take/examples/gif-bfs.html` for the real BFS integration. Verified output: 800×560, 141 frames, 9 seconds including a 2-second final hold, about 1.60 MB. The example uses AlgiViz's existing algorithm and renderer and does not modify that project.
 
+## APNG export (unreleased)
+
+Public APNG entries are implemented in this checkout; published npm 0.6.1 does not include them yet.
+
+```js
+import { createApngExporter } from '@grundyjs/canvas-take/apng';
+import { createApngWorkerEncoder } from '@grundyjs/canvas-take/apng/worker';
+
+const exporter = createApngExporter({ encoder: createApngWorkerEncoder(), plays: 3 });
+try {
+    await exporter.addFrame(canvas, 55); // Complete transparent snapshot; draw each next image yourself.
+    const blob = await exporter.finish(); // image/apng; suggested extension .apng
+} finally {
+    exporter.dispose();
+}
+```
+
+Exact integer delays are 1..65535 ms. One frame keeps animation metadata; identical frames and
+transparent erasure are preserved. The Worker retains inputs until finish; the default 64 MiB raw
+input limit is not a peak-memory bound. Use AbortSignal for cancellation and await each operation.
+Worker asset entry: `@grundyjs/canvas-take/apng/worker-runtime`. See [APNG API and deployment](docs/apng-export.md)
+for limits, progress, custom encoders, Worker URLs and viewer limitations, and the [example](examples/apng.html).
+
 ## Browser and server use
 
 Recording requires a browser with `canvas.captureStream`, `MediaRecorder` and `MutationObserver`. Importing the module does not access these APIs; creating a recorder checks capture/encoder support. Node.js has no recording implementation. Codec support is detected at runtime, not inferred from the browser name.
@@ -301,17 +324,12 @@ and records promise-identity, ordering and error checks for future work.
 byte storage, positioned-write compatibility and cleanup checks introduced in 0.6.1.
 The [remaining-policy evaluation](docs/drafts/shared-export-policy-evaluation.md) keeps timeline,
 ownership, cancellation and progress local and records conditions for future extraction.
-An [APNG design draft](docs/drafts/apng-export.md) proposes transparent frames and injected encoders;
-public APNG export is not available in the package yet.
-The isolated [APNG backend spike](docs/drafts/apng-backend-spike.md) records independent RGBA/timing
-checks and real Worker cancellation; it does not add a public APNG entry.
-An unreleased [private controller verification](docs/drafts/apng-controller-verification.md) covers
-injected test encoders, limits, progress, cancellation and retained-buffer cleanup. Production
-backend integration is now covered by the unreleased [Worker integration report](docs/drafts/apng-integration-verification.md),
-including actual canvas/Worker output, independent decoding and installed-package/Next.js checks.
-The [development preview](examples/apng.html) uses private assets; public APNG entry points remain pending.
+The [APNG design](docs/drafts/apng-export.md), [backend spike](docs/drafts/apng-backend-spike.md),
+[controller verification](docs/drafts/apng-controller-verification.md) and
+[Worker integration report](docs/drafts/apng-integration-verification.md) preserve the earlier implementation evidence.
+Current public imports and asset deployment are described in the [APNG guide](docs/apng-export.md).
 
-Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC, WebM/Opus, GIF and private APNG export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
+Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC, WebM/Opus, GIF and APNG export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack; add `-- --apng-browser` for actual default/package/copied APNG Worker checks. `npm run test:apng:package` verifies public APNG types and actual Workers from an installed tarball. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 
 `npm run test:release-video` packs and installs the candidate, then exports a 10-second 1080×1920 H.264/AAC video from only the installed assets. It checks all 300 decoded frames, 480,000 presentation audio samples, playback, dimensions and four independent A/V markers. It also verifies VP8/Opus WebM with exact samples, a final frame hold and A/V markers, plus byte-identical sync/Worker GIFs after cancellation/retry. Files and metrics are saved under `test-results/release-video/`.
 

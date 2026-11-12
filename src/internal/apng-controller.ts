@@ -1,7 +1,7 @@
 import type { ApngExportOptions, ApngExportState, ApngExportProgress, ApngExporter, ApngFrameEncoder } from './apng-types.js';
 import { validateApngEnvelope } from './apng-envelope.js';
 
-// Private implementation slice. Keep it out of public exports until a supplied backend is integrated.
+// Internal implementation behind the codec-free public /apng entry.
 function deferred<T>() {
     let resolve!: (value: T) => void, reject!: (reason: unknown) => void;
     const promise = new Promise<T>((yes, no) => { resolve = yes; reject = no; });

@@ -1,11 +1,12 @@
 import type { ApngEncoderFactory, ApngFrame } from './apng-types.js';
 
 export interface ApngWorkerOptions {
+    /** Override the module Worker URL when copying assets or using a bundler. */
     readonly workerUrl?: string | URL;
     /** Per-request including initialization and compression. Default 30000 ms. */
     readonly timeoutMs?: number;
 }
-/** Private adapter; each factory invocation owns one dedicated module Worker. */
+/** Each factory invocation owns one dedicated module Worker; no calling-thread codec import. */
 export function createApngWorkerEncoder(options: ApngWorkerOptions = {}): ApngEncoderFactory {
     const workerUrl = options.workerUrl === undefined ? undefined : String(options.workerUrl);
     const timeoutMs = options.timeoutMs === undefined ? 30000 : options.timeoutMs;

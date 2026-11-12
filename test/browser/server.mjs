@@ -5,7 +5,7 @@ import { apngPlugin } from '../../scripts/apng-build.mjs';
 import { pathToFileURL } from 'node:url';
 const packedDist = process.env.CANVASTAKE_APNG_DIST;
 const dist = packedDist ? pathToFileURL(packedDist.replace(/[\\/]$/, '') + '/') : new URL('../../dist/', import.meta.url);
-const probe = await build({ entryPoints: ['src/internal/apng-worker-runtime.ts'], bundle: true, write: false,
+const probe = await build({ entryPoints: ['src/apng-worker-runtime.ts'], bundle: true, write: false,
     format: 'esm', platform: 'browser', target: 'es2022', plugins: [await apngPlugin({ probe: true })] });
 
 // Only test page and shipped modules are served; no directory traversal or project files.
@@ -13,8 +13,8 @@ const routes = new Map([
     ['/', new URL('./fixture.html', import.meta.url)],
     ['/apng-helper.js', new URL('./helpers/apng.mjs', import.meta.url)],
     ['/examples/apng.html', new URL('../../examples/apng.html', import.meta.url)],
-    ['/custom-apng-worker.js', new URL('internal/apng-worker-runtime.js', dist)],
-    ...['apng-controller.js', 'apng-worker.js', 'apng-worker-runtime.js'].map(name => ['/dist/internal/' + name, new URL('internal/' + name, dist)]),
+    ['/custom-apng-worker.js', new URL('apng-worker-runtime.js', dist)],
+    ...['apng.js', 'apng-worker.js', 'apng-worker-runtime.js'].map(name => ['/dist/' + name, new URL(name, dist)]),
     ['/examples/gif.html', new URL('../../examples/gif.html', import.meta.url)],
     ['/examples/video.html', new URL('../../examples/video.html', import.meta.url)],
     ['/examples/offline-video.html', new URL('../../examples/offline-video.html', import.meta.url)],

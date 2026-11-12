@@ -34,11 +34,11 @@ pako.Deflate.prototype.onData = function(chunk) {
 pako.deflate = function(...args) { try { return deflate(...args); } finally { if (probeStatus) Atomics.store(probeStatus, 0, 2); } };\n` : '') + patched + '\nexport default UPNG;', loader: 'js', resolveDir: resolve('.') }));
     } };
 }
-export async function copyApngNotices() {
-    await mkdir('dist/internal/apng-sources', { recursive: true });
-    for (const [name] of apngSources) await copyFile('vendor/apng/' + name, 'dist/internal/apng-sources/' + name);
-    await copyFile('scripts/apng-upng-patch.mjs', 'dist/internal/apng-sources/upng-patch.mjs');
-    await writeFile('dist/internal/apng-PROVENANCE.md', `# Private APNG integration sources
+export async function copyApngNotices(directory = 'dist/internal') {
+    await mkdir(directory + '/apng-sources', { recursive: true });
+    for (const [name] of apngSources) await copyFile('vendor/apng/' + name, directory + '/apng-sources/' + name);
+    await copyFile('scripts/apng-upng-patch.mjs', directory + '/apng-sources/upng-patch.mjs');
+    await writeFile(directory + '/apng-PROVENANCE.md', `# APNG integration sources
 
 UPNG revision 88f504b6577b726975f593caa38ba85d327c7c1f, MIT:
 https://github.com/photopea/UPNG.js/tree/88f504b6577b726975f593caa38ba85d327c7c1f
@@ -49,6 +49,6 @@ enables single-frame animation, real encodeLL deflate and explicit Pako selectio
 The full-frame RGBA8 SOURCE/BACKGROUND profile disables rectangle/palette optimization.
 Source hashes are checked by scripts/apng-build.mjs before every build, without network access.
 The bundled modified source is included in apng-worker-runtime.js.map sourcesContent.
-This integration has no public package entry yet.
+Public entries: @grundyjs/canvas-take/apng, /apng/worker and /apng/worker-runtime.
 `);
 }

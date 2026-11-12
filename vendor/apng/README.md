@@ -16,7 +16,8 @@ single-frame animation metadata, real deflate in encodeLL and explicit Pako sele
 is checked against the spike transform. The writer remains UPNG; CanvasTake adds no PNG compressor.
 Only full RGBA8 SOURCE/BACKGROUND frames are used. Palette/rectangle optimization is excluded.
 
-`scripts/apng-build.mjs` bundles this code only into private APNG codec assets with full source maps.
-It copies pristine sources, all notices and the transform into `dist/internal/apng-sources/`, and
-writes `apng-PROVENANCE.md`. Root/GIF/video controllers do not import these sources. The integration
-has no public APNG entry yet and is not part of the already published 0.6.1 artifact.
+`scripts/apng-build.mjs` bundles this code only into APNG codec/Worker assets with full source maps.
+It copies pristine sources, all notices and the transform into `dist/apng-sources/` (also into private
+contract-test assets) and writes `apng-PROVENANCE.md`. Root/GIF/video and calling-thread APNG
+controllers/adapters do not import the codec. Public APNG entries are implemented but unreleased;
+they are not part of the already published 0.6.1 artifact.

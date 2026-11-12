@@ -2,6 +2,7 @@ import { createApngBatchEncoder } from './apng-batch.js';
 import type { ApngFrameEncoder, ApngFrame } from './apng-types.js';
 
 // Dedicated APNG protocol; never sent to existing GIF/AAC Worker files.
+export function startApngWorker(): void {
 const scope = self as unknown as { postMessage(data: unknown, transfer?: Transferable[]): void; close(): void;
     onmessage: ((event: MessageEvent) => void) | null };
 let encoder: ApngFrameEncoder | undefined, initialized = false, terminal = false, lastId = 0;
@@ -32,3 +33,4 @@ scope.onmessage = ({ data }) => {
         scope.close();
     }
 };
+}

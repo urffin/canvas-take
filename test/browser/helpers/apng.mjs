@@ -1,12 +1,12 @@
-import { createApngController } from '/dist/internal/apng-controller.js';
-import { createApngWorkerEncoder } from '/dist/internal/apng-worker.js';
+import { createApngExporter } from '@grundyjs/canvas-take/apng';
+import { createApngWorkerEncoder } from '@grundyjs/canvas-take/apng/worker';
 
-export async function exportCase({ width = 7, height = 3, delays = [1, 14, 55, 2000], plays = 3, workerUrl, offscreen = false } = {}) {
+export async function exportCase({ width = 7, height = 3, delays = [1, 14, 55, 2000], plays = 3, workerUrl, offscreen = false, signal, onProgress } = {}) {
     const canvas = offscreen ? new OffscreenCanvas(width, height) : document.createElement('canvas');
     canvas.width = width; canvas.height = height;
     const ctx = canvas.getContext('2d'), frames = [], events = [];
-    const exporter = createApngController({ encoder: createApngWorkerEncoder({ workerUrl }), plays,
-        maxInputBytes: width * height * 4 * delays.length, totalFrames: delays.length, onProgress: p => events.push(p) });
+    const exporter = createApngExporter({ encoder: createApngWorkerEncoder({ workerUrl }), plays, signal,
+        maxInputBytes: width * height * 4 * delays.length, totalFrames: delays.length, onProgress(p) { events.push(p); onProgress?.(p); } });
     try {
         for (let f = 0; f < delays.length; f++) {
             const image = ctx.createImageData(width, height);
@@ -46,7 +46,7 @@ export async function cancelCompression() {
         postMessage(message, transfer) { super.postMessage(message.action === 'init' ? { ...message, probeBuffer: status.buffer } : message, transfer); }
     }
     window.Worker = ProbeWorker;
-    const events = [], exporter = createApngController({ signal: controller.signal,
+    const events = [], exporter = createApngExporter({ signal: controller.signal,
         encoder: createApngWorkerEncoder({ workerUrl: '/fixtures/apng-probe.js', timeoutMs: 60000 }), onProgress: p => events.push(p.phase) });
     try {
         const canvas = new OffscreenCanvas(2048, 1280), ctx = canvas.getContext('2d');

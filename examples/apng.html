@@ -1,15 +1,14 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CanvasTake APNG development preview</title>
+<title>CanvasTake APNG export</title>
 <style>
 body { font:16px system-ui; max-width:850px; margin:32px auto; padding:0 16px; color:#203040 }
 canvas,img { max-width:100%; border:1px solid #aab; background:repeating-conic-gradient(#eee 0 25%,white 0 50%) 0/20px 20px }
 button,input { font:inherit; margin:6px; padding:6px } pre { white-space:pre-wrap } [hidden] { display:none }
 </style>
-<h1>APNG development preview</h1>
-<p>Transparent animation with exact file delays. This preview uses private development modules;
-APNG is not available through the published package API yet.</p>
+<h1>APNG export</h1>
+<p>Export transparent animation with exact file delays and a cancellable Worker.</p>
 <p><label>Total plays (0 = infinite) <input id="plays" type="number" min="0" max="4294967295" value="3"></label></p>
 <p>Some viewers reject very large play counts. Use 0 for continuous playback or 1 for a single play.</p>
 <button id="export">Export APNG</button><button id="cancel" disabled>Cancel</button>
@@ -17,9 +16,12 @@ APNG is not available through the published package API yet.</p>
 <canvas width="320" height="180"></canvas>
 <p><a id="download" download="animation.apng" hidden>Download APNG</a></p>
 <img id="result" alt="Exported transparent animation" hidden>
+<script type="importmap">
+{"imports":{"@grundyjs/canvas-take/apng":"../dist/apng.js","@grundyjs/canvas-take/apng/worker":"../dist/apng-worker.js"}}
+</script>
 <script type="module">
-import { createApngController } from '../dist/internal/apng-controller.js';
-import { createApngWorkerEncoder } from '../dist/internal/apng-worker.js';
+import { createApngExporter } from '@grundyjs/canvas-take/apng';
+import { createApngWorkerEncoder } from '@grundyjs/canvas-take/apng/worker';
 const canvas = document.querySelector('canvas'), ctx = canvas.getContext('2d');
 const status = document.querySelector('#status'), run = document.querySelector('#export'), cancel = document.querySelector('#cancel');
 const link = document.querySelector('#download'), image = document.querySelector('#result'), plays = document.querySelector('#plays');
@@ -29,7 +31,7 @@ run.onclick = async () => {
     clearResult(); run.disabled = plays.disabled = true; cancel.disabled = false;
     controller = new AbortController(); let exporter;
     try {
-        exporter = createApngController({ encoder: createApngWorkerEncoder(), plays: plays.valueAsNumber,
+        exporter = createApngExporter({ encoder: createApngWorkerEncoder(), plays: plays.valueAsNumber,
             signal: controller.signal, totalFrames: 24, maxFrames: 24, maxFramePixels: 320 * 180,
             maxInputBytes: 24 * 320 * 180 * 4, maxDurationMs: 3000,
             onProgress(p) { status.textContent = `${p.phase}: ${p.framesAccepted}/24 frames, ${p.durationMs} ms`; } });

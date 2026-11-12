@@ -39,6 +39,12 @@ try {
     assert.ok(muxerMap.sourcesContent.every(source => typeof source === 'string' && source.length > 0), 'Missing bundled MPL source text');
     for (const file of ['dist/video-aac.js','dist/video-aac.d.ts','dist/video-aac-worker.js','dist/video-aac-worker.js.map','dist/aac-PROVENANCE.md','dist/aac-licenses/MPL-2.0.txt','dist/aac-licenses/COPYING.LGPLv2.1','dist/aac-licenses/bridge.c','docs/offline-aac.md']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing AAC file: '+file);
     await writeFile(join(workspace, 'consumer.ts'), `
+import { createApngExporter, type ApngExportOptions, type ApngExporter } from '@grundyjs/canvas-take/apng';
+import { createApngWorkerEncoder, type ApngWorkerOptions } from '@grundyjs/canvas-take/apng/worker';
+const apngWorkerOptions: ApngWorkerOptions = { timeoutMs:30000 };
+const apngOptions: ApngExportOptions = { encoder:createApngWorkerEncoder(apngWorkerOptions),plays:1,maxInputBytes:64 };
+const createApng:()=>ApngExporter = () => createApngExporter(apngOptions); void createApng;
+if (!import.meta.resolve('@grundyjs/canvas-take/apng/worker-runtime').endsWith('/apng-worker-runtime.js')) throw new Error('Missing public APNG Worker asset');
 import { createCanvasRecorder, type RecorderOptions, type RecordingResult } from '@grundyjs/canvas-take';
 import { createGifExporter, type GifEncoderFactory } from '@grundyjs/canvas-take/gif';
 import { createGifencEncoder } from '@grundyjs/canvas-take/gif/gifenc';

@@ -28,7 +28,7 @@ export default function Page() {
         finally { gif?.dispose(); controller.current = null; setBusy(false); }
     }
     return <main><h1>CanvasTake · Next.js Worker integration</h1>
-        <p><a href="/apng-preview.html">Private APNG static Worker preview</a></p>
+        <p><a href="/apng/">APNG public Worker imports</a> · <a href="/apng-preview.html">APNG static assets example</a></p>
         <button disabled={busy} onClick={run}>Export GIF</button>
         <button disabled={!busy} onClick={() => controller.current?.abort()}>Cancel</button>
         <pre>{status}</pre><canvas ref={canvas} width={800} height={450}/>

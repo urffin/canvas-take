@@ -1,4 +1,4 @@
-/** PUBLIC API DRAFT ONLY. Private controller tests exist; this is not a package entry point. */
+/** Historical design snapshot. Use public declarations from @grundyjs/canvas-take/apng. */
 export interface ApngFrame {
     readonly width: number;
     readonly height: number;

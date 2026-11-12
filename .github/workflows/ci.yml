@@ -38,7 +38,7 @@ jobs:
         run: npm run test:package
 
   browser:
-    name: Browser video, GIF and private APNG (Chromium / Firefox)
+    name: Browser video, GIF and APNG (Chromium / Firefox)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -59,7 +59,7 @@ jobs:
           pactl load-module module-null-sink sink_name=canvastake
           pactl set-default-sink canvastake
           pactl info
-      - name: Verify packed private APNG controller and Worker
+      - name: Verify packed public APNG controller and Worker
         run: npm run test:apng:package
       - run: npm run test:browser
       - uses: actions/upload-artifact@v4

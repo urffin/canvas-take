@@ -9,6 +9,9 @@
 <pre id="details"></pre>
 <canvas width="32" height="24"></canvas>
 <a id="download" hidden download="worker.gif">Download GIF</a>
+<script type="importmap">
+{"imports":{"@grundyjs/canvas-take/apng":"/dist/apng.js","@grundyjs/canvas-take/apng/worker":"/dist/apng-worker.js"}}
+</script>
 <script type="module">
 import { createGifExporter } from '/dist/gif.js';
 import { createGifWorkerEncoder } from '/dist/gif-worker.js';

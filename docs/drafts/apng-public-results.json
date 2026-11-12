@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-12",
+  "baseline": "f1f732673df89ad18e6bd74e432b4d4b79733c4e",
+  "version": "0.6.1",
+  "published": false,
+  "publicEntries": [
+    "@grundyjs/canvas-take/apng",
+    "@grundyjs/canvas-take/apng/worker",
+    "@grundyjs/canvas-take/apng/worker-runtime"
+  ],
+  "checks": [
+    {
+      "name": "Node build/tests",
+      "command": "npm test",
+      "result": "passed",
+      "localLog": "benchmark-results/apng-public-node-verified.log",
+      "sha256": "a921401ff034a3c596eac26d23e2d8656d9596a3883bc86b507d34299eb8a1e1"
+    },
+    {
+      "name": "Installed general consumer",
+      "command": "npm run test:package",
+      "result": "passed",
+      "localLog": "benchmark-results/apng-public-all-package.log",
+      "sha256": "57c3cf39e7c53d3c721ccd8e0b5af7fc5042e7083ec1547da420053cb033197e"
+    },
+    {
+      "name": "Installed public APNG consumer",
+      "command": "npm run test:apng:package",
+      "result": "passed",
+      "localLog": "benchmark-results/apng-public-package-final.log",
+      "sha256": "7e22e58559e179eedd4e9f7d6975f2e8b1bb97b5e884f4a2976fdb08a1e7b198"
+    },
+    {
+      "name": "Next complete packed/build/browser check",
+      "command": "npm run test:next -- --apng-browser --offline-install",
+      "result": "passed",
+      "localLog": "benchmark-results/apng-public-next-complete.log",
+      "sha256": "b44b893dc3f519e1ebff1adc4226afde916b79b6c74540f08fec107087ff5e23"
+    }
+  ],
+  "counts": {
+    "nodeTests": 164,
+    "publicTypeShapes": 8,
+    "publicBrowserTests": 8,
+    "nextIndependentFiles": 8,
+    "nextDecodedFrames": 30,
+    "nextWorkersClosed": 14
+  },
+  "compatibility": {
+    "oldDeclarationsUnchanged": 10,
+    "oldJsByteIdentical": 13,
+    "addedExports": 3,
+    "versionChanged": false,
+    "dependenciesChanged": false,
+    "lockfileChanged": false
+  },
+  "limitations": [
+    "Recorded local verification precedes commit/push; candidate remote CI is checked separately",
+    "Published npm 0.6.1 remains unchanged and has no public APNG entries",
+    "Earlier relative-URL verifier issue is fixed; final check reruns the complete packed/build/browser command",
+    "Existing full browser suite not rerun; public APNG/Next, all Node, installed consumers and legacy JS identity checked",
+    "Full-frame SOURCE/BACKGROUND profile and previously documented decoder/viewer/memory limits remain"
+  ]
+}
