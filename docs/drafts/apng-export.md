@@ -5,8 +5,7 @@ unreleased [private controller with contract tests](apng-controller-verification
 [real Worker/backend integration](apng-integration-verification.md), 2026-11-12,
 after the separate `0.6.1` release (`b9bb4d9e662208a8b77c8bf5025371b17669e02d`).
 This document preserves the design history. The public `/apng`, `/apng/worker` and
-`/apng/worker-runtime` entries are now implemented in the working tree, without a version change
-or publication. See the [current API guide](../apng-export.md) and
+`/apng/worker-runtime` entries are available starting with 0.7.0. See the [current API guide](../apng-export.md) and
 [public-entry verification](apng-public-verification.md). The [draft declarations](apng-export-api.d.ts)
 and [typed sketch](apng-export-example.ts) remain historical artifacts; public declarations are authoritative.
 The personal roadmap remains outside the repository. Acceptance is defined in
@@ -19,7 +18,7 @@ optional supplied backend in a separate entry. Preserve full-frame transparency.
 video and MediaRecorder unchanged, following the [policy evaluation](shared-export-policy-evaluation.md).
 Do not turn the GIF controller into a format switch or introduce a universal exporter.
 
-Public entries: `/apng`, `/apng/worker`, `/apng/worker-runtime` (implemented, not yet released).
+Public entries: `/apng`, `/apng/worker`, `/apng/worker-runtime` (since 0.7.0).
 The first complete feature should have a supplied cancellable Worker backend. A custom synchronous
 encoder remains possible through the contract, with its non-preemptible execution documented.
 No audio, palette/quality controls, external streaming, frame rectangles, user disposal/blend modes,

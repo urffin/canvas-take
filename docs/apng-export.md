@@ -1,7 +1,6 @@
 # APNG export
 
-Status: implemented in the working tree, **not yet released**. npm 0.6.1 does not contain these
-public entries. This guide applies to a built checkout or its locally packed tarball.
+Available since **0.7.0** through the public controller, Worker adapter and runtime asset entries.
 
 ```js
 import { createApngExporter } from '@grundyjs/canvas-take/apng';

@@ -4,7 +4,7 @@
 
 [Website](https://grundyjs.ru/en/canvas-take/) · [npm](https://www.npmjs.com/package/@grundyjs/canvas-take) · [Issues](https://github.com/urffin/canvas-take/issues)
 
-Independent TypeScript library for HTML canvas recording with audio, offline H.264/AAC MP4, VP8/Opus WebM and GIF export through separate entry points. ESM with TypeScript declarations, no external runtime npm dependencies or dependency on AlgiViz. CanvasTake source is MIT licensed; optional adapters include [Mediabunny MPL-2.0](docs/offline-video-adapters.md#distribution-and-sources) and [AAC WASM / FFmpeg LGPL components](docs/offline-aac.md#distribution-and-source). The package does not start or draw your animation.
+Independent TypeScript library for HTML canvas recording with audio, offline H.264/AAC MP4, VP8/Opus WebM, GIF and APNG export through separate entry points. ESM with TypeScript declarations, no external runtime npm dependencies or dependency on AlgiViz. CanvasTake source is MIT licensed; optional adapters include [Mediabunny MPL-2.0](docs/offline-video-adapters.md#distribution-and-sources), [AAC WASM / FFmpeg LGPL components](docs/offline-aac.md#distribution-and-source) and [UPNG/Pako MIT/Zlib](docs/apng-export.md#custom-encoders). The package does not start or draw your animation.
 
 ## Install
 
@@ -216,7 +216,7 @@ snapshot remain on the calling thread. Each exporter owns one Worker, terminated
 cancellation, failure or disposal. Pixel buffers are transferred; the source canvas is unchanged.
 This adapter requires browser Worker support and does not silently fall back to main-thread encoding.
 
-Unreleased development after 0.6.0 also moves alpha composition into that same Worker when its runtime
+Since 0.6.1, alpha composition also runs in that same Worker when its runtime
 advertises support. Older/custom Worker files keep the opaque-frame protocol and cooperative preparation
 on the calling thread. Third-party encoders keep their existing public contract; wrappers exposing only
 public methods use the same fallback. No new option or deployment asset is required. See
@@ -283,9 +283,9 @@ Run `node examples/server.cjs` after building and open `http://127.0.0.1:3012/ca
 
 With a built AlgiViz checkout in the sibling `algiviz` directory, open `http://127.0.0.1:3012/canvas-take/examples/gif-bfs.html` for the real BFS integration. Verified output: 800×560, 141 frames, 9 seconds including a 2-second final hold, about 1.60 MB. The example uses AlgiViz's existing algorithm and renderer and does not modify that project.
 
-## APNG export (unreleased)
+## APNG export (since 0.7.0)
 
-Public APNG entries are implemented in this checkout; published npm 0.6.1 does not include them yet.
+APNG is available through separate public entries starting with 0.7.0.
 
 ```js
 import { createApngExporter } from '@grundyjs/canvas-take/apng';

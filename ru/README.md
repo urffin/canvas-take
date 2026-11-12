@@ -5,11 +5,12 @@
 [Сайт](https://grundyjs.ru/canvas-take/) · [npm](https://www.npmjs.com/package/@grundyjs/canvas-take) · [Ошибки и предложения](https://github.com/urffin/canvas-take/issues)
 
 Независимая TypeScript-библиотека для записи видео с HTML canvas с необязательными
-аудиодорожками, офлайн-экспорта MP4 H.264/AAC, WebM VP8/Opus и GIF через отдельные точки входа.
+аудиодорожками, офлайн-экспорта MP4 H.264/AAC, WebM VP8/Opus, GIF и APNG через отдельные точки входа.
 Без внешних runtime npm-зависимостей и без зависимости от AlgiViz. Только ESM,
 с декларациями TypeScript. Код CanvasTake — MIT; опциональные адаптеры включают
-[Mediabunny MPL-2.0](../docs/offline-video-adapters.md#distribution-and-sources) и
-[AAC WASM / FFmpeg LGPL](../docs/offline-aac.md#distribution-and-source). Пакет не запускает и не рисует вашу анимацию.
+[Mediabunny MPL-2.0](../docs/offline-video-adapters.md#distribution-and-sources),
+[AAC WASM / FFmpeg LGPL](../docs/offline-aac.md#distribution-and-source) и
+[UPNG/Pako MIT/Zlib](../docs/apng-export.md#custom-encoders). Пакет не запускает и не рисует вашу анимацию.
 
 ## Установка
 
@@ -336,7 +337,7 @@ const gif = createGifExporter({
 Буферы пикселей передаются без копирования; исходный canvas не меняется.
 Требуется поддержка Worker; автоматического перехода к синхронному кодированию нет.
 
-В невыпущенных изменениях после 0.6.0 смешивание прозрачности также выполняется в этом
+Начиная с 0.6.1 смешивание прозрачности также выполняется в этом
 Worker, если runtime сообщает поддержку. Старые Worker-файлы и сторонние кодировщики
 сохраняют обработку частями в вызывающем потоке. Обёртка только с публичными методами
 использует тот же совместимый путь. Новых опций и обязательных ассетов нет; подробности
@@ -407,9 +408,9 @@ BFS. Ранее проверенный результат: 800×560, 141 кад�
 кадра 2 секунды, около 1,60 МБ. Пример использует существующие алгоритм и рендерер
 AlgiViz и не изменяет тот проект.
 
-## Экспорт APNG (ещё не выпущен)
+## Экспорт APNG (с версии 0.7.0)
 
-Публичные точки входа APNG реализованы в текущей рабочей копии. Опубликованная npm-версия 0.6.1 их пока не содержит.
+APNG доступен через отдельные публичные точки входа начиная с версии 0.7.0.
 
 ```js
 import { createApngExporter } from '@grundyjs/canvas-take/apng';

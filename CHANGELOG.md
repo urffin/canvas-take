@@ -2,8 +2,10 @@
 
 ## Unreleased
 
+## 0.7.0 — 2026-11-12
+
 - Add public `/apng`, `/apng/worker` and `/apng/worker-runtime` entries with a caller-selected encoder, transparent owned RGBA snapshots, exact delays, limits, progress and cancellation-safe cleanup.
-- Supply a dedicated APNG Worker backed by pinned UPNG/Pako with guarded source/license checks; verify independent decoding, public types, installed packages and Next.js Worker deployment. Update the API guide and public-import example. No new release yet.
+- Supply a dedicated APNG Worker backed by pinned UPNG/Pako with guarded source/license checks; verify independent decoding, public types, installed packages and Next.js Worker deployment. Update the API guide and public-import example.
 
 ## 0.6.1 — 2026-11-12
 
