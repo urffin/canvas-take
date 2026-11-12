@@ -1,6 +1,6 @@
 # GIF preparation in the existing Worker
 
-Status: unreleased development after 0.6.0. Package/lock version and public exports/types are unchanged.
+Available in 0.6.1. Public exports/types remain unchanged from 0.6.0.
 The supplied adapter now negotiates raw RGBA preparation with its runtime. The controller still takes
 a complete canvas snapshot and owned copy before returning from `addFrame()`; readback/copy remain
 synchronous and source pixels/canvas ownership stay with the caller.

@@ -17,7 +17,7 @@ for (const [name, , hash] of sources) assert.equal(sha256(await readFile(resolve
 const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
 assert.equal(git('rev-parse', 'HEAD'), result.base);
 assert.equal(git('diff', '--name-only', '--', 'src', 'package.json', 'package-lock.json', 'scripts/build-adapters.mjs', 'test', '.github', 'tsconfig.json'), '');
-assert.equal(JSON.parse(await readFile(resolve(root, 'package.json'))).version, '0.6.0');
+assert.match(JSON.parse(await readFile(resolve(root, 'package.json'))).version, /^\d+\.\d+\.\d+$/);
 result.harnessSnapshot = {};
 const paths = ['scripts/check-apng-backend.mjs', ...(await readdir(new URL('./', import.meta.url))).filter(f => f.endsWith('.mjs')).map(f => 'scripts/apng-spike/' + f)];
 for (const file of paths) result.harnessSnapshot[file] = sha256(await readFile(resolve(root, file)));

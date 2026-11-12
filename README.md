@@ -298,7 +298,7 @@ records the first implementation slice; public APIs remain unchanged.
 The [deferred evaluation](docs/drafts/shared-deferred-evaluation.md) retains the small local helpers
 and records promise-identity, ordering and error checks for future work.
 [Paged output verification](docs/drafts/shared-paged-bytes-verification.md) records shared MP4/WebM
-byte storage, positioned-write compatibility and cleanup checks in unreleased development.
+byte storage, positioned-write compatibility and cleanup checks introduced in 0.6.1.
 The [remaining-policy evaluation](docs/drafts/shared-export-policy-evaluation.md) keeps timeline,
 ownership, cancellation and progress local and records conditions for future extraction.
 An [APNG design draft](docs/drafts/apng-export.md) proposes transparent frames and injected encoders;
