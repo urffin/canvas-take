@@ -1,8 +1,10 @@
 # Shared export mechanisms: design
 
-Status: design established 2026-11-06; M1 RGBA extraction implemented locally after 0.6.0,
+Status: design established 2026-11-06; M1 RGBA extraction implemented after 0.6.0,
 with [verification](shared-rgba-verification.md). [M2 evaluated](shared-deferred-evaluation.md):
-extraction deferred; [M3 paged bytes implemented locally](shared-paged-bytes-verification.md). Baseline:
+extraction deferred; [M3 paged bytes implemented](shared-paged-bytes-verification.md).
+[Remaining policies evaluated](shared-export-policy-evaluation.md), 2026-11-12: retain local
+timeline, ownership, cancellation and progress; no further extraction selected. Original design baseline:
 `7362c6c71c194e1c7165d83bcb428a2915b598ab` (Worker GIF preparation committed after release 0.6.0).
 Public types/options/exports and package version remain unchanged.
 The personal roadmap remains outside the repository. Acceptance gates are in the separate
@@ -11,10 +13,15 @@ The personal roadmap remains outside the repository. Acceptance gates are in the
 ## Decision
 
 Share small mechanisms with demonstrated duplication, keeping the three controllers and their
-format/clock policies separate. Start with the identical RGBA composition algorithm. Consider
-the MP4/WebM paged byte store separately. The identical deferred-promise primitive was evaluated
+format/clock policies separate. M1 shares the identical RGBA composition algorithm; M3 shares
+the MP4/WebM paged byte store. The identical deferred-promise primitive was evaluated
 and is kept local for now; its small duplication does not justify adding recorder bundling yet.
 Each extraction must pass its own compatibility gate before another mechanism is moved.
+
+The [remaining-policy assessment](shared-export-policy-evaluation.md) closes the post-M3 reassessment.
+Related arithmetic and two small observer reporters do not yet justify another helper; resource
+and cancellation similarities do not justify a shared session engine. Revisit a narrow candidate
+only with compatible real consumers, a concrete benefit and the expanded compatibility gates.
 
 There is no proposed public `Exporter`, universal frame union, unified state enum or common
 encoder factory. GIF, offline video and real-time recording already expose different useful
@@ -85,7 +92,7 @@ choice, input validation order, copy count or the synchronous prefix of `addFram
 ## Proposed internal modules
 
 The following paths and signatures describe internal boundaries. They are not package entry points
-or supported deep imports. M1/M3 are implemented locally; M2 extraction is deferred after evaluation.
+or supported deep imports. M1/M3 are implemented; M2 extraction is deferred after evaluation.
 
 ### M1. Pure RGBA composition
 
@@ -271,12 +278,14 @@ Calling `Blob.stream()` after finalization does not establish bounded-memory exp
 3. **M2 evaluated: extraction deferred.** An isolated candidate preserves the checked promise/error/
    order contracts, but the build cost outweighs the small duplication. Keep the new characterization
    tests; see the [decision](shared-deferred-evaluation.md) for conditions to reconsider.
-4. **M3 implemented locally** after output-write characterization. Adapter policies remain local;
+4. **M3 implemented** after output-write characterization. Adapter policies remain local;
    rewinds, bounds, failed/late writes, Blob independence and real A/V containers are checked in
    [M3 verification](shared-paged-bytes-verification.md).
-5. **Reassess remaining duplication**. Session gates, clocks, queues and progress types need a concrete
-   second compatible use case and evidence before abstraction. External receivers require their own
-   target/result proposal. APNG/WebP can later reuse pure mechanisms without inheriting video clocks.
+5. **Remaining duplication evaluated** in the [policy assessment](shared-export-policy-evaluation.md).
+   Retain local timelines, ownership, cancellation and progress. Narrow arithmetic/notification helpers
+   remain deferred until a concrete compatible use case and benefit justify their gates. External
+   receivers require their own target/result proposal. APNG/WebP design is a separate next stage;
+   it may reuse pure mechanisms without inheriting video clocks.
 
 Each implementation slice needs its own report of changed behavior (ideally none), compatibility
 evidence and any performance tradeoff. New tests should target the moved mechanism and observable
@@ -294,3 +303,5 @@ runtime consumers/tests/build, with evidence in [M1 verification](shared-rgba-ve
 The [M2 evaluation](shared-deferred-evaluation.md) adds public-contract tests and retains both local
 helpers. [M3 verification](shared-paged-bytes-verification.md) records the shared output-store extraction.
 Package metadata/lockfile, public API and version remain unchanged; M2 is not implemented.
+The later [remaining-policy evaluation](shared-export-policy-evaluation.md) changes documentation
+only and records source evidence, targeted regression results and pending gates for future candidates.

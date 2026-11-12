@@ -4,7 +4,9 @@ Status: design/acceptance criteria, 2026-11-06. Companion to the
 [mechanisms design](shared-export-mechanisms.md), based on
 `7362c6c71c194e1c7165d83bcb428a2915b598ab`. These are gates for future implementation, not a
 record of newly executed tests. Existing tests establish a starting point; missing characterization
-below must be added before or with the corresponding extraction.
+below must be added before or with the corresponding extraction. The
+[remaining-policy evaluation](shared-export-policy-evaluation.md) records the 2026-11-12 decision
+to retain local timeline, ownership, cancellation and progress policies; its new gates are below.
 
 ## Baseline and evidence
 
@@ -119,6 +121,61 @@ after terminal outcome, no detached-buffer retry, and preservation of source can
 audio tracks. Count disposal once for acquired export adapters; native recorder track cleanup
 uses its own existing semantics. Native browser tests separately observe actual Worker closure,
 fresh export on the same page and independent decoding. A fast AbortError alone is not cleanup proof.
+
+## Remaining-policy extraction gates
+
+The [evaluation](shared-export-policy-evaluation.md) completes the reassessment after M3, with no
+further extraction selected. These gates refine K2/K4/K5/K6/K8/K9/K10 for a future specific candidate.
+They are pending implementation gates, not claims that the unchanged controllers or an unbuilt
+generic helper have passed every scenario below. Preserve the distinct domains and admission
+policies described above; no common enum, frame union, clock or observer API is required.
+
+| Candidate boundary | Additional baseline/candidate comparison | Gates |
+| --- | --- | --- |
+| Time arithmetic | Per-frame GIF rounding versus absolute video/audio boundaries, signed priming/ties, safe-integer overflow and unrepresentable container intervals; preserve validation/error order and commit points | K4/K7 |
+| Snapshot/ownership | Readback arguments, copy count and synchronous prefix; borrowed/owned/transferred buffer identity, source usability, late acquisition and returned Blob survival | K2/K3/K10/K11/K12 |
+| Cancellation/release | Ordered state, reason/cause, adapter-signal abort, pending promise settlement, cleanup and progress at each controlled barrier; original promise identities and no late work | K5/K8/K9/K10 |
+| Observer invocation | Complete ordered snapshots and state/counters, optional-key presence, frozen identity, synchronous invocation, absent observer, reentrancy and ignored synchronous exceptions | K5/K6/K9 |
+
+For **time**, include GIF 14.9 + 14.9 ms -> 20 ms with an inclusive 20 ms limit and repeats excluded;
+44.1 kHz audio at absolute 34/68 us endpoints -> 1/3 samples; signed 48 kHz -3 samples -> -63 us;
+video gaps/overlaps/overflow rejected before readback; fractional rates and long final holds. Keep
+nonnegative interval validation separate from signed packet/sample conversion. Recorder coverage
+must account native-event start/pause/resume and timer segmentation; its duration limit succeeds
+with final data instead of adopting GIF/video failure semantics. Container/audio validation stays
+with the respective adapters and existing decoder tolerances.
+
+For **ownership**, test redraw/mutation immediately after the call, transfer of the owned snapshot
+and PCM blocks, copied codec config/packet storage while a muxer write is blocked, raw decline
+before transfer and no fallback retry afterwards. Retain exporter/adapter/result handles through
+cleanup/GC checks; do not assume clearing a registry cancels pending native work. Check partial
+track cloning/addTrack and late export-factory completion separately. Exactly-once export-adapter
+disposal must not be imposed as a new track.stop contract. Keep caller tracks/buffers and completed
+Blobs usable. Do not add a buffer pool, shared frame, extra readback/full-file copy or changed yield.
+
+For **cancellation**, use entry/continue barriers from the existing cancellation table, including
+already-fulfilled/rejected work and simultaneous failure/abort/dispose. Capture first outcome and
+component/cause without normalizing falsy reasons or changing existing nullish fallback rules.
+Exercise cleanup that throws, reenters dispose or triggers a late callback. Preserve registration,
+removal and order of external/adapter signal listeners, queue/in-flight/idle rejection, GIF task and
+Worker shutdown, late resource release, final recorder data and pending native transitions. Observe
+late rejections explicitly; Promise.race settling quickly is not evidence that resources closed.
+
+For **progress**, record every tuple, not only the last: delayed video packets before/after frame
+acceptance, config/end notifications with unchanged packet counters, and a later PCM block failing
+after an earlier block and video packet succeeded. Compare `framesAccepted`, duration, samples,
+packet counts and encoded bytes independently; do not require frame-wide rollback. Test throw,
+abort, dispose, repeated finish and overlapping addFrame from applicable observers, including nested
+terminal notification and finished-observer disposal. Keep counters committed before an encoding
+observer cancels even if the pending input rejects. Verify absent versus undefined optional keys,
+fresh shallow-frozen snapshots, no added initial GIF event, no new recorder observer/percentage,
+and the existing lazy construction and JavaScript call receiver (without defining a new public
+callback-this contract). Do not move reporting to a microtask, batch it or await observers.
+
+Run a proposed helper against captured baseline traces and controls that alter rounding, copy/
+transfer, terminal ordering or notification scheduling, so the checks detect those regressions.
+If runtime code moves, apply the affected full integration/build/package gates below. The current
+documentation-only assessment does not replace them or authorize implementation of another stage.
 
 ## Independent file checks
 
