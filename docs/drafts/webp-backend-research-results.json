@@ -1,0 +1,1566 @@
+{
+  "date": "2026-11-12T12:06:11.417Z",
+  "base": "d2f9ba0510777e1ef8ff4a01f70a23396895b3c4",
+  "node": "v22.17.0",
+  "platform": "win32",
+  "arch": "x64",
+  "provenance": {
+    "package": "wasm-webp",
+    "version": "0.1.0",
+    "integrity": "sha512-Z1Sop+mLKogzDK3vJzSPfSxRF1yj/zbmn+XJuU9+7fvarxcuGhGkeLBqJr5H8LdgWuAwEKuZelCzx7ujztfhVQ==",
+    "assets": [
+      {
+        "name": "webp-wasm.js",
+        "bytes": 147067,
+        "sha256": "ea9023c6313b758105d1ab3d8adf27b504ec26d40ea59f4926ae4ae81fd1a32a"
+      },
+      {
+        "name": "webp-wasm.wasm",
+        "bytes": 482273,
+        "sha256": "4d438a73dfe550d608d6b89eee34ea9374d58d3ffa0355218766281fc9a76c22"
+      }
+    ],
+    "source": {
+      "url": "https://raw.githubusercontent.com/nieyuyao/webp-wasm/65e1ba32146adc2e14360c557a113c141d8058c9/webp/encode.cpp",
+      "sha256": "8917d7e54ff0a1a232a5558a2988ac313fa6bc7e690e9484bf02457b66f51eaf"
+    },
+    "libwebpSourcePin": "6c484cbf92e81a5673b24485ac02d211f69be5b7",
+    "mode": "Unmodified native binary; direct generated ESM factory with supplied WASM bytes; Embind vector deleted by research harness"
+  },
+  "encoderVersion": "1.3.2",
+  "fixtures": [
+    {
+      "name": "final-hold",
+      "width": 1,
+      "height": 1,
+      "lossless": true,
+      "quality": 100,
+      "expectedDelaysMs": [
+        55,
+        2000
+      ],
+      "expectedDurationMs": 2055,
+      "bytes": 140,
+      "sha256": "80231272407dcc7ee6b14c74b791315a58dd15982ddf35e65902d7523b9f02fd",
+      "envelope": {
+        "animated": true,
+        "loopCount": 0,
+        "width": 1,
+        "height": 1,
+        "durationMs": 110,
+        "frames": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1,
+            "durationMs": 55,
+            "flags": 2,
+            "durationOffset": 64,
+            "payloadOffset": 68,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1,
+            "durationMs": 55,
+            "flags": 2,
+            "durationOffset": 112,
+            "payloadOffset": 116,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          }
+        ],
+        "chunks": [
+          "VP8X",
+          "ANIM",
+          "ANMF",
+          "ANMF"
+        ]
+      },
+      "exactTimeline": false,
+      "inputUnchanged": true
+    },
+    {
+      "name": "alpha-ramp",
+      "width": 6,
+      "height": 3,
+      "lossless": true,
+      "quality": 100,
+      "expectedDelaysMs": [
+        70,
+        90,
+        130
+      ],
+      "expectedDurationMs": 290,
+      "bytes": 388,
+      "sha256": "877b1dd79fe96af15ef35620e31ca7478e44ad483a6d37d2ff283727eb557ec8",
+      "envelope": {
+        "animated": true,
+        "loopCount": 0,
+        "width": 6,
+        "height": 3,
+        "durationMs": 240,
+        "frames": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 3,
+            "durationMs": 70,
+            "flags": 2,
+            "durationOffset": 64,
+            "payloadOffset": 68,
+            "payloadLength": 80,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 3,
+            "durationMs": 90,
+            "flags": 2,
+            "durationOffset": 168,
+            "payloadOffset": 172,
+            "payloadLength": 90,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 3,
+            "durationMs": 80,
+            "flags": 2,
+            "durationOffset": 282,
+            "payloadOffset": 286,
+            "payloadLength": 102,
+            "chunks": [
+              "VP8L"
+            ]
+          }
+        ],
+        "chunks": [
+          "VP8X",
+          "ANIM",
+          "ANMF",
+          "ANMF",
+          "ANMF"
+        ]
+      },
+      "exactTimeline": false,
+      "inputUnchanged": true
+    },
+    {
+      "name": "transparent-erasure",
+      "width": 5,
+      "height": 3,
+      "lossless": true,
+      "quality": 100,
+      "expectedDelaysMs": [
+        50,
+        75,
+        100
+      ],
+      "expectedDurationMs": 225,
+      "bytes": 188,
+      "sha256": "a2aaac92a4b11f7d7c8faeb5956f949683bbe4f30839b12d0400259c344c6d3d",
+      "envelope": {
+        "animated": true,
+        "loopCount": 0,
+        "width": 5,
+        "height": 3,
+        "durationMs": 187,
+        "frames": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 5,
+            "height": 3,
+            "durationMs": 50,
+            "flags": 2,
+            "durationOffset": 64,
+            "payloadOffset": 68,
+            "payloadLength": 26,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 5,
+            "height": 3,
+            "durationMs": 75,
+            "flags": 2,
+            "durationOffset": 114,
+            "payloadOffset": 118,
+            "payloadLength": 22,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 5,
+            "height": 3,
+            "durationMs": 62,
+            "flags": 2,
+            "durationOffset": 160,
+            "payloadOffset": 164,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          }
+        ],
+        "chunks": [
+          "VP8X",
+          "ANIM",
+          "ANMF",
+          "ANMF",
+          "ANMF"
+        ]
+      },
+      "exactTimeline": false,
+      "inputUnchanged": true
+    },
+    {
+      "name": "identical",
+      "width": 3,
+      "height": 3,
+      "lossless": true,
+      "quality": 100,
+      "expectedDelaysMs": [
+        55,
+        2000
+      ],
+      "expectedDurationMs": 2055,
+      "bytes": 36,
+      "sha256": "10e72bdd44e8cf128bc6726ae436af077bbef92a40e2d58d3b34ae71fdcb3a4b",
+      "envelope": {
+        "animated": false,
+        "loopCount": null,
+        "width": null,
+        "height": null,
+        "durationMs": 0,
+        "frames": [],
+        "chunks": [
+          "VP8L"
+        ]
+      },
+      "exactTimeline": false,
+      "inputUnchanged": true
+    },
+    {
+      "name": "duplicate-middle",
+      "width": 3,
+      "height": 3,
+      "lossless": true,
+      "quality": 100,
+      "expectedDelaysMs": [
+        50,
+        70,
+        90,
+        200
+      ],
+      "expectedDurationMs": 410,
+      "bytes": 188,
+      "sha256": "7e3792b9f7e0c6a180bcd18383ca3fd7b8ac447f5f85061e8b4f9d94ec8022c7",
+      "envelope": {
+        "animated": true,
+        "loopCount": 0,
+        "width": 3,
+        "height": 3,
+        "durationMs": 280,
+        "frames": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 3,
+            "durationMs": 50,
+            "flags": 2,
+            "durationOffset": 64,
+            "payloadOffset": 68,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 3,
+            "durationMs": 160,
+            "flags": 0,
+            "durationOffset": 112,
+            "payloadOffset": 116,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 3,
+            "durationMs": 70,
+            "flags": 0,
+            "durationOffset": 160,
+            "payloadOffset": 164,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          }
+        ],
+        "chunks": [
+          "VP8X",
+          "ANIM",
+          "ANMF",
+          "ANMF",
+          "ANMF"
+        ]
+      },
+      "exactTimeline": false,
+      "inputUnchanged": true
+    },
+    {
+      "name": "single",
+      "width": 3,
+      "height": 1,
+      "lossless": true,
+      "quality": 100,
+      "expectedDelaysMs": [
+        2000
+      ],
+      "expectedDurationMs": 2000,
+      "bytes": 36,
+      "sha256": "23d400de4ee040aaf9d40f6a8c40b44761e4016e5b789a44ac58928174cec56c",
+      "envelope": {
+        "animated": false,
+        "loopCount": null,
+        "width": null,
+        "height": null,
+        "durationMs": 0,
+        "frames": [],
+        "chunks": [
+          "VP8L"
+        ]
+      },
+      "exactTimeline": false,
+      "inputUnchanged": true
+    },
+    {
+      "name": "short-delays",
+      "width": 1,
+      "height": 1,
+      "lossless": true,
+      "quality": 100,
+      "expectedDelaysMs": [
+        1,
+        10,
+        11,
+        100
+      ],
+      "expectedDurationMs": 122,
+      "bytes": 236,
+      "sha256": "14ce4a0c18d36200df8ede5378acd9e88384106cddd161d70ec9d51e6b1504c4",
+      "envelope": {
+        "animated": true,
+        "loopCount": 0,
+        "width": 1,
+        "height": 1,
+        "durationMs": 29,
+        "frames": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1,
+            "durationMs": 1,
+            "flags": 2,
+            "durationOffset": 64,
+            "payloadOffset": 68,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1,
+            "durationMs": 10,
+            "flags": 0,
+            "durationOffset": 112,
+            "payloadOffset": 116,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1,
+            "durationMs": 11,
+            "flags": 0,
+            "durationOffset": 160,
+            "payloadOffset": 164,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1,
+            "durationMs": 7,
+            "flags": 2,
+            "durationOffset": 208,
+            "payloadOffset": 212,
+            "payloadLength": 24,
+            "chunks": [
+              "VP8L"
+            ]
+          }
+        ],
+        "chunks": [
+          "VP8X",
+          "ANIM",
+          "ANMF",
+          "ANMF",
+          "ANMF",
+          "ANMF"
+        ]
+      },
+      "exactTimeline": false,
+      "inputUnchanged": true
+    },
+    {
+      "name": "lossy-40",
+      "width": 16,
+      "height": 16,
+      "lossless": false,
+      "quality": 40,
+      "expectedDelaysMs": [
+        75,
+        175
+      ],
+      "expectedDurationMs": 250,
+      "bytes": 358,
+      "sha256": "0573c20447bec37478a7b89dc00631e38e13775bef03739004cbb0fc6c55dc23",
+      "envelope": {
+        "animated": true,
+        "loopCount": 0,
+        "width": 16,
+        "height": 16,
+        "durationMs": 150,
+        "frames": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16,
+            "durationMs": 75,
+            "flags": 2,
+            "durationOffset": 64,
+            "payloadOffset": 68,
+            "payloadLength": 136,
+            "chunks": [
+              "VP8 "
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16,
+            "durationMs": 75,
+            "flags": 0,
+            "durationOffset": 224,
+            "payloadOffset": 228,
+            "payloadLength": 130,
+            "chunks": [
+              "VP8 "
+            ]
+          }
+        ],
+        "chunks": [
+          "VP8X",
+          "ANIM",
+          "ANMF",
+          "ANMF"
+        ]
+      },
+      "exactTimeline": false,
+      "inputUnchanged": true
+    },
+    {
+      "name": "lossy-90",
+      "width": 16,
+      "height": 16,
+      "lossless": false,
+      "quality": 90,
+      "expectedDelaysMs": [
+        75,
+        175
+      ],
+      "expectedDurationMs": 250,
+      "bytes": 586,
+      "sha256": "76cf1a961812c1fa510a3b5dadfe46cbbd7265ddb8f6d108336c7722f2373c03",
+      "envelope": {
+        "animated": true,
+        "loopCount": 0,
+        "width": 16,
+        "height": 16,
+        "durationMs": 150,
+        "frames": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16,
+            "durationMs": 75,
+            "flags": 2,
+            "durationOffset": 64,
+            "payloadOffset": 68,
+            "payloadLength": 246,
+            "chunks": [
+              "VP8 "
+            ]
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "width": 16,
+            "height": 16,
+            "durationMs": 75,
+            "flags": 0,
+            "durationOffset": 334,
+            "payloadOffset": 338,
+            "payloadLength": 248,
+            "chunks": [
+              "VP8 "
+            ]
+          }
+        ],
+        "chunks": [
+          "VP8X",
+          "ANIM",
+          "ANMF",
+          "ANMF"
+        ]
+      },
+      "exactTimeline": false,
+      "inputUnchanged": true
+    }
+  ],
+  "browsers": [
+    {
+      "name": "chromium",
+      "version": "156.0.8078.4",
+      "workers": {
+        "opened": 15,
+        "terminated": 15,
+        "handlersCleared": 15,
+        "transferredInputs": 14
+      },
+      "workerCases": [
+        {
+          "name": "final-hold",
+          "sha256": "80231272407dcc7ee6b14c74b791315a58dd15982ddf35e65902d7523b9f02fd",
+          "matchesNode": true
+        },
+        {
+          "name": "alpha-ramp",
+          "sha256": "877b1dd79fe96af15ef35620e31ca7478e44ad483a6d37d2ff283727eb557ec8",
+          "matchesNode": true
+        },
+        {
+          "name": "transparent-erasure",
+          "sha256": "a2aaac92a4b11f7d7c8faeb5956f949683bbe4f30839b12d0400259c344c6d3d",
+          "matchesNode": true
+        },
+        {
+          "name": "identical",
+          "sha256": "10e72bdd44e8cf128bc6726ae436af077bbef92a40e2d58d3b34ae71fdcb3a4b",
+          "matchesNode": true
+        },
+        {
+          "name": "duplicate-middle",
+          "sha256": "7e3792b9f7e0c6a180bcd18383ca3fd7b8ac447f5f85061e8b4f9d94ec8022c7",
+          "matchesNode": true
+        },
+        {
+          "name": "single",
+          "sha256": "23d400de4ee040aaf9d40f6a8c40b44761e4016e5b789a44ac58928174cec56c",
+          "matchesNode": true
+        },
+        {
+          "name": "short-delays",
+          "sha256": "14ce4a0c18d36200df8ede5378acd9e88384106cddd161d70ec9d51e6b1504c4",
+          "matchesNode": true
+        },
+        {
+          "name": "lossy-40",
+          "sha256": "0573c20447bec37478a7b89dc00631e38e13775bef03739004cbb0fc6c55dc23",
+          "matchesNode": true
+        },
+        {
+          "name": "lossy-90",
+          "sha256": "76cf1a961812c1fa510a3b5dadfe46cbbd7265ddb8f6d108336c7722f2373c03",
+          "matchesNode": true
+        },
+        {
+          "name": "retry-1",
+          "sha256": "80231272407dcc7ee6b14c74b791315a58dd15982ddf35e65902d7523b9f02fd",
+          "matchesNode": true
+        },
+        {
+          "name": "retry-2",
+          "sha256": "80231272407dcc7ee6b14c74b791315a58dd15982ddf35e65902d7523b9f02fd",
+          "matchesNode": true
+        },
+        {
+          "name": "retry-3",
+          "sha256": "80231272407dcc7ee6b14c74b791315a58dd15982ddf35e65902d7523b9f02fd",
+          "matchesNode": true
+        }
+      ],
+      "decoded": [
+        {
+          "name": "final-hold",
+          "frameCount": 2,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 55000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 55000,
+              "durationUs": 55000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "alpha-ramp",
+          "frameCount": 3,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 70000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 18,
+                "maxRgbError": 121,
+                "matches": false
+              }
+            },
+            {
+              "timestampUs": 70000,
+              "durationUs": 90000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 15,
+                "maxRgbError": 99,
+                "matches": false
+              }
+            },
+            {
+              "timestampUs": 160000,
+              "durationUs": 80000,
+              "referenceFrame": 2,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 16,
+                "maxRgbError": 72,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "transparent-erasure",
+          "frameCount": 3,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 50000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 50000,
+              "durationUs": 75000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 125000,
+              "durationUs": 62000,
+              "referenceFrame": 2,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "identical",
+          "frameCount": 1,
+          "repetitionCount": "0",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": null,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "duplicate-middle",
+          "frameCount": 3,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 50000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 50000,
+              "durationUs": 160000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 210000,
+              "durationUs": 70000,
+              "referenceFrame": 3,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "single",
+          "frameCount": 1,
+          "repetitionCount": "0",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": null,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "short-delays",
+          "frameCount": 4,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 1000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 1000,
+              "durationUs": 10000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 11000,
+              "durationUs": 11000,
+              "referenceFrame": 2,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 22000,
+              "durationUs": 7000,
+              "referenceFrame": 3,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "lossy-40",
+          "frameCount": 2,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 75000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 747,
+                "maxRgbError": 177,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 75000,
+              "durationUs": 75000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 760,
+                "maxRgbError": 169,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "lossy-90",
+          "frameCount": 2,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 75000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 749,
+                "maxRgbError": 182,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 75000,
+              "durationUs": 75000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 763,
+                "maxRgbError": 157,
+                "matches": true
+              }
+            }
+          ]
+        }
+      ],
+      "cancellations": [
+        {
+          "cancel": "before-ready",
+          "ready": false,
+          "boundary": false,
+          "outputs": 0
+        },
+        {
+          "cancel": "encode-boundary",
+          "ready": true,
+          "boundary": true,
+          "outputs": 0
+        },
+        {
+          "cancel": "encode-boundary",
+          "ready": true,
+          "boundary": true,
+          "outputs": 0
+        }
+      ],
+      "negativeControls": {
+        "durationMutationDetected": true,
+        "pixelMutationDetected": true
+      }
+    },
+    {
+      "name": "firefox",
+      "version": "157.0",
+      "workers": {
+        "opened": 15,
+        "terminated": 15,
+        "handlersCleared": 15,
+        "transferredInputs": 14
+      },
+      "workerCases": [
+        {
+          "name": "final-hold",
+          "sha256": "80231272407dcc7ee6b14c74b791315a58dd15982ddf35e65902d7523b9f02fd",
+          "matchesNode": true
+        },
+        {
+          "name": "alpha-ramp",
+          "sha256": "877b1dd79fe96af15ef35620e31ca7478e44ad483a6d37d2ff283727eb557ec8",
+          "matchesNode": true
+        },
+        {
+          "name": "transparent-erasure",
+          "sha256": "a2aaac92a4b11f7d7c8faeb5956f949683bbe4f30839b12d0400259c344c6d3d",
+          "matchesNode": true
+        },
+        {
+          "name": "identical",
+          "sha256": "10e72bdd44e8cf128bc6726ae436af077bbef92a40e2d58d3b34ae71fdcb3a4b",
+          "matchesNode": true
+        },
+        {
+          "name": "duplicate-middle",
+          "sha256": "7e3792b9f7e0c6a180bcd18383ca3fd7b8ac447f5f85061e8b4f9d94ec8022c7",
+          "matchesNode": true
+        },
+        {
+          "name": "single",
+          "sha256": "23d400de4ee040aaf9d40f6a8c40b44761e4016e5b789a44ac58928174cec56c",
+          "matchesNode": true
+        },
+        {
+          "name": "short-delays",
+          "sha256": "14ce4a0c18d36200df8ede5378acd9e88384106cddd161d70ec9d51e6b1504c4",
+          "matchesNode": true
+        },
+        {
+          "name": "lossy-40",
+          "sha256": "0573c20447bec37478a7b89dc00631e38e13775bef03739004cbb0fc6c55dc23",
+          "matchesNode": true
+        },
+        {
+          "name": "lossy-90",
+          "sha256": "76cf1a961812c1fa510a3b5dadfe46cbbd7265ddb8f6d108336c7722f2373c03",
+          "matchesNode": true
+        },
+        {
+          "name": "retry-1",
+          "sha256": "80231272407dcc7ee6b14c74b791315a58dd15982ddf35e65902d7523b9f02fd",
+          "matchesNode": true
+        },
+        {
+          "name": "retry-2",
+          "sha256": "80231272407dcc7ee6b14c74b791315a58dd15982ddf35e65902d7523b9f02fd",
+          "matchesNode": true
+        },
+        {
+          "name": "retry-3",
+          "sha256": "80231272407dcc7ee6b14c74b791315a58dd15982ddf35e65902d7523b9f02fd",
+          "matchesNode": true
+        }
+      ],
+      "decoded": [
+        {
+          "name": "final-hold",
+          "frameCount": 2,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 55000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 55000,
+              "durationUs": 55000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 1,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "alpha-ramp",
+          "frameCount": 3,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 70000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 24,
+                "maxRgbError": 133,
+                "matches": false
+              }
+            },
+            {
+              "timestampUs": 70000,
+              "durationUs": 90000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 27,
+                "maxRgbError": 230,
+                "matches": false
+              }
+            },
+            {
+              "timestampUs": 160000,
+              "durationUs": 80000,
+              "referenceFrame": 2,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 27,
+                "maxRgbError": 254,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "transparent-erasure",
+          "frameCount": 3,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 50000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 50000,
+              "durationUs": 75000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 125000,
+              "durationUs": 62000,
+              "referenceFrame": 2,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 15,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "identical",
+          "frameCount": 1,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": null,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "duplicate-middle",
+          "frameCount": 3,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 50000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 50000,
+              "durationUs": 160000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 210000,
+              "durationUs": 70000,
+              "referenceFrame": 3,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "single",
+          "frameCount": 1,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": null,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 3,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "short-delays",
+          "frameCount": 4,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 100000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 100000,
+              "durationUs": 100000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 200000,
+              "durationUs": 11000,
+              "referenceFrame": 2,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 211000,
+              "durationUs": 100000,
+              "referenceFrame": 3,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 1,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "lossy-40",
+          "frameCount": 2,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 75000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 747,
+                "maxRgbError": 177,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 75000,
+              "durationUs": 75000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 760,
+                "maxRgbError": 169,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "lossy-90",
+          "frameCount": 2,
+          "repetitionCount": "Infinity",
+          "frames": [
+            {
+              "timestampUs": 0,
+              "durationUs": 75000,
+              "referenceFrame": 0,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 749,
+                "maxRgbError": 182,
+                "matches": true
+              }
+            },
+            {
+              "timestampUs": 75000,
+              "durationUs": 75000,
+              "referenceFrame": 1,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 763,
+                "maxRgbError": 157,
+                "matches": true
+              }
+            }
+          ]
+        }
+      ],
+      "cancellations": [
+        {
+          "cancel": "before-ready",
+          "ready": false,
+          "boundary": false,
+          "outputs": 0
+        },
+        {
+          "cancel": "encode-boundary",
+          "ready": true,
+          "boundary": true,
+          "outputs": 0
+        },
+        {
+          "cancel": "encode-boundary",
+          "ready": true,
+          "boundary": true,
+          "outputs": 0
+        }
+      ],
+      "negativeControls": {
+        "durationMutationDetected": true,
+        "pixelMutationDetected": true
+      }
+    }
+  ],
+  "controls": [
+    {
+      "name": "truncated RIFF",
+      "detected": true
+    },
+    {
+      "name": "wrong RIFF length",
+      "detected": true
+    },
+    {
+      "name": "FFmpeg extracted-payload wrong-pixel control",
+      "detected": true
+    }
+  ],
+  "ffmpeg": {
+    "extractedFrames": [
+      {
+        "name": "final-hold",
+        "frames": [
+          {
+            "referenceFrame": 0,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 1,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          }
+        ]
+      },
+      {
+        "name": "alpha-ramp",
+        "frames": [
+          {
+            "referenceFrame": 0,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 1,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 2,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          }
+        ]
+      },
+      {
+        "name": "transparent-erasure",
+        "frames": [
+          {
+            "referenceFrame": 0,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 1,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 2,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          }
+        ]
+      },
+      {
+        "name": "identical",
+        "frames": [
+          {
+            "referenceFrame": 0,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          }
+        ]
+      },
+      {
+        "name": "duplicate-middle",
+        "frames": [
+          {
+            "referenceFrame": 0,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 1,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 3,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          }
+        ]
+      },
+      {
+        "name": "single",
+        "frames": [
+          {
+            "referenceFrame": 0,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          }
+        ]
+      },
+      {
+        "name": "short-delays",
+        "frames": [
+          {
+            "referenceFrame": 0,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 1,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 2,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          },
+          {
+            "referenceFrame": 3,
+            "alphaErrors": 0,
+            "rgbErrors": 0,
+            "maxRgbError": 0,
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "version": "ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers",
+    "animationDecode": {
+      "success": false,
+      "exitCode": 69,
+      "stderr": "-vsync is deprecated. Use -fps_mode\r\nPassing a number to -vsync is deprecated, use a string argument as described in the manual.\r\n[webp @ 000001c55b232ec0] skipping unsupported chunk: ANIM\r\n[webp @ 000001c55b232ec0] skipping unsupported chunk: ANMF\r\n    Last message repeated 1 times\r\n[webp @ 000001c55b232ec0] image data not found\r\n[webp_pipe @ 000001c55b220dc0] Could not find codec parameters for stream 0 (Video: webp, none): unspecified size\r\nConsider increasing the value for the 'analyzeduration' (0) and 'probesize' (5000000) options\r\n[webp @ 000001c55b225f00] skipping unsupported chunk: ANIM\r\n[webp @ 000001c55b225f00] skipping unsupported chunk: ANMF\r\n    Last message repeated 1 times\r\n[webp @ 000001c55b225f00] image data not found\r\n[vist#0:0/webp @ 000001c55b2332c0] Decoding error: Invalid data found when processing input\r\nCannot determine format of input stream 0:0 after EOF\r\nError marking filters as finished\r\nError while filtering: Invalid data found when processing input\r\n[vist#0:0/webp @ 000001c55b2332c0] Decode error rate 1 exceeds maximum 0.666667\r\n[out#0/rawvideo @ 000001c55b233e80] Nothing was written into output file, because at least one of its streams received no packets.\r\n"
+    }
+  },
+  "limitations": [
+    "This intentionally records rejected-candidate behavior; exit 0 is NOT WebP backend acceptance.",
+    "Finite loop configuration is absent from the tested wrapper. Only the default infinite loop is observed.",
+    "Static one-frame and identical-frame results lose timing/loop metadata; static repetitionCount differs between decoders.",
+    "Cancellation is Worker termination at a call boundary, not certified interruption inside native compression.",
+    "Worker handles/handlers are closed; physical memory reclamation, persistent native heap leaks and peak RSS are not measured.",
+    "Decoded alpha is compared exactly; lossless RGB is compared only where alpha > 0; hidden RGB is not certified.",
+    "Native animation ImageDecoder RGBA conversions are recorded verbatim, including RGB differences at partial alpha. Exact lossless payload pixels are separately verified with FFmpeg; extraction does not certify generic animation compositing.",
+    "No production API, integration, throughput benchmark, Safari or package/bundler compatibility is certified."
+  ],
+  "candidateMetadata": "scripts/webp-spike/candidates.json",
+  "reproduction": "node scripts/check-webp-backends.mjs --install",
+  "harness": {
+    "scripts/check-webp-backends.mjs": "7af39f2eeb4919aeec724e33ec7dddb0bf227f00a31e31fb00f50a4754a6931e",
+    "scripts/webp-spike/prepare.mjs": "810c1717475c8a8f27e5efdc87ab5046cf11250cf3e340c3137efd6d50c6abe6",
+    "scripts/webp-spike/fixtures.mjs": "f1f81b3010627789bc02703e72dff49fb95df7824d36bb7d9ee47327dca424e3",
+    "scripts/webp-spike/encoder.mjs": "f49a2a23a163fdf9bd09c1145119d1af1c8a016955a960498db47b629a3d3722",
+    "scripts/webp-spike/worker.mjs": "9a1ae807b3b29ff446d5b7d58e355d6c98e036b3d6272dca66dc58212730bd68",
+    "scripts/webp-spike/oracle.mjs": "4cd4bdeb3116b31ddc69db7356990152228cf7c55a136cb0dd9c171d812bc469",
+    "scripts/webp-spike/browser-client.mjs": "76e215cd8a81899ce5fe13f17d68e67d3972ebe3ab4902fd12020bb3b188bdb9",
+    "scripts/webp-spike/candidates.json": "51d33fae7b8892d938c87649fe5a07e5f226603725fed07aec9a11aa009c4adc"
+  }
+}

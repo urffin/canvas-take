@@ -459,6 +459,8 @@ URL Worker и ограничения просмотрщиков. [Пример](
 [проверки контроллера](../docs/drafts/apng-controller-verification.md) и
 [отчёт интеграции Worker](../docs/drafts/apng-integration-verification.md) сохраняют результаты предыдущих этапов.
 Актуальные публичные импорты и размещение файлов описаны в [руководстве APNG](../docs/apng-export.md).
+[Исследование animated WebP](../docs/drafts/webp-backend-research.md) сравнивает кандидатов backend
+и сохраняет проверки реальных Worker и независимых декодеров; экспорт WebP в пакет пока не добавлен.
 
 `npm test` запускает модульные тесты и проверки Node Worker, а `npm run test:package`
 проверяет установку упакованной библиотеки в отдельный проект. Для настоящих браузеров

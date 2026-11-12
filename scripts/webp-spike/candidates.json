@@ -1,0 +1,67 @@
+{
+  "captured": "2026-11-12",
+  "source": "Exact public npm version metadata; license is the package declaration, not a universal license classification of all codecs",
+  "candidates": [
+    {
+      "name": "wasm-webp",
+      "version": "0.1.0",
+      "license": "MIT",
+      "gitHead": "65e1ba32146adc2e14360c557a113c141d8058c9",
+      "repository": {
+        "url": "git+https://github.com/nieyuyao/webp-wasm.git"
+      },
+      "dependencies": {},
+      "tarball": "https://registry.npmjs.org/wasm-webp/-/wasm-webp-0.1.0.tgz",
+      "integrity": "sha512-Z1Sop+mLKogzDK3vJzSPfSxRF1yj/zbmn+XJuU9+7fvarxcuGhGkeLBqJr5H8LdgWuAwEKuZelCzx7ujztfhVQ==",
+      "unpackedBytes": 1276911,
+      "fileCount": 11
+    },
+    {
+      "name": "@jsquash/webp",
+      "version": "1.5.0",
+      "license": "Apache-2.0",
+      "gitHead": "8bcd212da8c2be7c9c223e8f222eb3d9574a713b",
+      "repository": {
+        "url": "git+https://github.com/jamsinclair/jSquash.git",
+        "type": "git"
+      },
+      "dependencies": {
+        "wasm-feature-detect": "^1.2.11"
+      },
+      "tarball": "https://registry.npmjs.org/@jsquash/webp/-/webp-1.5.0.tgz",
+      "integrity": "sha512-KggLoj2MnRSfIqTeKe1EmbljTX2vuV7mh79k89PCL1pyqiDULcPM1L47twxXt0hkb68F70bXiL31MxsuoZtKFw==",
+      "unpackedBytes": 914811,
+      "fileCount": 30
+    },
+    {
+      "name": "node-webpmux",
+      "version": "3.2.1",
+      "license": "LGPL-3.0-or-later",
+      "gitHead": "f9c554d359d52c0787599fdb999b20e34fcdf332",
+      "repository": {
+        "url": "git+https://github.com/ApeironTsuka/node-webpmux.git",
+        "type": "git"
+      },
+      "dependencies": {},
+      "tarball": "https://registry.npmjs.org/node-webpmux/-/node-webpmux-3.2.1.tgz",
+      "integrity": "sha512-MKgpq9nFgo44pIVNx/umD3nkqb2E8oqQTfmstVsfNdx9uV4cX7a4LqA+d8AZd3v5tgJXwENKUFsXNP3bRLP8nQ==",
+      "unpackedBytes": 537883,
+      "fileCount": 12
+    },
+    {
+      "name": "@ffmpeg/core",
+      "version": "0.12.10",
+      "license": "GPL-2.0-or-later",
+      "gitHead": null,
+      "repository": {
+        "url": "git+https://github.com/ffmpegwasm/ffmpeg.wasm.git",
+        "type": "git"
+      },
+      "dependencies": {},
+      "tarball": "https://registry.npmjs.org/@ffmpeg/core/-/core-0.12.10.tgz",
+      "integrity": "sha512-dzNplnn2Nxle2c2i2rrDhqcB19q9cglCkWnoMTDN9Q9l3PvdjZWd1HfSPjCNWc/p8Q3CT+Es9fWOR0UhAeYQZA==",
+      "unpackedBytes": 64689644,
+      "fileCount": 5
+    }
+  ]
+}
