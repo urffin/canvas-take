@@ -1,4 +1,4 @@
-/** DESIGN ONLY. Not a package entry point or an implemented API. */
+/** PUBLIC API DRAFT ONLY. Private controller tests exist; this is not a package entry point. */
 export interface ApngFrame {
     readonly width: number;
     readonly height: number;

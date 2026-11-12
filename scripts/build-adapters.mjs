@@ -2,6 +2,14 @@ import { build } from 'esbuild';
 import { copyFile, mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { patchWebmMuxer } from './webm-muxer-patch.mjs';
+import { apngPlugin, copyApngNotices } from './apng-build.mjs';
+// Private APNG integration: no new package export until browser/package acceptance is complete.
+await build({ entryPoints: ['src/internal/apng-controller.ts', 'src/internal/apng-worker.ts'], outdir: 'dist/internal',
+    bundle: true, format: 'esm', platform: 'browser', target: 'es2022' });
+await build({ entryPoints: ['src/internal/apng-worker-runtime.ts', 'src/internal/apng-batch.ts'], outdir: 'dist/internal',
+    bundle: true, format: 'esm', platform: 'browser', target: 'es2022', sourcemap: true, minify: true,
+    plugins: [await apngPlugin()], banner: { js: '/*! Includes modified UPNG (MIT), Pako 2.1.0 (MIT/Zlib). See apng-PROVENANCE.md and apng-sources/. */' } });
+await copyApngNotices();
 // Inline internal preparation helpers; keep the public controller entry standalone and codec-free.
 await build({ entryPoints: ['src/video.ts'], outfile: 'dist/video.js', bundle: true,
     format: 'esm', platform: 'browser', target: 'es2022' });

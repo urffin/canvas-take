@@ -1,9 +1,11 @@
 # APNG export: acceptance gates
 
-Status: proposed tests, 2026-11-12. Companion to the [APNG design](apng-export.md) and
-[draft declarations](apng-export-api.d.ts), baseline `4cc479b3178b77c1f945ec9371f656b5bb495187`.
-No production APNG controller/adapter exists yet. The [backend spike](apng-backend-spike.md) verifies
-real files and Worker interruption for its limited profile; it does not satisfy all controller gates.
+Status: acceptance gates with partial implementation evidence, 2026-11-12. Companion to the
+[APNG design](apng-export.md) and [draft declarations](apng-export-api.d.ts).
+The [private controller](apng-controller-verification.md) is tested after release `b9bb4d9`;
+the later [private Worker integration](apng-integration-verification.md) has real-file/browser evidence,
+while public APNG exports remain pending. The [backend spike](apng-backend-spike.md)
+verifies real files and Worker interruption for its limited profile; it does not satisfy all controller gates.
 Existing GIF/video tests cannot establish these new gates. Apply the [shared compatibility rules](shared-export-compatibility.md)
 where relevant, keeping APNG policies distinct.
 
@@ -61,10 +63,20 @@ settlement separately rather than promise a universal latency threshold.
 The [completed spike](apng-backend-spike.md) selects pinned UPNG/Pako plus three guarded changes
 for full-frame SOURCE/BACKGROUND. A2/A3 have synthetic RGBA/file evidence; A4 covers backend byte/
 delay/plays checks; A6/A7 cover ready/compression interruption, actual Worker closure and retry.
-Canvas readback, complete controller progress/limits/reentrancy, retention and A8 production
-packaging remain pending. OVER/rectangle optimization is not certified. Characterize the draft
-controller with fake adapters before integrating a production Worker. Type-checking alone remains
-insufficient; see the spike's real-file results and explicit decoder limitation.
+The private controller adds fake-canvas/encoder evidence for A1, controller portions of A2–A7,
+and the unchanged-export/codec-isolation portion of A8. It covers synchronous owned snapshots,
+alpha handoff, exact metadata, inclusive limits, progress/finish identity, component causes,
+terminal cleanup, transfer and late completions. Controlled microtask sweeps check cancellation
+between acknowledgements and commits and between cooperative CRC continuations. A finite GC
+experiment retains five controllers while checking input snapshots/buffers and caller references.
+See the [controller report](apng-controller-verification.md) for commands and limitations.
+
+The later private integration adds actual canvas color/alpha round trips, Worker initialization,
+protocol/timeout failures, real compression cancellation, independent decoding, repeated browser
+exports and private packed/Next static-copy deployment. Public-entry resolution/typed consumers and
+remote CI on the eventual candidate still remain pending. OVER/rectangle optimization is not
+certified. Preserve both reports' explicit decoder/viewer limitations; private-file deployment is
+not evidence for a public package entry or automatic bundler URL handling.
 
 For runtime integration run `npm test`, `npm run test:package`, `npm run test:browser` and
 `npm run test:next`; compare old export keys/declarations, Worker fixtures and independent files.

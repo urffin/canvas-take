@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Implement a private APNG controller with injected test encoders, exact frame delays, owned RGBA snapshots, limits, progress and cancellation-safe cleanup; public APNG entries remain pending.
+- Integrate a private pinned UPNG/Pako backend and dedicated cancellable APNG Worker, with source/license checks, a development example, independent browser decoding and installed-package/Next.js checks. No public APNG entry or new release yet.
+
 ## 0.6.1 — 2026-11-12
 
 - Share positioned 64 KiB output-page storage between MP4 and WebM while retaining container-specific limits, errors and stream cleanup.

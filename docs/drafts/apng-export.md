@@ -1,8 +1,10 @@
 # APNG export: proposed contract and implementation boundary
 
-Status: controller design plus a locally verified [backend feasibility prototype](apng-backend-spike.md),
-2026-11-12, after `4cc479b3178b77c1f945ec9371f656b5bb495187`.
-No production APNG controller/adapter, dependency installation, public export or version change. The
+Status: design, locally verified [backend feasibility prototype](apng-backend-spike.md) and an
+unreleased [private controller with contract tests](apng-controller-verification.md) and
+[real Worker/backend integration](apng-integration-verification.md), 2026-11-12,
+after the separate `0.6.1` release (`b9bb4d9e662208a8b77c8bf5025371b17669e02d`).
+The backend is pinned/vendored and integrated into private build assets; no public export or further version change. The
 [draft declarations](apng-export-api.d.ts) are a design artifact, not an available import.
 The [typed usage sketch](apng-export-example.ts) likewise demonstrates a future injected encoder,
 not an executable browser example.
@@ -16,7 +18,7 @@ optional supplied backend in a separate entry. Preserve full-frame transparency.
 video and MediaRecorder unchanged, following the [policy evaluation](shared-export-policy-evaluation.md).
 Do not turn the GIF controller into a format switch or introduce a universal exporter.
 
-Proposed future entry: `/apng`; backend/Worker entry names are not settled until the backend spike.
+Proposed future entry: `/apng`; public Worker entry names remain subject to the next API review.
 The first complete feature should have a supplied cancellable Worker backend. A custom synchronous
 encoder remains possible through the contract, with its non-preemptible execution documented.
 No audio, palette/quality controls, external streaming, frame rectangles, user disposal/blend modes,
@@ -106,6 +108,19 @@ must not replace the primary result. Reject malformed/empty/non-APNG output rath
 Envelope validation must detect a missing animation declaration, wrong dimensions/count/delays/plays
 or incomplete chunks without duplicating pixel decompression in the controller.
 
+The private controller wraps factory/add/finish failures with a component-specific Error retaining
+the exact `cause`, including primitive causes. Controller validation/readback failures retain their
+original identity. The first terminal reason wins; cleanup failures and late work cannot replace it.
+Abort uses the external reason with a nullish AbortError fallback. Disposal after failure retains that
+failure for subsequent calls. An invalid asynchronous factory is rejected synchronously; its eventual
+result is observed and disposed defensively, not treated as supported asynchronous acquisition.
+
+Returned encoder bytes are copied before cooperative envelope validation, so an encoder cannot
+mutate a yielded validation buffer. Bounds, animation metadata, sequence and all chunk CRCs are
+checked; the CRC scan yields after each 64 KiB of scanned type/payload bytes. Activity is checked
+again after each asynchronous boundary before counters, success or another task can be committed.
+The validator is not a PNG decompressor and does not certify arbitrary codec output pixels.
+
 Progress describes acceptance: `framesAccepted`, `durationMs`, `inputBytesAccepted`; phases are
 `collecting`, `finalizing`, `finished`, `failed`, `aborted`, `disposed`. No initialization notification,
 compression percentage or invented encoded-frame count. Optional `totalFrames` is absent when unset;
@@ -137,8 +152,9 @@ single-frame animation, once/finite/infinite plays, identical frames, odd dimens
 1/65535 ms delays and Worker termination during finish. Use independent decoding and complete chunk
 checks. Its report pins sources/licenses, three guarded changes and independent evidence for the
 full-frame lossless SOURCE/BACKGROUND path. Rectangle optimization remains deferred, including an
-observed FFmpeg limitation for an OVER metadata mutation. Production integration and controller
-gates remain pending; avoid a homemade PNG compressor or silently accepting a weaker contract.
+observed FFmpeg limitation for an OVER metadata mutation. The private controller now has separate
+fake-adapter evidence and real backend/browser/package integration; public-entry acceptance remains pending. Avoid a
+homemade PNG compressor or silently accepting a weaker contract.
 
 ## Verification and next slice
 
@@ -167,6 +183,15 @@ Initial design-stage checks completed on 2026-11-12 (before the separately repor
 The later [spike report](apng-backend-spike.md) adds real-backend/Worker/decode evidence; the historical
 table above describes the preceding design task. No production API or general performance claim is added.
 
-Next requested implementation slice: the controller with fake-adapter tests, then production
-integration of the supplied Worker backend, browser example and independent APNG tests.
-Do not start those slices, commit, add package dependencies or release automatically.
+The [private controller report](apng-controller-verification.md) records the completed fake-adapter
+slice after release 0.6.1, including controlled cancellation and finite retained-buffer checks.
+It does not replace the spike's independent real-backend decoding evidence or establish a complete
+APNG browser feature.
+
+The later [integration report](apng-integration-verification.md) records the pinned backend, dedicated
+Worker, real-canvas decoding, development example and private installed-package/Next.js checks.
+The new tests are part of the existing Node/browser jobs; local results are distinct from remote CI.
+
+Next requested implementation slice: review and expose public APNG controller/Worker entries,
+promote the usage documentation and run the public typed/packed/Next/CI acceptance gates.
+Do not start that slice, commit or release automatically.

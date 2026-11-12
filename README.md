@@ -302,11 +302,16 @@ byte storage, positioned-write compatibility and cleanup checks introduced in 0.
 The [remaining-policy evaluation](docs/drafts/shared-export-policy-evaluation.md) keeps timeline,
 ownership, cancellation and progress local and records conditions for future extraction.
 An [APNG design draft](docs/drafts/apng-export.md) proposes transparent frames and injected encoders;
-APNG export is not implemented or available in the package yet.
+public APNG export is not available in the package yet.
 The isolated [APNG backend spike](docs/drafts/apng-backend-spike.md) records independent RGBA/timing
 checks and real Worker cancellation; it does not add a public APNG entry.
+An unreleased [private controller verification](docs/drafts/apng-controller-verification.md) covers
+injected test encoders, limits, progress, cancellation and retained-buffer cleanup. Production
+backend integration is now covered by the unreleased [Worker integration report](docs/drafts/apng-integration-verification.md),
+including actual canvas/Worker output, independent decoding and installed-package/Next.js checks.
+The [development preview](examples/apng.html) uses private assets; public APNG entry points remain pending.
 
-Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC and GIF export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
+Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC, WebM/Opus, GIF and private APNG export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 
 `npm run test:release-video` packs and installs the candidate, then exports a 10-second 1080×1920 H.264/AAC video from only the installed assets. It checks all 300 decoded frames, 480,000 presentation audio samples, playback, dimensions and four independent A/V markers. It also verifies VP8/Opus WebM with exact samples, a final frame hold and A/V markers, plus byte-identical sync/Worker GIFs after cancellation/retry. Files and metrics are saved under `test-results/release-video/`.
 

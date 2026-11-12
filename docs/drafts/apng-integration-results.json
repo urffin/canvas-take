@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-12",
+  "scope": "Private real APNG backend/Worker integration after released 0.6.1; no public APNG entry",
+  "releasedBaseline": "b9bb4d9e662208a8b77c8bf5025371b17669e02d",
+  "packageVersion": "0.6.1",
+  "node": "v22.17.0",
+  "platform": "win32",
+  "versions": {
+    "typescript": "6.0.3",
+    "esbuild": "0.28.2",
+    "@playwright/test": "1.64.1",
+    "ffmpeg-static": "5.3.0"
+  },
+  "counts": {
+    "nodeTests": 161,
+    "newControllerGroups": 34,
+    "newBackendTransportGroups": 8,
+    "browserPassed": 82,
+    "browserSkipped": 4,
+    "apngBrowserTests": 8,
+    "browserIndependentFilesPerEngine": 7,
+    "browserIndependentFramesPerEngine": 18,
+    "nextIndependentFiles": 2,
+    "nextIndependentFrames": 8,
+    "nextObservedWorkersClosed": 4
+  },
+  "checks": [
+    {
+      "name": "Node build/tests",
+      "command": "npm test",
+      "result": "passed",
+      "localLog": "benchmark-results/apng-final-node.log",
+      "logSha256": "04f1c3d734f9fe49b7741424382c12c7227c292c77510f35b17fe05b105cc87f"
+    },
+    {
+      "name": "Packed existing API",
+      "command": "npm run test:package",
+      "result": "passed",
+      "localLog": "benchmark-results/apng-final-package.log",
+      "logSha256": "57c3cf39e7c53d3c721ccd8e0b5af7fc5042e7083ec1547da420053cb033197e"
+    },
+    {
+      "name": "Packed private APNG",
+      "command": "npm run test:apng:package",
+      "result": "passed",
+      "localLog": "benchmark-results/apng-final-apng-package.log",
+      "logSha256": "93e3549c9e7b3eee9e43a36d90e5763f16d35b7e0a5a4ea5ecf2ddfae8d33e28"
+    },
+    {
+      "name": "Next installed APNG",
+      "command": "npm run test:next -- --apng-browser --offline-install",
+      "result": "passed",
+      "localLog": "benchmark-results/apng-final-next.log",
+      "logSha256": "4d206931654f01ca3ae85c2781a2a7843fa150c88ba8e61092cf838a914a46d3"
+    },
+    {
+      "name": "Complete browser suite",
+      "command": "npm run test:browser -- --workers=1",
+      "result": "passed",
+      "localLog": "benchmark-results/apng-final-browser-serial.log",
+      "logSha256": "16b4eb82a2beeb1b0a547522c0df321ba8acbb736d135afc0133f7968d7100e2"
+    }
+  ],
+  "compatibility": {
+    "publicApiChanged": false,
+    "publicDeclarationsUnchanged": 10,
+    "publicJsAssetsByteIdentical": 13,
+    "dependenciesChanged": false,
+    "versionChanged": false
+  },
+  "vendorSha256": {
+    "pako-deflate.cjs": "9429785d1e7f805d46640c4155957fd0f286144dec05cea09f6f2eaa646adb21",
+    "pako-LICENSE": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539",
+    "pako-zlib-README": "d8b499598e43d755ea8918448128259ff01820c50d94d5a48c8883d0a594ddb1",
+    "README.md": "54edbcaf11f269c7a34a8385022163fe88cd12dce4c3137fe56323518ffe7c7f",
+    "UPNG-LICENSE": "c1fb8861eca211bf5aea574358aba7039396c0c1824c2a1477cc126d398efd89",
+    "UPNG.js": "39213412bc9945002588f5e12adfc555c63d314874bba1dbed5be802b1c86ed2"
+  },
+  "limitations": [
+    "Private static-copy package/Next deployment only; public entries/bundler URL handling remain pending",
+    "Windows Firefox viewer rejects unsigned-max plays; matching plays=3 control and both independent decodes pass",
+    "Full-frame SOURCE/BACKGROUND only; optimized OVER/PREVIOUS profile not certified",
+    "Finite reference/Worker-close evidence is not a physical-RAM or universal cancellation-latency guarantee",
+    "Final local suite uses one browser worker after a two-worker GIF-example timeout; CI retains two",
+    "Recorded local verification precedes commit/push; remote CI must be checked on the candidate SHA"
+  ]
+}

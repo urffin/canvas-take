@@ -81,6 +81,7 @@
     "prepack": "npm run build",
     "prepublishOnly": "npm test",
     "test:package": "node scripts/test-package.mjs",
+    "test:apng:package": "node scripts/test-apng-package.mjs",
     "test:release-video": "node scripts/test-release-video.mjs",
     "test:next": "node scripts/test-next.mjs",
     "test:browser": "npm run build && playwright test",

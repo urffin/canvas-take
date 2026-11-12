@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CanvasTake APNG development preview</title>
+<style>
+body { font:16px system-ui; max-width:850px; margin:32px auto; padding:0 16px; color:#203040 }
+canvas,img { max-width:100%; border:1px solid #aab; background:repeating-conic-gradient(#eee 0 25%,white 0 50%) 0/20px 20px }
+button,input { font:inherit; margin:6px; padding:6px } pre { white-space:pre-wrap } [hidden] { display:none }
+</style>
+<h1>APNG development preview</h1>
+<p>Transparent animation with exact file delays. This preview uses private development modules;
+APNG is not available through the published package API yet.</p>
+<p><label>Total plays (0 = infinite) <input id="plays" type="number" min="0" max="4294967295" value="3"></label></p>
+<p>Some viewers reject very large play counts. Use 0 for continuous playback or 1 for a single play.</p>
+<button id="export">Export APNG</button><button id="cancel" disabled>Cancel</button>
+<pre id="status" role="status">Ready</pre>
+<canvas width="320" height="180"></canvas>
+<p><a id="download" download="animation.apng" hidden>Download APNG</a></p>
+<img id="result" alt="Exported transparent animation" hidden>
+<script type="module">
+import { createApngController } from '../dist/internal/apng-controller.js';
+import { createApngWorkerEncoder } from '../dist/internal/apng-worker.js';
+const canvas = document.querySelector('canvas'), ctx = canvas.getContext('2d');
+const status = document.querySelector('#status'), run = document.querySelector('#export'), cancel = document.querySelector('#cancel');
+const link = document.querySelector('#download'), image = document.querySelector('#result'), plays = document.querySelector('#plays');
+let controller, url;
+function clearResult() { link.hidden = image.hidden = true; link.removeAttribute('href'); image.removeAttribute('src'); if (url) URL.revokeObjectURL(url); url = undefined; }
+run.onclick = async () => {
+    clearResult(); run.disabled = plays.disabled = true; cancel.disabled = false;
+    controller = new AbortController(); let exporter;
+    try {
+        exporter = createApngController({ encoder: createApngWorkerEncoder(), plays: plays.valueAsNumber,
+            signal: controller.signal, totalFrames: 24, maxFrames: 24, maxFramePixels: 320 * 180,
+            maxInputBytes: 24 * 320 * 180 * 4, maxDurationMs: 3000,
+            onProgress(p) { status.textContent = `${p.phase}: ${p.framesAccepted}/24 frames, ${p.durationMs} ms`; } });
+        for (let i = 0; i < 24; i++) {
+            ctx.clearRect(0, 0, 320, 180); ctx.fillStyle = 'rgba(40, 130, 220, 0.6)';
+            ctx.beginPath(); ctx.arc(25 + i * 11, 90, 24, 0, Math.PI * 2); ctx.fill();
+            await exporter.addFrame(canvas, i === 23 ? 1000 : 55);
+        }
+        const blob = await exporter.finish(); url = URL.createObjectURL(blob);
+        link.href = image.src = url; link.hidden = image.hidden = false;
+        status.textContent = `finished: 24 frames, 2265 ms, ${blob.size} bytes`;
+    } catch (error) { clearResult(); status.textContent = `${error.name}: ${error.message}`; }
+    finally { exporter?.dispose(); controller = undefined; run.disabled = plays.disabled = false; cancel.disabled = true; }
+};
+cancel.onclick = () => controller?.abort();
+addEventListener('pagehide', () => { controller?.abort(); clearResult(); });
+</script>
+</html>
