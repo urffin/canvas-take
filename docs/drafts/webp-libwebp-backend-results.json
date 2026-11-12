@@ -1,0 +1,4917 @@
+{
+  "date": "2026-11-12T13:21:25.644Z",
+  "base": "16e0462e85d70e81780a3a093f67cae73660ac6e",
+  "node": "v22.17.0",
+  "checkerSha256": "eca75510bf2651df5f172b20e67e80d59e1c475f7cc764f4fffe350e53572fb4",
+  "build": {
+    "date": "2026-11-12T13:07:47.542Z",
+    "host": {
+      "platform": "win32",
+      "arch": "x64"
+    },
+    "versions": {
+      "emscripten": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.20-git (6913738ec5371a88c4af5a80db0ab42bad3de681)",
+      "python": "Python 3.13.3",
+      "node": "v22.17.0"
+    },
+    "archives": [
+      {
+        "name": "emscripten.zip",
+        "target": "sdk",
+        "url": "https://storage.googleapis.com/webassembly/emscripten-releases-builds/win/c387d7a7e9537d0041d2c3ae71b7538cc978104e/wasm-binaries.zip",
+        "sha256": "388e9fab2bc9f94e85b1541e6ae0f1d9a5b9dfa9d756d89a0a3fc7acc052fbd5",
+        "bytes": 638233871
+      },
+      {
+        "name": "python.zip",
+        "target": "python",
+        "url": "https://storage.googleapis.com/webassembly/emscripten-releases-builds/deps/python-3.13.3-0-win-amd64.zip",
+        "sha256": "6fe7a540c6b8b185780467cf7495e884ee62316ec4abb19e1c735b8a77c62465",
+        "bytes": 29736374
+      },
+      {
+        "name": "node.zip",
+        "target": "node",
+        "url": "https://nodejs.org/dist/v22.17.0/node-v22.17.0-win-x64.zip",
+        "sha256": "721ab118a3aac8584348b132767eadf51379e0616f0db802cc1e66d7f0d98f85",
+        "bytes": 35506792
+      },
+      {
+        "name": "libwebp.tar.gz",
+        "target": "source",
+        "url": "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz",
+        "sha256": "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564",
+        "bytes": 4296070
+      }
+    ],
+    "builds": [
+      {
+        "name": "build-a",
+        "flags": [
+          "-O2",
+          "-std=c11",
+          "-DNDEBUG",
+          "-DCANVASTAKE_KEEP_ANIMATION=1",
+          "-Dmalloc=ct_malloc",
+          "-Dcalloc=ct_calloc",
+          "-Drealloc=ct_realloc",
+          "-Dfree=ct_free",
+          "-include",
+          "tracking.h",
+          "-I.",
+          "-Ilibwebp-1.6.0",
+          "-sMODULARIZE=1",
+          "-sEXPORT_ES6=1",
+          "-sENVIRONMENT=web,worker,node",
+          "-sFILESYSTEM=0",
+          "-sSTRICT=1",
+          "-sALLOW_MEMORY_GROWTH=1",
+          "-sINITIAL_MEMORY=16777216",
+          "-sMAXIMUM_MEMORY=268435456",
+          "-sSTACK_SIZE=1048576",
+          "-sABORTING_MALLOC=0",
+          "-sEXPORTED_FUNCTIONS=[\"_ct_malloc\",\"_ct_free\",\"_ct_open\",\"_ct_add\",\"_ct_finish\",\"_ct_close\",\"_ct_data\",\"_ct_size\",\"_ct_error\",\"_ct_version\",\"_ct_live_bytes\",\"_ct_live_allocations\",\"_ct_peak_bytes\",\"_ct_allocation_calls\",\"_ct_allocator_used\",\"_ct_fail_after\",\"_ct_reset_peak\"]",
+          "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\"]",
+          "-Wl,--strip-debug"
+        ],
+        "sources": [
+          "libwebp-1.6.0/src/dec/alpha_dec.c",
+          "libwebp-1.6.0/src/dec/buffer_dec.c",
+          "libwebp-1.6.0/src/dec/frame_dec.c",
+          "libwebp-1.6.0/src/dec/idec_dec.c",
+          "libwebp-1.6.0/src/dec/io_dec.c",
+          "libwebp-1.6.0/src/dec/quant_dec.c",
+          "libwebp-1.6.0/src/dec/tree_dec.c",
+          "libwebp-1.6.0/src/dec/vp8_dec.c",
+          "libwebp-1.6.0/src/dec/vp8l_dec.c",
+          "libwebp-1.6.0/src/dec/webp_dec.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing_neon.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing_sse2.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing_sse41.c",
+          "libwebp-1.6.0/src/dsp/cost.c",
+          "libwebp-1.6.0/src/dsp/cost_mips32.c",
+          "libwebp-1.6.0/src/dsp/cost_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/cost_neon.c",
+          "libwebp-1.6.0/src/dsp/cost_sse2.c",
+          "libwebp-1.6.0/src/dsp/cpu.c",
+          "libwebp-1.6.0/src/dsp/dec.c",
+          "libwebp-1.6.0/src/dsp/dec_clip_tables.c",
+          "libwebp-1.6.0/src/dsp/dec_mips32.c",
+          "libwebp-1.6.0/src/dsp/dec_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/dec_msa.c",
+          "libwebp-1.6.0/src/dsp/dec_neon.c",
+          "libwebp-1.6.0/src/dsp/dec_sse2.c",
+          "libwebp-1.6.0/src/dsp/dec_sse41.c",
+          "libwebp-1.6.0/src/dsp/enc.c",
+          "libwebp-1.6.0/src/dsp/enc_mips32.c",
+          "libwebp-1.6.0/src/dsp/enc_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/enc_msa.c",
+          "libwebp-1.6.0/src/dsp/enc_neon.c",
+          "libwebp-1.6.0/src/dsp/enc_sse2.c",
+          "libwebp-1.6.0/src/dsp/enc_sse41.c",
+          "libwebp-1.6.0/src/dsp/filters.c",
+          "libwebp-1.6.0/src/dsp/filters_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/filters_msa.c",
+          "libwebp-1.6.0/src/dsp/filters_neon.c",
+          "libwebp-1.6.0/src/dsp/filters_sse2.c",
+          "libwebp-1.6.0/src/dsp/lossless.c",
+          "libwebp-1.6.0/src/dsp/lossless_avx2.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_avx2.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_mips32.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_msa.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_neon.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_sse2.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_sse41.c",
+          "libwebp-1.6.0/src/dsp/lossless_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/lossless_msa.c",
+          "libwebp-1.6.0/src/dsp/lossless_neon.c",
+          "libwebp-1.6.0/src/dsp/lossless_sse2.c",
+          "libwebp-1.6.0/src/dsp/lossless_sse41.c",
+          "libwebp-1.6.0/src/dsp/rescaler.c",
+          "libwebp-1.6.0/src/dsp/rescaler_mips32.c",
+          "libwebp-1.6.0/src/dsp/rescaler_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/rescaler_msa.c",
+          "libwebp-1.6.0/src/dsp/rescaler_neon.c",
+          "libwebp-1.6.0/src/dsp/rescaler_sse2.c",
+          "libwebp-1.6.0/src/dsp/ssim.c",
+          "libwebp-1.6.0/src/dsp/ssim_sse2.c",
+          "libwebp-1.6.0/src/dsp/upsampling.c",
+          "libwebp-1.6.0/src/dsp/upsampling_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/upsampling_msa.c",
+          "libwebp-1.6.0/src/dsp/upsampling_neon.c",
+          "libwebp-1.6.0/src/dsp/upsampling_sse2.c",
+          "libwebp-1.6.0/src/dsp/upsampling_sse41.c",
+          "libwebp-1.6.0/src/dsp/yuv.c",
+          "libwebp-1.6.0/src/dsp/yuv_mips32.c",
+          "libwebp-1.6.0/src/dsp/yuv_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/yuv_neon.c",
+          "libwebp-1.6.0/src/dsp/yuv_sse2.c",
+          "libwebp-1.6.0/src/dsp/yuv_sse41.c",
+          "libwebp-1.6.0/src/enc/alpha_enc.c",
+          "libwebp-1.6.0/src/enc/analysis_enc.c",
+          "libwebp-1.6.0/src/enc/backward_references_cost_enc.c",
+          "libwebp-1.6.0/src/enc/backward_references_enc.c",
+          "libwebp-1.6.0/src/enc/config_enc.c",
+          "libwebp-1.6.0/src/enc/cost_enc.c",
+          "libwebp-1.6.0/src/enc/filter_enc.c",
+          "libwebp-1.6.0/src/enc/frame_enc.c",
+          "libwebp-1.6.0/src/enc/histogram_enc.c",
+          "libwebp-1.6.0/src/enc/iterator_enc.c",
+          "libwebp-1.6.0/src/enc/near_lossless_enc.c",
+          "libwebp-1.6.0/src/enc/picture_csp_enc.c",
+          "libwebp-1.6.0/src/enc/picture_enc.c",
+          "libwebp-1.6.0/src/enc/picture_psnr_enc.c",
+          "libwebp-1.6.0/src/enc/picture_rescale_enc.c",
+          "libwebp-1.6.0/src/enc/picture_tools_enc.c",
+          "libwebp-1.6.0/src/enc/predictor_enc.c",
+          "libwebp-1.6.0/src/enc/quant_enc.c",
+          "libwebp-1.6.0/src/enc/syntax_enc.c",
+          "libwebp-1.6.0/src/enc/token_enc.c",
+          "libwebp-1.6.0/src/enc/tree_enc.c",
+          "libwebp-1.6.0/src/enc/vp8l_enc.c",
+          "libwebp-1.6.0/src/enc/webp_enc.c",
+          "libwebp-1.6.0/src/mux/anim_encode.c",
+          "libwebp-1.6.0/src/mux/muxedit.c",
+          "libwebp-1.6.0/src/mux/muxinternal.c",
+          "libwebp-1.6.0/src/mux/muxread.c",
+          "libwebp-1.6.0/src/utils/bit_reader_utils.c",
+          "libwebp-1.6.0/src/utils/bit_writer_utils.c",
+          "libwebp-1.6.0/src/utils/color_cache_utils.c",
+          "libwebp-1.6.0/src/utils/filters_utils.c",
+          "libwebp-1.6.0/src/utils/huffman_encode_utils.c",
+          "libwebp-1.6.0/src/utils/huffman_utils.c",
+          "libwebp-1.6.0/src/utils/palette.c",
+          "libwebp-1.6.0/src/utils/quant_levels_dec_utils.c",
+          "libwebp-1.6.0/src/utils/quant_levels_utils.c",
+          "libwebp-1.6.0/src/utils/random_utils.c",
+          "libwebp-1.6.0/src/utils/rescaler_utils.c",
+          "libwebp-1.6.0/src/utils/thread_utils.c",
+          "libwebp-1.6.0/src/utils/utils.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_cpu.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_csp.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_dsp.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_gamma.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_neon.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_sse2.c"
+        ],
+        "patches": [
+          {
+            "file": "muxedit.c",
+            "originalSha256": "7517d0e60df34ff5d6868271c04a9d8b36f2143a7fbc4578f02d6a8e73e37900",
+            "patchedSha256": "9a59a52e0ab8b37b5dedd41b4550d42c335111b0fe31b0f1e914df99d576237e"
+          },
+          {
+            "file": "anim_encode.c",
+            "originalSha256": "005dc631750079d5d6e3009a5aa38069e7ae0502e395149768c49d4a1ea42bea",
+            "patchedSha256": "f44674d3da05f8e411002ca8199271487fb2060f771b8cced429fbb95c1e8f83"
+          }
+        ],
+        "assets": [
+          {
+            "file": "backend.mjs",
+            "bytes": 9448,
+            "sha256": "3e5ba5d4bbc29f22c7940401162825be195c2840b26cc772da23c1c31b141081"
+          },
+          {
+            "file": "backend.wasm",
+            "bytes": 279012,
+            "sha256": "d2a07637ac449406304d3528869f1871773c8b81df03bfac20c516c5eeeb2e27"
+          }
+        ]
+      },
+      {
+        "name": "build-b",
+        "flags": [
+          "-O2",
+          "-std=c11",
+          "-DNDEBUG",
+          "-DCANVASTAKE_KEEP_ANIMATION=1",
+          "-Dmalloc=ct_malloc",
+          "-Dcalloc=ct_calloc",
+          "-Drealloc=ct_realloc",
+          "-Dfree=ct_free",
+          "-include",
+          "tracking.h",
+          "-I.",
+          "-Ilibwebp-1.6.0",
+          "-sMODULARIZE=1",
+          "-sEXPORT_ES6=1",
+          "-sENVIRONMENT=web,worker,node",
+          "-sFILESYSTEM=0",
+          "-sSTRICT=1",
+          "-sALLOW_MEMORY_GROWTH=1",
+          "-sINITIAL_MEMORY=16777216",
+          "-sMAXIMUM_MEMORY=268435456",
+          "-sSTACK_SIZE=1048576",
+          "-sABORTING_MALLOC=0",
+          "-sEXPORTED_FUNCTIONS=[\"_ct_malloc\",\"_ct_free\",\"_ct_open\",\"_ct_add\",\"_ct_finish\",\"_ct_close\",\"_ct_data\",\"_ct_size\",\"_ct_error\",\"_ct_version\",\"_ct_live_bytes\",\"_ct_live_allocations\",\"_ct_peak_bytes\",\"_ct_allocation_calls\",\"_ct_allocator_used\",\"_ct_fail_after\",\"_ct_reset_peak\"]",
+          "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\"]",
+          "-Wl,--strip-debug"
+        ],
+        "sources": [
+          "libwebp-1.6.0/src/dec/alpha_dec.c",
+          "libwebp-1.6.0/src/dec/buffer_dec.c",
+          "libwebp-1.6.0/src/dec/frame_dec.c",
+          "libwebp-1.6.0/src/dec/idec_dec.c",
+          "libwebp-1.6.0/src/dec/io_dec.c",
+          "libwebp-1.6.0/src/dec/quant_dec.c",
+          "libwebp-1.6.0/src/dec/tree_dec.c",
+          "libwebp-1.6.0/src/dec/vp8_dec.c",
+          "libwebp-1.6.0/src/dec/vp8l_dec.c",
+          "libwebp-1.6.0/src/dec/webp_dec.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing_neon.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing_sse2.c",
+          "libwebp-1.6.0/src/dsp/alpha_processing_sse41.c",
+          "libwebp-1.6.0/src/dsp/cost.c",
+          "libwebp-1.6.0/src/dsp/cost_mips32.c",
+          "libwebp-1.6.0/src/dsp/cost_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/cost_neon.c",
+          "libwebp-1.6.0/src/dsp/cost_sse2.c",
+          "libwebp-1.6.0/src/dsp/cpu.c",
+          "libwebp-1.6.0/src/dsp/dec.c",
+          "libwebp-1.6.0/src/dsp/dec_clip_tables.c",
+          "libwebp-1.6.0/src/dsp/dec_mips32.c",
+          "libwebp-1.6.0/src/dsp/dec_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/dec_msa.c",
+          "libwebp-1.6.0/src/dsp/dec_neon.c",
+          "libwebp-1.6.0/src/dsp/dec_sse2.c",
+          "libwebp-1.6.0/src/dsp/dec_sse41.c",
+          "libwebp-1.6.0/src/dsp/enc.c",
+          "libwebp-1.6.0/src/dsp/enc_mips32.c",
+          "libwebp-1.6.0/src/dsp/enc_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/enc_msa.c",
+          "libwebp-1.6.0/src/dsp/enc_neon.c",
+          "libwebp-1.6.0/src/dsp/enc_sse2.c",
+          "libwebp-1.6.0/src/dsp/enc_sse41.c",
+          "libwebp-1.6.0/src/dsp/filters.c",
+          "libwebp-1.6.0/src/dsp/filters_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/filters_msa.c",
+          "libwebp-1.6.0/src/dsp/filters_neon.c",
+          "libwebp-1.6.0/src/dsp/filters_sse2.c",
+          "libwebp-1.6.0/src/dsp/lossless.c",
+          "libwebp-1.6.0/src/dsp/lossless_avx2.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_avx2.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_mips32.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_msa.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_neon.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_sse2.c",
+          "libwebp-1.6.0/src/dsp/lossless_enc_sse41.c",
+          "libwebp-1.6.0/src/dsp/lossless_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/lossless_msa.c",
+          "libwebp-1.6.0/src/dsp/lossless_neon.c",
+          "libwebp-1.6.0/src/dsp/lossless_sse2.c",
+          "libwebp-1.6.0/src/dsp/lossless_sse41.c",
+          "libwebp-1.6.0/src/dsp/rescaler.c",
+          "libwebp-1.6.0/src/dsp/rescaler_mips32.c",
+          "libwebp-1.6.0/src/dsp/rescaler_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/rescaler_msa.c",
+          "libwebp-1.6.0/src/dsp/rescaler_neon.c",
+          "libwebp-1.6.0/src/dsp/rescaler_sse2.c",
+          "libwebp-1.6.0/src/dsp/ssim.c",
+          "libwebp-1.6.0/src/dsp/ssim_sse2.c",
+          "libwebp-1.6.0/src/dsp/upsampling.c",
+          "libwebp-1.6.0/src/dsp/upsampling_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/upsampling_msa.c",
+          "libwebp-1.6.0/src/dsp/upsampling_neon.c",
+          "libwebp-1.6.0/src/dsp/upsampling_sse2.c",
+          "libwebp-1.6.0/src/dsp/upsampling_sse41.c",
+          "libwebp-1.6.0/src/dsp/yuv.c",
+          "libwebp-1.6.0/src/dsp/yuv_mips32.c",
+          "libwebp-1.6.0/src/dsp/yuv_mips_dsp_r2.c",
+          "libwebp-1.6.0/src/dsp/yuv_neon.c",
+          "libwebp-1.6.0/src/dsp/yuv_sse2.c",
+          "libwebp-1.6.0/src/dsp/yuv_sse41.c",
+          "libwebp-1.6.0/src/enc/alpha_enc.c",
+          "libwebp-1.6.0/src/enc/analysis_enc.c",
+          "libwebp-1.6.0/src/enc/backward_references_cost_enc.c",
+          "libwebp-1.6.0/src/enc/backward_references_enc.c",
+          "libwebp-1.6.0/src/enc/config_enc.c",
+          "libwebp-1.6.0/src/enc/cost_enc.c",
+          "libwebp-1.6.0/src/enc/filter_enc.c",
+          "libwebp-1.6.0/src/enc/frame_enc.c",
+          "libwebp-1.6.0/src/enc/histogram_enc.c",
+          "libwebp-1.6.0/src/enc/iterator_enc.c",
+          "libwebp-1.6.0/src/enc/near_lossless_enc.c",
+          "libwebp-1.6.0/src/enc/picture_csp_enc.c",
+          "libwebp-1.6.0/src/enc/picture_enc.c",
+          "libwebp-1.6.0/src/enc/picture_psnr_enc.c",
+          "libwebp-1.6.0/src/enc/picture_rescale_enc.c",
+          "libwebp-1.6.0/src/enc/picture_tools_enc.c",
+          "libwebp-1.6.0/src/enc/predictor_enc.c",
+          "libwebp-1.6.0/src/enc/quant_enc.c",
+          "libwebp-1.6.0/src/enc/syntax_enc.c",
+          "libwebp-1.6.0/src/enc/token_enc.c",
+          "libwebp-1.6.0/src/enc/tree_enc.c",
+          "libwebp-1.6.0/src/enc/vp8l_enc.c",
+          "libwebp-1.6.0/src/enc/webp_enc.c",
+          "libwebp-1.6.0/src/mux/anim_encode.c",
+          "libwebp-1.6.0/src/mux/muxedit.c",
+          "libwebp-1.6.0/src/mux/muxinternal.c",
+          "libwebp-1.6.0/src/mux/muxread.c",
+          "libwebp-1.6.0/src/utils/bit_reader_utils.c",
+          "libwebp-1.6.0/src/utils/bit_writer_utils.c",
+          "libwebp-1.6.0/src/utils/color_cache_utils.c",
+          "libwebp-1.6.0/src/utils/filters_utils.c",
+          "libwebp-1.6.0/src/utils/huffman_encode_utils.c",
+          "libwebp-1.6.0/src/utils/huffman_utils.c",
+          "libwebp-1.6.0/src/utils/palette.c",
+          "libwebp-1.6.0/src/utils/quant_levels_dec_utils.c",
+          "libwebp-1.6.0/src/utils/quant_levels_utils.c",
+          "libwebp-1.6.0/src/utils/random_utils.c",
+          "libwebp-1.6.0/src/utils/rescaler_utils.c",
+          "libwebp-1.6.0/src/utils/thread_utils.c",
+          "libwebp-1.6.0/src/utils/utils.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_cpu.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_csp.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_dsp.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_gamma.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_neon.c",
+          "libwebp-1.6.0/sharpyuv/sharpyuv_sse2.c"
+        ],
+        "patches": [
+          {
+            "file": "muxedit.c",
+            "originalSha256": "7517d0e60df34ff5d6868271c04a9d8b36f2143a7fbc4578f02d6a8e73e37900",
+            "patchedSha256": "9a59a52e0ab8b37b5dedd41b4550d42c335111b0fe31b0f1e914df99d576237e"
+          },
+          {
+            "file": "anim_encode.c",
+            "originalSha256": "005dc631750079d5d6e3009a5aa38069e7ae0502e395149768c49d4a1ea42bea",
+            "patchedSha256": "f44674d3da05f8e411002ca8199271487fb2060f771b8cced429fbb95c1e8f83"
+          }
+        ],
+        "assets": [
+          {
+            "file": "backend.mjs",
+            "bytes": 9448,
+            "sha256": "3e5ba5d4bbc29f22c7940401162825be195c2840b26cc772da23c1c31b141081"
+          },
+          {
+            "file": "backend.wasm",
+            "bytes": 279012,
+            "sha256": "d2a07637ac449406304d3528869f1871773c8b81df03bfac20c516c5eeeb2e27"
+          }
+        ]
+      }
+    ],
+    "notices": [
+      {
+        "file": "COPYING",
+        "sha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf"
+      },
+      {
+        "file": "PATENTS",
+        "sha256": "cc3273e0694ea5896145e0677699b53471b03ea43021ddc50e7923fbb9f5023c"
+      },
+      {
+        "file": "AUTHORS",
+        "sha256": "f251be89fd442bd9d701360730aea163cc8e2076ff03528f59267dc2c4f8b60a"
+      }
+    ],
+    "reproducible": true,
+    "scope": "Two independent source/object builds on Windows x64 using the same pinned toolchain; no cross-platform byte identity claim"
+  },
+  "bindingInputs": {
+    "backend.c": "39029757dabfddfe19c7f83c98c8386f25db1922e4d85a25e2655cc713c0813b",
+    "tracking.h": "2df317c54dfdc063f9f5808b7d51808796c147462ab89f3103e7d3adf0ce0dd0"
+  },
+  "initial": {
+    "liveBytes": 0,
+    "liveAllocations": 0,
+    "peakBytes": 0,
+    "allocationCalls": 0,
+    "allocatorUsed": 0,
+    "wasmCapacity": 16777216
+  },
+  "cases": [
+    {
+      "name": "final-hold",
+      "width": 1,
+      "height": 1,
+      "plays": 3,
+      "delays": [
+        55,
+        2000
+      ],
+      "bytes": 140,
+      "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 3,
+          "width": 1,
+          "height": 1,
+          "durationMs": 2055,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 55,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 2000,
+              "flags": 2,
+              "durationOffset": 112,
+              "payloadOffset": 116,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 55,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "durationMs": 2000,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 2,
+        "independentPayloads": 2,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 80106,
+        "allocationCalls": 227,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "alpha-ramp",
+      "width": 6,
+      "height": 3,
+      "plays": 3,
+      "delays": [
+        70,
+        90,
+        130
+      ],
+      "bytes": 388,
+      "sha256": "2612c2177a2c89ade736d4a5be7dc9622df136e830c338247370cf054f141d53",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 3,
+          "width": 6,
+          "height": 3,
+          "durationMs": 290,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3,
+              "durationMs": 70,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 80,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3,
+              "durationMs": 90,
+              "flags": 2,
+              "durationOffset": 168,
+              "payloadOffset": 172,
+              "payloadLength": 90,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 6,
+              "height": 3,
+              "durationMs": 130,
+              "flags": 2,
+              "durationOffset": 282,
+              "payloadOffset": 286,
+              "payloadLength": 102,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 70,
+            "flags": 2,
+            "width": 6,
+            "height": 3
+          },
+          {
+            "durationMs": 90,
+            "flags": 2,
+            "width": 6,
+            "height": 3
+          },
+          {
+            "durationMs": 130,
+            "flags": 2,
+            "width": 6,
+            "height": 3
+          }
+        ],
+        "intervalComparisons": 3,
+        "independentPayloads": 3,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 723,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "transparent-erasure",
+      "width": 5,
+      "height": 3,
+      "plays": 3,
+      "delays": [
+        50,
+        75,
+        100
+      ],
+      "bytes": 188,
+      "sha256": "86ba96134d965afbd629005833a4aaf72e8bc8a79b82a1bb9fdc4bc2444b029b",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 3,
+          "width": 5,
+          "height": 3,
+          "durationMs": 225,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 5,
+              "height": 3,
+              "durationMs": 50,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 26,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 5,
+              "height": 3,
+              "durationMs": 75,
+              "flags": 2,
+              "durationOffset": 114,
+              "payloadOffset": 118,
+              "payloadLength": 22,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 5,
+              "height": 3,
+              "durationMs": 100,
+              "flags": 2,
+              "durationOffset": 160,
+              "payloadOffset": 164,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 50,
+            "flags": 2,
+            "width": 5,
+            "height": 3
+          },
+          {
+            "durationMs": 75,
+            "flags": 2,
+            "width": 5,
+            "height": 3
+          },
+          {
+            "durationMs": 100,
+            "flags": 2,
+            "width": 5,
+            "height": 3
+          }
+        ],
+        "intervalComparisons": 3,
+        "independentPayloads": 3,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1086893,
+        "allocationCalls": 1094,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "identical",
+      "width": 3,
+      "height": 3,
+      "plays": 3,
+      "delays": [
+        55,
+        2000
+      ],
+      "bytes": 92,
+      "sha256": "bef91607b019ef67fa48c20fd0a62994431de3a507f60d70a424bc2ef8d032ed",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 3,
+          "width": 3,
+          "height": 3,
+          "durationMs": 2055,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3,
+              "durationMs": 2055,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 2055,
+            "flags": 2,
+            "width": 3,
+            "height": 3
+          }
+        ],
+        "intervalComparisons": 2,
+        "independentPayloads": 1,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1062064,
+        "allocationCalls": 1184,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "duplicate-middle",
+      "width": 3,
+      "height": 3,
+      "plays": 3,
+      "delays": [
+        50,
+        70,
+        90,
+        200
+      ],
+      "bytes": 188,
+      "sha256": "222b79fe96883bb9fd9c1659d782957bde93558b99c48999274a129de696c595",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 3,
+          "width": 3,
+          "height": 3,
+          "durationMs": 410,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3,
+              "durationMs": 50,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3,
+              "durationMs": 160,
+              "flags": 2,
+              "durationOffset": 112,
+              "payloadOffset": 116,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 3,
+              "durationMs": 200,
+              "flags": 2,
+              "durationOffset": 160,
+              "payloadOffset": 164,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 50,
+            "flags": 2,
+            "width": 3,
+            "height": 3
+          },
+          {
+            "durationMs": 160,
+            "flags": 2,
+            "width": 3,
+            "height": 3
+          },
+          {
+            "durationMs": 200,
+            "flags": 2,
+            "width": 3,
+            "height": 3
+          }
+        ],
+        "intervalComparisons": 4,
+        "independentPayloads": 3,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1086747,
+        "allocationCalls": 1556,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "single",
+      "width": 3,
+      "height": 1,
+      "plays": 3,
+      "delays": [
+        2000
+      ],
+      "bytes": 92,
+      "sha256": "d6ac0f8f08d9e5f0bb07b771352bfcd1545aea4086433872ae5776b1d460519b",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 3,
+          "width": 3,
+          "height": 1,
+          "durationMs": 2000,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 1,
+              "durationMs": 2000,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 2000,
+            "flags": 2,
+            "width": 3,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 1,
+        "independentPayloads": 1,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 63770,
+        "allocationCalls": 1644,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "short-delays",
+      "width": 1,
+      "height": 1,
+      "plays": 3,
+      "delays": [
+        1,
+        10,
+        11,
+        100
+      ],
+      "bytes": 236,
+      "sha256": "7f22980c025bad62a4fddb6ae758d0c123bdf3c34a424fdc2f4ca2371e647aea",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 3,
+          "width": 1,
+          "height": 1,
+          "durationMs": 122,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 1,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 10,
+              "flags": 2,
+              "durationOffset": 112,
+              "payloadOffset": 116,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 11,
+              "flags": 2,
+              "durationOffset": 160,
+              "payloadOffset": 164,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 100,
+              "flags": 2,
+              "durationOffset": 208,
+              "payloadOffset": 212,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 1,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "durationMs": 10,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "durationMs": 11,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "durationMs": 100,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 4,
+        "independentPayloads": 4,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 88512,
+        "allocationCalls": 2149,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "lossy-40",
+      "width": 16,
+      "height": 16,
+      "plays": 3,
+      "delays": [
+        75,
+        175
+      ],
+      "bytes": 358,
+      "sha256": "619bb784ced50092255fd36483fe34c55f7bbbe2097acd8728119f1a14ddcee5",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 3,
+          "width": 16,
+          "height": 16,
+          "durationMs": 250,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 16,
+              "durationMs": 75,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 136,
+              "chunks": [
+                "VP8 "
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 16,
+              "durationMs": 175,
+              "flags": 2,
+              "durationOffset": 224,
+              "payloadOffset": 228,
+              "payloadLength": 130,
+              "chunks": [
+                "VP8 "
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 75,
+            "flags": 2,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "durationMs": 175,
+            "flags": 2,
+            "width": 16,
+            "height": 16
+          }
+        ],
+        "intervalComparisons": 2,
+        "independentPayloads": 2,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 63998,
+        "allocationCalls": 2205,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "lossy-90",
+      "width": 16,
+      "height": 16,
+      "plays": 3,
+      "delays": [
+        75,
+        175
+      ],
+      "bytes": 586,
+      "sha256": "1c8faa38e1c015346a828529fa581b973a4b88bbed2d25f82eb0ead2cd93b21c",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 3,
+          "width": 16,
+          "height": 16,
+          "durationMs": 250,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 16,
+              "durationMs": 75,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 246,
+              "chunks": [
+                "VP8 "
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 16,
+              "height": 16,
+              "durationMs": 175,
+              "flags": 2,
+              "durationOffset": 334,
+              "payloadOffset": 338,
+              "payloadLength": 248,
+              "chunks": [
+                "VP8 "
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 75,
+            "flags": 2,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "durationMs": 175,
+            "flags": 2,
+            "width": 16,
+            "height": 16
+          }
+        ],
+        "intervalComparisons": 2,
+        "independentPayloads": 2,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 63998,
+        "allocationCalls": 2261,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "final-hold-plays-0",
+      "width": 1,
+      "height": 1,
+      "plays": 0,
+      "delays": [
+        55,
+        2000
+      ],
+      "bytes": 140,
+      "sha256": "87084ee8a78036b573a8a54f5e97665a78adf51c4a3ac4ec8df9e87f08b5cf5b",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 0,
+          "width": 1,
+          "height": 1,
+          "durationMs": 2055,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 55,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 2000,
+              "flags": 2,
+              "durationOffset": 112,
+              "payloadOffset": 116,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 55,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "durationMs": 2000,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 2,
+        "independentPayloads": 2,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 80106,
+        "allocationCalls": 2488,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "final-hold-plays-1",
+      "width": 1,
+      "height": 1,
+      "plays": 1,
+      "delays": [
+        55,
+        2000
+      ],
+      "bytes": 140,
+      "sha256": "9b8b1c84ebb0fbdbf964ab79cbbc7e3d37b18ae2a14ca330f7d0791f5ee40106",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 1,
+          "width": 1,
+          "height": 1,
+          "durationMs": 2055,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 55,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 2000,
+              "flags": 2,
+              "durationOffset": 112,
+              "payloadOffset": 116,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 55,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "durationMs": 2000,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 2,
+        "independentPayloads": 2,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 80106,
+        "allocationCalls": 2715,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "final-hold-plays-65535",
+      "width": 1,
+      "height": 1,
+      "plays": 65535,
+      "delays": [
+        55,
+        2000
+      ],
+      "bytes": 140,
+      "sha256": "7efd31d8b96e14f2a876448f338937a43a3e698f4388a890e8644e22856e1997",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 65535,
+          "width": 1,
+          "height": 1,
+          "durationMs": 2055,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 55,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 2000,
+              "flags": 2,
+              "durationOffset": 112,
+              "payloadOffset": 116,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 55,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "durationMs": 2000,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 2,
+        "independentPayloads": 2,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 80106,
+        "allocationCalls": 2942,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "single-plays-0",
+      "width": 3,
+      "height": 1,
+      "plays": 0,
+      "delays": [
+        2000
+      ],
+      "bytes": 92,
+      "sha256": "207263b717557a26b3095b3dd59a7bc587b2e7c215a71a4b53e3a7744b51c357",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 0,
+          "width": 3,
+          "height": 1,
+          "durationMs": 2000,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 1,
+              "durationMs": 2000,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 2000,
+            "flags": 2,
+            "width": 3,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 1,
+        "independentPayloads": 1,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 63770,
+        "allocationCalls": 3030,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "single-plays-1",
+      "width": 3,
+      "height": 1,
+      "plays": 1,
+      "delays": [
+        2000
+      ],
+      "bytes": 92,
+      "sha256": "b67ac3cb20138de3d0440d785a1b72f0cebd6d931f68d64530cf3efca5196fa6",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 1,
+          "width": 3,
+          "height": 1,
+          "durationMs": 2000,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 1,
+              "durationMs": 2000,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 2000,
+            "flags": 2,
+            "width": 3,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 1,
+        "independentPayloads": 1,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 63770,
+        "allocationCalls": 3118,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "single-plays-65535",
+      "width": 3,
+      "height": 1,
+      "plays": 65535,
+      "delays": [
+        2000
+      ],
+      "bytes": 92,
+      "sha256": "f01144db97e886253e1697c29a5db084516d5cec4bf9be9ad9986cd379539bdc",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 65535,
+          "width": 3,
+          "height": 1,
+          "durationMs": 2000,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 1,
+              "durationMs": 2000,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 2000,
+            "flags": 2,
+            "width": 3,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 1,
+        "independentPayloads": 1,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 63770,
+        "allocationCalls": 3206,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "single-transparent",
+      "width": 3,
+      "height": 5,
+      "plays": 1,
+      "delays": [
+        999
+      ],
+      "bytes": 90,
+      "sha256": "dd7b690615e6078a00e44760bb51692e8b0bbf6e591aa4ea01ad7c7488312b49",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 1,
+          "width": 3,
+          "height": 5,
+          "durationMs": 999,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 3,
+              "height": 5,
+              "durationMs": 999,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 22,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 999,
+            "flags": 2,
+            "width": 3,
+            "height": 5
+          }
+        ],
+        "intervalComparisons": 1,
+        "independentPayloads": 1,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1062216,
+        "allocationCalls": 3295,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    },
+    {
+      "name": "maximum-delay",
+      "width": 1,
+      "height": 1,
+      "plays": 1,
+      "delays": [
+        16777215,
+        55
+      ],
+      "bytes": 140,
+      "sha256": "cdb8a04bcf4c90bd73b37bdab892894851e5969c525e751263835569fb1cd084",
+      "decoded": {
+        "envelope": {
+          "animated": true,
+          "loopCount": 1,
+          "width": 1,
+          "height": 1,
+          "durationMs": 16777270,
+          "frames": [
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 16777215,
+              "flags": 2,
+              "durationOffset": 64,
+              "payloadOffset": 68,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 1,
+              "durationMs": 55,
+              "flags": 2,
+              "durationOffset": 112,
+              "payloadOffset": 116,
+              "payloadLength": 24,
+              "chunks": [
+                "VP8L"
+              ]
+            }
+          ],
+          "chunks": [
+            "VP8X",
+            "ANIM",
+            "ANMF",
+            "ANMF"
+          ]
+        },
+        "frames": [
+          {
+            "durationMs": 16777215,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          },
+          {
+            "durationMs": 55,
+            "flags": 2,
+            "width": 1,
+            "height": 1
+          }
+        ],
+        "intervalComparisons": 2,
+        "independentPayloads": 2,
+        "presentationMatches": true
+      },
+      "resource": {
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 80106,
+        "allocationCalls": 3522,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216
+      }
+    }
+  ],
+  "controls": [
+    "wrong RIFF length detected",
+    "valid wrong duration detected",
+    "valid wrong plays detected",
+    "valid wrong RGBA detected",
+    "unsupported partial-alpha OVER rejected"
+  ],
+  "invalidInputs": [
+    "dimensions",
+    "pixel limit",
+    "frame limit",
+    "input limit",
+    "duration limit",
+    "RGBA length",
+    "empty frames",
+    "oversized pixels",
+    "quality infinity",
+    "invalid lossless",
+    "invalid method",
+    "output limit configuration",
+    "plays -1",
+    "plays 65536",
+    "plays 1.5",
+    "plays NaN",
+    "delay 0",
+    "delay 16777216",
+    "delay 1.5",
+    "delay NaN",
+    "signed timestamp overflow"
+  ],
+  "errors": [
+    "native configuration guard",
+    "native empty-finish/length/duration guards release session",
+    "output byte limit releases assembled data",
+    "pre-abort retains original reason",
+    "between-frame abort cleanup",
+    "native progress exception returns through C cleanup",
+    {
+      "allocationFaults": [
+        {
+          "index": 0,
+          "failed": true
+        },
+        {
+          "index": 1,
+          "failed": true
+        },
+        {
+          "index": 2,
+          "failed": true
+        },
+        {
+          "index": 3,
+          "failed": true
+        },
+        {
+          "index": 5,
+          "failed": true
+        },
+        {
+          "index": 7,
+          "failed": true
+        },
+        {
+          "index": 8,
+          "failed": true
+        },
+        {
+          "index": 10,
+          "failed": true
+        },
+        {
+          "index": 12,
+          "failed": true
+        },
+        {
+          "index": 14,
+          "failed": true
+        },
+        {
+          "index": 15,
+          "failed": true
+        },
+        {
+          "index": 17,
+          "failed": true
+        },
+        {
+          "index": 19,
+          "failed": true
+        },
+        {
+          "index": 21,
+          "failed": true
+        },
+        {
+          "index": 23,
+          "failed": true
+        },
+        {
+          "index": 24,
+          "failed": true
+        },
+        {
+          "index": 26,
+          "failed": true
+        },
+        {
+          "index": 28,
+          "failed": true
+        },
+        {
+          "index": 30,
+          "failed": true
+        },
+        {
+          "index": 31,
+          "failed": true
+        },
+        {
+          "index": 33,
+          "failed": true
+        },
+        {
+          "index": 35,
+          "failed": true
+        },
+        {
+          "index": 37,
+          "failed": true
+        },
+        {
+          "index": 39,
+          "failed": true
+        },
+        {
+          "index": 40,
+          "failed": true
+        },
+        {
+          "index": 42,
+          "failed": true
+        },
+        {
+          "index": 44,
+          "failed": true
+        },
+        {
+          "index": 46,
+          "failed": true
+        },
+        {
+          "index": 47,
+          "failed": true
+        },
+        {
+          "index": 49,
+          "failed": true
+        },
+        {
+          "index": 51,
+          "failed": true
+        },
+        {
+          "index": 53,
+          "failed": true
+        },
+        {
+          "index": 54,
+          "failed": true
+        },
+        {
+          "index": 56,
+          "failed": true
+        },
+        {
+          "index": 58,
+          "failed": true
+        },
+        {
+          "index": 60,
+          "failed": true
+        },
+        {
+          "index": 62,
+          "failed": true
+        },
+        {
+          "index": 63,
+          "failed": true
+        },
+        {
+          "index": 65,
+          "failed": true
+        },
+        {
+          "index": 67,
+          "failed": true
+        },
+        {
+          "index": 69,
+          "failed": true
+        },
+        {
+          "index": 70,
+          "failed": true
+        },
+        {
+          "index": 72,
+          "failed": true
+        },
+        {
+          "index": 74,
+          "failed": true
+        },
+        {
+          "index": 76,
+          "failed": true
+        },
+        {
+          "index": 78,
+          "failed": true
+        },
+        {
+          "index": 79,
+          "failed": true
+        },
+        {
+          "index": 81,
+          "failed": true
+        },
+        {
+          "index": 83,
+          "failed": true
+        },
+        {
+          "index": 85,
+          "failed": true
+        },
+        {
+          "index": 86,
+          "failed": true
+        },
+        {
+          "index": 88,
+          "failed": true
+        },
+        {
+          "index": 90,
+          "failed": true
+        },
+        {
+          "index": 92,
+          "failed": true
+        },
+        {
+          "index": 93,
+          "failed": true
+        },
+        {
+          "index": 95,
+          "failed": true
+        },
+        {
+          "index": 97,
+          "failed": true
+        },
+        {
+          "index": 99,
+          "failed": true
+        },
+        {
+          "index": 101,
+          "failed": true
+        },
+        {
+          "index": 102,
+          "failed": true
+        },
+        {
+          "index": 104,
+          "failed": true
+        },
+        {
+          "index": 106,
+          "failed": true
+        },
+        {
+          "index": 108,
+          "failed": true
+        },
+        {
+          "index": 109,
+          "failed": true
+        },
+        {
+          "index": 111,
+          "failed": true
+        },
+        {
+          "index": 113,
+          "failed": true
+        },
+        {
+          "index": 115,
+          "failed": true
+        },
+        {
+          "index": 117,
+          "failed": true
+        },
+        {
+          "index": 118,
+          "failed": true
+        },
+        {
+          "index": 120,
+          "failed": true
+        },
+        {
+          "index": 122,
+          "failed": true
+        },
+        {
+          "index": 124,
+          "failed": true
+        },
+        {
+          "index": 125,
+          "failed": true
+        },
+        {
+          "index": 127,
+          "failed": true
+        },
+        {
+          "index": 129,
+          "failed": true
+        },
+        {
+          "index": 131,
+          "failed": true
+        },
+        {
+          "index": 133,
+          "failed": true
+        },
+        {
+          "index": 134,
+          "failed": true
+        },
+        {
+          "index": 136,
+          "failed": true
+        },
+        {
+          "index": 138,
+          "failed": true
+        },
+        {
+          "index": 140,
+          "failed": true
+        },
+        {
+          "index": 141,
+          "failed": true
+        },
+        {
+          "index": 143,
+          "failed": true
+        },
+        {
+          "index": 145,
+          "failed": true
+        },
+        {
+          "index": 147,
+          "failed": true
+        },
+        {
+          "index": 148,
+          "failed": true
+        },
+        {
+          "index": 150,
+          "failed": true
+        },
+        {
+          "index": 152,
+          "failed": true
+        },
+        {
+          "index": 154,
+          "failed": true
+        },
+        {
+          "index": 156,
+          "failed": true
+        },
+        {
+          "index": 157,
+          "failed": true
+        },
+        {
+          "index": 159,
+          "failed": true
+        },
+        {
+          "index": 161,
+          "failed": true
+        },
+        {
+          "index": 163,
+          "failed": true
+        },
+        {
+          "index": 164,
+          "failed": true
+        },
+        {
+          "index": 166,
+          "failed": true
+        },
+        {
+          "index": 168,
+          "failed": true
+        },
+        {
+          "index": 170,
+          "failed": true
+        },
+        {
+          "index": 172,
+          "failed": true
+        },
+        {
+          "index": 173,
+          "failed": true
+        },
+        {
+          "index": 175,
+          "failed": true
+        },
+        {
+          "index": 177,
+          "failed": true
+        },
+        {
+          "index": 179,
+          "failed": true
+        },
+        {
+          "index": 180,
+          "failed": true
+        },
+        {
+          "index": 182,
+          "failed": true
+        },
+        {
+          "index": 184,
+          "failed": true
+        },
+        {
+          "index": 186,
+          "failed": true
+        },
+        {
+          "index": 187,
+          "failed": true
+        },
+        {
+          "index": 189,
+          "failed": true
+        },
+        {
+          "index": 191,
+          "failed": true
+        },
+        {
+          "index": 193,
+          "failed": true
+        },
+        {
+          "index": 195,
+          "failed": true
+        },
+        {
+          "index": 196,
+          "failed": true
+        },
+        {
+          "index": 198,
+          "failed": true
+        },
+        {
+          "index": 200,
+          "failed": true
+        },
+        {
+          "index": 202,
+          "failed": true
+        },
+        {
+          "index": 203,
+          "failed": true
+        },
+        {
+          "index": 205,
+          "failed": true
+        },
+        {
+          "index": 207,
+          "failed": true
+        },
+        {
+          "index": 209,
+          "failed": true
+        },
+        {
+          "index": 211,
+          "failed": true
+        },
+        {
+          "index": 212,
+          "failed": true
+        },
+        {
+          "index": 214,
+          "failed": true
+        },
+        {
+          "index": 216,
+          "failed": true
+        },
+        {
+          "index": 218,
+          "failed": true
+        },
+        {
+          "index": 219,
+          "failed": true
+        },
+        {
+          "index": 221,
+          "failed": true
+        },
+        {
+          "index": 223,
+          "failed": true
+        },
+        {
+          "index": 225,
+          "failed": true
+        },
+        {
+          "index": 227,
+          "failed": false
+        }
+      ],
+      "normalAllocationCalls": 227
+    }
+  ],
+  "memory": {
+    "repetitions": 50,
+    "gcAvailable": true,
+    "samples": [
+      {
+        "iteration": 1,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 19517,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 120549376,
+          "heapTotal": 84697088,
+          "heapUsed": 46395752,
+          "external": 22172127,
+          "arrayBuffers": 383557
+        }
+      },
+      {
+        "iteration": 6,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 21997,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 112054272,
+          "heapTotal": 84959232,
+          "heapUsed": 46369432,
+          "external": 20939875,
+          "arrayBuffers": 357288
+        }
+      },
+      {
+        "iteration": 11,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 24477,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 111644672,
+          "heapTotal": 84697088,
+          "heapUsed": 46369320,
+          "external": 20939875,
+          "arrayBuffers": 357288
+        }
+      },
+      {
+        "iteration": 16,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 26957,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 111886336,
+          "heapTotal": 84959232,
+          "heapUsed": 46369080,
+          "external": 20939875,
+          "arrayBuffers": 357288
+        }
+      },
+      {
+        "iteration": 21,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 29437,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 111652864,
+          "heapTotal": 84959232,
+          "heapUsed": 46369336,
+          "external": 20939875,
+          "arrayBuffers": 357288
+        }
+      },
+      {
+        "iteration": 26,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 31917,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 111640576,
+          "heapTotal": 84959232,
+          "heapUsed": 46369592,
+          "external": 20939875,
+          "arrayBuffers": 357288
+        }
+      },
+      {
+        "iteration": 31,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 34397,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 112021504,
+          "heapTotal": 84959232,
+          "heapUsed": 46369848,
+          "external": 20939875,
+          "arrayBuffers": 357288
+        }
+      },
+      {
+        "iteration": 36,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 36877,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 112037888,
+          "heapTotal": 84959232,
+          "heapUsed": 46370104,
+          "external": 20939875,
+          "arrayBuffers": 357288
+        }
+      },
+      {
+        "iteration": 41,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 39357,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 112041984,
+          "heapTotal": 84959232,
+          "heapUsed": 46370360,
+          "external": 20939875,
+          "arrayBuffers": 357504
+        }
+      },
+      {
+        "iteration": 46,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 41837,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 112087040,
+          "heapTotal": 84959232,
+          "heapUsed": 46370856,
+          "external": 20939875,
+          "arrayBuffers": 357288
+        }
+      },
+      {
+        "iteration": 50,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 1087043,
+        "allocationCalls": 43821,
+        "allocatorUsed": 0,
+        "wasmCapacity": 16777216,
+        "process": {
+          "rss": 112087040,
+          "heapTotal": 84959232,
+          "heapUsed": 46371112,
+          "external": 20939271,
+          "arrayBuffers": 357288
+        }
+      }
+    ]
+  },
+  "browsers": [
+    {
+      "name": "chromium",
+      "version": "156.0.8078.4",
+      "cases": [
+        {
+          "name": "final-hold",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        },
+        {
+          "name": "alpha-ramp",
+          "calls": 180,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1087043,
+            "allocationCalls": 496,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "2612c2177a2c89ade736d4a5be7dc9622df136e830c338247370cf054f141d53"
+        },
+        {
+          "name": "transparent-erasure",
+          "calls": 60,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1086893,
+            "allocationCalls": 371,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "86ba96134d965afbd629005833a4aaf72e8bc8a79b82a1bb9fdc4bc2444b029b"
+        },
+        {
+          "name": "identical",
+          "calls": 12,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1062064,
+            "allocationCalls": 90,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "bef91607b019ef67fa48c20fd0a62994431de3a507f60d70a424bc2ef8d032ed"
+        },
+        {
+          "name": "duplicate-middle",
+          "calls": 60,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1086747,
+            "allocationCalls": 372,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "222b79fe96883bb9fd9c1659d782957bde93558b99c48999274a129de696c595"
+        },
+        {
+          "name": "single",
+          "calls": 10,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63770,
+            "allocationCalls": 88,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "d6ac0f8f08d9e5f0bb07b771352bfcd1545aea4086433872ae5776b1d460519b"
+        },
+        {
+          "name": "short-delays",
+          "calls": 70,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 88512,
+            "allocationCalls": 505,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "7f22980c025bad62a4fddb6ae758d0c123bdf3c34a424fdc2f4ca2371e647aea"
+        },
+        {
+          "name": "lossy-40",
+          "calls": 9,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63998,
+            "allocationCalls": 56,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "619bb784ced50092255fd36483fe34c55f7bbbe2097acd8728119f1a14ddcee5"
+        },
+        {
+          "name": "lossy-90",
+          "calls": 9,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63998,
+            "allocationCalls": 56,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "1c8faa38e1c015346a828529fa581b973a4b88bbed2d25f82eb0ead2cd93b21c"
+        },
+        {
+          "name": "final-hold-plays-0",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "87084ee8a78036b573a8a54f5e97665a78adf51c4a3ac4ec8df9e87f08b5cf5b"
+        },
+        {
+          "name": "final-hold-plays-1",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "9b8b1c84ebb0fbdbf964ab79cbbc7e3d37b18ae2a14ca330f7d0791f5ee40106"
+        },
+        {
+          "name": "final-hold-plays-65535",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "7efd31d8b96e14f2a876448f338937a43a3e698f4388a890e8644e22856e1997"
+        },
+        {
+          "name": "single-plays-0",
+          "calls": 10,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63770,
+            "allocationCalls": 88,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "207263b717557a26b3095b3dd59a7bc587b2e7c215a71a4b53e3a7744b51c357"
+        },
+        {
+          "name": "single-plays-1",
+          "calls": 10,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63770,
+            "allocationCalls": 88,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "b67ac3cb20138de3d0440d785a1b72f0cebd6d931f68d64530cf3efca5196fa6"
+        },
+        {
+          "name": "single-plays-65535",
+          "calls": 10,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63770,
+            "allocationCalls": 88,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "f01144db97e886253e1697c29a5db084516d5cec4bf9be9ad9986cd379539bdc"
+        },
+        {
+          "name": "single-transparent",
+          "calls": 12,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1062216,
+            "allocationCalls": 89,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "dd7b690615e6078a00e44760bb51692e8b0bbf6e591aa4ea01ad7c7488312b49"
+        },
+        {
+          "name": "maximum-delay",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "cdb8a04bcf4c90bd73b37bdab892894851e5969c525e751263835569fb1cd084"
+        },
+        {
+          "name": "cooperative-same-worker-retry",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 237,
+            "allocatorUsed": 0,
+            "wasmCapacity": 24248320
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        },
+        {
+          "name": "fresh-retry-2",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        },
+        {
+          "name": "fresh-retry-3",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        },
+        {
+          "name": "fresh-retry-4",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        }
+      ],
+      "cancellations": [
+        {
+          "mode": "before-ready",
+          "outputs": 0
+        },
+        {
+          "mode": "cooperative",
+          "phaseBefore": 1,
+          "phaseAfter": 0,
+          "hookCalls": 1,
+          "settlementMs": 1.7800002098083496,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 23071532,
+            "allocationCalls": 10,
+            "allocatorUsed": 0,
+            "wasmCapacity": 24248320
+          }
+        },
+        {
+          "mode": "terminate",
+          "phaseBefore": 1,
+          "phaseAfter": 1,
+          "hookCalls": 1,
+          "settlementMs": 0.25,
+          "outputs": 0
+        },
+        {
+          "mode": "terminate",
+          "phaseBefore": 1,
+          "phaseAfter": 1,
+          "hookCalls": 1,
+          "settlementMs": 0.1400001049041748,
+          "outputs": 0
+        }
+      ],
+      "memory": [
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 496,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 992,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 1488,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 1984,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 2480,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 2976,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 3472,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 3968,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 4464,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 4960,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 5456,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 5952,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        }
+      ],
+      "decoded": [
+        {
+          "name": "final-hold",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 55000,
+              "timestampUs": 0,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 2000000,
+              "timestampUs": 55000,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "alpha-ramp",
+          "count": 3,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 70000,
+              "timestampUs": 0,
+              "fileDurationMs": 70,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 18,
+                "maxRgbError": 121,
+                "matches": false
+              }
+            },
+            {
+              "durationUs": 90000,
+              "timestampUs": 70000,
+              "fileDurationMs": 90,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 15,
+                "maxRgbError": 99,
+                "matches": false
+              }
+            },
+            {
+              "durationUs": 130000,
+              "timestampUs": 160000,
+              "fileDurationMs": 130,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 16,
+                "maxRgbError": 72,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "transparent-erasure",
+          "count": 3,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 50000,
+              "timestampUs": 0,
+              "fileDurationMs": 50,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 75000,
+              "timestampUs": 50000,
+              "fileDurationMs": 75,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 100000,
+              "timestampUs": 125000,
+              "fileDurationMs": 100,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "identical",
+          "count": 1,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 2055000,
+              "timestampUs": 0,
+              "fileDurationMs": 2055,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "duplicate-middle",
+          "count": 3,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 50000,
+              "timestampUs": 0,
+              "fileDurationMs": 50,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 160000,
+              "timestampUs": 50000,
+              "fileDurationMs": 160,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 200000,
+              "timestampUs": 210000,
+              "fileDurationMs": 200,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "single",
+          "count": 1,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 2000000,
+              "timestampUs": 0,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "short-delays",
+          "count": 4,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 1000,
+              "timestampUs": 0,
+              "fileDurationMs": 1,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 10000,
+              "timestampUs": 1000,
+              "fileDurationMs": 10,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 11000,
+              "timestampUs": 11000,
+              "fileDurationMs": 11,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 100000,
+              "timestampUs": 22000,
+              "fileDurationMs": 100,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "lossy-40",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 75000,
+              "timestampUs": 0,
+              "fileDurationMs": 75,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 747,
+                "maxRgbError": 177,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 175000,
+              "timestampUs": 75000,
+              "fileDurationMs": 175,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 760,
+                "maxRgbError": 169,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "lossy-90",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 75000,
+              "timestampUs": 0,
+              "fileDurationMs": 75,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 749,
+                "maxRgbError": 182,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 175000,
+              "timestampUs": 75000,
+              "fileDurationMs": 175,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 763,
+                "maxRgbError": 157,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "final-hold-plays-0",
+          "count": 2,
+          "repetitions": "Infinity",
+          "frames": [
+            {
+              "durationUs": 55000,
+              "timestampUs": 0,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 2000000,
+              "timestampUs": 55000,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "final-hold-plays-1",
+          "count": 2,
+          "repetitions": "0",
+          "frames": [
+            {
+              "durationUs": 55000,
+              "timestampUs": 0,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 2000000,
+              "timestampUs": 55000,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "final-hold-plays-65535",
+          "count": 2,
+          "repetitions": "65534",
+          "frames": [
+            {
+              "durationUs": 55000,
+              "timestampUs": 0,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 2000000,
+              "timestampUs": 55000,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "single-plays-0",
+          "count": 1,
+          "repetitions": "Infinity",
+          "frames": [
+            {
+              "durationUs": 2000000,
+              "timestampUs": 0,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "single-plays-1",
+          "count": 1,
+          "repetitions": "0",
+          "frames": [
+            {
+              "durationUs": 2000000,
+              "timestampUs": 0,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "single-plays-65535",
+          "count": 1,
+          "repetitions": "65534",
+          "frames": [
+            {
+              "durationUs": 2000000,
+              "timestampUs": 0,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "single-transparent",
+          "count": 1,
+          "repetitions": "0",
+          "frames": [
+            {
+              "durationUs": 999000,
+              "timestampUs": 0,
+              "fileDurationMs": 999,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "maximum-delay",
+          "count": 2,
+          "repetitions": "0",
+          "frames": [
+            {
+              "durationUs": 16777215000,
+              "timestampUs": 0,
+              "fileDurationMs": 16777215,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 55000,
+              "timestampUs": 16777215000,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        }
+      ],
+      "controls": [
+        {
+          "name": "wrong-delay",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "timestamp": 0,
+              "duration": 77000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                255,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "timestamp": 77000,
+              "duration": 2000000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                0,
+                255,
+                0,
+                128
+              ]
+            }
+          ]
+        },
+        {
+          "name": "wrong-plays",
+          "count": 2,
+          "repetitions": "1",
+          "frames": [
+            {
+              "timestamp": 0,
+              "duration": 55000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                255,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "timestamp": 55000,
+              "duration": 2000000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                0,
+                255,
+                0,
+                128
+              ]
+            }
+          ]
+        },
+        {
+          "name": "wrong-pixels",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "timestamp": 0,
+              "duration": 55000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                0,
+                0,
+                255,
+                255
+              ]
+            },
+            {
+              "timestamp": 55000,
+              "duration": 2000000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                0,
+                255,
+                0,
+                128
+              ]
+            }
+          ]
+        },
+        {
+          "name": "wrong-blend",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "timestamp": 0,
+              "duration": 55000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                255,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "timestamp": 55000,
+              "duration": 2000000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                126,
+                127,
+                0,
+                255
+              ]
+            }
+          ]
+        }
+      ],
+      "workers": {
+        "opened": 25,
+        "terminated": 25,
+        "cleared": 25,
+        "transfers": 36
+      },
+      "liveWorkerInventory": 0,
+      "workerEvents": {
+        "opened": 24,
+        "closed": 24
+      },
+      "closeDrainMs": 1587.7524000000012
+    },
+    {
+      "name": "firefox",
+      "version": "157.0",
+      "cases": [
+        {
+          "name": "final-hold",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        },
+        {
+          "name": "alpha-ramp",
+          "calls": 180,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1087043,
+            "allocationCalls": 496,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "2612c2177a2c89ade736d4a5be7dc9622df136e830c338247370cf054f141d53"
+        },
+        {
+          "name": "transparent-erasure",
+          "calls": 60,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1086893,
+            "allocationCalls": 371,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "86ba96134d965afbd629005833a4aaf72e8bc8a79b82a1bb9fdc4bc2444b029b"
+        },
+        {
+          "name": "identical",
+          "calls": 12,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1062064,
+            "allocationCalls": 90,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "bef91607b019ef67fa48c20fd0a62994431de3a507f60d70a424bc2ef8d032ed"
+        },
+        {
+          "name": "duplicate-middle",
+          "calls": 60,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1086747,
+            "allocationCalls": 372,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "222b79fe96883bb9fd9c1659d782957bde93558b99c48999274a129de696c595"
+        },
+        {
+          "name": "single",
+          "calls": 10,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63770,
+            "allocationCalls": 88,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "d6ac0f8f08d9e5f0bb07b771352bfcd1545aea4086433872ae5776b1d460519b"
+        },
+        {
+          "name": "short-delays",
+          "calls": 70,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 88512,
+            "allocationCalls": 505,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "7f22980c025bad62a4fddb6ae758d0c123bdf3c34a424fdc2f4ca2371e647aea"
+        },
+        {
+          "name": "lossy-40",
+          "calls": 9,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63998,
+            "allocationCalls": 56,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "619bb784ced50092255fd36483fe34c55f7bbbe2097acd8728119f1a14ddcee5"
+        },
+        {
+          "name": "lossy-90",
+          "calls": 9,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63998,
+            "allocationCalls": 56,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "1c8faa38e1c015346a828529fa581b973a4b88bbed2d25f82eb0ead2cd93b21c"
+        },
+        {
+          "name": "final-hold-plays-0",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "87084ee8a78036b573a8a54f5e97665a78adf51c4a3ac4ec8df9e87f08b5cf5b"
+        },
+        {
+          "name": "final-hold-plays-1",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "9b8b1c84ebb0fbdbf964ab79cbbc7e3d37b18ae2a14ca330f7d0791f5ee40106"
+        },
+        {
+          "name": "final-hold-plays-65535",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "7efd31d8b96e14f2a876448f338937a43a3e698f4388a890e8644e22856e1997"
+        },
+        {
+          "name": "single-plays-0",
+          "calls": 10,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63770,
+            "allocationCalls": 88,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "207263b717557a26b3095b3dd59a7bc587b2e7c215a71a4b53e3a7744b51c357"
+        },
+        {
+          "name": "single-plays-1",
+          "calls": 10,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63770,
+            "allocationCalls": 88,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "b67ac3cb20138de3d0440d785a1b72f0cebd6d931f68d64530cf3efca5196fa6"
+        },
+        {
+          "name": "single-plays-65535",
+          "calls": 10,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 63770,
+            "allocationCalls": 88,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "f01144db97e886253e1697c29a5db084516d5cec4bf9be9ad9986cd379539bdc"
+        },
+        {
+          "name": "single-transparent",
+          "calls": 12,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 1062216,
+            "allocationCalls": 89,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "dd7b690615e6078a00e44760bb51692e8b0bbf6e591aa4ea01ad7c7488312b49"
+        },
+        {
+          "name": "maximum-delay",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "cdb8a04bcf4c90bd73b37bdab892894851e5969c525e751263835569fb1cd084"
+        },
+        {
+          "name": "cooperative-same-worker-retry",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 237,
+            "allocatorUsed": 0,
+            "wasmCapacity": 24248320
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        },
+        {
+          "name": "fresh-retry-2",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        },
+        {
+          "name": "fresh-retry-3",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        },
+        {
+          "name": "fresh-retry-4",
+          "calls": 30,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 80106,
+            "allocationCalls": 227,
+            "allocatorUsed": 0,
+            "wasmCapacity": 16777216
+          },
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+        }
+      ],
+      "cancellations": [
+        {
+          "mode": "before-ready",
+          "outputs": 0
+        },
+        {
+          "mode": "cooperative",
+          "phaseBefore": 1,
+          "phaseAfter": 0,
+          "hookCalls": 1,
+          "settlementMs": 1.0399999999999636,
+          "stats": {
+            "liveBytes": 0,
+            "liveAllocations": 0,
+            "peakBytes": 23071532,
+            "allocationCalls": 10,
+            "allocatorUsed": 0,
+            "wasmCapacity": 24248320
+          }
+        },
+        {
+          "mode": "terminate",
+          "phaseBefore": 1,
+          "phaseAfter": 1,
+          "hookCalls": 1,
+          "settlementMs": 0.2600000000002183,
+          "outputs": 0
+        },
+        {
+          "mode": "terminate",
+          "phaseBefore": 1,
+          "phaseAfter": 1,
+          "hookCalls": 1,
+          "settlementMs": 0.1999999999998181,
+          "outputs": 0
+        }
+      ],
+      "memory": [
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 496,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 992,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 1488,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 1984,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 2480,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 2976,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 3472,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 3968,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 4464,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 4960,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 5456,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 1087043,
+          "allocationCalls": 5952,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        }
+      ],
+      "decoded": [
+        {
+          "name": "final-hold",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 55000,
+              "timestampUs": 0,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 2000000,
+              "timestampUs": 55000,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 1,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "alpha-ramp",
+          "count": 3,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 70000,
+              "timestampUs": 0,
+              "fileDurationMs": 70,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 24,
+                "maxRgbError": 133,
+                "matches": false
+              }
+            },
+            {
+              "durationUs": 90000,
+              "timestampUs": 70000,
+              "fileDurationMs": 90,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 27,
+                "maxRgbError": 230,
+                "matches": false
+              }
+            },
+            {
+              "durationUs": 130000,
+              "timestampUs": 160000,
+              "fileDurationMs": 130,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 27,
+                "maxRgbError": 254,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "transparent-erasure",
+          "count": 3,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 50000,
+              "timestampUs": 0,
+              "fileDurationMs": 50,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 75000,
+              "timestampUs": 50000,
+              "fileDurationMs": 75,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 100000,
+              "timestampUs": 125000,
+              "fileDurationMs": 100,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 15,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "identical",
+          "count": 1,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 2055000,
+              "timestampUs": 0,
+              "fileDurationMs": 2055,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "duplicate-middle",
+          "count": 3,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 50000,
+              "timestampUs": 0,
+              "fileDurationMs": 50,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 160000,
+              "timestampUs": 50000,
+              "fileDurationMs": 160,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 200000,
+              "timestampUs": 210000,
+              "fileDurationMs": 200,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "single",
+          "count": 1,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 2000000,
+              "timestampUs": 0,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 3,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "short-delays",
+          "count": 4,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 100000,
+              "timestampUs": 0,
+              "fileDurationMs": 1,
+              "viewerClamped": true,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 100000,
+              "timestampUs": 100000,
+              "fileDurationMs": 10,
+              "viewerClamped": true,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 11000,
+              "timestampUs": 200000,
+              "fileDurationMs": 11,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 100000,
+              "timestampUs": 211000,
+              "fileDurationMs": 100,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 1,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "lossy-40",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 75000,
+              "timestampUs": 0,
+              "fileDurationMs": 75,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 747,
+                "maxRgbError": 177,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 175000,
+              "timestampUs": 75000,
+              "fileDurationMs": 175,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 760,
+                "maxRgbError": 169,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "lossy-90",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "durationUs": 75000,
+              "timestampUs": 0,
+              "fileDurationMs": 75,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 749,
+                "maxRgbError": 182,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 175000,
+              "timestampUs": 75000,
+              "fileDurationMs": 175,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 763,
+                "maxRgbError": 157,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "final-hold-plays-0",
+          "count": 2,
+          "repetitions": "Infinity",
+          "frames": [
+            {
+              "durationUs": 55000,
+              "timestampUs": 0,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 2000000,
+              "timestampUs": 55000,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 1,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "final-hold-plays-1",
+          "count": 2,
+          "repetitions": "0",
+          "frames": [
+            {
+              "durationUs": 55000,
+              "timestampUs": 0,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 2000000,
+              "timestampUs": 55000,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 1,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "final-hold-plays-65535",
+          "count": 2,
+          "repetitions": "65534",
+          "frames": [
+            {
+              "durationUs": 55000,
+              "timestampUs": 0,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 2000000,
+              "timestampUs": 55000,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 1,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "single-plays-0",
+          "count": 1,
+          "repetitions": "Infinity",
+          "frames": [
+            {
+              "durationUs": 2000000,
+              "timestampUs": 0,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 3,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "single-plays-1",
+          "count": 1,
+          "repetitions": "0",
+          "frames": [
+            {
+              "durationUs": 2000000,
+              "timestampUs": 0,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 3,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "single-plays-65535",
+          "count": 1,
+          "repetitions": "65534",
+          "frames": [
+            {
+              "durationUs": 2000000,
+              "timestampUs": 0,
+              "fileDurationMs": 2000,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 3,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        },
+        {
+          "name": "single-transparent",
+          "count": 1,
+          "repetitions": "0",
+          "frames": [
+            {
+              "durationUs": 999000,
+              "timestampUs": 0,
+              "fileDurationMs": 999,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            }
+          ]
+        },
+        {
+          "name": "maximum-delay",
+          "count": 2,
+          "repetitions": "0",
+          "frames": [
+            {
+              "durationUs": 16777215000,
+              "timestampUs": 0,
+              "fileDurationMs": 16777215,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 0,
+                "maxRgbError": 0,
+                "matches": true
+              }
+            },
+            {
+              "durationUs": 55000,
+              "timestampUs": 16777215000,
+              "fileDurationMs": 55,
+              "viewerClamped": false,
+              "pixels": {
+                "alphaErrors": 0,
+                "rgbErrors": 1,
+                "maxRgbError": 127,
+                "matches": false
+              }
+            }
+          ]
+        }
+      ],
+      "controls": [
+        {
+          "name": "wrong-delay",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "timestamp": 0,
+              "duration": 77000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                255,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "timestamp": 77000,
+              "duration": 2000000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                0,
+                128,
+                0,
+                128
+              ]
+            }
+          ]
+        },
+        {
+          "name": "wrong-plays",
+          "count": 2,
+          "repetitions": "1",
+          "frames": [
+            {
+              "timestamp": 0,
+              "duration": 55000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                255,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "timestamp": 55000,
+              "duration": 2000000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                0,
+                128,
+                0,
+                128
+              ]
+            }
+          ]
+        },
+        {
+          "name": "wrong-pixels",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "timestamp": 0,
+              "duration": 55000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                0,
+                0,
+                255,
+                255
+              ]
+            },
+            {
+              "timestamp": 55000,
+              "duration": 2000000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                0,
+                128,
+                0,
+                128
+              ]
+            }
+          ]
+        },
+        {
+          "name": "wrong-blend",
+          "count": 2,
+          "repetitions": "2",
+          "frames": [
+            {
+              "timestamp": 0,
+              "duration": 55000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                255,
+                0,
+                0,
+                255
+              ]
+            },
+            {
+              "timestamp": 55000,
+              "duration": 2000000,
+              "width": 1,
+              "height": 1,
+              "rgba": [
+                127,
+                128,
+                0,
+                255
+              ]
+            }
+          ]
+        }
+      ],
+      "workers": {
+        "opened": 25,
+        "terminated": 25,
+        "cleared": 25,
+        "transfers": 36
+      },
+      "liveWorkerInventory": 0,
+      "workerEvents": {
+        "opened": 24,
+        "closed": 24
+      },
+      "closeDrainMs": 0.027000000001862645
+    }
+  ],
+  "nodeWorkers": {
+    "lifecycle": {
+      "opened": 7,
+      "exited": 7,
+      "cleared": 7,
+      "transfers": 7
+    },
+    "cancellations": [
+      {
+        "mode": "before-ready",
+        "outputs": 0
+      },
+      {
+        "mode": "cooperative",
+        "phaseBefore": 1,
+        "phaseAfter": 0,
+        "hookCalls": 1,
+        "settlementMs": 1.221799999999348,
+        "stats": {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 23071532,
+          "allocationCalls": 10,
+          "allocatorUsed": 0,
+          "wasmCapacity": 24248320
+        }
+      },
+      {
+        "mode": "terminate",
+        "phaseBefore": 1,
+        "phaseAfter": 1,
+        "hookCalls": 1,
+        "exitCode": 1,
+        "settlementMs": 9.496699999999691,
+        "outputs": 0
+      },
+      {
+        "mode": "terminate",
+        "phaseBefore": 1,
+        "phaseAfter": 1,
+        "hookCalls": 1,
+        "exitCode": 1,
+        "settlementMs": 9.11449999999968,
+        "outputs": 0
+      }
+    ],
+    "retries": [
+      {
+        "name": "same-worker",
+        "stats": {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 80106,
+          "allocationCalls": 237,
+          "allocatorUsed": 0,
+          "wasmCapacity": 24248320
+        },
+        "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+      },
+      {
+        "name": "fresh-worker",
+        "stats": {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 80106,
+          "allocationCalls": 227,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+      },
+      {
+        "name": "fresh-worker",
+        "stats": {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 80106,
+          "allocationCalls": 227,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+      },
+      {
+        "name": "fresh-worker",
+        "stats": {
+          "liveBytes": 0,
+          "liveAllocations": 0,
+          "peakBytes": 80106,
+          "allocationCalls": 227,
+          "allocatorUsed": 0,
+          "wasmCapacity": 16777216
+        },
+        "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc"
+      }
+    ]
+  },
+  "ffmpeg": "ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers",
+  "largeMemory": {
+    "width": 1024,
+    "height": 1024,
+    "repetitions": 3,
+    "sha256": "20e791c45597cf8b15bbb47c39cd8f7e87018b836d70ea74be3197a7aa657a7d",
+    "decoded": {
+      "envelope": {
+        "animated": true,
+        "loopCount": 1,
+        "width": 1024,
+        "height": 1024,
+        "durationMs": 100,
+        "frames": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 1024,
+            "height": 1024,
+            "durationMs": 100,
+            "flags": 2,
+            "durationOffset": 64,
+            "payloadOffset": 68,
+            "payloadLength": 58794,
+            "chunks": [
+              "VP8L"
+            ]
+          }
+        ],
+        "chunks": [
+          "VP8X",
+          "ANIM",
+          "ANMF"
+        ]
+      },
+      "frames": [
+        {
+          "durationMs": 100,
+          "flags": 2,
+          "width": 1024,
+          "height": 1024
+        }
+      ],
+      "intervalComparisons": 1,
+      "independentPayloads": 1,
+      "presentationMatches": true
+    },
+    "samples": [
+      {
+        "iteration": 1,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 51193372,
+        "allocationCalls": 44015,
+        "allocatorUsed": 0,
+        "wasmCapacity": 60424192,
+        "process": {
+          "rss": 178487296,
+          "heapTotal": 84697088,
+          "heapUsed": 46391632,
+          "external": 68837181,
+          "arrayBuffers": 4610238
+        }
+      },
+      {
+        "iteration": 2,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 51193372,
+        "allocationCalls": 44209,
+        "allocatorUsed": 0,
+        "wasmCapacity": 60424192,
+        "process": {
+          "rss": 178540544,
+          "heapTotal": 84959232,
+          "heapUsed": 46394464,
+          "external": 68903835,
+          "arrayBuffers": 4618430
+        }
+      },
+      {
+        "iteration": 3,
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "peakBytes": 51193372,
+        "allocationCalls": 44403,
+        "allocatorUsed": 0,
+        "wasmCapacity": 60424192,
+        "process": {
+          "rss": 178569216,
+          "heapTotal": 84959232,
+          "heapUsed": 46393328,
+          "external": 68903835,
+          "arrayBuffers": 4618430
+        }
+      }
+    ]
+  },
+  "limitations": [
+    "Reference source build is Windows x64 only; production API/build/exports and version are unchanged.",
+    "Single-frame animation preservation requires two disclosed source guards; upstream defaults differ.",
+    "Full keyframe policy deliberately avoids generic partial-alpha delta blending; no compression-ratio/performance claim.",
+    "Browser native partial-alpha RGB conversions and short-delay/single-frame playback behavior are recorded separately from encoded file correctness.",
+    "Allocator counters cover remapped libwebp and binding allocations, not browser/JS/system-library allocations. Capacity and process RSS need not shrink when all tracked allocations are freed.",
+    "SAB/COOP/COEP are test instrumentation for deterministic in-codec cancellation, not a production deployment requirement or public adapter API."
+  ],
+  "verificationHarness": {
+    "scripts/build-webp-backend.mjs": "c34c299168aaadaa87bc1f5a04a82ee07b95f7b049efa120b7b5f96d8e58acac",
+    "scripts/check-webp-libwebp.mjs": "eca75510bf2651df5f172b20e67e80d59e1c475f7cc764f4fffe350e53572fb4",
+    "scripts/webp-libwebp/backend.c": "39029757dabfddfe19c7f83c98c8386f25db1922e4d85a25e2655cc713c0813b",
+    "scripts/webp-libwebp/backend.mjs": "23399cd85983cdaf0d4094d1a1c20bd4231c16c8f7d7b6febb112292895f0aab",
+    "scripts/webp-libwebp/browser-client.mjs": "fecd6832c18c271e294c134eca45cf034a273580a0ba23a0adbc6347adef06a6",
+    "scripts/webp-libwebp/browser-worker.mjs": "2ee96b8340397b0a8a9a2d10d988aa87b42a02b8854c79b8e6ecaae58e72f089",
+    "scripts/webp-libwebp/extract-zip.mjs": "337ef5aa9437a27b3ab03cd2cfdf327e23122cdec8a57683543fb2db8618e89a",
+    "scripts/webp-libwebp/fixtures.mjs": "2e780ffc251350a356449299509b34ce2a28170e33319dfe956cbd110bbb2ba8",
+    "scripts/webp-libwebp/node-client.mjs": "f87f451e9867f82dfe26d646e16fdbeb656725b2178188bd8db2a3df72e5fee7",
+    "scripts/webp-libwebp/node-worker.mjs": "5435e71ae5f5bb182f6f6c0d89310190816790287e943d17e5db63ca066d9807",
+    "scripts/webp-libwebp/oracle.mjs": "2566185ec7aef6fc36a4ad3013d9d56a6f61d94187b40a94aceed991e8c06111",
+    "scripts/webp-libwebp/single-frame-patch.mjs": "9a8b4c14e5245ff15706290aac67aa1b1781756a89475eab311ade9d9129aded",
+    "scripts/webp-libwebp/toolchain.mjs": "a1ccb67de124f963a32fde36e9a13b7bdbb40665798a932eadaceff3ab1d9c8f",
+    "scripts/webp-libwebp/tracking.h": "2df317c54dfdc063f9f5808b7d51808796c147462ab89f3103e7d3adf0ce0dd0",
+    "scripts/webp-libwebp/worker-core.mjs": "255cfbcfbbcecb2fd8a214a433d27cb52cb72a89c995986c6dbc2103662f9b94"
+  }
+}

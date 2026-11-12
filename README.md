@@ -330,6 +330,8 @@ The [APNG design](docs/drafts/apng-export.md), [backend spike](docs/drafts/apng-
 Current public imports and asset deployment are described in the [APNG guide](docs/apng-export.md).
 The [animated WebP research](docs/drafts/webp-backend-research.md) compares backend candidates and
 records real Worker/independent-decoder observations; it does not add WebP export to the package.
+The subsequent [libwebp backend proof](docs/drafts/webp-libwebp-backend.md) records reproducible
+Windows WASM builds, exact animation checks, native cancellation and resource cleanup.
 
 Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC, WebM/Opus, GIF and APNG export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack; add `-- --apng-browser` for actual default/package/copied APNG Worker checks. `npm run test:apng:package` verifies public APNG types and actual Workers from an installed tarball. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 
