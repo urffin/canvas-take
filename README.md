@@ -301,6 +301,10 @@ and records promise-identity, ordering and error checks for future work.
 byte storage, positioned-write compatibility and cleanup checks in unreleased development.
 The [remaining-policy evaluation](docs/drafts/shared-export-policy-evaluation.md) keeps timeline,
 ownership, cancellation and progress local and records conditions for future extraction.
+An [APNG design draft](docs/drafts/apng-export.md) proposes transparent frames and injected encoders;
+APNG export is not implemented or available in the package yet.
+The isolated [APNG backend spike](docs/drafts/apng-backend-spike.md) records independent RGBA/timing
+checks and real Worker cancellation; it does not add a public APNG entry.
 
 Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC and GIF export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 

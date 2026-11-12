@@ -1,0 +1,2293 @@
+{
+  "date": "2026-11-12T06:25:28.038Z",
+  "base": "4cc479b3178b77c1f945ec9371f656b5bb495187",
+  "node": "v22.17.0",
+  "platform": "win32",
+  "arch": "x64",
+  "ffmpegStatic": "5.3.0",
+  "ffmpeg": "ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers",
+  "provenance": {
+    "sources": [
+      {
+        "name": "UPNG.js",
+        "url": "https://raw.githubusercontent.com/photopea/UPNG.js/88f504b6577b726975f593caa38ba85d327c7c1f/UPNG.js",
+        "sha256": "39213412bc9945002588f5e12adfc555c63d314874bba1dbed5be802b1c86ed2"
+      },
+      {
+        "name": "UPNG-LICENSE",
+        "url": "https://raw.githubusercontent.com/photopea/UPNG.js/88f504b6577b726975f593caa38ba85d327c7c1f/LICENSE",
+        "sha256": "c1fb8861eca211bf5aea574358aba7039396c0c1824c2a1477cc126d398efd89"
+      },
+      {
+        "name": "pako-deflate.cjs",
+        "url": "https://raw.githubusercontent.com/nodeca/pako/2.1.0/dist/pako_deflate.min.js",
+        "sha256": "9429785d1e7f805d46640c4155957fd0f286144dec05cea09f6f2eaa646adb21"
+      },
+      {
+        "name": "pako-LICENSE",
+        "url": "https://raw.githubusercontent.com/nodeca/pako/2.1.0/LICENSE",
+        "sha256": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539"
+      },
+      {
+        "name": "pako-zlib-README",
+        "url": "https://raw.githubusercontent.com/nodeca/pako/2.1.0/lib/zlib/README",
+        "sha256": "d8b499598e43d755ea8918448128259ff01820c50d94d5a48c8883d0a594ddb1"
+      }
+    ],
+    "patchedUpngSha256": "2975aae8ca08870432136c89c76b3510b2e94599d9dc46e6dff1119ae4da4075",
+    "backendSha256": "be58d6fcd682b69a43dc1479b3004043a3f3bfa258523deef59bc5d13977cfb1",
+    "compression": "Pako 2.1.0 default level, PNG filter 0, full RGBA8 frames",
+    "patch": [
+      "Always emit animation for nonempty input",
+      "Use deflate rather than level-0 storage in encodeLL",
+      "Select Pako explicitly, without window.UZIP fallback"
+    ],
+    "cancellationProbe": "First Pako.Deflate.onData callback inside the actual synchronous deflate call; flag cleared in finally when deflate returns"
+  },
+  "cases": [
+    {
+      "engine": "node",
+      "name": "alpha-0",
+      "width": 13,
+      "height": 7,
+      "plays": 0,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "15bfb006ba28a545ac312c9f1fd215e76048d0feed9782b495ebedf4084b659b",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "alpha-1",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "edcc25532397e06cf2788a9f38e178f746638bf81e4cd60341aeac8759b91da0",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "alpha-3",
+      "width": 13,
+      "height": 7,
+      "plays": 3,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "a84e6f903477636582da958826fc40da5dad4b863153fbfc26fa54fac206d8cf",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "alpha-4294967295",
+      "width": 13,
+      "height": 7,
+      "plays": 4294967295,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "e8c3990b84b440a0cbd308952fee0e4eac821c70f2aef36a0762045dbcb8e504",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "erase",
+      "width": 17,
+      "height": 9,
+      "plays": 1,
+      "delays": [
+        14,
+        15,
+        800
+      ],
+      "bytes": 301,
+      "sha256": "d03436cf09cbd4a0e4be9f0ac7a61a71149c5f30393483507bbaf172ca02091c",
+      "decoded": {
+        "pixels": 459,
+        "visibleRgbChannels": 96,
+        "frames": 3,
+        "durationMs": 829,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 1400
+          },
+          {
+            "dts": 1400,
+            "pts": 1400,
+            "duration": 1500
+          },
+          {
+            "dts": 2900,
+            "pts": 2900,
+            "duration": 80000
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "gradient",
+      "width": 31,
+      "height": 17,
+      "plays": 3,
+      "delays": [
+        1,
+        14,
+        55,
+        2000
+      ],
+      "bytes": 8068,
+      "sha256": "de4ab4d37bc42fef1afdfbc7f91485a2c1e859dfce0d02ed3f4622d5466019be",
+      "decoded": {
+        "pixels": 2108,
+        "visibleRgbChannels": 6120,
+        "frames": 4,
+        "durationMs": 2070,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 1400
+          },
+          {
+            "dts": 1500,
+            "pts": 1500,
+            "duration": 5500
+          },
+          {
+            "dts": 7000,
+            "pts": 7000,
+            "duration": 200000
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "opaque",
+      "width": 9,
+      "height": 5,
+      "plays": 0,
+      "delays": [
+        50,
+        55
+      ],
+      "bytes": 537,
+      "sha256": "0489101adccf2d5d0ae948a866939e1648f775059616a6194d85708e3f6732cc",
+      "decoded": {
+        "pixels": 90,
+        "visibleRgbChannels": 270,
+        "frames": 2,
+        "durationMs": 105,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 5000
+          },
+          {
+            "dts": 5000,
+            "pts": 5000,
+            "duration": 5500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "transparent",
+      "width": 5,
+      "height": 3,
+      "plays": 1,
+      "delays": [
+        1,
+        65535
+      ],
+      "bytes": 320,
+      "sha256": "9918c8bfa071c6b0ddae688e2d6bff780e7a8a25fee85bcff63a7b627f587acb",
+      "decoded": {
+        "pixels": 30,
+        "visibleRgbChannels": 0,
+        "frames": 2,
+        "durationMs": 65536,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "identical",
+      "width": 7,
+      "height": 3,
+      "plays": 3,
+      "delays": [
+        54,
+        55,
+        2000
+      ],
+      "bytes": 518,
+      "sha256": "70242cdf9d42b2c2273440408b79d105aeda397f69462151513abd83dd6dd838",
+      "decoded": {
+        "pixels": 63,
+        "visibleRgbChannels": 153,
+        "frames": 3,
+        "durationMs": 2109,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 5400
+          },
+          {
+            "dts": 5400,
+            "pts": 5400,
+            "duration": 5500
+          },
+          {
+            "dts": 10900,
+            "pts": 10900,
+            "duration": 200000
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "noise",
+      "width": 127,
+      "height": 65,
+      "plays": 1,
+      "delays": [
+        14,
+        15,
+        55
+      ],
+      "bytes": 99554,
+      "sha256": "dd1138d1100d9fceea4c475ea609e11d63cb23b9229146e2ebe5eb1c83a2c686",
+      "decoded": {
+        "pixels": 24765,
+        "visibleRgbChannels": 74028,
+        "frames": 3,
+        "durationMs": 84,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 1400
+          },
+          {
+            "dts": 1400,
+            "pts": 1400,
+            "duration": 1500
+          },
+          {
+            "dts": 2900,
+            "pts": 2900,
+            "duration": 5500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "single-0",
+      "width": 1,
+      "height": 1,
+      "plays": 0,
+      "delays": [
+        1
+      ],
+      "bytes": 139,
+      "sha256": "f3655c2c7f99a320408e4efe723b8ff81da9cfdc171a8a93ce891b3d5ca9e4af",
+      "decoded": {
+        "pixels": 1,
+        "visibleRgbChannels": 0,
+        "frames": 1,
+        "durationMs": 1,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "single-1",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "single-3",
+      "width": 1,
+      "height": 1,
+      "plays": 3,
+      "delays": [
+        1
+      ],
+      "bytes": 139,
+      "sha256": "58642b7cb3ac978d5894690b79ba3affd97ef989cb7c4ee7890e455ad64c81d0",
+      "decoded": {
+        "pixels": 1,
+        "visibleRgbChannels": 0,
+        "frames": 1,
+        "durationMs": 1,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node",
+      "name": "single-4294967295",
+      "width": 13,
+      "height": 7,
+      "plays": 4294967295,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "1db3bca1cd6869f8473abe25896bf2e562b160abcdf771433de49160640bda36",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node-worker",
+      "name": "single-1-retry-1",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node-worker",
+      "name": "single-1-retry-2",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node-worker",
+      "name": "single-1-retry-3",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "node-worker",
+      "name": "single-1-retry-4",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "alpha-0",
+      "width": 13,
+      "height": 7,
+      "plays": 0,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "15bfb006ba28a545ac312c9f1fd215e76048d0feed9782b495ebedf4084b659b",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "alpha-1",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "edcc25532397e06cf2788a9f38e178f746638bf81e4cd60341aeac8759b91da0",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "alpha-3",
+      "width": 13,
+      "height": 7,
+      "plays": 3,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "a84e6f903477636582da958826fc40da5dad4b863153fbfc26fa54fac206d8cf",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "alpha-4294967295",
+      "width": 13,
+      "height": 7,
+      "plays": 4294967295,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "e8c3990b84b440a0cbd308952fee0e4eac821c70f2aef36a0762045dbcb8e504",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "erase",
+      "width": 17,
+      "height": 9,
+      "plays": 1,
+      "delays": [
+        14,
+        15,
+        800
+      ],
+      "bytes": 301,
+      "sha256": "d03436cf09cbd4a0e4be9f0ac7a61a71149c5f30393483507bbaf172ca02091c",
+      "decoded": {
+        "pixels": 459,
+        "visibleRgbChannels": 96,
+        "frames": 3,
+        "durationMs": 829,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 1400
+          },
+          {
+            "dts": 1400,
+            "pts": 1400,
+            "duration": 1500
+          },
+          {
+            "dts": 2900,
+            "pts": 2900,
+            "duration": 80000
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "gradient",
+      "width": 31,
+      "height": 17,
+      "plays": 3,
+      "delays": [
+        1,
+        14,
+        55,
+        2000
+      ],
+      "bytes": 8068,
+      "sha256": "de4ab4d37bc42fef1afdfbc7f91485a2c1e859dfce0d02ed3f4622d5466019be",
+      "decoded": {
+        "pixels": 2108,
+        "visibleRgbChannels": 6120,
+        "frames": 4,
+        "durationMs": 2070,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 1400
+          },
+          {
+            "dts": 1500,
+            "pts": 1500,
+            "duration": 5500
+          },
+          {
+            "dts": 7000,
+            "pts": 7000,
+            "duration": 200000
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "opaque",
+      "width": 9,
+      "height": 5,
+      "plays": 0,
+      "delays": [
+        50,
+        55
+      ],
+      "bytes": 537,
+      "sha256": "0489101adccf2d5d0ae948a866939e1648f775059616a6194d85708e3f6732cc",
+      "decoded": {
+        "pixels": 90,
+        "visibleRgbChannels": 270,
+        "frames": 2,
+        "durationMs": 105,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 5000
+          },
+          {
+            "dts": 5000,
+            "pts": 5000,
+            "duration": 5500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "transparent",
+      "width": 5,
+      "height": 3,
+      "plays": 1,
+      "delays": [
+        1,
+        65535
+      ],
+      "bytes": 320,
+      "sha256": "9918c8bfa071c6b0ddae688e2d6bff780e7a8a25fee85bcff63a7b627f587acb",
+      "decoded": {
+        "pixels": 30,
+        "visibleRgbChannels": 0,
+        "frames": 2,
+        "durationMs": 65536,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "identical",
+      "width": 7,
+      "height": 3,
+      "plays": 3,
+      "delays": [
+        54,
+        55,
+        2000
+      ],
+      "bytes": 518,
+      "sha256": "70242cdf9d42b2c2273440408b79d105aeda397f69462151513abd83dd6dd838",
+      "decoded": {
+        "pixels": 63,
+        "visibleRgbChannels": 153,
+        "frames": 3,
+        "durationMs": 2109,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 5400
+          },
+          {
+            "dts": 5400,
+            "pts": 5400,
+            "duration": 5500
+          },
+          {
+            "dts": 10900,
+            "pts": 10900,
+            "duration": 200000
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "noise",
+      "width": 127,
+      "height": 65,
+      "plays": 1,
+      "delays": [
+        14,
+        15,
+        55
+      ],
+      "bytes": 99554,
+      "sha256": "dd1138d1100d9fceea4c475ea609e11d63cb23b9229146e2ebe5eb1c83a2c686",
+      "decoded": {
+        "pixels": 24765,
+        "visibleRgbChannels": 74028,
+        "frames": 3,
+        "durationMs": 84,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 1400
+          },
+          {
+            "dts": 1400,
+            "pts": 1400,
+            "duration": 1500
+          },
+          {
+            "dts": 2900,
+            "pts": 2900,
+            "duration": 5500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "single-0",
+      "width": 1,
+      "height": 1,
+      "plays": 0,
+      "delays": [
+        1
+      ],
+      "bytes": 139,
+      "sha256": "f3655c2c7f99a320408e4efe723b8ff81da9cfdc171a8a93ce891b3d5ca9e4af",
+      "decoded": {
+        "pixels": 1,
+        "visibleRgbChannels": 0,
+        "frames": 1,
+        "durationMs": 1,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "single-1",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "single-3",
+      "width": 1,
+      "height": 1,
+      "plays": 3,
+      "delays": [
+        1
+      ],
+      "bytes": 139,
+      "sha256": "58642b7cb3ac978d5894690b79ba3affd97ef989cb7c4ee7890e455ad64c81d0",
+      "decoded": {
+        "pixels": 1,
+        "visibleRgbChannels": 0,
+        "frames": 1,
+        "durationMs": 1,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "single-4294967295",
+      "width": 13,
+      "height": 7,
+      "plays": 4294967295,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "1db3bca1cd6869f8473abe25896bf2e562b160abcdf771433de49160640bda36",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "single-1-retry-5",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "single-1-retry-6",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "single-1-retry-7",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "single-1-retry-8",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "alpha-0",
+      "width": 13,
+      "height": 7,
+      "plays": 0,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "15bfb006ba28a545ac312c9f1fd215e76048d0feed9782b495ebedf4084b659b",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "alpha-1",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "edcc25532397e06cf2788a9f38e178f746638bf81e4cd60341aeac8759b91da0",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "alpha-3",
+      "width": 13,
+      "height": 7,
+      "plays": 3,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "a84e6f903477636582da958826fc40da5dad4b863153fbfc26fa54fac206d8cf",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "alpha-4294967295",
+      "width": 13,
+      "height": 7,
+      "plays": 4294967295,
+      "delays": [
+        1,
+        54,
+        65535
+      ],
+      "bytes": 1263,
+      "sha256": "e8c3990b84b440a0cbd308952fee0e4eac821c70f2aef36a0762045dbcb8e504",
+      "decoded": {
+        "pixels": 273,
+        "visibleRgbChannels": 681,
+        "frames": 3,
+        "durationMs": 65590,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 5400
+          },
+          {
+            "dts": 5500,
+            "pts": 5500,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "erase",
+      "width": 17,
+      "height": 9,
+      "plays": 1,
+      "delays": [
+        14,
+        15,
+        800
+      ],
+      "bytes": 301,
+      "sha256": "d03436cf09cbd4a0e4be9f0ac7a61a71149c5f30393483507bbaf172ca02091c",
+      "decoded": {
+        "pixels": 459,
+        "visibleRgbChannels": 96,
+        "frames": 3,
+        "durationMs": 829,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 1400
+          },
+          {
+            "dts": 1400,
+            "pts": 1400,
+            "duration": 1500
+          },
+          {
+            "dts": 2900,
+            "pts": 2900,
+            "duration": 80000
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "gradient",
+      "width": 31,
+      "height": 17,
+      "plays": 3,
+      "delays": [
+        1,
+        14,
+        55,
+        2000
+      ],
+      "bytes": 8068,
+      "sha256": "de4ab4d37bc42fef1afdfbc7f91485a2c1e859dfce0d02ed3f4622d5466019be",
+      "decoded": {
+        "pixels": 2108,
+        "visibleRgbChannels": 6120,
+        "frames": 4,
+        "durationMs": 2070,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 1400
+          },
+          {
+            "dts": 1500,
+            "pts": 1500,
+            "duration": 5500
+          },
+          {
+            "dts": 7000,
+            "pts": 7000,
+            "duration": 200000
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "opaque",
+      "width": 9,
+      "height": 5,
+      "plays": 0,
+      "delays": [
+        50,
+        55
+      ],
+      "bytes": 537,
+      "sha256": "0489101adccf2d5d0ae948a866939e1648f775059616a6194d85708e3f6732cc",
+      "decoded": {
+        "pixels": 90,
+        "visibleRgbChannels": 270,
+        "frames": 2,
+        "durationMs": 105,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 5000
+          },
+          {
+            "dts": 5000,
+            "pts": 5000,
+            "duration": 5500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "transparent",
+      "width": 5,
+      "height": 3,
+      "plays": 1,
+      "delays": [
+        1,
+        65535
+      ],
+      "bytes": 320,
+      "sha256": "9918c8bfa071c6b0ddae688e2d6bff780e7a8a25fee85bcff63a7b627f587acb",
+      "decoded": {
+        "pixels": 30,
+        "visibleRgbChannels": 0,
+        "frames": 2,
+        "durationMs": 65536,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          },
+          {
+            "dts": 100,
+            "pts": 100,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "identical",
+      "width": 7,
+      "height": 3,
+      "plays": 3,
+      "delays": [
+        54,
+        55,
+        2000
+      ],
+      "bytes": 518,
+      "sha256": "70242cdf9d42b2c2273440408b79d105aeda397f69462151513abd83dd6dd838",
+      "decoded": {
+        "pixels": 63,
+        "visibleRgbChannels": 153,
+        "frames": 3,
+        "durationMs": 2109,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 5400
+          },
+          {
+            "dts": 5400,
+            "pts": 5400,
+            "duration": 5500
+          },
+          {
+            "dts": 10900,
+            "pts": 10900,
+            "duration": 200000
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "noise",
+      "width": 127,
+      "height": 65,
+      "plays": 1,
+      "delays": [
+        14,
+        15,
+        55
+      ],
+      "bytes": 99554,
+      "sha256": "dd1138d1100d9fceea4c475ea609e11d63cb23b9229146e2ebe5eb1c83a2c686",
+      "decoded": {
+        "pixels": 24765,
+        "visibleRgbChannels": 74028,
+        "frames": 3,
+        "durationMs": 84,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 1400
+          },
+          {
+            "dts": 1400,
+            "pts": 1400,
+            "duration": 1500
+          },
+          {
+            "dts": 2900,
+            "pts": 2900,
+            "duration": 5500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "single-0",
+      "width": 1,
+      "height": 1,
+      "plays": 0,
+      "delays": [
+        1
+      ],
+      "bytes": 139,
+      "sha256": "f3655c2c7f99a320408e4efe723b8ff81da9cfdc171a8a93ce891b3d5ca9e4af",
+      "decoded": {
+        "pixels": 1,
+        "visibleRgbChannels": 0,
+        "frames": 1,
+        "durationMs": 1,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "single-1",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "single-3",
+      "width": 1,
+      "height": 1,
+      "plays": 3,
+      "delays": [
+        1
+      ],
+      "bytes": 139,
+      "sha256": "58642b7cb3ac978d5894690b79ba3affd97ef989cb7c4ee7890e455ad64c81d0",
+      "decoded": {
+        "pixels": 1,
+        "visibleRgbChannels": 0,
+        "frames": 1,
+        "durationMs": 1,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 100
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "single-4294967295",
+      "width": 13,
+      "height": 7,
+      "plays": 4294967295,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "1db3bca1cd6869f8473abe25896bf2e562b160abcdf771433de49160640bda36",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "single-1-retry-9",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "single-1-retry-10",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "single-1-retry-11",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    },
+    {
+      "engine": "firefox",
+      "name": "single-1-retry-12",
+      "width": 13,
+      "height": 7,
+      "plays": 1,
+      "delays": [
+        65535
+      ],
+      "bytes": 467,
+      "sha256": "7a05f24c3fee9452a7b601a8b4c128823732b6fc5d7150d67fb64de614d8c8c8",
+      "decoded": {
+        "pixels": 91,
+        "visibleRgbChannels": 225,
+        "frames": 1,
+        "durationMs": 65535,
+        "timebase": [
+          1,
+          100000
+        ],
+        "packets": [
+          {
+            "dts": 0,
+            "pts": 0,
+            "duration": 6553500
+          }
+        ]
+      }
+    }
+  ],
+  "controls": [
+    {
+      "name": "corrupt CRC",
+      "detected": true
+    },
+    {
+      "name": "missing frame control",
+      "detected": true
+    },
+    {
+      "name": "wrong plays with valid CRC",
+      "detected": true
+    },
+    {
+      "name": "wrong delay with valid CRC",
+      "detected": true
+    },
+    {
+      "name": "duplicate sequence with valid CRC",
+      "detected": true
+    },
+    {
+      "name": "truncated IEND",
+      "detected": true
+    },
+    {
+      "name": "static-only single frame",
+      "detected": true
+    },
+    {
+      "name": "unsupported blend/disposal strategy with valid CRC/timing",
+      "detected": true
+    },
+    {
+      "name": "incorrect transparent pixels with valid profile/CRC/timing",
+      "detected": true
+    }
+  ],
+  "limitations": [
+    {
+      "name": "full-frame OVER metadata mutation",
+      "decoderDetected": false,
+      "scope": "Generic OVER/disposal optimization is not certified; candidate requires full-frame SOURCE/BACKGROUND"
+    }
+  ],
+  "invalidInputs": [
+    {
+      "name": "invalid delay 0",
+      "rejected": true
+    },
+    {
+      "name": "invalid delay 65536",
+      "rejected": true
+    },
+    {
+      "name": "invalid delay 1.5",
+      "rejected": true
+    },
+    {
+      "name": "invalid delay NaN",
+      "rejected": true
+    },
+    {
+      "name": "invalid delay Infinity",
+      "rejected": true
+    },
+    {
+      "name": "invalid plays -1",
+      "rejected": true
+    },
+    {
+      "name": "invalid plays 4294967296",
+      "rejected": true
+    },
+    {
+      "name": "invalid plays 1.5",
+      "rejected": true
+    },
+    {
+      "name": "invalid plays NaN",
+      "rejected": true
+    },
+    {
+      "name": "empty input",
+      "rejected": true
+    },
+    {
+      "name": "dimensions",
+      "rejected": true
+    },
+    {
+      "name": "one raw byte over limit",
+      "rejected": true
+    },
+    {
+      "name": "one output byte over limit",
+      "rejected": true
+    }
+  ],
+  "cancellations": [
+    {
+      "engine": "node",
+      "mode": "before-ready",
+      "outputs": 0,
+      "transferred": false,
+      "rawBytes": 1092,
+      "phaseAtAbort": 0,
+      "rejectedWithOriginalReason": true,
+      "exitCode": 1,
+      "exitedAt": 2996.7505,
+      "settlementMs": 0.2359999999998763,
+      "terminationMs": 3.478700000000117,
+      "phaseAfterExit": 0,
+      "retainedOwnedFrames": 0,
+      "listenersAfterClose": 0
+    },
+    {
+      "engine": "node",
+      "mode": "compression",
+      "outputs": 0,
+      "transferred": true,
+      "rawBytes": 31457280,
+      "phaseAtAbort": 1,
+      "rejectedWithOriginalReason": true,
+      "exitCode": 1,
+      "exitedAt": 4256.7595,
+      "settlementMs": 0.11779999999998836,
+      "terminationMs": 11.090699999999742,
+      "phaseAfterExit": 1,
+      "retainedOwnedFrames": 0,
+      "listenersAfterClose": 0
+    },
+    {
+      "engine": "node",
+      "mode": "compression",
+      "outputs": 0,
+      "transferred": true,
+      "rawBytes": 31457280,
+      "phaseAtAbort": 1,
+      "rejectedWithOriginalReason": true,
+      "exitCode": 1,
+      "exitedAt": 5527.9854,
+      "settlementMs": 0.12800000000061118,
+      "terminationMs": 9.293499999999767,
+      "phaseAfterExit": 1,
+      "retainedOwnedFrames": 0,
+      "listenersAfterClose": 0
+    },
+    {
+      "engine": "node",
+      "mode": "compression",
+      "outputs": 0,
+      "transferred": true,
+      "rawBytes": 31457280,
+      "phaseAtAbort": 1,
+      "rejectedWithOriginalReason": true,
+      "exitCode": 1,
+      "exitedAt": 6882.2131,
+      "settlementMs": 0.1283000000003085,
+      "terminationMs": 11.497699999999895,
+      "phaseAfterExit": 1,
+      "retainedOwnedFrames": 0,
+      "listenersAfterClose": 0
+    },
+    {
+      "engine": "chromium",
+      "mode": "before-ready",
+      "rawBytes": 1092,
+      "transferred": false,
+      "outputs": 0,
+      "compressionMessages": 0,
+      "rejectedWithOriginalReason": true,
+      "sourceIntact": true,
+      "retainedOwnedFrames": 0,
+      "pendingAfterClose": 0,
+      "listenersAfterClose": 0,
+      "settlementMs": 0.13499999046325684,
+      "actualWorkerClosed": true
+    },
+    {
+      "engine": "chromium",
+      "mode": "compression",
+      "rawBytes": 31457280,
+      "transferred": true,
+      "outputs": 0,
+      "compressionMessages": 1,
+      "rejectedWithOriginalReason": true,
+      "phaseAtAbort": 1,
+      "sourceIntact": true,
+      "retainedOwnedFrames": 0,
+      "pendingAfterClose": 0,
+      "listenersAfterClose": 0,
+      "phaseAfterClose": 1,
+      "settlementMs": 0.06000018119812012,
+      "actualWorkerClosed": true
+    },
+    {
+      "engine": "chromium",
+      "mode": "compression",
+      "rawBytes": 31457280,
+      "transferred": true,
+      "outputs": 0,
+      "compressionMessages": 1,
+      "rejectedWithOriginalReason": true,
+      "phaseAtAbort": 1,
+      "sourceIntact": true,
+      "retainedOwnedFrames": 0,
+      "pendingAfterClose": 0,
+      "listenersAfterClose": 0,
+      "phaseAfterClose": 1,
+      "settlementMs": 0.06999993324279785,
+      "actualWorkerClosed": true
+    },
+    {
+      "engine": "chromium",
+      "mode": "compression",
+      "rawBytes": 31457280,
+      "transferred": true,
+      "outputs": 0,
+      "compressionMessages": 1,
+      "rejectedWithOriginalReason": true,
+      "phaseAtAbort": 1,
+      "sourceIntact": true,
+      "retainedOwnedFrames": 0,
+      "pendingAfterClose": 0,
+      "listenersAfterClose": 0,
+      "phaseAfterClose": 1,
+      "settlementMs": 0.07499980926513672,
+      "actualWorkerClosed": true
+    },
+    {
+      "engine": "firefox",
+      "mode": "before-ready",
+      "rawBytes": 1092,
+      "transferred": false,
+      "outputs": 0,
+      "compressionMessages": 0,
+      "rejectedWithOriginalReason": true,
+      "sourceIntact": true,
+      "retainedOwnedFrames": 0,
+      "pendingAfterClose": 0,
+      "listenersAfterClose": 0,
+      "settlementMs": 0.14000000000032742,
+      "actualWorkerClosed": true
+    },
+    {
+      "engine": "firefox",
+      "mode": "compression",
+      "rawBytes": 31457280,
+      "transferred": true,
+      "outputs": 0,
+      "compressionMessages": 1,
+      "rejectedWithOriginalReason": true,
+      "phaseAtAbort": 1,
+      "sourceIntact": true,
+      "retainedOwnedFrames": 0,
+      "pendingAfterClose": 0,
+      "listenersAfterClose": 0,
+      "phaseAfterClose": 1,
+      "settlementMs": 0.13999999999941792,
+      "actualWorkerClosed": true
+    },
+    {
+      "engine": "firefox",
+      "mode": "compression",
+      "rawBytes": 31457280,
+      "transferred": true,
+      "outputs": 0,
+      "compressionMessages": 1,
+      "rejectedWithOriginalReason": true,
+      "phaseAtAbort": 1,
+      "sourceIntact": true,
+      "retainedOwnedFrames": 0,
+      "pendingAfterClose": 0,
+      "listenersAfterClose": 0,
+      "phaseAfterClose": 1,
+      "settlementMs": 0.0999999999994543,
+      "actualWorkerClosed": true
+    },
+    {
+      "engine": "firefox",
+      "mode": "compression",
+      "rawBytes": 31457280,
+      "transferred": true,
+      "outputs": 0,
+      "compressionMessages": 1,
+      "rejectedWithOriginalReason": true,
+      "phaseAtAbort": 1,
+      "sourceIntact": true,
+      "retainedOwnedFrames": 0,
+      "pendingAfterClose": 0,
+      "listenersAfterClose": 0,
+      "phaseAfterClose": 1,
+      "settlementMs": 0.09999999999854481,
+      "actualWorkerClosed": true
+    }
+  ],
+  "workers": [
+    {
+      "engine": "node",
+      "opened": 8,
+      "closed": 8
+    },
+    {
+      "engine": "chromium",
+      "opened": 22,
+      "closed": 22
+    },
+    {
+      "engine": "firefox",
+      "opened": 22,
+      "closed": 22
+    }
+  ],
+  "nodeOnly": false,
+  "status": "passed",
+  "harnessSnapshot": {
+    "scripts/check-apng-backend.mjs": "4e9b2f9e6f1bb78a196de6f94ef8d034074ac9bc01a2bbee558a9fd832ac454f",
+    "scripts/apng-spike/backend.mjs": "6b687f3d445f46851cc6e8b94b462b87325a98e2b8b39e1535ba238ebd51097f",
+    "scripts/apng-spike/browser-client.mjs": "ae557676021ece729b1662a057bc1554cbddc947f84a6735a0ce17474e4de8d0",
+    "scripts/apng-spike/browser-run.mjs": "3bc442f16da7b5d5982d8bfc271747266fc36d15c6e41fe8d0ab5d8af16ccecc",
+    "scripts/apng-spike/browser-worker.mjs": "65b7b638976e79369ade5337d8017486d426580cf89448e13790ac8320f139b9",
+    "scripts/apng-spike/fixtures.mjs": "f3f1ed3e142448d80749a8edc5b14e0326613549486532a553af4804f5e35209",
+    "scripts/apng-spike/node-client.mjs": "160b497ec366c54d4e69f9fbe53758e9da879e5175177e7897cebc1ccf595d6f",
+    "scripts/apng-spike/node-worker.mjs": "eb7a88337b9d41a0931f1733cfc3492d97f1be8b9233af6a771f2fed6578a7ae",
+    "scripts/apng-spike/oracle.mjs": "849b11bb393cc7a52b35f9781c74b938e9e6de58a4482f56a0c253c0072c5a0c",
+    "scripts/apng-spike/prepare.mjs": "3f05454d39f7b2895971eb522604e0f67dc48c7775e7a957c84773936de67183",
+    "scripts/apng-spike/save-report.mjs": "c7c471de2b3ac46a47e34ad975fc60d82f7e4d19d229e5f14cae4558162d13e7",
+    "scripts/apng-spike/upng-patch.mjs": "ec554f26ced5a38ecc3164dd8115d23e07b7edb4cc8a6ce6cce71c03cc5db305"
+  },
+  "notes": [
+    "Explicit prototype, not the public APNG controller/adapter.",
+    "RGBA exactness certified only for full-frame SOURCE/BACKGROUND profile; installed FFmpeg did not distinguish the full-frame OVER mutation.",
+    "Worker closure observed by Node exit or Playwright close; no universal memory/latency guarantee or browser GC claim.",
+    "Raw/compressed artifacts and cached licensed sources remain ignored under benchmark-results/apng-backend-spike."
+  ]
+}
