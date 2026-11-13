@@ -1,2 +1,3 @@
 # Preserve the pinned upstream bytes across Windows/Linux checkouts.
 vendor/apng/* -text -whitespace
+vendor/webp/* -text -whitespace

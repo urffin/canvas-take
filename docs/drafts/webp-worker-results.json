@@ -1,0 +1,602 @@
+{
+  "date": "2026-11-13T00:29:00.791Z",
+  "base": "f0bebc1cddcc94575d37f9797ed8d9abb9af6631",
+  "version": "0.7.0",
+  "node": "v22.17.0",
+  "nodeTests": 215,
+  "newTestGroups": 23,
+  "types": "strict/exactOptional draft + controller + Worker passed",
+  "packedConsumer": "passed; private exports blocked; asset/notice hashes match",
+  "build": {
+    "bindingAbi": 1,
+    "profile": "libwebp-batch-animation-v1",
+    "reproducible": true,
+    "assets": [
+      {
+        "file": "webp-codec.js",
+        "bytes": 9734,
+        "sha256": "d677e819842a0f14f68bbae36405d9bbeb623678923efeddb743ac00b04368bb"
+      },
+      {
+        "file": "webp-codec.wasm",
+        "bytes": 279050,
+        "sha256": "5a115a11fc6451b043d19a74833cd931e05e119e70120a8a961e8ab7f7c09a98"
+      }
+    ]
+  },
+  "decoder": {
+    "pillow": "12.0.0",
+    "libwebp": "1.6.0",
+    "pin": {
+      "version": "12.0.0",
+      "filename": "pillow-12.0.0-cp313-cp313-win_amd64.whl",
+      "sha256": "4cf7fed4b4580601c4345ceb5d4cbf5a980d030fd5ad07c4d2ec589f95f09905",
+      "bytes": 7007477
+    },
+    "scope": "Separate native Pillow/libwebp binary, not encoder WASM; same underlying codec family"
+  },
+  "cases": [
+    {
+      "name": "final-hold",
+      "inputFrames": 2,
+      "encodedFrames": 2,
+      "width": 1,
+      "height": 1,
+      "plays": 3,
+      "durationMs": 2055,
+      "fileDelaysMs": [
+        55,
+        2000
+      ],
+      "bytes": 140,
+      "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+      "independentIntervalComparisons": 2,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "alpha-ramp",
+      "inputFrames": 3,
+      "encodedFrames": 3,
+      "width": 6,
+      "height": 3,
+      "plays": 3,
+      "durationMs": 290,
+      "fileDelaysMs": [
+        70,
+        90,
+        130
+      ],
+      "bytes": 388,
+      "sha256": "2612c2177a2c89ade736d4a5be7dc9622df136e830c338247370cf054f141d53",
+      "independentIntervalComparisons": 3,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "transparent-erasure",
+      "inputFrames": 3,
+      "encodedFrames": 3,
+      "width": 5,
+      "height": 3,
+      "plays": 3,
+      "durationMs": 225,
+      "fileDelaysMs": [
+        50,
+        75,
+        100
+      ],
+      "bytes": 188,
+      "sha256": "86ba96134d965afbd629005833a4aaf72e8bc8a79b82a1bb9fdc4bc2444b029b",
+      "independentIntervalComparisons": 3,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "identical",
+      "inputFrames": 2,
+      "encodedFrames": 1,
+      "width": 3,
+      "height": 3,
+      "plays": 3,
+      "durationMs": 2055,
+      "fileDelaysMs": [
+        2055
+      ],
+      "bytes": 92,
+      "sha256": "bef91607b019ef67fa48c20fd0a62994431de3a507f60d70a424bc2ef8d032ed",
+      "independentIntervalComparisons": 2,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "duplicate-middle",
+      "inputFrames": 4,
+      "encodedFrames": 3,
+      "width": 3,
+      "height": 3,
+      "plays": 3,
+      "durationMs": 410,
+      "fileDelaysMs": [
+        50,
+        160,
+        200
+      ],
+      "bytes": 188,
+      "sha256": "222b79fe96883bb9fd9c1659d782957bde93558b99c48999274a129de696c595",
+      "independentIntervalComparisons": 4,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "single",
+      "inputFrames": 1,
+      "encodedFrames": 1,
+      "width": 3,
+      "height": 1,
+      "plays": 3,
+      "durationMs": 2000,
+      "fileDelaysMs": [
+        2000
+      ],
+      "bytes": 92,
+      "sha256": "d6ac0f8f08d9e5f0bb07b771352bfcd1545aea4086433872ae5776b1d460519b",
+      "independentIntervalComparisons": 1,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "short-delays",
+      "inputFrames": 4,
+      "encodedFrames": 4,
+      "width": 1,
+      "height": 1,
+      "plays": 3,
+      "durationMs": 122,
+      "fileDelaysMs": [
+        1,
+        10,
+        11,
+        100
+      ],
+      "bytes": 236,
+      "sha256": "7f22980c025bad62a4fddb6ae758d0c123bdf3c34a424fdc2f4ca2371e647aea",
+      "independentIntervalComparisons": 4,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "lossy-40",
+      "inputFrames": 2,
+      "encodedFrames": 2,
+      "width": 16,
+      "height": 16,
+      "plays": 3,
+      "durationMs": 250,
+      "fileDelaysMs": [
+        75,
+        175
+      ],
+      "bytes": 358,
+      "sha256": "619bb784ced50092255fd36483fe34c55f7bbbe2097acd8728119f1a14ddcee5",
+      "independentIntervalComparisons": 2,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 38.05078125,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "lossy-90",
+      "inputFrames": 2,
+      "encodedFrames": 2,
+      "width": 16,
+      "height": 16,
+      "plays": 3,
+      "durationMs": 250,
+      "fileDelaysMs": [
+        75,
+        175
+      ],
+      "bytes": 586,
+      "sha256": "1c8faa38e1c015346a828529fa581b973a4b88bbed2d25f82eb0ead2cd93b21c",
+      "independentIntervalComparisons": 2,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 37.782552083333336,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "final-hold-plays-0",
+      "inputFrames": 2,
+      "encodedFrames": 2,
+      "width": 1,
+      "height": 1,
+      "plays": 0,
+      "durationMs": 2055,
+      "fileDelaysMs": [
+        55,
+        2000
+      ],
+      "bytes": 140,
+      "sha256": "87084ee8a78036b573a8a54f5e97665a78adf51c4a3ac4ec8df9e87f08b5cf5b",
+      "independentIntervalComparisons": 2,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "final-hold-plays-1",
+      "inputFrames": 2,
+      "encodedFrames": 2,
+      "width": 1,
+      "height": 1,
+      "plays": 1,
+      "durationMs": 2055,
+      "fileDelaysMs": [
+        55,
+        2000
+      ],
+      "bytes": 140,
+      "sha256": "9b8b1c84ebb0fbdbf964ab79cbbc7e3d37b18ae2a14ca330f7d0791f5ee40106",
+      "independentIntervalComparisons": 2,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "final-hold-plays-65535",
+      "inputFrames": 2,
+      "encodedFrames": 2,
+      "width": 1,
+      "height": 1,
+      "plays": 65535,
+      "durationMs": 2055,
+      "fileDelaysMs": [
+        55,
+        2000
+      ],
+      "bytes": 140,
+      "sha256": "7efd31d8b96e14f2a876448f338937a43a3e698f4388a890e8644e22856e1997",
+      "independentIntervalComparisons": 2,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "single-plays-0",
+      "inputFrames": 1,
+      "encodedFrames": 1,
+      "width": 3,
+      "height": 1,
+      "plays": 0,
+      "durationMs": 2000,
+      "fileDelaysMs": [
+        2000
+      ],
+      "bytes": 92,
+      "sha256": "207263b717557a26b3095b3dd59a7bc587b2e7c215a71a4b53e3a7744b51c357",
+      "independentIntervalComparisons": 1,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "single-plays-1",
+      "inputFrames": 1,
+      "encodedFrames": 1,
+      "width": 3,
+      "height": 1,
+      "plays": 1,
+      "durationMs": 2000,
+      "fileDelaysMs": [
+        2000
+      ],
+      "bytes": 92,
+      "sha256": "b67ac3cb20138de3d0440d785a1b72f0cebd6d931f68d64530cf3efca5196fa6",
+      "independentIntervalComparisons": 1,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "single-plays-65535",
+      "inputFrames": 1,
+      "encodedFrames": 1,
+      "width": 3,
+      "height": 1,
+      "plays": 65535,
+      "durationMs": 2000,
+      "fileDelaysMs": [
+        2000
+      ],
+      "bytes": 92,
+      "sha256": "f01144db97e886253e1697c29a5db084516d5cec4bf9be9ad9986cd379539bdc",
+      "independentIntervalComparisons": 1,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "single-transparent",
+      "inputFrames": 1,
+      "encodedFrames": 1,
+      "width": 3,
+      "height": 5,
+      "plays": 1,
+      "durationMs": 999,
+      "fileDelaysMs": [
+        999
+      ],
+      "bytes": 90,
+      "sha256": "dd7b690615e6078a00e44760bb51692e8b0bbf6e591aa4ea01ad7c7488312b49",
+      "independentIntervalComparisons": 1,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "maximum-delay",
+      "inputFrames": 2,
+      "encodedFrames": 2,
+      "width": 1,
+      "height": 1,
+      "plays": 1,
+      "durationMs": 16777270,
+      "fileDelaysMs": [
+        16777215,
+        55
+      ],
+      "bytes": 140,
+      "sha256": "cdb8a04bcf4c90bd73b37bdab892894851e5969c525e751263835569fb1cd084",
+      "independentIntervalComparisons": 2,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "identical-uint24-split",
+      "inputFrames": 2,
+      "encodedFrames": 2,
+      "width": 1,
+      "height": 1,
+      "plays": 3,
+      "durationMs": 16777270,
+      "fileDelaysMs": [
+        16777215,
+        55
+      ],
+      "bytes": 132,
+      "sha256": "4336db91ed0c36ad3791c426e136ac37b86725a52b3e7624b51a87609483c7a5",
+      "independentIntervalComparisons": 2,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 0,
+      "ffmpegPayloadOracle": "passed"
+    },
+    {
+      "name": "lossy-partial-alpha",
+      "inputFrames": 3,
+      "encodedFrames": 3,
+      "width": 6,
+      "height": 3,
+      "plays": 1,
+      "durationMs": 290,
+      "fileDelaysMs": [
+        70,
+        90,
+        130
+      ],
+      "bytes": 434,
+      "sha256": "c89085ef4e462dc04873654925cf0ca7ab8d5ba6bb42612ff094d4acd2144c0b",
+      "independentIntervalComparisons": 3,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 38.592592592592595,
+      "ffmpegPayloadOracle": {
+        "knownAlphaDiscrepancy": {
+          "alphaErrors": 6,
+          "rgbErrors": 43,
+          "maxRgbError": 52,
+          "matches": false
+        }
+      }
+    },
+    {
+      "name": "lossy-alpha-erasure",
+      "inputFrames": 3,
+      "encodedFrames": 3,
+      "width": 5,
+      "height": 3,
+      "plays": 1,
+      "durationMs": 225,
+      "fileDelaysMs": [
+        50,
+        75,
+        100
+      ],
+      "bytes": 298,
+      "sha256": "1327b3680e13954871aa2c3fd8ee8c400007e30fa840011e8b53da93433adcfd",
+      "independentIntervalComparisons": 3,
+      "exactAlpha": true,
+      "maxVisibleRgbMAE": 2,
+      "ffmpegPayloadOracle": "passed"
+    }
+  ],
+  "negativeControls": [
+    {
+      "name": "total-preserving-wrong-hold",
+      "independentlyRejected": true,
+      "envelopeAccepted": true
+    },
+    {
+      "name": "wrong-plays",
+      "independentlyRejected": true,
+      "envelopeAccepted": false
+    },
+    {
+      "name": "wrong-pixels",
+      "independentlyRejected": true,
+      "envelopeAccepted": false
+    },
+    {
+      "name": "wrong-blend-ghost",
+      "independentlyRejected": true,
+      "envelopeAccepted": false
+    }
+  ],
+  "workers": {
+    "opened": 20,
+    "exited": 20,
+    "live": 0,
+    "framesTransferred": 43,
+    "finalNativeStats": [
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      },
+      {
+        "action": "finish",
+        "liveBytes": 0,
+        "liveAllocations": 0,
+        "allocatorUsed": 0,
+        "capacity": 16777216
+      }
+    ]
+  },
+  "browsersStarted": false,
+  "apiChanged": false,
+  "published": false,
+  "scope": "Earlier Node/native verification; subsequent browser observations are in webp-browser-results.json"
+}

@@ -4,6 +4,7 @@ import { dirname, join, resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const npm = process.env.npm_execpath;
@@ -25,6 +26,13 @@ try {
     assert.ok(packed.files.some(file => file.path === 'docs/video-recording.md'), 'Missing video verification documentation');
     for (const file of ['dist/video.js', 'dist/video.d.ts', 'dist/video-webcodecs.js', 'dist/video-webcodecs.d.ts', 'dist/video-mp4.js', 'dist/video-mp4.d.ts', 'dist/video-mp4.js.map', 'dist/mediabunny-LICENSE.txt', 'docs/offline-video-api.md', 'docs/offline-video-adapters.md']) assert.ok(packed.files.some(entry => entry.path === file), 'Missing offline video package file: ' + file);
     assert.equal(installed.version, pkg.version);
+    assert.ok(!Object.keys(installed.exports).some(name => name.includes('webp')), 'Private WebP leaked into exports');
+    const webpManifest = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/dist/internal/webp-notices/manifest.json'), 'utf8'));
+    for (const file of webpManifest.files) {
+        const path = file.file.startsWith('webp-codec.') ? file.file : 'webp-notices/' + file.file;
+        const bytes = await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/dist/internal', path));
+        assert.equal(bytes.length, file.bytes); assert.equal(createHash('sha256').update(bytes).digest('hex'), file.sha256, 'Packed WebP asset/notice mismatch');
+    }
     for(const file of ['dist/video-webm.js','dist/video-webm.d.ts','dist/video-opus.js','dist/video-opus.d.ts','docs/offline-webm.md','dist/webm-PROVENANCE.md','dist/webm-sources/matroska-muxer.ts','dist/webm-sources/matroska-muxer.js','dist/webm-sources/webm-muxer-patch.mjs']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing WebM file: '+file);
     const sharedMaps=packed.files.filter(entry=>/^dist\/video-container-[A-Z0-9]+\.js\.map$/.test(entry.path));
     assert.ok(sharedMaps.length>0,'Missing shared container sources');
@@ -40,6 +48,10 @@ try {
     for (const file of ['dist/video-aac.js','dist/video-aac.d.ts','dist/video-aac-worker.js','dist/video-aac-worker.js.map','dist/aac-PROVENANCE.md','dist/aac-licenses/MPL-2.0.txt','dist/aac-licenses/COPYING.LGPLv2.1','dist/aac-licenses/bridge.c','docs/offline-aac.md']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing AAC file: '+file);
     await writeFile(join(workspace, 'consumer.ts'), `
 import { createApngExporter, type ApngExportOptions, type ApngExporter } from '@grundyjs/canvas-take/apng';
+for (const path of ['/webp', '/webp/worker', '/internal/webp-worker.js']) {
+    try { await import('@grundyjs/canvas-take' + path); throw new Error('Private WebP unexpectedly exported'); }
+    catch (error) { if ((error as {code?:string}).code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED') throw error; }
+}
 import { createApngWorkerEncoder, type ApngWorkerOptions } from '@grundyjs/canvas-take/apng/worker';
 const apngWorkerOptions: ApngWorkerOptions = { timeoutMs:30000 };
 const apngOptions: ApngExportOptions = { encoder:createApngWorkerEncoder(apngWorkerOptions),plays:1,maxInputBytes:64 };

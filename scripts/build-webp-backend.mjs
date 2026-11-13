@@ -19,11 +19,11 @@ env[pathKey] = [dirname(python), dirname(node), resolve(tools, 'sdk/install/bin'
 const emcc = args => execFileSync(python, [compiler, ...args], { env, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 600000 });
 const versions = { emscripten: emcc(['--version']).split(/\r?\n/)[0], python: execFileSync(python, ['--version'], { encoding: 'utf8' }).trim(), node: execFileSync(node, ['--version'], { encoding: 'utf8' }).trim() };
 assert.match(versions.emscripten, /4\.0\.20/); assert.equal(versions.node, 'v22.17.0'); assert.equal(versions.python, 'Python 3.13.3');
-const exports = ['ct_malloc', 'ct_free', 'ct_open', 'ct_add', 'ct_finish', 'ct_close', 'ct_data', 'ct_size', 'ct_error', 'ct_version',
+const exports = ['ct_malloc', 'ct_free', 'ct_open', 'ct_add', 'ct_finish', 'ct_close', 'ct_data', 'ct_size', 'ct_error', 'ct_version', 'ct_binding_abi', 'ct_profile',
     'ct_live_bytes', 'ct_live_allocations', 'ct_peak_bytes', 'ct_allocation_calls', 'ct_allocator_used', 'ct_fail_after', 'ct_reset_peak'].map(name => '_' + name);
 const flags = ['-O2', '-std=c11', '-DNDEBUG', '-DCANVASTAKE_KEEP_ANIMATION=1', '-Dmalloc=ct_malloc', '-Dcalloc=ct_calloc', '-Drealloc=ct_realloc', '-Dfree=ct_free',
     '-include', 'tracking.h', '-I.', '-Ilibwebp-1.6.0', '-sMODULARIZE=1', '-sEXPORT_ES6=1', '-sENVIRONMENT=web,worker,node', '-sFILESYSTEM=0',
-    '-sSTRICT=1', '-sALLOW_MEMORY_GROWTH=1', '-sINITIAL_MEMORY=16777216', '-sMAXIMUM_MEMORY=268435456', '-sSTACK_SIZE=1048576', '-sABORTING_MALLOC=0',
+    '-sSTRICT=1', '-sINCOMING_MODULE_JS_API=["wasmBinary"]', '-sALLOW_MEMORY_GROWTH=1', '-sINITIAL_MEMORY=16777216', '-sMAXIMUM_MEMORY=268435456', '-sSTACK_SIZE=1048576', '-sABORTING_MALLOC=0',
     '-sEXPORTED_FUNCTIONS=' + JSON.stringify(exports), '-sEXPORTED_RUNTIME_METHODS=["HEAPU8"]', '-Wl,--strip-debug'];
 const builds = [];
 for (const name of ['build-a', 'build-b']) {

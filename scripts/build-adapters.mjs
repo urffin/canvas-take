@@ -3,6 +3,8 @@ import { copyFile, mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/p
 import { resolve, dirname } from 'node:path';
 import { patchWebmMuxer } from './webm-muxer-patch.mjs';
 import { apngPlugin, copyApngNotices } from './apng-build.mjs';
+import { buildPrivateWebp } from './webp-build.mjs';
+await buildPrivateWebp(build);
 // Public controller/adapter stay standalone and codec-free. Keep private entries for contract tests.
 await build({ entryPoints: ['src/apng.ts', 'src/apng-worker.ts'], outdir: 'dist',
     bundle: true, format: 'esm', platform: 'browser', target: 'es2022' });

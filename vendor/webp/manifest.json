@@ -1,0 +1,133 @@
+{
+  "bindingAbi": 1,
+  "profile": "libwebp-batch-animation-v1",
+  "codecVersion": "1.6.0",
+  "reproducible": true,
+  "versions": {
+    "emscripten": "emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 4.0.20-git (6913738ec5371a88c4af5a80db0ab42bad3de681)",
+    "python": "Python 3.13.3",
+    "node": "v22.17.0"
+  },
+  "archives": [
+    {
+      "name": "emscripten.zip",
+      "target": "sdk",
+      "url": "https://storage.googleapis.com/webassembly/emscripten-releases-builds/win/c387d7a7e9537d0041d2c3ae71b7538cc978104e/wasm-binaries.zip",
+      "sha256": "388e9fab2bc9f94e85b1541e6ae0f1d9a5b9dfa9d756d89a0a3fc7acc052fbd5",
+      "bytes": 638233871
+    },
+    {
+      "name": "python.zip",
+      "target": "python",
+      "url": "https://storage.googleapis.com/webassembly/emscripten-releases-builds/deps/python-3.13.3-0-win-amd64.zip",
+      "sha256": "6fe7a540c6b8b185780467cf7495e884ee62316ec4abb19e1c735b8a77c62465",
+      "bytes": 29736374
+    },
+    {
+      "name": "node.zip",
+      "target": "node",
+      "url": "https://nodejs.org/dist/v22.17.0/node-v22.17.0-win-x64.zip",
+      "sha256": "721ab118a3aac8584348b132767eadf51379e0616f0db802cc1e66d7f0d98f85",
+      "bytes": 35506792
+    },
+    {
+      "name": "libwebp.tar.gz",
+      "target": "source",
+      "url": "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz",
+      "sha256": "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564",
+      "bytes": 4296070
+    }
+  ],
+  "flags": [
+    "-O2",
+    "-std=c11",
+    "-DNDEBUG",
+    "-DCANVASTAKE_KEEP_ANIMATION=1",
+    "-Dmalloc=ct_malloc",
+    "-Dcalloc=ct_calloc",
+    "-Drealloc=ct_realloc",
+    "-Dfree=ct_free",
+    "-include",
+    "tracking.h",
+    "-I.",
+    "-Ilibwebp-1.6.0",
+    "-sMODULARIZE=1",
+    "-sEXPORT_ES6=1",
+    "-sENVIRONMENT=web,worker,node",
+    "-sFILESYSTEM=0",
+    "-sSTRICT=1",
+    "-sINCOMING_MODULE_JS_API=[\"wasmBinary\"]",
+    "-sALLOW_MEMORY_GROWTH=1",
+    "-sINITIAL_MEMORY=16777216",
+    "-sMAXIMUM_MEMORY=268435456",
+    "-sSTACK_SIZE=1048576",
+    "-sABORTING_MALLOC=0",
+    "-sEXPORTED_FUNCTIONS=[\"_ct_malloc\",\"_ct_free\",\"_ct_open\",\"_ct_add\",\"_ct_finish\",\"_ct_close\",\"_ct_data\",\"_ct_size\",\"_ct_error\",\"_ct_version\",\"_ct_binding_abi\",\"_ct_profile\",\"_ct_live_bytes\",\"_ct_live_allocations\",\"_ct_peak_bytes\",\"_ct_allocation_calls\",\"_ct_allocator_used\",\"_ct_fail_after\",\"_ct_reset_peak\"]",
+    "-sEXPORTED_RUNTIME_METHODS=[\"HEAPU8\"]",
+    "-Wl,--strip-debug"
+  ],
+  "patches": [
+    {
+      "file": "muxedit.c",
+      "originalSha256": "7517d0e60df34ff5d6868271c04a9d8b36f2143a7fbc4578f02d6a8e73e37900",
+      "patchedSha256": "9a59a52e0ab8b37b5dedd41b4550d42c335111b0fe31b0f1e914df99d576237e"
+    },
+    {
+      "file": "anim_encode.c",
+      "originalSha256": "005dc631750079d5d6e3009a5aa38069e7ae0502e395149768c49d4a1ea42bea",
+      "patchedSha256": "f44674d3da05f8e411002ca8199271487fb2060f771b8cced429fbb95c1e8f83"
+    }
+  ],
+  "bindingSources": [
+    {
+      "file": "backend.c",
+      "sha256": "feb58d832dced2f560d2b3d6af4acc4d712c5524d2d17cbb2d71255bc6700904"
+    },
+    {
+      "file": "tracking.h",
+      "sha256": "2df317c54dfdc063f9f5808b7d51808796c147462ab89f3103e7d3adf0ce0dd0"
+    }
+  ],
+  "files": [
+    {
+      "file": "webp-codec.js",
+      "bytes": 9734,
+      "sha256": "d677e819842a0f14f68bbae36405d9bbeb623678923efeddb743ac00b04368bb"
+    },
+    {
+      "file": "webp-codec.wasm",
+      "bytes": 279050,
+      "sha256": "5a115a11fc6451b043d19a74833cd931e05e119e70120a8a961e8ab7f7c09a98"
+    },
+    {
+      "file": "COPYING",
+      "bytes": 1496,
+      "sha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf"
+    },
+    {
+      "file": "PATENTS",
+      "bytes": 1436,
+      "sha256": "cc3273e0694ea5896145e0677699b53471b03ea43021ddc50e7923fbb9f5023c"
+    },
+    {
+      "file": "AUTHORS",
+      "bytes": 3279,
+      "sha256": "f251be89fd442bd9d701360730aea163cc8e2076ff03528f59267dc2c4f8b60a"
+    },
+    {
+      "file": "EMSCRIPTEN-LICENSE.txt",
+      "bytes": 5093,
+      "sha256": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86"
+    },
+    {
+      "file": "MUSL-COPYRIGHT.txt",
+      "bytes": 6204,
+      "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+    },
+    {
+      "file": "COMPILER-RT-LICENSE.txt",
+      "bytes": 16708,
+      "sha256": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d"
+    }
+  ]
+}

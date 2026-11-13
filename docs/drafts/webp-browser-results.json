@@ -1,0 +1,1938 @@
+{
+  "date": "2026-11-13T07:38:17.465Z",
+  "base": "f0bebc1cddcc94575d37f9797ed8d9abb9af6631",
+  "version": "0.7.0",
+  "publicApiChanged": false,
+  "authorization": "User explicitly allowed Playwright Chromium/Firefox for WebP decoding and Worker lifecycle verification after built-in browser failures",
+  "browsers": [
+    {
+      "name": "chromium",
+      "version": "156.0.8078.4",
+      "cases": [
+        {
+          "name": "final-hold",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "alpha-ramp",
+          "bytes": 418,
+          "sha256": "4b4b8542c0d6ca17bc28d59aa4d9ee11cb1cc32a1f6890825ef5534177b29c92",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 3,
+            "intervalComparisons": 3,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 70,
+                "nativeDurationMs": 70,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 90,
+                "nativeDurationMs": 90,
+                "nativeTimestampMs": 70,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 130,
+                "nativeDurationMs": 130,
+                "nativeTimestampMs": 160,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "transparent-erasure",
+          "bytes": 188,
+          "sha256": "c476866162a2012777d32f083389388feabc5f8d6c13a27c5ad0eae6bbd10f3d",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 3,
+            "intervalComparisons": 3,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 50,
+                "nativeDurationMs": 50,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 75,
+                "nativeDurationMs": 75,
+                "nativeTimestampMs": 50,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 100,
+                "nativeDurationMs": 100,
+                "nativeTimestampMs": 125,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "identical",
+          "bytes": 92,
+          "sha256": "bef91607b019ef67fa48c20fd0a62994431de3a507f60d70a424bc2ef8d032ed",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 2055,
+                "nativeDurationMs": 2055,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "duplicate-middle",
+          "bytes": 188,
+          "sha256": "222b79fe96883bb9fd9c1659d782957bde93558b99c48999274a129de696c595",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 4,
+            "intervalComparisons": 4,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 50,
+                "nativeDurationMs": 50,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 160,
+                "nativeDurationMs": 160,
+                "nativeTimestampMs": 50,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 200,
+                "nativeDurationMs": 200,
+                "nativeTimestampMs": 210,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single",
+          "bytes": 92,
+          "sha256": "d6ac0f8f08d9e5f0bb07b771352bfcd1545aea4086433872ae5776b1d460519b",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "short-delays",
+          "bytes": 236,
+          "sha256": "7f22980c025bad62a4fddb6ae758d0c123bdf3c34a424fdc2f4ca2371e647aea",
+          "native": {
+            "encodedFrames": 4,
+            "inputFrames": 4,
+            "intervalComparisons": 4,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 1,
+                "nativeDurationMs": 1,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 10,
+                "nativeDurationMs": 10,
+                "nativeTimestampMs": 1,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 11,
+                "nativeDurationMs": 11,
+                "nativeTimestampMs": 11,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 100,
+                "nativeDurationMs": 100,
+                "nativeTimestampMs": 22,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "lossy-40",
+          "bytes": 358,
+          "sha256": "619bb784ced50092255fd36483fe34c55f7bbbe2097acd8728119f1a14ddcee5",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 75,
+                "nativeDurationMs": 75,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 29.513020833333332
+              },
+              {
+                "fileDurationMs": 175,
+                "nativeDurationMs": 175,
+                "nativeTimestampMs": 75,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 38.05078125
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "lossy-90",
+          "bytes": 586,
+          "sha256": "1c8faa38e1c015346a828529fa581b973a4b88bbed2d25f82eb0ead2cd93b21c",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 75,
+                "nativeDurationMs": 75,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 27.920572916666668
+              },
+              {
+                "fileDurationMs": 175,
+                "nativeDurationMs": 175,
+                "nativeTimestampMs": 75,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 37.782552083333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "final-hold-plays-0",
+          "bytes": 140,
+          "sha256": "87084ee8a78036b573a8a54f5e97665a78adf51c4a3ac4ec8df9e87f08b5cf5b",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "Infinity",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "final-hold-plays-1",
+          "bytes": 140,
+          "sha256": "9b8b1c84ebb0fbdbf964ab79cbbc7e3d37b18ae2a14ca330f7d0791f5ee40106",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "final-hold-plays-65535",
+          "bytes": 140,
+          "sha256": "7efd31d8b96e14f2a876448f338937a43a3e698f4388a890e8644e22856e1997",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "65534",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single-plays-0",
+          "bytes": 92,
+          "sha256": "207263b717557a26b3095b3dd59a7bc587b2e7c215a71a4b53e3a7744b51c357",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "Infinity",
+            "frames": [
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single-plays-1",
+          "bytes": 92,
+          "sha256": "b67ac3cb20138de3d0440d785a1b72f0cebd6d931f68d64530cf3efca5196fa6",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single-plays-65535",
+          "bytes": 92,
+          "sha256": "f01144db97e886253e1697c29a5db084516d5cec4bf9be9ad9986cd379539bdc",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "65534",
+            "frames": [
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single-transparent",
+          "bytes": 90,
+          "sha256": "c9046c1a06718f29c978ba3d06f752eea7516e6c14e0c06e72c8e7ca73d22c81",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 999,
+                "nativeDurationMs": 999,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "maximum-delay",
+          "bytes": 140,
+          "sha256": "cdb8a04bcf4c90bd73b37bdab892894851e5969c525e751263835569fb1cd084",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 16777215,
+                "nativeDurationMs": 16777215,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 16777215,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "identical-uint24-split",
+          "bytes": 132,
+          "sha256": "4336db91ed0c36ad3791c426e136ac37b86725a52b3e7624b51a87609483c7a5",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 16777215,
+                "nativeDurationMs": 16777215,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 16777215,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "lossy-partial-alpha",
+          "bytes": 476,
+          "sha256": "d145ac26565e1ff6bb56a2f7eba4a62a4dbf18320b8c4a6659006cfe55057777",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 3,
+            "intervalComparisons": 3,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 70,
+                "nativeDurationMs": 70,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 25,
+                "maxMeanRgbError": 9.481481481481481
+              },
+              {
+                "fileDurationMs": 90,
+                "nativeDurationMs": 90,
+                "nativeTimestampMs": 70,
+                "viewerClamped": false,
+                "partialRgbDifferences": 26,
+                "maxMeanRgbError": 11.333333333333334
+              },
+              {
+                "fileDurationMs": 130,
+                "nativeDurationMs": 130,
+                "nativeTimestampMs": 160,
+                "viewerClamped": false,
+                "partialRgbDifferences": 26,
+                "maxMeanRgbError": 36.925925925925924
+              }
+            ]
+          },
+          "ffmpeg": "known ALPH discrepancy; native alpha exact"
+        },
+        {
+          "name": "lossy-alpha-erasure",
+          "bytes": 290,
+          "sha256": "4fae9af6ced9d6fb61e86e07e3c86959e8e64a33f5bf3353d2cbc2d1cf8309e9",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 3,
+            "intervalComparisons": 3,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 50,
+                "nativeDurationMs": 50,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 2
+              },
+              {
+                "fileDurationMs": 75,
+                "nativeDurationMs": 75,
+                "nativeTimestampMs": 50,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 100,
+                "nativeDurationMs": 100,
+                "nativeTimestampMs": 125,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "offscreen-canvas",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "independently-relocated-assets",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "worker-only-override",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "wasm-only-override",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        }
+      ],
+      "repeats": [
+        {
+          "iteration": 1,
+          "exports": 24,
+          "deterministicBytes": true,
+          "decoded": true,
+          "closeDrainMs": 0.029799999999340798
+        },
+        {
+          "iteration": 2,
+          "exports": 24,
+          "deterministicBytes": true,
+          "decoded": true,
+          "closeDrainMs": 0.01069999999981519
+        }
+      ],
+      "negativeControls": [
+        {
+          "name": "total-preserving-wrong-hold",
+          "independentlyRejected": true
+        },
+        {
+          "name": "wrong-plays",
+          "independentlyRejected": true
+        },
+        {
+          "name": "wrong-pixels",
+          "independentlyRejected": true
+        },
+        {
+          "name": "wrong-blend-ghost",
+          "independentlyRejected": true
+        }
+      ],
+      "faults": [
+        {
+          "name": "missing-worker",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "WebP Worker failed"
+        },
+        {
+          "name": "missing-wasm",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "WebP WASM download failed: 404"
+        },
+        {
+          "name": "html-as-wasm",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "Aborted(CompileError: WebAssembly.instantiate(): expected magic word 00 61 73 6d, found 3c 21 64 6f @+0). Build with -sASSERTIONS for more info."
+        },
+        {
+          "name": "wrong-profile",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "Incompatible WebP binding/profile"
+        },
+        {
+          "name": "cors-wasm",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "Failed to fetch"
+        },
+        {
+          "name": "worker-connect-csp",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "Failed to fetch"
+        }
+      ],
+      "cancellation": [
+        {
+          "stage": "before-init",
+          "framesAccepted": 0,
+          "errorIdentity": true
+        },
+        {
+          "stage": "loading",
+          "framesAccepted": 0,
+          "errorIdentity": true
+        },
+        {
+          "stage": "capture-yield",
+          "framesAccepted": 1,
+          "errorIdentity": true
+        },
+        {
+          "stage": "finalizing",
+          "framesAccepted": 1,
+          "errorIdentity": true
+        }
+      ],
+      "mainInventory": {
+        "objects": 89,
+        "terminated": 89,
+        "handlers": 0,
+        "transfers": 169,
+        "stats": []
+      },
+      "mainDrainMs": 0.006499999999505235,
+      "workerSrcCsp": {
+        "error": "blocked: Error: WebP encoder.addFrame failed / Error: WebP Worker failed",
+        "cause": "WebP encoder.addFrame failed",
+        "inventory": {
+          "objects": 1,
+          "terminated": 1,
+          "handlers": 0,
+          "transfers": 0,
+          "stats": []
+        }
+      },
+      "nativeProbe": {
+        "retries": 3,
+        "phaseAtSettlement": 1,
+        "phases": [
+          "collecting",
+          "finalizing",
+          "aborted"
+        ],
+        "inventory": {
+          "objects": 4,
+          "terminated": 4,
+          "handlers": 0,
+          "transfers": 7,
+          "stats": [
+            {
+              "action": "init",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "init",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "finish",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "init",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "finish",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "init",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "finish",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            }
+          ]
+        }
+      },
+      "nativeDrainMs": 1920.8881999999994,
+      "nativePhaseAfterExit": 1,
+      "workerEvents": {
+        "opened": 92,
+        "closed": 92
+      },
+      "liveWorkerTargets": 0,
+      "maxAgentPages": 1
+    },
+    {
+      "name": "firefox",
+      "version": "157.0",
+      "cases": [
+        {
+          "name": "final-hold",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "alpha-ramp",
+          "bytes": 408,
+          "sha256": "c821e87de7a291bfd06f215a8375574498e201fac1b3a2a3759a86d236a756da",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 3,
+            "intervalComparisons": 3,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 70,
+                "nativeDurationMs": 70,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 24,
+                "maxMeanRgbError": 15.222222222222221
+              },
+              {
+                "fileDurationMs": 90,
+                "nativeDurationMs": 90,
+                "nativeTimestampMs": 70,
+                "viewerClamped": false,
+                "partialRgbDifferences": 27,
+                "maxMeanRgbError": 22.925925925925927
+              },
+              {
+                "fileDurationMs": 130,
+                "nativeDurationMs": 130,
+                "nativeTimestampMs": 160,
+                "viewerClamped": false,
+                "partialRgbDifferences": 27,
+                "maxMeanRgbError": 21.185185185185187
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "transparent-erasure",
+          "bytes": 188,
+          "sha256": "c476866162a2012777d32f083389388feabc5f8d6c13a27c5ad0eae6bbd10f3d",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 3,
+            "intervalComparisons": 3,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 50,
+                "nativeDurationMs": 50,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 75,
+                "nativeDurationMs": 75,
+                "nativeTimestampMs": 50,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 100,
+                "nativeDurationMs": 100,
+                "nativeTimestampMs": 125,
+                "viewerClamped": false,
+                "partialRgbDifferences": 15,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "identical",
+          "bytes": 92,
+          "sha256": "bef91607b019ef67fa48c20fd0a62994431de3a507f60d70a424bc2ef8d032ed",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 2055,
+                "nativeDurationMs": 2055,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "duplicate-middle",
+          "bytes": 188,
+          "sha256": "222b79fe96883bb9fd9c1659d782957bde93558b99c48999274a129de696c595",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 4,
+            "intervalComparisons": 4,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 50,
+                "nativeDurationMs": 50,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 160,
+                "nativeDurationMs": 160,
+                "nativeTimestampMs": 50,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 200,
+                "nativeDurationMs": 200,
+                "nativeTimestampMs": 210,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single",
+          "bytes": 92,
+          "sha256": "d6ac0f8f08d9e5f0bb07b771352bfcd1545aea4086433872ae5776b1d460519b",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 3,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "short-delays",
+          "bytes": 236,
+          "sha256": "7f22980c025bad62a4fddb6ae758d0c123bdf3c34a424fdc2f4ca2371e647aea",
+          "native": {
+            "encodedFrames": 4,
+            "inputFrames": 4,
+            "intervalComparisons": 4,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 1,
+                "nativeDurationMs": 100,
+                "nativeTimestampMs": 0,
+                "viewerClamped": true,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 10,
+                "nativeDurationMs": 100,
+                "nativeTimestampMs": 100,
+                "viewerClamped": true,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 11,
+                "nativeDurationMs": 11,
+                "nativeTimestampMs": 200,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 100,
+                "nativeDurationMs": 100,
+                "nativeTimestampMs": 211,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "lossy-40",
+          "bytes": 358,
+          "sha256": "619bb784ced50092255fd36483fe34c55f7bbbe2097acd8728119f1a14ddcee5",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 75,
+                "nativeDurationMs": 75,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 29.513020833333332
+              },
+              {
+                "fileDurationMs": 175,
+                "nativeDurationMs": 175,
+                "nativeTimestampMs": 75,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 38.05078125
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "lossy-90",
+          "bytes": 586,
+          "sha256": "1c8faa38e1c015346a828529fa581b973a4b88bbed2d25f82eb0ead2cd93b21c",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 75,
+                "nativeDurationMs": 75,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 27.920572916666668
+              },
+              {
+                "fileDurationMs": 175,
+                "nativeDurationMs": 175,
+                "nativeTimestampMs": 75,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 37.782552083333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "final-hold-plays-0",
+          "bytes": 140,
+          "sha256": "87084ee8a78036b573a8a54f5e97665a78adf51c4a3ac4ec8df9e87f08b5cf5b",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "Infinity",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "final-hold-plays-1",
+          "bytes": 140,
+          "sha256": "9b8b1c84ebb0fbdbf964ab79cbbc7e3d37b18ae2a14ca330f7d0791f5ee40106",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "final-hold-plays-65535",
+          "bytes": 140,
+          "sha256": "7efd31d8b96e14f2a876448f338937a43a3e698f4388a890e8644e22856e1997",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "65534",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single-plays-0",
+          "bytes": 92,
+          "sha256": "207263b717557a26b3095b3dd59a7bc587b2e7c215a71a4b53e3a7744b51c357",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "Infinity",
+            "frames": [
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 3,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single-plays-1",
+          "bytes": 92,
+          "sha256": "b67ac3cb20138de3d0440d785a1b72f0cebd6d931f68d64530cf3efca5196fa6",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 3,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single-plays-65535",
+          "bytes": 92,
+          "sha256": "f01144db97e886253e1697c29a5db084516d5cec4bf9be9ad9986cd379539bdc",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "65534",
+            "frames": [
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 3,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "single-transparent",
+          "bytes": 90,
+          "sha256": "c9046c1a06718f29c978ba3d06f752eea7516e6c14e0c06e72c8e7ca73d22c81",
+          "native": {
+            "encodedFrames": 1,
+            "inputFrames": 1,
+            "intervalComparisons": 1,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 999,
+                "nativeDurationMs": 999,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "maximum-delay",
+          "bytes": 140,
+          "sha256": "cdb8a04bcf4c90bd73b37bdab892894851e5969c525e751263835569fb1cd084",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 16777215,
+                "nativeDurationMs": 16777215,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 16777215,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "identical-uint24-split",
+          "bytes": 132,
+          "sha256": "4336db91ed0c36ad3791c426e136ac37b86725a52b3e7624b51a87609483c7a5",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 16777215,
+                "nativeDurationMs": 16777215,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 16777215,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "lossy-partial-alpha",
+          "bytes": 430,
+          "sha256": "11f03f57c267bf0cac9166b86e20f13fbf38c5c39d0e6bcf026c007a72dc4367",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 3,
+            "intervalComparisons": 3,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 70,
+                "nativeDurationMs": 70,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 35,
+                "maxMeanRgbError": 24.925925925925927
+              },
+              {
+                "fileDurationMs": 90,
+                "nativeDurationMs": 90,
+                "nativeTimestampMs": 70,
+                "viewerClamped": false,
+                "partialRgbDifferences": 36,
+                "maxMeanRgbError": 29.925925925925927
+              },
+              {
+                "fileDurationMs": 130,
+                "nativeDurationMs": 130,
+                "nativeTimestampMs": 160,
+                "viewerClamped": false,
+                "partialRgbDifferences": 36,
+                "maxMeanRgbError": 49.148148148148145
+              }
+            ]
+          },
+          "ffmpeg": "known ALPH discrepancy; native alpha exact"
+        },
+        {
+          "name": "lossy-alpha-erasure",
+          "bytes": 290,
+          "sha256": "4fae9af6ced9d6fb61e86e07e3c86959e8e64a33f5bf3353d2cbc2d1cf8309e9",
+          "native": {
+            "encodedFrames": 3,
+            "inputFrames": 3,
+            "intervalComparisons": 3,
+            "repetitions": "0",
+            "frames": [
+              {
+                "fileDurationMs": 50,
+                "nativeDurationMs": 50,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 2
+              },
+              {
+                "fileDurationMs": 75,
+                "nativeDurationMs": 75,
+                "nativeTimestampMs": 50,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 100,
+                "nativeDurationMs": 100,
+                "nativeTimestampMs": 125,
+                "viewerClamped": false,
+                "partialRgbDifferences": 15,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "offscreen-canvas",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "independently-relocated-assets",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "worker-only-override",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        },
+        {
+          "name": "wasm-only-override",
+          "bytes": 140,
+          "sha256": "126a675274e238f633d5c47e7b79591c3201679d045fb7da7aaf7928f583a4cc",
+          "native": {
+            "encodedFrames": 2,
+            "inputFrames": 2,
+            "intervalComparisons": 2,
+            "repetitions": "2",
+            "frames": [
+              {
+                "fileDurationMs": 55,
+                "nativeDurationMs": 55,
+                "nativeTimestampMs": 0,
+                "viewerClamped": false,
+                "partialRgbDifferences": 0,
+                "maxMeanRgbError": 0
+              },
+              {
+                "fileDurationMs": 2000,
+                "nativeDurationMs": 2000,
+                "nativeTimestampMs": 55,
+                "viewerClamped": false,
+                "partialRgbDifferences": 1,
+                "maxMeanRgbError": 42.333333333333336
+              }
+            ]
+          },
+          "ffmpeg": "passed"
+        }
+      ],
+      "repeats": [
+        {
+          "iteration": 1,
+          "exports": 24,
+          "deterministicBytes": true,
+          "decoded": true,
+          "closeDrainMs": 13.121299999998882
+        },
+        {
+          "iteration": 2,
+          "exports": 24,
+          "deterministicBytes": true,
+          "decoded": true,
+          "closeDrainMs": 19.14480000000185
+        }
+      ],
+      "negativeControls": [
+        {
+          "name": "total-preserving-wrong-hold",
+          "independentlyRejected": true
+        },
+        {
+          "name": "wrong-plays",
+          "independentlyRejected": true
+        },
+        {
+          "name": "wrong-pixels",
+          "independentlyRejected": true
+        },
+        {
+          "name": "wrong-blend-ghost",
+          "independentlyRejected": true
+        }
+      ],
+      "faults": [
+        {
+          "name": "missing-worker",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "WebP Worker failed"
+        },
+        {
+          "name": "missing-wasm",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "WebP WASM download failed: 404"
+        },
+        {
+          "name": "html-as-wasm",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "Aborted(CompileError: wasm validation error: at offset 4: failed to match magic number). Build with -sASSERTIONS for more info."
+        },
+        {
+          "name": "wrong-profile",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "Incompatible WebP binding/profile"
+        },
+        {
+          "name": "cors-wasm",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "NetworkError when attempting to fetch resource."
+        },
+        {
+          "name": "worker-connect-csp",
+          "error": "WebP encoder.addFrame failed",
+          "cause": "NetworkError when attempting to fetch resource."
+        }
+      ],
+      "cancellation": [
+        {
+          "stage": "before-init",
+          "framesAccepted": 0,
+          "errorIdentity": true
+        },
+        {
+          "stage": "loading",
+          "framesAccepted": 0,
+          "errorIdentity": true
+        },
+        {
+          "stage": "capture-yield",
+          "framesAccepted": 1,
+          "errorIdentity": true
+        },
+        {
+          "stage": "finalizing",
+          "framesAccepted": 1,
+          "errorIdentity": true
+        }
+      ],
+      "mainInventory": {
+        "objects": 89,
+        "terminated": 89,
+        "handlers": 0,
+        "transfers": 169,
+        "stats": []
+      },
+      "mainDrainMs": 17.54529999999795,
+      "workerSrcCsp": {
+        "error": "blocked: Error: WebP encoder.addFrame failed / Error: WebP Worker failed",
+        "cause": "WebP encoder.addFrame failed",
+        "inventory": {
+          "objects": 1,
+          "terminated": 1,
+          "handlers": 0,
+          "transfers": 0,
+          "stats": []
+        }
+      },
+      "nativeProbe": {
+        "retries": 3,
+        "phaseAtSettlement": 1,
+        "phases": [
+          "collecting",
+          "finalizing",
+          "aborted"
+        ],
+        "inventory": {
+          "objects": 4,
+          "terminated": 4,
+          "handlers": 0,
+          "transfers": 7,
+          "stats": [
+            {
+              "action": "init",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "init",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "finish",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "init",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "finish",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "init",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "frame",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            },
+            {
+              "action": "finish",
+              "liveBytes": 0,
+              "liveAllocations": 0,
+              "capacity": 16777216
+            }
+          ]
+        }
+      },
+      "nativeDrainMs": 23.91599999999744,
+      "nativePhaseAfterExit": 1,
+      "workerEvents": {
+        "opened": 93,
+        "closed": 93
+      },
+      "liveWorkerTargets": 0,
+      "maxAgentPages": 1
+    }
+  ],
+  "servers": {
+    "relocatedWorkerRequested": true,
+    "separateWasmRequested": true,
+    "corsRequests": 2,
+    "slowFetchRequests": 2,
+    "slowFetchRequestsClosed": 2
+  },
+  "checkerSources": [
+    {
+      "file": "scripts/check-webp-browser.mjs",
+      "sha256": "446584d2ce36862439219459b27642cad77df5d7ab88c3860423d780ac865ae7"
+    },
+    {
+      "file": "scripts/webp-integration/browser-client.mjs",
+      "sha256": "eaf0da1ec28cb08e15108da5f7180dedc4d5de40a78a0715ce915a6049d08071"
+    },
+    {
+      "file": "scripts/webp-integration/browser-probe-worker.mjs",
+      "sha256": "60ebf54b38470b13f2ae7403f85dddbb9371d023b421e1d79f0d185d11037a5b"
+    }
+  ],
+  "observations": [
+    "Native Chromium/Firefox decoding shares the libwebp codec family but is independent of encoder WASM.",
+    "Firefox exposes 1/10 ms file holds as 100 ms viewer holds; file timing is unchanged.",
+    "Partial-alpha native RGB rounding is recorded; exact alpha and opaque lossless RGB are checked; FFmpeg checks supported captured straight RGB.",
+    "An earlier exploratory Firefox matrix emitted a generic addFrame error before case/cause diagnostics were retained. Its root cause is unknown; no production fix claimed. Focused Firefox and final combined runs with two repeat matrices passed. Keep this reliability observation for follow-up if it recurs.",
+    "Hard cancellation paused an imported native progress callback; not an arbitrary hot-loop preemption or RSS guarantee.",
+    "Installed public WebP assets/Next bundling, new CI and publication are not part of this check."
+  ]
+}

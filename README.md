@@ -334,7 +334,10 @@ The subsequent [libwebp backend proof](docs/drafts/webp-libwebp-backend.md) reco
 Windows WASM builds, exact animation checks, native cancellation and resource cleanup.
 The [WebP controller design](docs/drafts/webp-export.md) defines the proposed injected encoder,
 Worker transport, progress, limits and buffer ownership. The [private controller verification](docs/drafts/webp-controller-verification.md)
-checks injected test encoders, timelines, progress, cancellation and buffer ownership; public WebP export remains future work.
+checks injected test encoders, timelines, progress, cancellation and buffer ownership. The subsequent
+[private Worker integration](docs/drafts/webp-worker-verification.md) connects real libwebp/WASM and records
+protocol/resource checks and independent full-animation decoding, including Chromium/Firefox
+checks with real canvas and Worker lifecycle. Public WebP export remains future work.
 
 Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC, WebM/Opus, GIF and APNG export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack; add `-- --apng-browser` for actual default/package/copied APNG Worker checks. `npm run test:apng:package` verifies public APNG types and actual Workers from an installed tarball. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 

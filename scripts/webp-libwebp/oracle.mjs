@@ -3,6 +3,17 @@ import { execFileSync } from 'node:child_process';
 import ffmpeg from 'ffmpeg-static';
 import { inspect, comparePixels } from '../webp-spike/oracle.mjs';
 export { inspect, comparePixels };
+export function decodePayload(bytes, frame) {
+    assert.ok(frame.chunks.length === 1 && ['VP8L', 'VP8 '].includes(frame.chunks[0]) ||
+        frame.chunks.join(',') === 'ALPH,VP8 ', 'diagnostic payload profile');
+    const payload = Buffer.from(bytes).subarray(frame.payloadOffset, frame.payloadOffset + frame.payloadLength);
+    const extended = frame.chunks[0] === 'ALPH' ? Buffer.alloc(18) : Buffer.alloc(0);
+    if (extended.length) { extended.write('VP8X'); extended.writeUInt32LE(10, 4); extended[8] = 16; extended.writeUIntLE(frame.width - 1, 12, 3); extended.writeUIntLE(frame.height - 1, 15, 3); }
+    const header = Buffer.alloc(12); header.write('RIFF'); header.writeUInt32LE(extended.length + payload.length + 4, 4); header.write('WEBP', 8);
+    const decoded = execFileSync(ffmpeg, ['-hide_banner', '-nostdin', '-v', 'error', '-f', 'webp_pipe', '-i', 'pipe:0', '-frames:v', '1', '-pix_fmt', 'rgba', '-f', 'rawvideo', 'pipe:1'],
+        { input: Buffer.concat([header, extended, payload]), stdio: ['pipe', 'pipe', 'pipe'], timeout: 30000, maxBuffer: frame.width * frame.height * 4 + 1048576 });
+    assert.equal(decoded.length, frame.width * frame.height * 4); return decoded;
+}
 export function verify(bytes, spec, job) {
     const envelope = inspect(bytes);
     assert.equal(envelope.animated, true, 'even a single frame must retain ANIM/ANMF');
@@ -17,13 +28,7 @@ export function verify(bytes, spec, job) {
         if (previous?.flags & 1) for (let y = 0; y < previous.height; y++) {
             canvas.fill(0, ((previous.y + y) * job.width + previous.x) * 4, ((previous.y + y) * job.width + previous.x + previous.width) * 4);
         }
-        assert.ok(frame.chunks.length === 1 && ['VP8L', 'VP8 '].includes(frame.chunks[0]), 'diagnostic payload profile');
-        const payload = Buffer.from(bytes).subarray(frame.payloadOffset, frame.payloadOffset + frame.payloadLength);
-        const header = Buffer.alloc(12); header.write('RIFF'); header.writeUInt32LE(payload.length + 4, 4); header.write('WEBP', 8);
-        const decoded = execFileSync(ffmpeg, ['-hide_banner', '-nostdin', '-v', 'error', '-f', 'webp_pipe', '-i', 'pipe:0', '-frames:v', '1', '-pix_fmt', 'rgba', '-f', 'rawvideo', 'pipe:1'],
-            { input: Buffer.concat([header, payload]), stdio: ['pipe', 'pipe', 'pipe'], timeout: 30000,
-                maxBuffer: frame.width * frame.height * 4 + 1048576 });
-        assert.equal(decoded.length, frame.width * frame.height * 4);
+        const decoded = decodePayload(bytes, frame);
         for (let y = 0; y < frame.height; y++) for (let x = 0; x < frame.width; x++) {
             const src = (y * frame.width + x) * 4, dst = ((y + frame.y) * job.width + x + frame.x) * 4;
             // Refuse to certify generic partial-alpha blending with a homemade compositor.

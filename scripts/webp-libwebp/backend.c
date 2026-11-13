@@ -76,6 +76,14 @@ void ct_fail_after(int value) { fail_after = value; }
 void ct_reset_peak(void) { peak_bytes = live_bytes; }
 const char* ct_error(void) { return error_text; }
 int ct_version(void) { return WebPGetEncoderVersion(); }
+int ct_binding_abi(void) { return 1; }
+int ct_profile(void) {
+#if CANVASTAKE_KEEP_ANIMATION == 1
+  return 1;  /* libwebp-batch-animation-v1 */
+#else
+  return 0;
+#endif
+}
 static int fail(const char* message) { snprintf(error_text, sizeof(error_text), "%s", message); return 0; }
 
 EM_JS(int, native_progress, (int percent), {

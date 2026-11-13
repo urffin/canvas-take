@@ -1,13 +1,16 @@
 # WebP controller and Worker adapter: proposed contract
 
-Status: **private controller implemented with test encoders**, 2026-11-13, after design commit
-`676f618677e01d5f42f7cdc00bb6eeaadd1f15c9`. See the [controller verification](webp-controller-verification.md).
+Status: **private controller and libwebp Worker integration implemented**, 2026-11-13, after
+`f0bebc1cddcc94575d37f9797ed8d9abb9af6631`. See the [controller verification](webp-controller-verification.md)
+and [Worker integration report](webp-worker-verification.md).
 The [libwebp backend proof](webp-libwebp-backend.md) establishes limited codec feasibility;
 it does not implement this controller, adapter, protocol or asset deployment. The
 [draft declarations](webp-export-api.d.ts), [typechecked sketch](webp-export-example.ts) and
 [acceptance gates](webp-export-compatibility.md) define the implementation boundary. Controller
-contracts now have an internal implementation; the supplied adapter, transport and assets remain
-proposals. No WebP imports are available through the package exports in version 0.7.0.
+contracts, supplied adapter, transport and tagged assets now have private implementations. Local
+Chromium/Firefox checks are recorded in the report; installed public WebP/Next gates remain open.
+No WebP imports are available through the package
+exports in version 0.7.0.
 
 ## Responsibilities and selected first implementation
 
@@ -206,7 +209,7 @@ success, resource acquisition or an unhandled rejection.
 
 ## Worker protocol and assets
 
-The proposed transport is separate from existing GIF/APNG/AAC runtimes:
+The private transport is separate from existing GIF/APNG/AAC runtimes:
 
 | Request | Meaning of successful matching reply |
 | --- | --- |
@@ -216,7 +219,7 @@ The proposed transport is separate from existing GIF/APNG/AAC runtimes:
 
 Replies echo format/version/id/action. Init also identifies a binding ABI and the
 `libwebp-batch-animation-v1` profile (including single-frame metadata support). A profile tag/ABI
-check must be added/verified in the packaged binding; codec version 1.6.0 alone cannot distinguish
+check is now verified in the private native binding; codec version 1.6.0 alone cannot distinguish
 the patched policy. These are compatibility tags, not cryptographic proof of correct pixels.
 The current proof runtime/untagged messages are not reusable as this protocol without adaptation.
 The initial success shapes are init `value:{bindingAbi:1,profile:'libwebp-batch-animation-v1'}`,
@@ -247,7 +250,7 @@ owns a fresh module Worker. Proposed adapter fields are workerUrl, wasmUrl, time
 lossless/quality/method (defaults true/100/4; quality finite 0..100, method integer 0..6).
 The calling thread must not import/instantiate the WASM codec.
 
-Candidate default asset expressions in that future adapter are literal module-relative
+Default asset expressions in the private adapter are literal module-relative
 `new URL('./webp-worker-runtime.js', import.meta.url)` and
 `new URL('./webp-codec.wasm', import.meta.url)`. Resolve both on the calling thread and send the
 absolute WASM URL in init; a relative override uses document.baseURI on the calling Window, or
@@ -283,9 +286,9 @@ Those remain the encoder contract and independent acceptance evidence. Do not im
 count equality, claim exact per-input timing from a total-only check, or retain raw images in the
 controller just to duplicate the codec test oracle. Keep only counters/dimensions needed at finish.
 
-The [gates](webp-export-compatibility.md) distinguish backend and private-controller evidence from
-unimplemented transport behavior. Public declarations remain unchanged. Browser integration tests
-are future work: keep at most two agent-opened tabs, preserve user tabs and use the built-in browser
+The [gates](webp-export-compatibility.md) distinguish backend, private-controller and Node Worker
+evidence from browser deployment checks. Public declarations remain unchanged. Local browser results
+are recorded separately; for future work keep at most two agent-opened tabs, preserve user tabs and use the built-in browser
 by default. Before external browser launch/debug attachment, obtain the user's explicit permission
 for the concrete scope and explain why built-in verification cannot cover it.
 
@@ -299,6 +302,9 @@ runtime/build/manifest/exports/version were checked. No browser, WASM rebuild, b
 CI run was needed. Backend observations and baseline CI remain their original dated evidence.
 
 The subsequent [private controller implementation](webp-controller-verification.md) checks fake
-encoders/canvas fixtures and preserves this draft contract. Real Worker/asset integration remains
-a separately requested slice, followed by public entries/package/Next checks if approved. No version,
-dependency, release or publication change is part of the private implementation.
+encoders/canvas fixtures and preserves this draft contract. The subsequent [Worker integration](webp-worker-verification.md)
+checks real Node Workers, tagged assets and independently decoded complete animations. Subsequent
+authorized Chromium/Firefox checks cover real canvas, Workers, native decoding, cancellation and
+deployment faults, with a recorded unreproduced Firefox observation. Public entries/installed WebP
+assets/Next remain separate slices. No version,
+production dependency, release or publication change is part of the private implementation.
