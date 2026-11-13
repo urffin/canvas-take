@@ -1,11 +1,13 @@
 # WebP controller and Worker adapter: proposed contract
 
-Status: **design only**, 2026-11-13, on baseline `459dc6f97a58deec43d6e3e7552fee50162bbdce`.
+Status: **private controller implemented with test encoders**, 2026-11-13, after design commit
+`676f618677e01d5f42f7cdc00bb6eeaadd1f15c9`. See the [controller verification](webp-controller-verification.md).
 The [libwebp backend proof](webp-libwebp-backend.md) establishes limited codec feasibility;
 it does not implement this controller, adapter, protocol or asset deployment. The
 [draft declarations](webp-export-api.d.ts), [typechecked sketch](webp-export-example.ts) and
-[acceptance gates](webp-export-compatibility.md) define the next implementation boundary.
-All names/asset paths below are proposals, not imports available in package 0.7.0.
+[acceptance gates](webp-export-compatibility.md) define the implementation boundary. Controller
+contracts now have an internal implementation; the supplied adapter, transport and assets remain
+proposals. No WebP imports are available through the package exports in version 0.7.0.
 
 ## Responsibilities and selected first implementation
 
@@ -281,8 +283,8 @@ Those remain the encoder contract and independent acceptance evidence. Do not im
 count equality, claim exact per-input timing from a total-only check, or retain raw images in the
 controller just to duplicate the codec test oracle. Keep only counters/dimensions needed at finish.
 
-The [gates](webp-export-compatibility.md) distinguish existing backend evidence from unimplemented
-controller/transport behavior. This design adds no runtime or public declarations. Browser tests
+The [gates](webp-export-compatibility.md) distinguish backend and private-controller evidence from
+unimplemented transport behavior. Public declarations remain unchanged. Browser integration tests
 are future work: keep at most two agent-opened tabs, preserve user tabs and use the built-in browser
 by default. Before external browser launch/debug attachment, obtain the user's explicit permission
 for the concrete scope and explain why built-in verification cannot cover it.
@@ -296,7 +298,7 @@ Seven design/README files, 76 local links, Markdown anchors, whitespace/newlines
 runtime/build/manifest/exports/version were checked. No browser, WASM rebuild, benchmark or new
 CI run was needed. Backend observations and baseline CI remain their original dated evidence.
 
-The next authorized implementation slice must be requested separately: a private controller with
-fake encoders/canvas fixtures, then the real Worker/asset integration, followed by separately
-approved public entries/package/Next checks. No version, dependency, release or publication change
-is part of this design.
+The subsequent [private controller implementation](webp-controller-verification.md) checks fake
+encoders/canvas fixtures and preserves this draft contract. Real Worker/asset integration remains
+a separately requested slice, followed by public entries/package/Next checks if approved. No version,
+dependency, release or publication change is part of the private implementation.

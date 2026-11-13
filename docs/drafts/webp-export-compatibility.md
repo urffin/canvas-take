@@ -1,24 +1,26 @@
 # WebP controller: compatibility and acceptance gates
 
-Status: design gates, 2026-11-13, baseline `459dc6f97a58deec43d6e3e7552fee50162bbdce`.
+Status: private-controller subset checked, 2026-11-13, after design commit
+`676f618677e01d5f42f7cdc00bb6eeaadd1f15c9`.
 Companion to the [controller/Worker design](webp-export.md) and
-[draft types](webp-export-api.d.ts). **No proposed controller/transport gate is claimed passed.**
+[draft types](webp-export-api.d.ts). The [controller report](webp-controller-verification.md)
+records 28 fake-encoder test groups. **Worker, native decoding and deployment gates remain open.**
 The [backend proof](webp-libwebp-backend.md) and its
 [dated observations](webp-libwebp-backend-results.json) remain evidence for their explicit subset.
 Do not relabel the 17 backend fixtures or the baseline's successful CI as new controller tests.
 
 | Gate | Evidence required before accepting implementation | Existing evidence / gap |
 | --- | --- | --- |
-| W1: injected encoder | Fake third-party factory without codec imports; synchronous fresh ownership; capability/factory errors and exact causes; reentrant abort; invalid async factory/late release | Proposed; no controller implementation |
-| W2: capture and transfer | Canvas redraw immediately after add cannot alter pixels; explicit sRGB/RGBA8; caller arrays never detached; full-span owned copy; dimension changes/taint/readback failures; release after delayed ack/error | Backend receives synthetic arrays only; canvas path and handoff unimplemented |
-| W3: timeline/file | Long final hold, finite/infinite plays and one-frame animation; merged/split presentation equivalence; invalid envelopes and corrupt valid metadata/pixels fail the appropriate oracle | Proof: 33 encoded payloads/35 input intervals and native one-frame plays; merged uint24 overflow splitting still needs coverage |
-| W4: limits | Exact inclusive boundary then first excess, before readback/transfer; pending reservations; fixed size; signed timestamp overflow; context/Worker normalized budgets; output cap before Blob and before posting | Private codec has validation/fault tests, not public admission or protocol defence |
-| W5: progress and promises | Full ordered frozen snapshots, omitted optional keys, commit after ack, reentrant observers, cached finish identity, overlap rejection without cancelling admitted work | Proposed; no encoded-frame/percentage progress claim |
-| W6: terminal races | Pre-abort, factory/readback/progress reentrancy, init/add/finish/output-validation abort/dispose, local reason identity, cleanup errors, late settlements and exactly-once owned disposal | Proof covers native callback abort/Worker termination; not controller races or new transport |
+| W1: injected encoder | Fake third-party factory without codec imports; synchronous fresh ownership; capability/factory errors and exact causes; reentrant abort; invalid async factory/late release | Controller/fake subset checked, including falsy causes, late release and codec-free graph |
+| W2: capture and transfer | Canvas redraw immediately after add cannot alter pixels; explicit sRGB/RGBA8; caller arrays never detached; full-span owned copy; dimension changes/taint/readback failures; release after delayed ack/error | Fake canvas and actual structuredClone transfer checked; real canvas/Worker integration remains open |
+| W3: timeline/file | Long final hold, finite/infinite plays and one-frame animation; merged/split presentation equivalence; invalid envelopes and corrupt valid metadata/pixels fail the appropriate oracle | Fake delay/plays/envelope and merge/split checks passed; no new pixel decode evidence. Proof's 33 payloads/35 intervals remain separate; native overflow splitting remains open |
+| W4: limits | Exact inclusive boundary then first excess, before readback/transfer; pending reservations; fixed size; signed timestamp overflow; context/Worker normalized budgets; output cap before Blob and before posting | Controller limits/boundaries/reservation and output cap checked; Worker protocol defence remains open |
+| W5: progress and promises | Full ordered frozen snapshots, omitted optional keys, commit after ack, reentrant observers, cached finish identity, overlap rejection without cancelling admitted work | Controller trace, lazy snapshots, reentrancy and finish identity checked; no encoded-frame/percentage progress claim |
+| W6: terminal races | Pre-abort, factory/readback/progress reentrancy, init/add/finish/output-validation abort/dispose, local reason identity, cleanup errors, late settlements and exactly-once owned disposal | Controller/fake subset checked with deterministic barriers and microtask sweeps; Worker init/transport races remain open |
 | W7: Worker protocol | New format/version/ABI/profile handshake; init/frame/finish ordering and timers; duplicate/stale/malformed messages; messageerror/error/postMessage/timeout; no legacy fallback or retry | Existing proof's untagged messages are not this protocol |
-| W8: resources | Retain handles while checking snapshots/canvas/error closures, timers/listeners/pending maps/native allocations; successful/cancelled/failed retries; observe real Worker/thread close and final empty inventory | Proof: native allocation faults/repeated jobs/paused-callback termination. No arbitrary hot-loop or immediate-RSS certification |
+| W8: resources | Retain handles while checking snapshots/canvas/error closures, timers/listeners/pending maps/native allocations; successful/cancelled/failed retries; observe real Worker/thread close and final empty inventory | Controller timers/listeners/repeated jobs checked; five retained controllers pass finite WeakRef/GC checks. Native/Worker evidence remains the earlier proof; no RSS certification |
 | W9: deployment and packaging | Node/SSR import safety, no calling-thread codec import, matching JS/WASM/ABI/profile and notices, default/explicit URLs, CORS/CSP/load failures, installed consumer/types and Next bundling | Reproducible Windows build proven; packaged tagged binding/runtime/asset deployment unimplemented |
-| W10: existing formats | Existing entry keys/declarations/defaults unchanged; GIF/APNG/video/recording tests, package consumers, Worker protocols and independent outputs unchanged | Baseline CI passed; a candidate implementation needs its own regression/CI evidence |
+| W10: existing formats | Existing entry keys/declarations/defaults unchanged; GIF/APNG/video/recording tests, package consumers, Worker protocols and independent outputs unchanged | Local build, 192 Node tests and packed Node consumer passed. Public sources/exports unchanged; new browser/CI evidence not claimed |
 
 ## Controlled controller tests
 
@@ -103,12 +105,13 @@ payload checks alone do not certify arbitrary partial-alpha composition. Chromiu
 RGBA conversions can also round/premultiply RGB. Keep those boundaries explicit; do not substitute
 the encoder's own decoder. Viewer short-delay clamping must be recorded separately from file bytes.
 
-## Execution and scope of this design
+## Execution and scope
 
-This change requires only isolated TypeScript checks for the draft declarations/examples, relative
-link/whitespace checks and confirmation that runtime/build/manifest/exports remain unchanged.
-It does not require a new browser session, WASM build, benchmark or CI run. Typechecking a declaration
-is not implementation evidence for W1–W9. The older 164 tests and green baseline CI remain historical.
+The design was checked with isolated TypeScript and relative-link/whitespace checks. The subsequent
+private implementation adds controller tests, strict comparison with the draft types, full Node
+regression and a packed Node consumer check. It changes internal runtime only. No browser session,
+WASM build, benchmark or new CI run is claimed. Typechecking alone is not runtime evidence; the older
+backend observations and green baseline CI remain historical.
 
 For future browser work, use the built-in browser by default, keep at most two agent-opened tabs,
 preserve user tabs, and obtain explicit permission before starting/attaching external-browser
@@ -117,4 +120,5 @@ Playwright/CDP or extension debugger attachment; a prior task's authorization is
 
 Implementation should proceed in separately authorized slices: private controller/fake-encoder
 tests; supplied Worker/backend/protocol integration; then installed assets/types/Next and public
-entries if approved. A version bump, release, commit or push is not authorized by this design task.
+entries if approved. The private-controller request does not authorize a version bump, release,
+commit, push or the next integration slice.

@@ -1,0 +1,16 @@
+import type * as I from '../../src/internal/webp-types.js';
+import type * as D from '../../docs/drafts/webp-export-api.js';
+import { createWebpController } from '../../src/internal/webp-controller.js';
+type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
+type Assert<T extends true> = T;
+type Frame = Assert<Equal<I.WebpFrame, D.WebpFrame>>;
+type Limits = Assert<Equal<I.WebpExportLimits, D.WebpExportLimits>>;
+type Context = Assert<Equal<I.WebpEncoderContext, D.WebpEncoderContext>>;
+type Encoder = Assert<Equal<I.WebpFrameEncoder, D.WebpFrameEncoder>>;
+type Factory = Assert<Equal<I.WebpEncoderFactory, D.WebpEncoderFactory>>;
+type State = Assert<Equal<I.WebpExportState, D.WebpExportState>>;
+type Progress = Assert<Equal<I.WebpExportProgress, D.WebpExportProgress>>;
+type Options = Assert<Equal<I.WebpExportOptions, D.WebpExportOptions>>;
+type Exporter = Assert<Equal<I.WebpExporter, D.WebpExporter>>;
+const controller: typeof D.createWebpController = createWebpController;
+void controller;
