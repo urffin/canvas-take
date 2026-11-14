@@ -502,7 +502,8 @@ Worker, прогресс, лимиты и владение буферами. [П
 упакованной библиотеки с Next.js/Turbopack. Подробности — в
 [описании проверок GIF](../docs/gif-encoder.md#verification).
 
-`npm run test:webp:package` проверяет публичные WebP-типы, Node-импорты и ассеты установленного tarball.
+`npm run test:webp:package` проверяет публичные WebP-типы, Node-импорты, ассеты и текущую документацию
+установленного tarball, включая версию в сгенерированном PROVENANCE.
 `npm run test:webp:package:browser` также проверяет реальные Worker и пример из пакета.
 `npm run test:next:webp` проверяет default/package/copied URL Worker и WASM в production Next.js.
 CI выполняет обе браузерные команды в Chromium и Firefox: отмену, завершение Worker и независимое

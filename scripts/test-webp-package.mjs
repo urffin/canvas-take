@@ -5,6 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
+import {verifyPackageDocumentation} from './lib/package-documentation.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url)),npm=process.env.npm_execpath;
 if(!npm)throw Error('Use npm run test:webp:package');
 const workspace=await mkdtemp(join(tmpdir(),'canvastake-webp-consumer-'));
@@ -15,6 +16,8 @@ try {
     run(['install','--offline','--ignore-scripts','--no-audit','--no-fund',join(workspace,packed.filename)],workspace);
     const dist=join(workspace,'node_modules/@grundyjs/canvas-take/dist'),pkg=JSON.parse(await readFile(join(dist,'../package.json'),'utf8'));
     assert.equal(pkg.version,JSON.parse(await readFile(join(root,'package.json'),'utf8')).version); assert.equal(pkg.exports['./webp'].import,'./dist/webp.js');
+    const documentation=await verifyPackageDocumentation(join(dist,'..'));
+    console.log(`Packed documentation passed: ${documentation.files.length} current documents for ${documentation.version}`);
     assert.equal(pkg.exports['./webp/worker'].types,'./dist/webp-worker.d.ts'); assert.equal(pkg.exports['./webp/codec.wasm'],'./dist/webp-codec.wasm');
     for(const name of ['webp.js','webp.d.ts','webp-worker.js','webp-worker.d.ts','webp-worker-runtime.js','webp-worker-runtime.js.map','webp-codec.js','webp-codec.wasm']) assert.ok(packed.files.some(f=>f.path==='dist/'+name),'Missing '+name);
     for(const name of ['docs/webp-export.md','docs/drafts/webp-public-verification.md','docs/drafts/webp-public-results.json','examples/webp.html'])assert.ok(packed.files.some(f=>f.path===name),'Missing WebP documentation/example: '+name);

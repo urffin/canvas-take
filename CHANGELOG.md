@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.1 — 2026-11-14
+
+- Generate the public WebP PROVENANCE notice with the actual package version instead of the stale unreleased 0.7.0 sentence. Preserve the pinned upstream provenance, codec bytes and licenses.
+- Verify current consumer documentation from the installed tarball in both packed-consumer checks: WebP provenance, English/Russian README sections, API guide and versioned changelog. Add regression checks for stale status and mismatched versions while preserving historical reports.
+
 ## 0.8.0 — 2026-11-14
 
 - Add public animated WebP controller/Worker/runtime/WASM entries with a caller-selected encoder, transparent snapshots, exact file holds, progress, limits and cancellation.

@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { verifyPackageDocumentation } from './lib/package-documentation.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const npm = process.env.npm_execpath;
@@ -26,6 +27,8 @@ try {
     assert.ok(packed.files.some(file => file.path === 'docs/video-recording.md'), 'Missing video verification documentation');
     for (const file of ['dist/video.js', 'dist/video.d.ts', 'dist/video-webcodecs.js', 'dist/video-webcodecs.d.ts', 'dist/video-mp4.js', 'dist/video-mp4.d.ts', 'dist/video-mp4.js.map', 'dist/mediabunny-LICENSE.txt', 'docs/offline-video-api.md', 'docs/offline-video-adapters.md']) assert.ok(packed.files.some(entry => entry.path === file), 'Missing offline video package file: ' + file);
     assert.equal(installed.version, pkg.version);
+    const documentation=await verifyPackageDocumentation(join(workspace,'node_modules/@grundyjs/canvas-take'));
+    console.log(`Packed documentation passed: ${documentation.files.length} current documents for ${documentation.version}`);
     assert.equal(installed.exports['./webp'].import, './dist/webp.js');
     for (const file of ['webp.js','webp.d.ts','webp-worker.js','webp-worker.d.ts','webp-worker-runtime.js','webp-worker-runtime.js.map','webp-codec.js','webp-codec.wasm'])
         assert.ok(packed.files.some(entry => entry.path === 'dist/' + file), 'Missing public WebP file: ' + file);

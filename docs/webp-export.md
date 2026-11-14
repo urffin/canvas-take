@@ -165,6 +165,12 @@ second packs and installs the library in a separate Next.js consumer, builds pro
 starts `next start` and checks bundled, package-entry and copied Worker/WASM URLs.
 The original `test:webp:package -- --browser` and `test:next -- --webp-browser` flags still work.
 
+Both `test:package` and `test:webp:package` validate documentation from the installed tarball:
+the generated public WebP PROVENANCE must retain the upstream notice and identify the installed
+package version. They also check current English/Russian WebP README sections, this guide and
+the versioned changelog. Dated research reports and the original feature-introduction version
+remain historical records.
+
 Both commands run Chromium and Firefox. They abort after the first accepted frame, check the
 original rejection reason and `collecting → aborted` progress, and wait for the cancelled Worker
 to close before retrying with a fresh Worker. The retry has different holds and plays: 70/90/2100 ms,
