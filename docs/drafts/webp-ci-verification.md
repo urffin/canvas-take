@@ -85,3 +85,26 @@ FFmpeg's ALPH discrepancy, native partial-alpha RGB rounding and Firefox short-h
 Worker close events and empty inventories do not establish immediate OS memory reclamation.
 No public API, runtime implementation, dependency, package version, tag or release changes are
 part of this CI stage.
+
+## Release-candidate CI follow-up — 2026-11-14
+
+The first 0.8.0 candidate CI run on `f05d2bd` failed in the packaged HTML example's Firefox
+cancel check. Its diagnostic screenshot showed a completed export (`finished`, visible download,
+disabled Cancel); all 8 observed Workers had closed and there were no page errors. The test raced
+the fast 24-frame export: observing Worker startup did not ensure the export was still active
+when the separate Cancel click was handled. This is distinct from the earlier download/navigation
+timeouts and is not evidence that those observations share a cause.
+
+The test HTTP server now holds the next example export's actual WASM request. After observing
+that request, the test clicks Cancel while the real Worker is initializing, checks the AbortError
+and hidden download, and waits for Worker closure before releasing the response and retrying.
+Only that UI-cancel request is gated; the subsequent export runs normally. The server disables
+asset caching so the request boundary is observable. A bounded wait and `finally` release both
+the gate and timer on failure. Programmatic cancellation after frame admission and independent
+retry decoding remain separate checks. No runtime/example code, codec timeouts or public API
+changed; no test retry or skipped assertion was added.
+
+Failed run: [release-candidate CI](https://github.com/urffin/canvas-take/actions/runs/43539321788).
+The corrected full installed-package check passed locally in Chromium and Firefox, with 9/9
+Workers closed per engine, the held-init UI cancellation and independently decoded retry.
+The earlier local result snapshot remains historical; the corrected candidate must pass its own CI.

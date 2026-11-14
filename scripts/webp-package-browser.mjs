@@ -7,9 +7,10 @@ import {verifyPublicWebp,waitForWorkerClosure} from './webp-public-check.mjs';
 import {inspect} from './webp-libwebp/oracle.mjs';
 export async function verifyWebpPackage(root,dist) {
     const output=join(root,'benchmark-results/webp-public-package');await mkdir(output,{recursive:true});
+    let wasmGate;
     const server=createServer(async(req,res)=>{
         try {
-            res.setHeader('Content-Security-Policy',"worker-src 'self'");const path=new URL(req.url,'http://localhost').pathname;
+            res.setHeader('Content-Security-Policy',"worker-src 'self'");res.setHeader('Cache-Control','no-store');const path=new URL(req.url,'http://localhost').pathname;
             if(path==='/'){res.setHeader('Content-Type','text/html');res.end('<!doctype html><title>Installed WebP consumer</title><script type="importmap">'+JSON.stringify({imports:{'@grundyjs/canvas-take/webp':'/dist/webp.js','@grundyjs/canvas-take/webp/worker':'/dist/webp-worker.js'}})+'</script>');return;}
             let file;
             if(path.startsWith('/dist/')) {file=resolve(dist,'.'+path.slice('/dist'.length));if(!file.startsWith(resolve(dist)+sep))throw Error('Invalid asset path');}
@@ -19,6 +20,7 @@ export async function verifyWebpPackage(root,dist) {
             else if(path==='/copied/webp-codec.js')file=join(dist,'webp-codec.js');
             else if(path==='/separate/codec.wasm')file=join(dist,'webp-codec.wasm');
             else {res.writeHead(404).end();return;}
+            if(path==='/dist/webp-codec.wasm'&&wasmGate){const gate=wasmGate;gate.onRequest();await gate.released;}
             const data=await readFile(file);res.setHeader('Content-Type',file.endsWith('.html')?'text/html':file.endsWith('.wasm')?'application/wasm':'text/javascript');res.end(data);
         }catch{res.writeHead(404).end();}
     });
@@ -58,8 +60,18 @@ export async function verifyWebpPackage(root,dist) {
                 diagnostics.example=await page.locator('#download').evaluate(link=>({href:link.href,download:link.download,hidden:link.hidden}));
                 const [download]=await Promise.all([page.waitForEvent('download'),page.getByRole('link',{name:'Download WebP',exact:true}).click()]);const saved=join(output,name+'-example.webp');await download.saveAs(saved);
                 const ui=inspect(await readFile(saved));assert.equal(ui.width,320);assert.equal(ui.height,180);assert.equal(ui.durationMs,2265);assert.equal(ui.loopCount,3);
-                diagnostics.phase='example-cancel';await Promise.all([page.waitForEvent('worker'),page.getByRole('button',{name:'Export WebP',exact:true}).click()]);await page.getByRole('button',{name:'Cancel',exact:true}).click();
-                await page.waitForFunction(()=>document.querySelector('#status').textContent.startsWith('AbortError:'));assert.equal(await page.locator('#download').isVisible(),false);
+                await waitForWorkerClosure(page,events);diagnostics.phase='example-cancel';const beforeUiCancel=events.opened;
+                // Keep initialization pending until Cancel is handled, even on a fast CI runner.
+                let releaseGate,onRequest,gateTimer;
+                const requested=new Promise((yes,no)=>{onRequest=yes;gateTimer=setTimeout(()=>no(Error('WebP example did not request WASM during cancellation check')),30000);});
+                wasmGate={onRequest,released:new Promise(yes=>{releaseGate=yes;})};
+                try{
+                    await Promise.all([requested,page.waitForEvent('worker'),page.getByRole('button',{name:'Export WebP',exact:true}).click()]);
+                    assert.equal(events.opened,beforeUiCancel+1);diagnostics.cancelGate='WASM request held';
+                    await page.getByRole('button',{name:'Cancel',exact:true}).click();
+                    await page.waitForFunction(()=>document.querySelector('#status').textContent.startsWith('AbortError:'));assert.equal(await page.locator('#download').isVisible(),false);
+                    await waitForWorkerClosure(page,events);
+                }finally{clearTimeout(gateTimer);wasmGate=undefined;releaseGate();}
                 diagnostics.phase='example-retry';await page.getByRole('button',{name:'Export WebP',exact:true}).click();await page.waitForFunction(()=>document.querySelector('#status').textContent.startsWith('finished:'));
                 await page.waitForFunction(()=>document.querySelector('#result').complete&&document.querySelector('#result').naturalWidth===320);
                 await waitForWorkerClosure(page,events);assert.deepEqual(diagnostics.pageErrors,[]);await page.screenshot({path:join(output,name+'.png'),fullPage:true});
