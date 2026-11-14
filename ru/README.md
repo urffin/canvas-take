@@ -432,6 +432,28 @@ try {
 [Описание API и развёртывания](../docs/apng-export.md) охватывает лимиты, прогресс, свой кодировщик,
 URL Worker и ограничения просмотрщиков. [Пример](../examples/apng.html) использует публичные импорты.
 
+## Экспорт animated WebP (ещё не выпущен)
+
+Доступен в текущей сборке репозитория; опубликованная 0.7.0 пока не содержит этих точек входа.
+
+```js
+import { createWebpExporter } from '@grundyjs/canvas-take/webp';
+import { createWebpWorkerEncoder } from '@grundyjs/canvas-take/webp/worker';
+const exporter = createWebpExporter({ encoder: createWebpWorkerEncoder({ lossless: true }), plays: 3 });
+try {
+    await exporter.addFrame(canvas, 55);
+    // Нарисуйте следующий полный кадр, затем дождитесь его приёма.
+    await exporter.addFrame(canvas, 2000);
+    const blob = await exporter.finish(); // image/webp, расширение .webp
+} finally { exporter.dispose(); }
+```
+
+Контроллер принимает выбранный кодировщик; готовый libwebp-адаптер владеет отдельным module Worker.
+Поддержаны прозрачность, точные задержки в файле, прогресс, лимиты и отмена.
+[Руководство](../docs/webp-export.md), [пример](../examples/webp.html) и
+[проверки установленного пакета и Next.js](../docs/drafts/webp-public-verification.md) описывают
+отдельные runtime/WASM ассеты и ограничения. Версия остаётся 0.7.0 до отдельного релиза.
+
 ## Использование в браузере и на сервере
 
 Для записи нужен браузер с `canvas.captureStream`, `MediaRecorder` и `MutationObserver`.
@@ -460,7 +482,7 @@ URL Worker и ограничения просмотрщиков. [Пример](
 [отчёт интеграции Worker](../docs/drafts/apng-integration-verification.md) сохраняют результаты предыдущих этапов.
 Актуальные публичные импорты и размещение файлов описаны в [руководстве APNG](../docs/apng-export.md).
 [Исследование animated WebP](../docs/drafts/webp-backend-research.md) сравнивает кандидатов backend
-и сохраняет проверки реальных Worker и независимых декодеров; экспорт WebP в пакет пока не добавлен.
+и сохраняет проверки реальных Worker и независимых декодеров предыдущего этапа.
 [Проверочный backend libwebp](../docs/drafts/webp-libwebp-backend.md) сохраняет воспроизводимую
 WASM-сборку на Windows, проверки анимации, отмены внутри кодировщика и освобождения ресурсов.
 [Проект контроллера WebP](../docs/drafts/webp-export.md) описывает подключаемый кодировщик,
@@ -469,7 +491,8 @@ Worker, прогресс, лимиты и владение буферами. [П
 [Приватная Worker-интеграция](../docs/drafts/webp-worker-verification.md) подключает настоящий libwebp/WASM
 и сохраняет проверки протокола, ресурсов и независимого декодирования всей анимации,
 включая проверки настоящих canvas и Worker в Chromium/Firefox.
-Публичный экспорт WebP пока недоступен.
+Публичные импорты текущей сборки описаны в [руководстве WebP](../docs/webp-export.md);
+новые точки входа ещё не опубликованы.
 
 `npm test` запускает модульные тесты и проверки Node Worker, а `npm run test:package`
 проверяет установку упакованной библиотеки в отдельный проект. Для настоящих браузеров
@@ -478,6 +501,10 @@ Worker, прогресс, лимиты и владение буферами. [П
 ресурсов и независимое декодирование звука/временной шкалы. `npm run test:next` проверяет сборку
 упакованной библиотеки с Next.js/Turbopack. Подробности — в
 [описании проверок GIF](../docs/gif-encoder.md#verification).
+
+`npm run test:webp:package` проверяет публичные WebP-типы, Node-импорты и ассеты установленного tarball;
+флаг `-- --browser` включает реальные Worker и пример в браузерах.
+`npm run test:next -- --webp-browser` проверяет default/package/copied URL Worker и WASM в production Next.js.
 
 `npm run test:apng:package` проверяет публичные APNG-типы и реальные Worker из установленного tarball.
 `npm run test:next -- --apng-browser` дополнительно проверяет в браузерах сборку Next.js и

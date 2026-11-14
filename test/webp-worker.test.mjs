@@ -21,6 +21,12 @@ test('private WebP Worker rejects invalid configuration/context and pre-abort wi
     const abort = new AbortController(), reason = new Error('pre'); abort.abort(reason);
     assert.throws(() => h.create()({ plays: 0 }, context({ signal: abort.signal })), e => e === reason); assert.equal(h.workers.length, 0);
 });
+test('WebP Worker normalizes bundler-relative default WASM assets before posting init',()=>{
+    const NativeURL=URL;
+    class AssetURL { constructor(value,base){ if(value==='./webp-codec.wasm')return {href:'/_next/static/media/codec.wasm'};return new NativeURL(value,base); } }
+    const h=hostHarness({globals:{URL:AssetURL,document:{baseURI:'https://site.invalid/app/'}}}),e=h.create()({plays:1},context());
+    assert.equal(h.workers[0].messages[0].data.value.wasmUrl,'https://site.invalid/_next/static/media/codec.wasm');e.dispose();assert.equal(h.timers.size,0);
+});
 test('private WebP Worker waits for ABI handshake, reserves one operation and transfers only after init', async () => {
     const h = hostHarness(), e = h.create()({ plays: 3 }, context()), w = h.workers[0], f = frame();
     const pending = e.addFrame(f); await assert.rejects(e.finish(), /pending/); assert.equal(w.messages.length, 1); assert.equal(f.data.byteLength, 4);

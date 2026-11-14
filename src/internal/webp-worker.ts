@@ -8,7 +8,7 @@ export interface WebpWorkerOptions {
     readonly quality?: number;
     readonly method?: number;
 }
-/** Private. Acquiring an encoder creates one dedicated Worker; imports never load a codec. */
+/** Acquiring an encoder creates one dedicated Worker; imports never load a codec. */
 export function createWebpWorkerEncoder(options: WebpWorkerOptions = {}): WebpEncoderFactory {
     const workerUrl = options.workerUrl === undefined ? undefined : String(options.workerUrl);
     const wasmUrl = options.wasmUrl === undefined ? undefined : String(options.wasmUrl);
@@ -23,6 +23,9 @@ export function createWebpWorkerEncoder(options: WebpWorkerOptions = {}): WebpEn
         if (typeof Worker === 'undefined') throw new Error('WebP Worker encoding is not supported');
         const base = typeof document !== 'undefined' ? document.baseURI : typeof location !== 'undefined' ? location.href : import.meta.url;
         const wasm = wasmUrl === undefined ? new URL('./webp-codec.wasm', import.meta.url) : new URL(wasmUrl, base);
+        // Asset emitters can replace static new URL with a relative-URL shim. The wire URL
+        // must still be absolute; normalize dynamically on acquisition, never during SSR.
+        const absoluteWasmUrl = new URL(wasm.href, base).href;
         const url = workerUrl === undefined ? new URL('./webp-worker-runtime.js', import.meta.url) : new URL(workerUrl, base);
         let worker: Worker | undefined, nextId = 0, busy = false, finishing = false, failure: { reason: unknown } | undefined;
         type Reply = { bytes?: Uint8Array };
@@ -84,7 +87,7 @@ export function createWebpWorkerEncoder(options: WebpWorkerOptions = {}): WebpEn
             context.signal.addEventListener('abort', onAbort, { once: true });
             if (context.signal.aborted) throw reason();
         } catch (error) { close(error); throw failed(); }
-        const initialized = send('init', { plays, limits, codec, wasmUrl: wasm.href }); void initialized.catch(() => {});
+        const initialized = send('init', { plays, limits, codec, wasmUrl: absoluteWasmUrl }); void initialized.catch(() => {});
         async function operation<T>(finish: boolean, work: () => Promise<T>): Promise<T> {
             if (!worker || failure) throw failure?.reason;
             if (busy || finishing) throw new Error('WebP Worker operation already pending or finished');

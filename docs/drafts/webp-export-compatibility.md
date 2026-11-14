@@ -7,7 +7,8 @@ Companion to the [controller/Worker design](webp-export.md) and
 records 28 fake-encoder test groups. The [Worker integration](webp-worker-verification.md)
 adds 17 protocol/native groups, six real-integration groups and 20 independent full-file decodes.
 Authorized Chromium/Firefox checks are saved in the [browser observations](webp-browser-results.json).
-**Installed public WebP/Next gates remain open; an unreproduced Firefox failure is recorded.**
+The [public-entry report](webp-public-verification.md) now records installed types/assets and
+Next.js/browser checks. An earlier unreproduced Firefox failure remains recorded separately.
 The [backend proof](webp-libwebp-backend.md) and its
 [dated observations](webp-libwebp-backend-results.json) remain evidence for their explicit subset.
 Do not relabel the 17 backend fixtures or the baseline's successful CI as new controller tests.
@@ -22,8 +23,8 @@ Do not relabel the 17 backend fixtures or the baseline's successful CI as new co
 | W6: terminal races | Pre-abort, factory/readback/progress reentrancy, init/add/finish/output-validation abort/dispose, local reason identity, cleanup errors, late settlements and exactly-once owned disposal | Fake/Node cases plus real browser before-init/fetch/capture-yield/finalizing/native-hook cancellation and fresh retries checked |
 | W7: Worker protocol | New format/version/ABI/profile handshake; init/frame/finish ordering and timers; duplicate/stale/malformed messages; messageerror/error/postMessage/timeout; no legacy fallback or retry | Tagged protocol checked with fakes, real Node and browser runtime integration; real browser incompatible-profile acknowledgement rejected |
 | W8: resources | Retain handles while checking snapshots/canvas/error closures, timers/listeners/pending maps/native allocations; successful/cancelled/failed retries; observe real Worker/thread close and final empty inventory | GC/fault/native-repeat probes, real Node exits and actual browser target closure/zero handler inventories checked. Native-probe retries free tracked allocations; RSS remains unclaimed |
-| W9: deployment and packaging | Node/SSR import safety, no calling-thread codec import, matching JS/WASM/ABI/profile and notices, default/explicit URLs, CORS/CSP/load failures, installed consumer/types and Next bundling | Private assets/notices, default/separate browser URLs, bad assets/profile, CORS and Worker/connect CSP checked. Installed public WebP/Next remain open; early generic Firefox failure needs diagnosis if it recurs |
-| W10: existing formats | Existing entry keys/declarations/defaults unchanged; GIF/APNG/video/recording tests, package consumers, Worker protocols and independent outputs unchanged | Local build, 215 Node tests and packed Node consumer passed; public sources/exports unchanged. New local WebP browser evidence recorded separately; new CI not claimed |
+| W9: deployment and packaging | Node/SSR import safety, no calling-thread codec import, matching JS/WASM/ABI/profile and notices, default/explicit URLs, CORS/CSP/load failures, installed consumer/types and Next bundling | Private and public assets/notices/types checked. Installed public tarball and Next16.3 automatic/package/copied Worker+WASM modes pass in both browsers. Standalone loader and absolute URL fixes have regressions; early Firefox observation retained |
+| W10: existing formats | Existing entry keys/declarations/defaults unchanged; GIF/APNG/video/recording tests, package consumers, Worker protocols and independent outputs unchanged | Public WebP adds four isolated entry keys; existing format entry values unchanged. Build, 217 Node tests and packed consumer pass; local public WebP/Next browser evidence separate, no new CI claimed |
 
 ## Controlled controller tests
 
@@ -124,6 +125,7 @@ debugging, with the concrete reason built-in verification is insufficient. This 
 Playwright/CDP or extension debugger attachment; a prior task's authorization is not sufficient.
 
 Private controller/fake, Node Worker/backend/protocol and the local browser slice are checked within
-their reported limits. Preserve the Firefox reliability observation; verify installed public WebP
-assets/types/Next and public entries if approved. This request does not authorize a version bump, release,
-commit, push or the next public-API slice.
+their reported limits. The separately authorized public-entry slice has checked installed WebP
+assets/types/Next. Preserve the earlier Firefox reliability observation; CI wiring/release need
+separate authorization. This implementation request does not authorize a version bump, release,
+commit or push.

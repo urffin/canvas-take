@@ -348,12 +348,20 @@ test('private WebP empty finish fails once and keeps its reason after disposal',
     assert.equal(a.stats.disposed, 1); exporter.dispose(); await assert.rejects(exporter.finish(), e => e === first);
 });
 
-test('private WebP has no codec/Worker dependency or new package exports', async () => {
+test('WebP public controller/Worker entries are codec-free and internal paths stay unexported', async () => {
     const built = await build({ entryPoints: ['src/internal/webp-controller.ts'], bundle: true, format: 'esm', platform: 'browser', write: false, metafile: true });
     assert.deepEqual(Object.keys(built.metafile.inputs).sort(), ['src/internal/webp-controller.ts', 'src/internal/webp-envelope.ts']);
     const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
-    assert.ok(!Object.keys(pkg.exports).some(name => name.includes('webp')));
-    for (const path of ['/webp', '/webp/worker', '/internal/webp-controller.js']) await assert.rejects(import('@grundyjs/canvas-take' + path), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
+    assert.deepEqual(Object.keys(pkg.exports).filter(name => name.includes('webp')), ['./webp','./webp/worker','./webp/worker-runtime','./webp/codec.wasm']);
+    const controller = await import('@grundyjs/canvas-take/webp'), worker = await import('@grundyjs/canvas-take/webp/worker');
+    assert.deepEqual(Object.keys(controller), ['createWebpExporter']); assert.deepEqual(Object.keys(worker), ['createWebpWorkerEncoder']);
+    assert.ok(import.meta.resolve('@grundyjs/canvas-take/webp/worker-runtime').endsWith('/webp-worker-runtime.js'));
+    assert.ok(import.meta.resolve('@grundyjs/canvas-take/webp/codec.wasm').endsWith('/webp-codec.wasm'));
+    for (const path of ['/internal/webp-controller.js','/internal/webp-worker.js']) await assert.rejects(import('@grundyjs/canvas-take' + path), { code: 'ERR_PACKAGE_PATH_NOT_EXPORTED' });
+    for (const entry of ['src/webp.ts','src/webp-worker.ts']) {
+        const publicBuild = await build({entryPoints:[entry],bundle:true,write:false,metafile:true,format:'esm',platform:'browser'});
+        assert.ok(Object.keys(publicBuild.metafile.inputs).every(name => !/webp-native|webp-codec|worker-runtime/.test(name)));
+    }
 });
 
 test('private WebP internal types match the draft contract', () => {

@@ -26,7 +26,9 @@ try {
     assert.ok(packed.files.some(file => file.path === 'docs/video-recording.md'), 'Missing video verification documentation');
     for (const file of ['dist/video.js', 'dist/video.d.ts', 'dist/video-webcodecs.js', 'dist/video-webcodecs.d.ts', 'dist/video-mp4.js', 'dist/video-mp4.d.ts', 'dist/video-mp4.js.map', 'dist/mediabunny-LICENSE.txt', 'docs/offline-video-api.md', 'docs/offline-video-adapters.md']) assert.ok(packed.files.some(entry => entry.path === file), 'Missing offline video package file: ' + file);
     assert.equal(installed.version, pkg.version);
-    assert.ok(!Object.keys(installed.exports).some(name => name.includes('webp')), 'Private WebP leaked into exports');
+    assert.equal(installed.exports['./webp'].import, './dist/webp.js');
+    for (const file of ['webp.js','webp.d.ts','webp-worker.js','webp-worker.d.ts','webp-worker-runtime.js','webp-worker-runtime.js.map','webp-codec.js','webp-codec.wasm'])
+        assert.ok(packed.files.some(entry => entry.path === 'dist/' + file), 'Missing public WebP file: ' + file);
     const webpManifest = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/dist/internal/webp-notices/manifest.json'), 'utf8'));
     for (const file of webpManifest.files) {
         const path = file.file.startsWith('webp-codec.') ? file.file : 'webp-notices/' + file.file;
@@ -48,10 +50,22 @@ try {
     for (const file of ['dist/video-aac.js','dist/video-aac.d.ts','dist/video-aac-worker.js','dist/video-aac-worker.js.map','dist/aac-PROVENANCE.md','dist/aac-licenses/MPL-2.0.txt','dist/aac-licenses/COPYING.LGPLv2.1','dist/aac-licenses/bridge.c','docs/offline-aac.md']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing AAC file: '+file);
     await writeFile(join(workspace, 'consumer.ts'), `
 import { createApngExporter, type ApngExportOptions, type ApngExporter } from '@grundyjs/canvas-take/apng';
-for (const path of ['/webp', '/webp/worker', '/internal/webp-worker.js']) {
+for (const path of ['/internal/webp-controller.js', '/internal/webp-worker.js']) {
     try { await import('@grundyjs/canvas-take' + path); throw new Error('Private WebP unexpectedly exported'); }
     catch (error) { if ((error as {code?:string}).code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED') throw error; }
 }
+import { createWebpExporter, type WebpEncoderFactory, type WebpExportOptions, type WebpExporter } from '@grundyjs/canvas-take/webp';
+import { createWebpWorkerEncoder, type WebpWorkerOptions } from '@grundyjs/canvas-take/webp/worker';
+const webpWorker:WebpWorkerOptions = {lossless:true,quality:100,method:4,timeoutMs:30000,wasmUrl:new URL('./codec.wasm',import.meta.url)};
+const webpOptions:WebpExportOptions = {encoder:createWebpWorkerEncoder(webpWorker),plays:1,maxInputBytes:64};
+const createWebp:()=>WebpExporter = () => createWebpExporter(webpOptions); void createWebp;
+if (!import.meta.resolve('@grundyjs/canvas-take/webp/worker-runtime').endsWith('/webp-worker-runtime.js')) throw Error('Missing WebP runtime');
+if (!import.meta.resolve('@grundyjs/canvas-take/webp/codec.wasm').endsWith('/webp-codec.wasm')) throw Error('Missing WebP WASM');
+try { createWebpExporter(webpOptions); throw Error('Unexpected browser Worker'); } catch(error) { if (!(error as Error & {cause?:Error}).cause?.message.includes('not supported')) throw error; }
+// @ts-expect-error encoder is required
+const invalidWebp:WebpExportOptions = {plays:1}; void invalidWebp;
+// @ts-expect-error method is a number
+const invalidWebpWorker:WebpWorkerOptions = {method:'fast'}; void invalidWebpWorker;
 import { createApngWorkerEncoder, type ApngWorkerOptions } from '@grundyjs/canvas-take/apng/worker';
 const apngWorkerOptions: ApngWorkerOptions = { timeoutMs:30000 };
 const apngOptions: ApngExportOptions = { encoder:createApngWorkerEncoder(apngWorkerOptions),plays:1,maxInputBytes:64 };

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add public animated WebP controller/Worker/runtime/WASM entries with a caller-selected encoder, transparent snapshots, exact file holds, progress, limits and cancellation.
+- Supply pinned libwebp assets/notices, a public example and API guide; verify installed consumers and Next.js integration. Version remains 0.7.0 until a separate release.
+
 ## 0.7.0 — 2026-11-12
 
 - Add public `/apng`, `/apng/worker` and `/apng/worker-runtime` entries with a caller-selected encoder, transparent owned RGBA snapshots, exact delays, limits, progress and cancellation-safe cleanup.

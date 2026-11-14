@@ -1,4 +1,4 @@
-/** Private WebP controller contracts. Not re-exported by any package entry. */
+/** WebP contracts shared by the public controller and supplied Worker adapter. */
 export interface WebpFrame {
     readonly width: number;
     readonly height: number;

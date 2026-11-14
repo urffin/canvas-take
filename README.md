@@ -306,6 +306,29 @@ input limit is not a peak-memory bound. Use AbortSignal for cancellation and awa
 Worker asset entry: `@grundyjs/canvas-take/apng/worker-runtime`. See [APNG API and deployment](docs/apng-export.md)
 for limits, progress, custom encoders, Worker URLs and viewer limitations, and the [example](examples/apng.html).
 
+## Animated WebP export (unreleased)
+
+Available in the current repository build; the published 0.7.0 package does not contain these entries yet.
+
+```js
+import { createWebpExporter } from '@grundyjs/canvas-take/webp';
+import { createWebpWorkerEncoder } from '@grundyjs/canvas-take/webp/worker';
+
+const exporter = createWebpExporter({ encoder: createWebpWorkerEncoder({ lossless: true }), plays: 3 });
+try {
+    await exporter.addFrame(canvas, 55);
+    // Draw the next complete image yourself, then await the next add.
+    await exporter.addFrame(canvas, 2000);
+    const blob = await exporter.finish(); // image/webp, extension .webp
+} finally { exporter.dispose(); }
+```
+
+Transparent snapshots, exact integer file holds, progress, configurable budgets and cancellation use
+a caller-selected encoder. The supplied libwebp adapter owns one module Worker per export. Its JS
+runtime is standalone, with a separate pinned WASM asset. See the [API/deployment guide](docs/webp-export.md),
+[public example](examples/webp.html) and [installed-package/Next verification](docs/drafts/webp-public-verification.md).
+The version remains 0.7.0 until a separate release.
+
 ## Browser and server use
 
 Recording requires a browser with `canvas.captureStream`, `MediaRecorder` and `MutationObserver`. Importing the module does not access these APIs; creating a recorder checks capture/encoder support. Node.js has no recording implementation. Codec support is detected at runtime, not inferred from the browser name.
@@ -329,7 +352,7 @@ The [APNG design](docs/drafts/apng-export.md), [backend spike](docs/drafts/apng-
 [Worker integration report](docs/drafts/apng-integration-verification.md) preserve the earlier implementation evidence.
 Current public imports and asset deployment are described in the [APNG guide](docs/apng-export.md).
 The [animated WebP research](docs/drafts/webp-backend-research.md) compares backend candidates and
-records real Worker/independent-decoder observations; it does not add WebP export to the package.
+records the earlier Worker/independent-decoder observations before public entry points were added.
 The subsequent [libwebp backend proof](docs/drafts/webp-libwebp-backend.md) records reproducible
 Windows WASM builds, exact animation checks, native cancellation and resource cleanup.
 The [WebP controller design](docs/drafts/webp-export.md) defines the proposed injected encoder,
@@ -337,7 +360,8 @@ Worker transport, progress, limits and buffer ownership. The [private controller
 checks injected test encoders, timelines, progress, cancellation and buffer ownership. The subsequent
 [private Worker integration](docs/drafts/webp-worker-verification.md) connects real libwebp/WASM and records
 protocol/resource checks and independent full-animation decoding, including Chromium/Firefox
-checks with real canvas and Worker lifecycle. Public WebP export remains future work.
+checks with real canvas and Worker lifecycle. Current repository public imports and deployment are
+covered by the [WebP guide](docs/webp-export.md); these additions are unreleased.
 
 Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC, WebM/Opus, GIF and APNG export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack; add `-- --apng-browser` for actual default/package/copied APNG Worker checks. `npm run test:apng:package` verifies public APNG types and actual Workers from an installed tarball. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 
@@ -346,6 +370,10 @@ Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an
 GIF performance comparisons: run `npm run benchmark:gif` (or add `-- --quick` for a short run). See [benchmark methodology and reports](docs/gif-benchmark.md) for the resolution/duration matrix, timing boundaries and limitations.
 
 For process memory, cancellation delivery/settlement and repeated-session cleanup, run `npm run benchmark:gif:lifecycle` (smoke: add `-- --quick`). See the separate [memory and cancellation report](docs/gif-memory-benchmark.md), including Worker/native-memory coverage, GC controls and measurement limits.
+
+`npm run test:webp:package` checks public WebP types, Node imports and installed assets/notices;
+add `-- --browser` for real Worker/example checks. `npm run test:next -- --webp-browser` checks
+default/package/copied WebP Worker and WASM URLs in a production Next.js build.
 
 Run `npm run benchmark:gif:preparation` for paired comparisons against the pre-chunking controller
 (`-- --tune` compares schedulers/budgets; `-- --quick` is a smoke run). See the

@@ -1,4 +1,4 @@
-/** DESIGN ONLY, 2026-11-13. No implementation or package export is declared available. */
+/** Historical design contract, 2026-11-13. Current public entry names are in docs/webp-export.md. */
 export interface WebpFrame {
     readonly width: number;
     readonly height: number;

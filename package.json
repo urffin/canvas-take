@@ -1,7 +1,7 @@
 {
   "name": "@grundyjs/canvas-take",
   "version": "0.7.0",
-  "description": "Record canvas video with audio and export offline H.264/AAC MP4, VP8/Opus WebM, GIF or APNG with pluggable encoders, Worker support and explicit resource cleanup",
+  "description": "Record canvas video with audio and export offline H.264/AAC MP4, VP8/Opus WebM, GIF, APNG or animated WebP with pluggable encoders, Worker support and explicit resource cleanup",
   "type": "module",
   "files": [
     "dist",
@@ -20,9 +20,23 @@
     "docs/offline-aac.md",
     "docs/offline-webm.md",
     "docs/apng-export.md",
+    "docs/webp-export.md",
+    "examples/webp.html",
     "docs/drafts"
   ],
   "exports": {
+    "./webp": {
+      "types": "./dist/webp.d.ts",
+      "import": "./dist/webp.js",
+      "default": "./dist/webp.js"
+    },
+    "./webp/worker": {
+      "types": "./dist/webp-worker.d.ts",
+      "import": "./dist/webp-worker.js",
+      "default": "./dist/webp-worker.js"
+    },
+    "./webp/worker-runtime": "./dist/webp-worker-runtime.js",
+    "./webp/codec.wasm": "./dist/webp-codec.wasm",
     "./apng": {
       "types": "./dist/apng.d.ts",
       "import": "./dist/apng.js",
@@ -94,6 +108,7 @@
     "prepublishOnly": "npm test",
     "test:package": "node scripts/test-package.mjs",
     "test:apng:package": "node scripts/test-apng-package.mjs",
+    "test:webp:package": "node scripts/test-webp-package.mjs",
     "test:release-video": "node scripts/test-release-video.mjs",
     "test:next": "node scripts/test-next.mjs",
     "test:browser": "npm run build && playwright test",
@@ -125,6 +140,8 @@
     "mediarecorder",
     "gif",
     "apng",
+    "webp",
+    "animated-webp",
     "audio",
     "web-worker",
     "typescript",

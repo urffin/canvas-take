@@ -1,16 +1,15 @@
 # WebP controller and Worker adapter: proposed contract
 
-Status: **private controller and libwebp Worker integration implemented**, 2026-11-13, after
+Status: **public repository entries implemented, unreleased**, 2026-11-13, after
 `f0bebc1cddcc94575d37f9797ed8d9abb9af6631`. See the [controller verification](webp-controller-verification.md)
 and [Worker integration report](webp-worker-verification.md).
 The [libwebp backend proof](webp-libwebp-backend.md) establishes limited codec feasibility;
 it does not implement this controller, adapter, protocol or asset deployment. The
 [draft declarations](webp-export-api.d.ts), [typechecked sketch](webp-export-example.ts) and
 [acceptance gates](webp-export-compatibility.md) define the implementation boundary. Controller
-contracts, supplied adapter, transport and tagged assets now have private implementations. Local
-Chromium/Firefox checks are recorded in the report; installed public WebP/Next gates remain open.
-No WebP imports are available through the package
-exports in version 0.7.0.
+contracts, supplied adapter, transport and tagged assets now have public repository entry points.
+The [public API guide](../webp-export.md) and [installed-package/Next report](webp-public-verification.md)
+describe current entries and verification. Published 0.7.0 does not include these additions yet.
 
 ## Responsibilities and selected first implementation
 
@@ -305,6 +304,6 @@ The subsequent [private controller implementation](webp-controller-verification.
 encoders/canvas fixtures and preserves this draft contract. The subsequent [Worker integration](webp-worker-verification.md)
 checks real Node Workers, tagged assets and independently decoded complete animations. Subsequent
 authorized Chromium/Firefox checks cover real canvas, Workers, native decoding, cancellation and
-deployment faults, with a recorded unreproduced Firefox observation. Public entries/installed WebP
-assets/Next remain separate slices. No version,
-production dependency, release or publication change is part of the private implementation.
+deployment faults, with a recorded unreproduced Firefox observation. The later
+[public-entry slice](webp-public-verification.md) checks installed types/assets and real Next.js.
+No version, production dependency, release or publication change is part of these implementations.

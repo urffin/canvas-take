@@ -1,0 +1,325 @@
+{
+  "date": "2026-11-13T09:02:37.663Z",
+  "base": "f0c629dbbe8a3535caa50c77cb3dc3cea122538d",
+  "version": "0.7.0",
+  "status": "unreleased repository entries; no publication",
+  "newExports": {
+    "./webp": {
+      "types": "./dist/webp.d.ts",
+      "import": "./dist/webp.js",
+      "default": "./dist/webp.js"
+    },
+    "./webp/worker": {
+      "types": "./dist/webp-worker.d.ts",
+      "import": "./dist/webp-worker.js",
+      "default": "./dist/webp-worker.js"
+    },
+    "./webp/worker-runtime": "./dist/webp-worker-runtime.js",
+    "./webp/codec.wasm": "./dist/webp-codec.wasm"
+  },
+  "existingExportsUnchanged": true,
+  "rootRuntimeDependenciesUnchanged": true,
+  "nodeTests": {
+    "tests": 217,
+    "passed": 217,
+    "failed": 0
+  },
+  "types": "strict/exactOptional source/draft and installed public consumer passed; expected type errors passed",
+  "packedConsumer": "passed",
+  "assets": [
+    {
+      "file": "webp.js",
+      "bytes": 14100,
+      "sha256": "8a769228d2757100730e35f86561a616936638328151da75476e0928ab94a50a"
+    },
+    {
+      "file": "webp-worker.js",
+      "bytes": 8079,
+      "sha256": "64a07f515976160adbe67611c7f165413f399534a20cafde03a95417f4d65bfd"
+    },
+    {
+      "file": "webp-worker-runtime.js",
+      "bytes": 20762,
+      "sha256": "d0a3c1405a3a0f7b55dcbb33236ec971536a693dbbac787e01432b3decb3d127"
+    },
+    {
+      "file": "webp-codec.wasm",
+      "bytes": 279050,
+      "sha256": "5a115a11fc6451b043d19a74833cd931e05e119e70120a8a961e8ab7f7c09a98"
+    }
+  ],
+  "installedPackage": {
+    "browsers": [
+      {
+        "name": "chromium",
+        "version": "156.0.8078.4",
+        "cases": [
+          {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          },
+          {
+            "encodedFrames": 1,
+            "intervalComparisons": 1,
+            "bytes": 92,
+            "durationMs": 2000,
+            "plays": 1
+          },
+          {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 22,
+            "plays": 0
+          },
+          {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          }
+        ],
+        "cancellation": true,
+        "example": {
+          "width": 320,
+          "height": 180,
+          "durationMs": 2265,
+          "plays": 3
+        },
+        "workers": {
+          "opened": 9,
+          "closed": 9
+        },
+        "liveWorkers": 0
+      },
+      {
+        "name": "firefox",
+        "version": "157.0",
+        "cases": [
+          {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          },
+          {
+            "encodedFrames": 1,
+            "intervalComparisons": 1,
+            "bytes": 92,
+            "durationMs": 2000,
+            "plays": 1
+          },
+          {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 22,
+            "plays": 0
+          },
+          {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          }
+        ],
+        "cancellation": true,
+        "example": {
+          "width": 320,
+          "height": 180,
+          "durationMs": 2265,
+          "plays": 3
+        },
+        "workers": {
+          "opened": 9,
+          "closed": 9
+        },
+        "liveWorkers": 0
+      }
+    ]
+  },
+  "next": {
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "productionBuild": "passed; static /webp SSR pre-render",
+    "browsers": [
+      {
+        "name": "chromium",
+        "version": "156.0.8078.4",
+        "cases": [
+          {
+            "mode": "bundled",
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          },
+          {
+            "mode": "package",
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          },
+          {
+            "mode": "copied",
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          }
+        ],
+        "wasm": [
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/canvastake-webp/webp-codec.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/canvastake-webp/webp-codec.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          }
+        ],
+        "cancellation": true,
+        "example": true,
+        "workers": {
+          "opened": 8,
+          "closed": 8
+        },
+        "liveWorkers": 0
+      },
+      {
+        "name": "firefox",
+        "version": "157.0",
+        "cases": [
+          {
+            "mode": "bundled",
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          },
+          {
+            "mode": "package",
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          },
+          {
+            "mode": "copied",
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2125,
+            "plays": 3
+          }
+        ],
+        "wasm": [
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/canvastake-webp/webp-codec.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/_next/static/media/webp-codec.3exfriebsgnji.wasm",
+            "status": 200,
+            "type": "application/wasm"
+          },
+          {
+            "url": "/canvastake-webp/webp-codec.wasm",
+            "status": 304
+          }
+        ],
+        "cancellation": true,
+        "example": true,
+        "workers": {
+          "opened": 8,
+          "closed": 8
+        },
+        "liveWorkers": 0
+      }
+    ]
+  },
+  "regressions": [
+    "Explicit Worker startup survives sideEffects:false",
+    "Standalone public browser-only loader avoids missing adjacent JS after asset emission",
+    "Turbopack relative-URL shim is normalized to absolute WASM URL on acquisition"
+  ],
+  "observedWorkerTargets": 34,
+  "maxAgentPages": 1,
+  "permission": "Explicit user authorization for installed package and Next.js Playwright Chromium/Firefox after built-in browser startup failure",
+  "limitations": [
+    "Published 0.7.0 does not include the new entries; version not bumped",
+    "Earlier generic Firefox failure remains a dated private-test observation, not a claimed fix",
+    "No new CI/commit/push/tag/release/publication",
+    "Native/FFmpeg viewer and alpha conversion limits remain in linked reports"
+  ]
+}

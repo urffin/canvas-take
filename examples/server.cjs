@@ -20,6 +20,6 @@ http.createServer((req, res) => {
     if (!allowed || req.method !== 'GET') { res.writeHead(403).end(); return; }
     fs.readFile(file, (error, data) => {
         if (error) { res.writeHead(404).end(); return; }
-        res.setHeader('Content-Type', file.endsWith('.html') ? 'text/html' : /\.m?js$/.test(file) ? 'text/javascript' : 'text/plain'); res.end(data);
+        res.setHeader('Content-Type', file.endsWith('.html') ? 'text/html' : file.endsWith('.wasm') ? 'application/wasm' : /\.m?js$/.test(file) ? 'text/javascript' : 'text/plain'); res.end(data);
     });
 }).listen(port, '127.0.0.1', () => console.log(`http://127.0.0.1:${port}/canvas-take/examples/index.html`));
