@@ -149,3 +149,31 @@ bounds/padding, dimensions, animation structure, plays and total duration. It do
 pixels or prove individual merged presentation intervals; encoder compatibility requires independent
 decoding. The supplied libwebp build, notices, native oracle, viewer differences and one earlier
 unreproduced Firefox failure remain documented in the [Worker report](drafts/webp-worker-verification.md).
+
+## Browser checks in CI
+
+After `npm ci` and `npx playwright install --with-deps chromium firefox`, run:
+
+```sh
+npm run test:webp:package:browser
+npm run test:next:webp
+```
+
+The first command packs and installs a fresh tarball in an isolated consumer, checks strict
+types/imports/assets/notices, then uses its actual Worker/WASM and packaged HTML example. The
+second packs and installs the library in a separate Next.js consumer, builds production output,
+starts `next start` and checks bundled, package-entry and copied Worker/WASM URLs.
+The original `test:webp:package -- --browser` and `test:next -- --webp-browser` flags still work.
+
+Both commands run Chromium and Firefox. They abort after the first accepted frame, check the
+original rejection reason and `collecting → aborted` progress, and wait for the cancelled Worker
+to close before retrying with a fresh Worker. The retry has different holds and plays: 70/90/2100 ms,
+one play, 2260 ms total. FFmpeg payload decoding plus native browser decoding verify the new output,
+including transparency, timing and plays. UI cancellation hides the stale download; UI export and
+preview are also checked. Worker inventories must be empty after each completed session.
+
+CI uploads `browser-results` (installed consumer) and `next-webp-results` (Next.js), retained for
+seven days. They contain `results.json`, WebP files, screenshots and console logs; browser failures
+also record phase, requests, page errors and Worker counts. Next.js adds `server.log`. Setup/build
+failures remain in the command log even if no browser starts. See the [CI report](drafts/webp-ci-verification.md)
+for verification evidence and decoder limitations. These checks do not change the public API.

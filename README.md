@@ -371,9 +371,12 @@ GIF performance comparisons: run `npm run benchmark:gif` (or add `-- --quick` fo
 
 For process memory, cancellation delivery/settlement and repeated-session cleanup, run `npm run benchmark:gif:lifecycle` (smoke: add `-- --quick`). See the separate [memory and cancellation report](docs/gif-memory-benchmark.md), including Worker/native-memory coverage, GC controls and measurement limits.
 
-`npm run test:webp:package` checks public WebP types, Node imports and installed assets/notices;
-add `-- --browser` for real Worker/example checks. `npm run test:next -- --webp-browser` checks
-default/package/copied WebP Worker and WASM URLs in a production Next.js build.
+`npm run test:webp:package` checks public WebP types, Node imports and installed assets/notices.
+`npm run test:webp:package:browser` also checks real Workers and the packaged example.
+`npm run test:next:webp` checks default/package/copied WebP Worker and WASM URLs in a production
+Next.js build. CI runs both browser commands in Chromium and Firefox, verifies cancellation,
+Worker closure and independently decoded retry output, and uploads results and failure diagnostics.
+See [WebP CI verification](docs/drafts/webp-ci-verification.md).
 
 Run `npm run benchmark:gif:preparation` for paired comparisons against the pre-chunking controller
 (`-- --tune` compares schedulers/budgets; `-- --quick` is a smoke run). See the

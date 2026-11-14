@@ -38,7 +38,7 @@ jobs:
         run: npm run test:package
 
   browser:
-    name: Browser video, GIF and APNG (Chromium / Firefox)
+    name: Browser video, GIF, APNG and WebP (Chromium / Firefox)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -61,6 +61,9 @@ jobs:
           pactl info
       - name: Verify packed public APNG controller and Worker
         run: npm run test:apng:package
+      - name: Verify installed public WebP, cancellation and decoded retry
+        shell: bash
+        run: npm run test:webp:package:browser 2>&1 | tee webp-package-ci.log
       - run: npm run test:browser
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -69,10 +72,12 @@ jobs:
           path: |
             playwright-report/
             test-results/
+            benchmark-results/webp-public-package/
+            webp-package-ci.log
           retention-days: 7
 
   next-integration:
-    name: Next.js packed Worker consumer
+    name: Next.js packed WebP Worker consumer (Chromium / Firefox)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -84,4 +89,15 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run test:next
+      - run: npx playwright install --with-deps chromium firefox
+      - name: Verify production Next.js WebP, cancellation and decoded retry
+        shell: bash
+        run: npm run test:next:webp 2>&1 | tee webp-next-ci.log
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: next-webp-results
+          path: |
+            benchmark-results/webp-public-next/
+            webp-next-ci.log
+          retention-days: 7

@@ -1,0 +1,131 @@
+{
+  "date": "2026-11-14T00:54:55.515Z",
+  "base": "2906b6d5e726d1b2fddf73e56169a9031d8e0e9c",
+  "version": "0.7.0",
+  "status": "local verification passed; workflow not pushed",
+  "suites": {
+    "package": {
+      "completedAt": "2026-11-14T00:51:18.751Z",
+      "browsers": [
+        {
+          "name": "chromium",
+          "version": "156.0.8078.4",
+          "cases": 4,
+          "cancellation": {
+            "producedResult": false,
+            "sameReason": true,
+            "phases": [
+              "collecting",
+              "aborted"
+            ]
+          },
+          "retry": {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2260,
+            "plays": 1
+          },
+          "workers": {
+            "opened": 9,
+            "closed": 9
+          },
+          "liveWorkers": 0
+        },
+        {
+          "name": "firefox",
+          "version": "157.0",
+          "cases": 4,
+          "cancellation": {
+            "producedResult": false,
+            "sameReason": true,
+            "phases": [
+              "collecting",
+              "aborted"
+            ]
+          },
+          "retry": {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2260,
+            "plays": 1
+          },
+          "workers": {
+            "opened": 9,
+            "closed": 9
+          },
+          "liveWorkers": 0
+        }
+      ]
+    },
+    "next": {
+      "completedAt": "2026-11-14T00:52:07.592Z",
+      "browsers": [
+        {
+          "name": "chromium",
+          "version": "156.0.8078.4",
+          "cases": 3,
+          "cancellation": {
+            "producedResult": false,
+            "sameReason": true,
+            "phases": [
+              "collecting",
+              "aborted"
+            ]
+          },
+          "retry": {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2260,
+            "plays": 1
+          },
+          "workers": {
+            "opened": 8,
+            "closed": 8
+          },
+          "liveWorkers": 0
+        },
+        {
+          "name": "firefox",
+          "version": "157.0",
+          "cases": 3,
+          "cancellation": {
+            "producedResult": false,
+            "sameReason": true,
+            "phases": [
+              "collecting",
+              "aborted"
+            ]
+          },
+          "retry": {
+            "encodedFrames": 3,
+            "intervalComparisons": 3,
+            "bytes": 186,
+            "durationMs": 2260,
+            "plays": 1
+          },
+          "workers": {
+            "opened": 8,
+            "closed": 8
+          },
+          "liveWorkers": 0
+        }
+      ]
+    }
+  },
+  "closedWorkers": 34,
+  "workflow": {
+    "yaml": "parsed",
+    "legacyNodeMatrix": "unchanged",
+    "pipefailExitCode": 23
+  },
+  "intentionalFailureProbe": "failed result + phase/network diagnostics + screenshot confirmed in isolated copy",
+  "documentationLinksChecked": 88,
+  "limits": [
+    "Next browser rerun reused the freshly installed tarball and production build after preview synchronization changed; fresh build/typecheck had passed earlier in this task.",
+    "Earlier local Firefox download/navigation timeouts are preserved in the report; no claim about their root cause or all-platform stability.",
+    "No version, API, runtime, dependency, commit, push or release changes."
+  ]
+}
