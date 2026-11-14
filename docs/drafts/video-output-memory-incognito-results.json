@@ -1,0 +1,775 @@
+{
+  "date": "2026-11-14T11:10:11.982Z",
+  "base": "1859e9a83f8a3f01a94ec55331efeabcf54684b7",
+  "version": "0.8.1",
+  "status": "completed incognito memory-filesystem control; not disk-output memory evidence",
+  "environment": {
+    "node": "v22.17.0",
+    "platform": "win32",
+    "browser": "156.0.8078.4",
+    "profileMode": "incognito-memory-filesystem"
+  },
+  "configuration": {
+    "width": 640,
+    "height": 360,
+    "fps": 24,
+    "requestedBitrate": 2000000,
+    "longVideoPendingInputs": 4,
+    "audioPendingInputs": 32,
+    "maxPendingBytes": 16777216,
+    "maxOutputBytes": 536870912,
+    "scene": "8 deterministic seeded noise textures + frame marker",
+    "freshBrowserPerMemoryCase": true,
+    "alternatingTargetOrder": true
+  },
+  "sourceHashes": {
+    "video.ts": "2bd9964336242b17fbb3236a3e69a21dd54fc225fafecb598cd008b3fa794fbc",
+    "video-mp4.ts": "a565d6edbfe2088a46805c00c6731609b9511fb76a0b727a5bcd7b982751ebab",
+    "video-webm.ts": "b4a2a76e551a260940bc4b169579802089561e169a2bcf202b3beea823aecf3e",
+    "paged-bytes.ts": "a127f30cebdc91c02bb52666c27810b546ea0779c3475778b65a0b8d3526b362"
+  },
+  "harnessHashes": {
+    "scripts/benchmark-video-output.mjs": "1cc4f1773fbb2fbfcec783bbbdce564ab3a2d568b68e08fa94da04a8fceadab3",
+    "scripts/video-output-study/build.mjs": "3a178a8877066902a8c26c193a4f6387eaacb5976ad2f59b8348d0f9779e618e",
+    "scripts/video-output-study/browser.mjs": "c5de406c85953b662ebc2f89b34fc09d790b2e26420f24346c01df2e957238f0",
+    "scripts/video-output-study/receiver.mjs": "27cfe588ff6b2edacfcdc795d5aaec48a8dc1d8a0bde36612696b70c71b3aada",
+    "scripts/video-output-study/file-destination.mjs": "69e9144c40129f03ffcd14568366b184d750d9f28652fc9107b5643cc7ad5771",
+    "scripts/video-output-study/oracle.mjs": "5307c05ddea6d48af05cc6ca5b582f079755f6aaedeed65e5a81ff2f568e025a"
+  },
+  "groups": [
+    {
+      "kind": "mp4",
+      "seconds": 60,
+      "frames": 1440,
+      "durationUs": 60250000,
+      "modes": {
+        "blob": {
+          "repeats": 3,
+          "medians": {
+            "bytes": 106253883,
+            "ownedPeak": 106299392,
+            "sampledPeakPrivate": 392441856,
+            "sampledPeakGrowth": 275193856,
+            "beforeFinishGrowth": 145092608,
+            "retainedAfterGcGrowth": 120553472,
+            "releasedGrowth": 21667840,
+            "encodeMs": 22703.493000000017,
+            "peakPageBacking": 135077435
+          },
+          "ranges": {
+            "bytes": [
+              106253883,
+              106253883
+            ],
+            "ownedPeak": [
+              106299392,
+              106299392
+            ],
+            "sampledPeakPrivate": [
+              254091264,
+              447000576
+            ],
+            "sampledPeakGrowth": [
+              138362880,
+              325935104
+            ],
+            "beforeFinishGrowth": [
+              138362880,
+              194240512
+            ],
+            "retainedAfterGcGrowth": [
+              119644160,
+              121585664
+            ],
+            "releasedGrowth": [
+              19054592,
+              22257664
+            ],
+            "encodeMs": [
+              21574.946900000097,
+              26787.979199999998
+            ],
+            "peakPageBacking": [
+              126097710,
+              177827382
+            ]
+          }
+        },
+        "file": {
+          "repeats": 3,
+          "medians": {
+            "bytes": 106253883,
+            "ownedPeak": 1113597,
+            "sampledPeakPrivate": 315146240,
+            "sampledPeakGrowth": 200310784,
+            "beforeFinishGrowth": 200310784,
+            "retainedAfterGcGrowth": 149319680,
+            "releasedGrowth": 20574208,
+            "encodeMs": 24679.738699999987,
+            "peakPageBacking": 46441217
+          },
+          "ranges": {
+            "bytes": [
+              106253883,
+              106253883
+            ],
+            "ownedPeak": [
+              1113597,
+              1113597
+            ],
+            "sampledPeakPrivate": [
+              307884032,
+              317890560
+            ],
+            "sampledPeakGrowth": [
+              193564672,
+              202452992
+            ],
+            "beforeFinishGrowth": [
+              193564672,
+              202452992
+            ],
+            "retainedAfterGcGrowth": [
+              148103168,
+              149524480
+            ],
+            "releasedGrowth": [
+              18186240,
+              21311488
+            ],
+            "encodeMs": [
+              21464.192299999995,
+              25542.757999999994
+            ],
+            "peakPageBacking": [
+              42136226,
+              110597816
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "mp4",
+      "seconds": 180,
+      "frames": 4320,
+      "durationUs": 180250000,
+      "modes": {
+        "blob": {
+          "repeats": 3,
+          "medians": {
+            "bytes": 318354825,
+            "ownedPeak": 318373888,
+            "sampledPeakPrivate": 893812736,
+            "sampledPeakGrowth": 773804032,
+            "beforeFinishGrowth": 374689792,
+            "retainedAfterGcGrowth": 335249408,
+            "releasedGrowth": 20701184,
+            "encodeMs": 62676.78469999996,
+            "peakPageBacking": 360594504
+          },
+          "ranges": {
+            "bytes": [
+              318354825,
+              318354825
+            ],
+            "ownedPeak": [
+              318373888,
+              318373888
+            ],
+            "sampledPeakPrivate": [
+              885248000,
+              897658880
+            ],
+            "sampledPeakGrowth": [
+              769978368,
+              777240576
+            ],
+            "beforeFinishGrowth": [
+              369868800,
+              375144448
+            ],
+            "retainedAfterGcGrowth": [
+              333316096,
+              335257600
+            ],
+            "releasedGrowth": [
+              17620992,
+              22142976
+            ],
+            "encodeMs": [
+              62346.695600000094,
+              69541.9283
+            ],
+            "peakPageBacking": [
+              357658608,
+              363393201
+            ]
+          }
+        },
+        "file": {
+          "repeats": 3,
+          "medians": {
+            "bytes": 318354825,
+            "ownedPeak": 1113597,
+            "sampledPeakPrivate": 723652608,
+            "sampledPeakGrowth": 600444928,
+            "beforeFinishGrowth": 599220224,
+            "retainedAfterGcGrowth": 550141952,
+            "releasedGrowth": 13606912,
+            "encodeMs": 77055.45299999998,
+            "peakPageBacking": 66841357
+          },
+          "ranges": {
+            "bytes": [
+              318354825,
+              318354825
+            ],
+            "ownedPeak": [
+              1113597,
+              1113597
+            ],
+            "sampledPeakPrivate": [
+              687882240,
+              731811840
+            ],
+            "sampledPeakGrowth": [
+              567443456,
+              617070592
+            ],
+            "beforeFinishGrowth": [
+              565444608,
+              617070592
+            ],
+            "retainedAfterGcGrowth": [
+              546828288,
+              550277120
+            ],
+            "releasedGrowth": [
+              13070336,
+              13762560
+            ],
+            "encodeMs": [
+              67844.31270000001,
+              83100.5771
+            ],
+            "peakPageBacking": [
+              49873570,
+              76084662
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "webm",
+      "seconds": 60,
+      "frames": 1440,
+      "durationUs": 60250000,
+      "modes": {
+        "blob": {
+          "repeats": 3,
+          "medians": {
+            "bytes": 39027405,
+            "ownedPeak": 39059456,
+            "sampledPeakPrivate": 227299328,
+            "sampledPeakGrowth": 104767488,
+            "beforeFinishGrowth": 77565952,
+            "retainedAfterGcGrowth": 40640512,
+            "releasedGrowth": 19939328,
+            "encodeMs": 22359.338600000003,
+            "peakPageBacking": 98573795
+          },
+          "ranges": {
+            "bytes": [
+              39027405,
+              39027405
+            ],
+            "ownedPeak": [
+              39059456,
+              39059456
+            ],
+            "sampledPeakPrivate": [
+              219766784,
+              264974336
+            ],
+            "sampledPeakGrowth": [
+              96051200,
+              141828096
+            ],
+            "beforeFinishGrowth": [
+              56070144,
+              107679744
+            ],
+            "retainedAfterGcGrowth": [
+              38793216,
+              41975808
+            ],
+            "releasedGrowth": [
+              18489344,
+              21184512
+            ],
+            "encodeMs": [
+              22053.372800000012,
+              22769.170900000026
+            ],
+            "peakPageBacking": [
+              88957904,
+              112402228
+            ]
+          }
+        },
+        "file": {
+          "repeats": 3,
+          "medians": {
+            "bytes": 39027405,
+            "ownedPeak": 191939,
+            "sampledPeakPrivate": 243318784,
+            "sampledPeakGrowth": 120516608,
+            "beforeFinishGrowth": 118849536,
+            "retainedAfterGcGrowth": 72863744,
+            "releasedGrowth": 19107840,
+            "encodeMs": 23458.624799999874,
+            "peakPageBacking": 76244782
+          },
+          "ranges": {
+            "bytes": [
+              39027405,
+              39027405
+            ],
+            "ownedPeak": [
+              191939,
+              191939
+            ],
+            "sampledPeakPrivate": [
+              242495488,
+              287035392
+            ],
+            "sampledPeakGrowth": [
+              118849536,
+              156041216
+            ],
+            "beforeFinishGrowth": [
+              100950016,
+              156041216
+            ],
+            "retainedAfterGcGrowth": [
+              72642560,
+              73248768
+            ],
+            "releasedGrowth": [
+              17072128,
+              22867968
+            ],
+            "encodeMs": [
+              22516.04330000002,
+              24927.792799999996
+            ],
+            "peakPageBacking": [
+              76117967,
+              76244782
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "webm",
+      "seconds": 180,
+      "frames": 4320,
+      "durationUs": 180250000,
+      "modes": {
+        "blob": {
+          "repeats": 3,
+          "medians": {
+            "bytes": 116380667,
+            "ownedPeak": 116391936,
+            "sampledPeakPrivate": 456364032,
+            "sampledPeakGrowth": 327548928,
+            "beforeFinishGrowth": 182652928,
+            "retainedAfterGcGrowth": 119812096,
+            "releasedGrowth": 14278656,
+            "encodeMs": 64721.692700000014,
+            "peakPageBacking": 176002889
+          },
+          "ranges": {
+            "bytes": [
+              116380667,
+              116380667
+            ],
+            "ownedPeak": [
+              116391936,
+              116391936
+            ],
+            "sampledPeakPrivate": [
+              415596544,
+              457281536
+            ],
+            "sampledPeakGrowth": [
+              286662656,
+              328454144
+            ],
+            "beforeFinishGrowth": [
+              147578880,
+              183562240
+            ],
+            "retainedAfterGcGrowth": [
+              119160832,
+              121638912
+            ],
+            "releasedGrowth": [
+              14036992,
+              14520320
+            ],
+            "encodeMs": [
+              62760.19750000001,
+              73001.97619999998
+            ],
+            "peakPageBacking": [
+              144927631,
+              176002889
+            ]
+          }
+        },
+        "file": {
+          "repeats": 3,
+          "medians": {
+            "bytes": 116380667,
+            "ownedPeak": 191939,
+            "sampledPeakPrivate": 344305664,
+            "sampledPeakGrowth": 219705344,
+            "beforeFinishGrowth": 219705344,
+            "retainedAfterGcGrowth": 142782464,
+            "releasedGrowth": 16302080,
+            "encodeMs": 66715.10939999996,
+            "peakPageBacking": 74397775
+          },
+          "ranges": {
+            "bytes": [
+              116380667,
+              116380667
+            ],
+            "ownedPeak": [
+              191939,
+              191939
+            ],
+            "sampledPeakPrivate": [
+              319090688,
+              344322048
+            ],
+            "sampledPeakGrowth": [
+              194523136,
+              221290496
+            ],
+            "beforeFinishGrowth": [
+              194523136,
+              221290496
+            ],
+            "retainedAfterGcGrowth": [
+              139943936,
+              143081472
+            ],
+            "releasedGrowth": [
+              13475840,
+              28270592
+            ],
+            "encodeMs": [
+              66614.16780000005,
+              87117.92539999995
+            ],
+            "peakPageBacking": [
+              50483960,
+              76179108
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "kind": "mp4",
+      "seconds": 60,
+      "repeat": 0,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "e491994b5ab9c1236eb7a03875320b3951e7b3f81cf332671058c88d71f4b32a",
+      "fileSha256": "e491994b5ab9c1236eb7a03875320b3951e7b3f81cf332671058c88d71f4b32a"
+    },
+    {
+      "kind": "webm",
+      "seconds": 60,
+      "repeat": 0,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "82512ad3aa2d620e5288a9eb1625699718966f90b0ddcd14a6c50010d39bc854",
+      "fileSha256": "82512ad3aa2d620e5288a9eb1625699718966f90b0ddcd14a6c50010d39bc854"
+    },
+    {
+      "kind": "mp4",
+      "seconds": 180,
+      "repeat": 0,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "e88ac9d25fbd072dcc422293282fa8dd32a62f2a7168030ba4c7afcd72cd4f92",
+      "fileSha256": "e88ac9d25fbd072dcc422293282fa8dd32a62f2a7168030ba4c7afcd72cd4f92"
+    },
+    {
+      "kind": "webm",
+      "seconds": 180,
+      "repeat": 0,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "b2b7a2c572fdcb33728535683f7ed46f11035eb6abce1b8a27cf5f3677c3f29b",
+      "fileSha256": "b2b7a2c572fdcb33728535683f7ed46f11035eb6abce1b8a27cf5f3677c3f29b"
+    },
+    {
+      "kind": "mp4",
+      "seconds": 60,
+      "repeat": 1,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "e491994b5ab9c1236eb7a03875320b3951e7b3f81cf332671058c88d71f4b32a",
+      "fileSha256": "e491994b5ab9c1236eb7a03875320b3951e7b3f81cf332671058c88d71f4b32a"
+    },
+    {
+      "kind": "webm",
+      "seconds": 60,
+      "repeat": 1,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "82512ad3aa2d620e5288a9eb1625699718966f90b0ddcd14a6c50010d39bc854",
+      "fileSha256": "82512ad3aa2d620e5288a9eb1625699718966f90b0ddcd14a6c50010d39bc854"
+    },
+    {
+      "kind": "mp4",
+      "seconds": 180,
+      "repeat": 1,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "e88ac9d25fbd072dcc422293282fa8dd32a62f2a7168030ba4c7afcd72cd4f92",
+      "fileSha256": "e88ac9d25fbd072dcc422293282fa8dd32a62f2a7168030ba4c7afcd72cd4f92"
+    },
+    {
+      "kind": "webm",
+      "seconds": 180,
+      "repeat": 1,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "b2b7a2c572fdcb33728535683f7ed46f11035eb6abce1b8a27cf5f3677c3f29b",
+      "fileSha256": "b2b7a2c572fdcb33728535683f7ed46f11035eb6abce1b8a27cf5f3677c3f29b"
+    },
+    {
+      "kind": "mp4",
+      "seconds": 60,
+      "repeat": 2,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "e491994b5ab9c1236eb7a03875320b3951e7b3f81cf332671058c88d71f4b32a",
+      "fileSha256": "e491994b5ab9c1236eb7a03875320b3951e7b3f81cf332671058c88d71f4b32a"
+    },
+    {
+      "kind": "webm",
+      "seconds": 60,
+      "repeat": 2,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "82512ad3aa2d620e5288a9eb1625699718966f90b0ddcd14a6c50010d39bc854",
+      "fileSha256": "82512ad3aa2d620e5288a9eb1625699718966f90b0ddcd14a6c50010d39bc854"
+    },
+    {
+      "kind": "mp4",
+      "seconds": 180,
+      "repeat": 2,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "e88ac9d25fbd072dcc422293282fa8dd32a62f2a7168030ba4c7afcd72cd4f92",
+      "fileSha256": "e88ac9d25fbd072dcc422293282fa8dd32a62f2a7168030ba4c7afcd72cd4f92"
+    },
+    {
+      "kind": "webm",
+      "seconds": 180,
+      "repeat": 2,
+      "audio": false,
+      "byteEqual": true,
+      "blobSha256": "b2b7a2c572fdcb33728535683f7ed46f11035eb6abce1b8a27cf5f3677c3f29b",
+      "fileSha256": "b2b7a2c572fdcb33728535683f7ed46f11035eb6abce1b8a27cf5f3677c3f29b"
+    },
+    {
+      "kind": "mp4",
+      "seconds": 2,
+      "repeat": 0,
+      "audio": true,
+      "byteEqual": true,
+      "blobSha256": "0be87c27577d280b1481e9dd4f5453e6cde2613cc0474b8cb14dc110735038ca",
+      "fileSha256": "0be87c27577d280b1481e9dd4f5453e6cde2613cc0474b8cb14dc110735038ca"
+    },
+    {
+      "kind": "webm",
+      "seconds": 2,
+      "repeat": 0,
+      "audio": true,
+      "byteEqual": true,
+      "blobSha256": "5b422a2d8e2862cf2c4e0355a32a0b0f88d2b30b670be9fe59d1bb5b0aac8c75",
+      "fileSha256": "5b422a2d8e2862cf2c4e0355a32a0b0f88d2b30b670be9fe59d1bb5b0aac8c75"
+    }
+  ],
+  "controls": [
+    {
+      "kind": "mp4",
+      "failureStage": "cancel",
+      "partialFileRemoved": true,
+      "retryFrames": 12,
+      "retryDurationUs": 750000
+    },
+    {
+      "kind": "mp4",
+      "failureStage": "write",
+      "partialFileRemoved": true,
+      "retryFrames": 12,
+      "retryDurationUs": 750000
+    },
+    {
+      "kind": "mp4",
+      "failureStage": "commit",
+      "partialFileRemoved": true,
+      "retryFrames": 12,
+      "retryDurationUs": 750000
+    },
+    {
+      "kind": "webm",
+      "failureStage": "cancel",
+      "partialFileRemoved": true,
+      "retryFrames": 12,
+      "retryDurationUs": 750000
+    },
+    {
+      "kind": "webm",
+      "failureStage": "write",
+      "partialFileRemoved": true,
+      "retryFrames": 12,
+      "retryDurationUs": 750000
+    },
+    {
+      "kind": "webm",
+      "failureStage": "commit",
+      "partialFileRemoved": true,
+      "retryFrames": 12,
+      "retryDurationUs": 750000
+    }
+  ],
+  "opusProbes": [
+    {
+      "pendingInputs": 2,
+      "delayMs": 5,
+      "success": false,
+      "causes": [
+        "audio encoder failed",
+        "Opus maxPendingBytes/maxPendingInputs output budget exceeded"
+      ],
+      "partialFileRemoved": true
+    },
+    {
+      "pendingInputs": 4,
+      "delayMs": 5,
+      "success": false,
+      "causes": [
+        "audio encoder failed",
+        "Opus maxPendingBytes/maxPendingInputs output budget exceeded"
+      ],
+      "partialFileRemoved": true
+    },
+    {
+      "pendingInputs": 8,
+      "delayMs": 5,
+      "success": false,
+      "causes": [
+        "audio encoder failed",
+        "Opus maxPendingBytes/maxPendingInputs output budget exceeded"
+      ],
+      "partialFileRemoved": true
+    },
+    {
+      "pendingInputs": 16,
+      "delayMs": 5,
+      "success": true,
+      "decoded": {
+        "frames": 48,
+        "durationUs": 2250000,
+        "samples": 108000,
+        "firstDecodedHash": "af6f5028733270da5e545873e5590076",
+        "lastDecodedHash": "259ac422dabc0b1e378772f2e5785bab",
+        "timebase": [
+          1,
+          1000000
+        ]
+      }
+    },
+    {
+      "pendingInputs": 32,
+      "delayMs": 5,
+      "success": true,
+      "decoded": {
+        "frames": 48,
+        "durationUs": 2250000,
+        "samples": 108000,
+        "firstDecodedHash": "af6f5028733270da5e545873e5590076",
+        "lastDecodedHash": "259ac422dabc0b1e378772f2e5785bab",
+        "timebase": [
+          1,
+          1000000
+        ]
+      }
+    }
+  ],
+  "audio": [
+    {
+      "kind": "mp4",
+      "mode": "blob",
+      "pendingInputs": 32,
+      "frames": 48,
+      "durationUs": 2250000,
+      "presentationSamples": 108000,
+      "bytes": 3781788
+    },
+    {
+      "kind": "mp4",
+      "mode": "file",
+      "pendingInputs": 32,
+      "frames": 48,
+      "durationUs": 2250000,
+      "presentationSamples": 108000,
+      "bytes": 3781788
+    },
+    {
+      "kind": "webm",
+      "mode": "blob",
+      "pendingInputs": 32,
+      "frames": 48,
+      "durationUs": 2250000,
+      "presentationSamples": 108000,
+      "bytes": 1640602
+    },
+    {
+      "kind": "webm",
+      "mode": "file",
+      "pendingInputs": 32,
+      "frames": 48,
+      "durationUs": 2250000,
+      "presentationSamples": 108000,
+      "bytes": 1640602
+    }
+  ],
+  "verifiedFrames": 69312,
+  "memoryDumpFailures": [],
+  "memoryDumpRetries": 0,
+  "limits": [
+    "Sampled process maxima, not instantaneous peak or total machine RAM.",
+    "Long-video matrix is silent; only short prepared-PCM A/V checks are measured separately.",
+    "Receiver ownership excludes vendor stream/staging, native codec buffers and OS file cache.",
+    "Small/default Opus output-event budgets can fail under slow output. A larger explicit budget is not a universal fix.",
+    "Experimental guarded source transforms do not constitute a public controller/muxer refactor."
+  ],
+  "profileMode": "incognito-memory-filesystem",
+  "methodNote": "Preserved control: incognito OPFS is memory-backed, so this is not disk-output memory evidence."
+}

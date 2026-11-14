@@ -115,6 +115,8 @@
     "test:next:webp": "node scripts/test-next.mjs --webp-browser",
     "test:browser": "npm run build && playwright test",
     "benchmark:gif": "npm run build && node scripts/benchmark-gif.mjs",
+    "test:video:output": "npm run build && node --test test/video-output-receiver.test.mjs",
+    "benchmark:video:output": "npm run build && node scripts/benchmark-video-output.mjs",
     "benchmark:gif:lifecycle": "npm run build && node scripts/benchmark-gif-lifecycle.mjs",
     "benchmark:gif:preparation": "npm run build && node scripts/benchmark-gif-preparation.mjs",
     "benchmark:gif:worker-preparation": "npm run build && node scripts/benchmark-gif-worker-preparation.mjs"
