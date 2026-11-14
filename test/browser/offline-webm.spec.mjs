@@ -6,7 +6,7 @@ import {bestLag,toneStarts} from './helpers/offline-audio.mjs';
 
 async function exportWebm(page,options){
     await page.goto('/',{waitUntil:'domcontentloaded'});
-    return page.evaluate(async({samples,channels,markers=false,durations,delay=0,sourceSamples=samples,endPolicy='error'})=>{
+    return page.evaluate(async({samples,channels,markers=false,durations,delay=0,sourceSamples=samples,endPolicy='error',sinkDelay=0,pendingInputs=2})=>{
         const{createOfflineVideoExporter}=await import('/dist/video.js');
         const{createWebCodecsVideoEncoder}=await import('/dist/video-webcodecs.js');
         const{createWebCodecsAudioEncoder}=await import('/dist/video-opus.js');
@@ -15,10 +15,14 @@ async function exportWebm(page,options){
         const ends=[],audioFactory=createWebCodecsAudioEncoder(),videoFactory=createWebCodecsVideoEncoder();
         const canvas=document.createElement('canvas');canvas.width=90;canvas.height=160;const ctx=canvas.getContext('2d');
         const config={codec:'vp8',bitstreamFormat:'vp8',width:90,height:160,bitrate:500000};
+        const nativeMuxer=createWebmMuxer(),muxer=sinkDelay?{...nativeMuxer,async create(c,x){
+            const inner=await nativeMuxer.create(c,x);
+            return {...inner,async write(event){if(event.type==='packet'&&event.packet.track==='audio')await new Promise(resolve=>setTimeout(resolve,sinkDelay));return inner.write(event);}};
+        }}:nativeMuxer;
         const exporter=await createOfflineVideoExporter({video:{encoder:videoFactory,config},
             ...(channels?{audio:{encoder:{checkSupport:audioFactory.checkSupport,create(c,x){return audioFactory.create(c,{...x,output:{fail:x.output.fail,write(e){if(e.type==='end')ends.push(e);return x.output.write(e);}}});}},
                 config:{codec:'opus',bitstreamFormat:'opus',sampleRate:48000,numberOfChannels:channels,bitrate:channels===1?128000:192000},source:{sampleRate:48000,channels:makeOfflinePcm(48000,channels,sourceSamples)},endPolicy}}:{}),
-            muxer:createWebmMuxer(),maxPendingInputs:2,maxPendingBytes:1000000});
+            muxer,maxPendingInputs:pendingInputs,maxPendingBytes:1000000});
         try{
             if(!durations){const end=Math.round(samples*1e6/48000),n=markers?Math.ceil(end/1e6*30):1;durations=Array.from({length:n},(_,i)=>(i===n-1?end:Math.round((i+1)*1e6/30))-(markers?Math.round(i*1e6/30):0));}
             let time=0;
@@ -110,6 +114,10 @@ test('fractional WebM timing is independent of rendering delay',async({page},tes
 });
 for(const[channels,samples]of[[1,50003],[2,120017]])test(`VP8/Opus ${channels} channel: exact direct-decoded samples, CodecDelay and DiscardPadding`,async({page},testInfo)=>{
     await verify(page,testInfo,{channels,samples},'opus');
+});
+
+test('Opus backpressure preserves exact samples with a slow muxer at ordinary input limits',async({page},testInfo)=>{
+    for(const pendingInputs of [2,4])await verify(page,testInfo,{channels:1,samples:108001,sinkDelay:5,pendingInputs},'slow-'+pendingInputs);
 });
 test('VP8/Opus A/V markers with delayed rendering and a missing-discard negative control',async({page},testInfo)=>{
     const{result,bytes,layout,decoded}=await verify(page,testInfo,{channels:1,samples:137003,markers:true,delay:3},'av');

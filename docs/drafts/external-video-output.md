@@ -149,6 +149,11 @@ success checks explicitly use a larger existing budget, without changing the lib
 certifying every latency at that budget. Video-only memory success alone does not establish
 readiness for public external-output support.
 
+Follow-up, unreleased correction (2026-11-14): the
+[Opus backpressure correction and verification](opus-backpressure-verification.md) addresses the
+observed E10 overflow with ordinary limits. The earlier memory data remains unchanged historical
+evidence; acquisition, committed-result ownership and public API integration gates remain separate.
+
 ## Commands
 
 ```sh

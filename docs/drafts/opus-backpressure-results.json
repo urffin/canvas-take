@@ -1,0 +1,1458 @@
+{
+  "date": "2026-11-14",
+  "status": "completed local unreleased verification",
+  "baseline": "e1857789ab84a6e0820d064e5a7a1b4bd9582562",
+  "version": "0.8.1",
+  "environment": {
+    "node": "v22.17.0",
+    "platform": "win32",
+    "browsers": {
+      "chromium": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+        "windowsSoftwareRenderer": false
+      },
+      "firefox": {
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0",
+        "windowsSoftwareRenderer": true
+      }
+    }
+  },
+  "hashes": {
+    "src/video-opus.ts": "6328cea87761d2145b8ea74c0b04cd2ba2cebad4e0a72e339880518fbcefbf09",
+    "dist/video-opus.js": "5f0cec7e0d2ae871929d3cc50fb89915f76c32afc0d1803d9248b2216081beb6",
+    "scripts/verify-opus-backpressure.mjs": "82d9caaa50373efa2cc37b5fe593867f9ea792796bb6c93ff16a5cea50658308",
+    "scripts/opus-backpressure/browser.mjs": "919cffbfe64657a7cbb0f4a6fdd30c48f6bd463dc8357dc83f6d494c3dd3a095"
+  },
+  "sourceChanges": [
+    "src/video-opus.ts"
+  ],
+  "tests": {
+    "node": 255,
+    "focusedOpus": 10,
+    "existingPublicBrowserCases": 16,
+    "newSlowPublicBrowserCases": 2,
+    "realOpfsCases": 28,
+    "successfulDecodedFiles": 22,
+    "failedExportsWithCleanup": 6
+  },
+  "packageBoundary": {
+    "baseline": "e1857789ab84a6e0820d064e5a7a1b4bd9582562",
+    "version": "0.8.1",
+    "publicDeclarations": 14,
+    "localLinks": 10,
+    "publicApiDependenciesExportsDefaultsUnchanged": true,
+    "productionChange": "src/video-opus.ts only"
+  },
+  "originalFiveMsProbes": [
+    {
+      "pendingInputs": 2,
+      "before": false,
+      "after": true,
+      "afterSamples": 108000
+    },
+    {
+      "pendingInputs": 4,
+      "before": false,
+      "after": true,
+      "afterSamples": 108000
+    },
+    {
+      "pendingInputs": 8,
+      "before": false,
+      "after": true,
+      "afterSamples": 108000
+    },
+    {
+      "pendingInputs": 16,
+      "before": true,
+      "after": true,
+      "afterSamples": 108000
+    },
+    {
+      "pendingInputs": 32,
+      "before": true,
+      "after": true,
+      "afterSamples": 108000
+    }
+  ],
+  "rows": [
+    {
+      "browser": "chromium",
+      "id": "limit-1",
+      "success": true,
+      "pendingInputs": 1,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 1,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9882263431307613
+            }
+          }
+        ],
+        "bytes": 40603
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "limit-2",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 25,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9882263431307613
+            }
+          }
+        ],
+        "bytes": 40603
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "defaults",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 4,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9882263431307613
+            }
+          }
+        ],
+        "bytes": 40603
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "stereo-slow",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 50,
+      "samples": 108001,
+      "channels": 2,
+      "peakUnacknowledged": 4,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9802119635958297
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9826789179350465
+            }
+          },
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9809778077510892
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9829932964986154
+            }
+          }
+        ],
+        "bytes": 58737
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "tiny",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 25,
+      "samples": 1,
+      "channels": 1,
+      "peakUnacknowledged": 1,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 1,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 1,
+        "rawSamples": 313,
+        "normalizedLeading": 312,
+        "preSkip": 312,
+        "correlations": [],
+        "bytes": 1006
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "partial",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 25,
+      "samples": 961,
+      "channels": 2,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 961,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 961,
+        "rawSamples": 961,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [],
+        "bytes": 1962
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "long-stereo",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 5,
+      "samples": 1440001,
+      "channels": 2,
+      "peakUnacknowledged": 4,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 1440001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 1440001,
+        "rawSamples": 1440001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9802119635958297
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9805184895552699
+            }
+          },
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9809778077510892
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9809379916876291
+            }
+          }
+        ],
+        "bytes": 773615
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "limit-2-slowest",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 100,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9882263431307613
+            }
+          }
+        ],
+        "bytes": 40603
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "cancel-feed",
+      "success": false,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 0,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "aborted",
+      "ownedBytes": 0,
+      "commits": 0,
+      "writeFailures": 0,
+      "fileRemoved": true,
+      "originalCancelReason": true,
+      "originalWriteCause": false,
+      "audioEnds": []
+    },
+    {
+      "browser": "chromium",
+      "id": "cancel-feed-retry",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 24001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 24001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 24001,
+        "rawSamples": 24001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ],
+        "bytes": 9824
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "cancel-flush",
+      "success": false,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "aborted",
+      "ownedBytes": 0,
+      "commits": 0,
+      "writeFailures": 0,
+      "fileRemoved": true,
+      "originalCancelReason": true,
+      "originalWriteCause": false,
+      "audioEnds": []
+    },
+    {
+      "browser": "chromium",
+      "id": "cancel-flush-retry",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 24001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 24001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 24001,
+        "rawSamples": 24001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ],
+        "bytes": 9824
+      }
+    },
+    {
+      "browser": "chromium",
+      "id": "fail-flush",
+      "success": false,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "failed",
+      "ownedBytes": 0,
+      "commits": 0,
+      "writeFailures": 1,
+      "fileRemoved": true,
+      "originalCancelReason": false,
+      "originalWriteCause": true,
+      "audioEnds": []
+    },
+    {
+      "browser": "chromium",
+      "id": "fail-flush-retry",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 24001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 24001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 24001,
+        "rawSamples": 24001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ],
+        "bytes": 9824
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "limit-1",
+      "success": true,
+      "pendingInputs": 1,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 1,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9866763849574759
+            }
+          }
+        ],
+        "bytes": 37463
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "limit-2",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 25,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 1,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9866763849574759
+            }
+          }
+        ],
+        "bytes": 37463
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "defaults",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 4,
+      "peakNativeQueue": 3,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9866763849574759
+            }
+          }
+        ],
+        "bytes": 37463
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "stereo-slow",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 50,
+      "samples": 108001,
+      "channels": 2,
+      "peakUnacknowledged": 4,
+      "peakNativeQueue": 3,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9801713671454376
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9790342579768002
+            }
+          },
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9806646427109866
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9798338588176128
+            }
+          }
+        ],
+        "bytes": 54374
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "tiny",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 25,
+      "samples": 1,
+      "channels": 1,
+      "peakUnacknowledged": 1,
+      "peakNativeQueue": 0,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 1,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 1,
+        "rawSamples": 313,
+        "normalizedLeading": 312,
+        "preSkip": 312,
+        "correlations": [],
+        "bytes": 1093
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "partial",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 25,
+      "samples": 961,
+      "channels": 2,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 1,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 961,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 961,
+        "rawSamples": 961,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [],
+        "bytes": 2227
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "long-stereo",
+      "success": true,
+      "pendingInputs": 4,
+      "usesControllerDefaults": true,
+      "delayMs": 5,
+      "samples": 1440001,
+      "channels": 2,
+      "peakUnacknowledged": 4,
+      "peakNativeQueue": 3,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 1440001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 1440001,
+        "rawSamples": 1440001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9801713671454376
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9770068861549368
+            }
+          },
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9806646427109866
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9780735643390613
+            }
+          }
+        ],
+        "bytes": 709713
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "limit-2-slowest",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 100,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 1,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 108001,
+        "rawSamples": 108001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9866763849574759
+            }
+          }
+        ],
+        "bytes": 37463
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "cancel-feed",
+      "success": false,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 1,
+      "nativeFlushes": 0,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "aborted",
+      "ownedBytes": 0,
+      "commits": 0,
+      "writeFailures": 0,
+      "fileRemoved": true,
+      "originalCancelReason": true,
+      "originalWriteCause": false,
+      "audioEnds": []
+    },
+    {
+      "browser": "firefox",
+      "id": "cancel-feed-retry",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 24001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 1,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 24001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 24001,
+        "rawSamples": 24001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ],
+        "bytes": 9351
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "cancel-flush",
+      "success": false,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 1,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "aborted",
+      "ownedBytes": 0,
+      "commits": 0,
+      "writeFailures": 0,
+      "fileRemoved": true,
+      "originalCancelReason": true,
+      "originalWriteCause": false,
+      "audioEnds": []
+    },
+    {
+      "browser": "firefox",
+      "id": "cancel-flush-retry",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 24001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 1,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 24001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 24001,
+        "rawSamples": 24001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ],
+        "bytes": 9351
+      }
+    },
+    {
+      "browser": "firefox",
+      "id": "fail-flush",
+      "success": false,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 108001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 1,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "failed",
+      "ownedBytes": 0,
+      "commits": 0,
+      "writeFailures": 1,
+      "fileRemoved": true,
+      "originalCancelReason": false,
+      "originalWriteCause": true,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 108001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 167
+        }
+      ]
+    },
+    {
+      "browser": "firefox",
+      "id": "fail-flush-retry",
+      "success": true,
+      "pendingInputs": 2,
+      "usesControllerDefaults": false,
+      "delayMs": 5,
+      "samples": 24001,
+      "channels": 1,
+      "peakUnacknowledged": 2,
+      "peakNativeQueue": 1,
+      "nativeFlushes": 1,
+      "live": {
+        "audioEncoders": 0,
+        "audioData": 0,
+        "videoEncoders": 0,
+        "videoFrames": 0,
+        "dequeueListeners": 0
+      },
+      "gateListeners": 0,
+      "receiverState": "committed",
+      "ownedBytes": 0,
+      "commits": 1,
+      "writeFailures": 0,
+      "audioEnds": [
+        {
+          "type": "end",
+          "track": "audio",
+          "presentationSamples": 24001,
+          "leadingDiscardSamples": 312,
+          "trailingDiscardSamples": 647
+        }
+      ],
+      "decoded": {
+        "frames": 1,
+        "samples": 24001,
+        "rawSamples": 24001,
+        "normalizedLeading": 0,
+        "preSkip": 312,
+        "correlations": [
+          {
+            "first": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "last": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ],
+        "bytes": 9351
+      }
+    }
+  ],
+  "boundaries": [
+    "No public destination API, option/default or package-version change.",
+    "One native flush at track end; bounded input credits plus codec-priming/configuration reserve.",
+    "Aggregate queued byte limits remain active; not a constant-total-memory guarantee.",
+    "Raw native/storage work and non-cancellable I/O require their own completion/cleanup fence.",
+    "The earlier memory matrix is historical, not a new post-fix memory measurement."
+  ],
+  "harnessCorrections": [
+    "File finalization can fail after audio end; assert failed export, original cause, no receipt/owned file and successful retry.",
+    "Firefox initial navigation waits for DOMContentLoaded plus explicit module readiness, not a generic load event.",
+    "The new public slow-muxer wrapper must preserve the factory format metadata."
+  ]
+}

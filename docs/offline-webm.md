@@ -54,6 +54,17 @@ an integer bitrate from 8,000 to 512,000. It packs arbitrary planar input blocks
 and closes each temporary AudioData after submission. A final partial input keeps its actual sample count.
 Native audio flush occurs once at track end; flushing every input would introduce padding.
 
+The adapter holds an input credit until the corresponding ordered packet write is acknowledged.
+Native `encodeQueueSize`/`dequeue` alone do not acknowledge delivery to the muxer. New inputs wait
+for both this credit window and outstanding sink writes, so a slow consumer applies backpressure
+without requiring a larger `maxPendingInputs` (the controller default remains 4).
+Final flush drains native output and sink writes before emitting audio end. The bounded codec
+priming tail and one configuration event have separate event allowance; `maxPendingBytes` still
+checks aggregate queued output and oversized packets still reject. Cancellation interrupts native,
+credit and sink waits and closes owned inputs/encoders. See the
+[unreleased backpressure verification](drafts/opus-backpressure-verification.md) for limits 1/2/4,
+real file-output checks and decoder results.
+
 The native OpusHead must contain version 1, mapping family 0, matching channels and pre-skip no larger
 than 5,760 samples. It is copied unchanged to CodecPrivate. Native 20 ms packet durations, packet order,
 TOC duration and a consistent clock are checked. Chromium's zero-based clock and Firefox's clock shifted

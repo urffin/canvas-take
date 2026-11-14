@@ -24,23 +24,28 @@ export function createWebCodecsAudioEncoder(): AudioEncoderFactory {
             let encoder: AudioEncoder | undefined, disposed=false, failure:unknown, flushing=false;
             let accepted=0,submitted=0,filled=0,packets=0,outputEnd:number|undefined,preSkip:number|undefined;
             let head:Uint8Array|undefined,pcm:Float32Array|undefined=new Float32Array(FRAME*channels);
-            let nativeClock:'zero'|'shifted'|undefined,tail=Promise.resolve(),bytes=0,events=0;
+            let nativeClock:'zero'|'shifted'|undefined,tail=Promise.resolve(),bytes=0,events=0,inputs=0,writtenPackets=0;
             let rejectFailure!:(reason:unknown)=>void;
             const failed=new Promise<never>((_,reject)=>{rejectFailure=reject;});void failed.catch(()=>{});
             const wakes=new Set<()=>void>();
-            const guard=()=>{if(failure!==undefined)throw failure;if(disposed||context.signal.aborted)throw context.signal.reason??new DOMException('Opus encoder disposed','AbortError');};
+            const abortReason=()=>context.signal.aborted?context.signal.reason:new DOMException('Opus encoder disposed','AbortError');
+            const guard=()=>{if(failure!==undefined)throw failure;if(disposed||context.signal.aborted)throw abortReason();};
             const wait=async<T>(work:Promise<T>):Promise<T>=>{const value=await Promise.race([work,failed]);guard();return value;};
             function dequeue():void { for(const wake of wakes)wake();wakes.clear(); }
             function dispose():void {
                 if(disposed)return;disposed=true;context.signal.removeEventListener('abort',dispose);
-                rejectFailure(failure??context.signal.reason??new DOMException('Opus encoder disposed','AbortError'));
+                rejectFailure(failure??abortReason());
                 encoder?.removeEventListener('dequeue',dequeue);if(encoder&&encoder.state!=='closed')encoder.close();
                 encoder=undefined;pcm=undefined;head=undefined;dequeue();
             }
             function fail(reason:unknown):void { if(disposed||failure!==undefined)return;failure=reason instanceof Error?reason:new Error('Native Opus failed',{cause:reason});rejectFailure(failure);context.output.fail(failure); }
             function enqueue(event:CodecEvent,cost:number):void {
-                if(cost>context.maxPendingBytes-bytes||events>=context.maxPendingInputs+2)throw new RangeError('Opus maxPendingBytes/maxPendingInputs output budget exceeded');
-                bytes+=cost;events++;tail=tail.then(()=>{guard();return context.output.write(event);}).then(()=>{bytes-=cost;events--;});void tail.catch(fail);
+                // One config and the bounded codec-priming tail are additional to native input credits.
+                const reserve=1+Math.max(1,Math.ceil((preSkip??0)/FRAME));
+                if(cost>context.maxPendingBytes-bytes||events>=context.maxPendingInputs+reserve)throw new RangeError('Opus maxPendingBytes/maxPendingInputs output budget exceeded');
+                bytes+=cost;events++;tail=tail.then(()=>{guard();return context.output.write(event);}).then(()=>{
+                    bytes-=cost;events--;if(event.type==='packet')writtenPackets++;dequeue();
+                });void tail.catch(fail);
             }
             try {
                 guard();
@@ -80,12 +85,18 @@ export function createWebCodecsAudioEncoder(): AudioEncoderFactory {
                 encoder.configure(native);encoder.addEventListener('dequeue',dequeue);context.signal.addEventListener('abort',dispose,{once:true});guard();
             }catch(error){dispose();throw error;}
             async function submit(size:number):Promise<void>{
-                while(encoder!.encodeQueueSize>=context.maxPendingInputs)await wait(new Promise<void>(resolve=>wakes.add(resolve)));
-                await wait(tail);
+                for(;;){
+                    guard();const pending=tail;await wait(pending);
+                    // Callbacks may extend tail while its previous snapshot is being drained.
+                    if(pending!==tail)continue;
+                    // Native dequeue does not acknowledge output. Hold credit through downstream write.
+                    if(encoder!.encodeQueueSize<context.maxPendingInputs&&inputs-writtenPackets<context.maxPendingInputs)break;
+                    await wait(new Promise<void>(resolve=>wakes.add(resolve)));
+                }
                 const data=new Float32Array(size*channels);
                 for(let c=0;c<channels;c++)data.set(pcm!.subarray(c*FRAME,c*FRAME+size),c*size);
                 let input:AudioData|undefined;
-                try{input=new AudioData({format:'f32-planar',sampleRate:RATE,numberOfFrames:size,numberOfChannels:channels,timestamp:timestamp(submitted),data});encoder!.encode(input);}
+                try{input=new AudioData({format:'f32-planar',sampleRate:RATE,numberOfFrames:size,numberOfChannels:channels,timestamp:timestamp(submitted),data});inputs++;encoder!.encode(input);}
                 finally{input?.close();}
                 submitted+=size;filled=0;
             }
