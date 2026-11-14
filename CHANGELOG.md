@@ -1,9 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.8.0 — 2026-11-14
 
 - Add public animated WebP controller/Worker/runtime/WASM entries with a caller-selected encoder, transparent snapshots, exact file holds, progress, limits and cancellation.
-- Supply pinned libwebp assets/notices, a public example and API guide; verify installed consumers and Next.js integration. Version remains 0.7.0 until a separate release.
+- Supply pinned libwebp assets/notices, a public example and API guide; verify installed consumers and Next.js integration.
+- Run public WebP and production Next.js browser checks in CI with real Workers, cancellation, independently decoded retry output and resource cleanup; retain result files and failure diagnostics as artifacts.
 
 ## 0.7.0 — 2026-11-12
 

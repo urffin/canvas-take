@@ -1,7 +1,7 @@
 # Animated WebP export
 
-**Unreleased repository build.** These public entries are not in the published 0.7.0 package yet.
-The package version remains 0.7.0 until a separate release.
+Available since **0.8.0** through the public `/webp`, `/webp/worker`, `/webp/worker-runtime`
+and `/webp/codec.wasm` entries.
 
 ```js
 import { createWebpExporter } from '@grundyjs/canvas-take/webp';

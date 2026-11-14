@@ -306,9 +306,9 @@ input limit is not a peak-memory bound. Use AbortSignal for cancellation and awa
 Worker asset entry: `@grundyjs/canvas-take/apng/worker-runtime`. See [APNG API and deployment](docs/apng-export.md)
 for limits, progress, custom encoders, Worker URLs and viewer limitations, and the [example](examples/apng.html).
 
-## Animated WebP export (unreleased)
+## Animated WebP export (since 0.8.0)
 
-Available in the current repository build; the published 0.7.0 package does not contain these entries yet.
+Animated WebP is available through separate public entries starting with 0.8.0.
 
 ```js
 import { createWebpExporter } from '@grundyjs/canvas-take/webp';
@@ -327,7 +327,6 @@ Transparent snapshots, exact integer file holds, progress, configurable budgets 
 a caller-selected encoder. The supplied libwebp adapter owns one module Worker per export. Its JS
 runtime is standalone, with a separate pinned WASM asset. See the [API/deployment guide](docs/webp-export.md),
 [public example](examples/webp.html) and [installed-package/Next verification](docs/drafts/webp-public-verification.md).
-The version remains 0.7.0 until a separate release.
 
 ## Browser and server use
 
@@ -361,7 +360,7 @@ checks injected test encoders, timelines, progress, cancellation and buffer owne
 [private Worker integration](docs/drafts/webp-worker-verification.md) connects real libwebp/WASM and records
 protocol/resource checks and independent full-animation decoding, including Chromium/Firefox
 checks with real canvas and Worker lifecycle. Current repository public imports and deployment are
-covered by the [WebP guide](docs/webp-export.md); these additions are unreleased.
+covered by the [WebP guide](docs/webp-export.md); the public entries are available since 0.8.0.
 
 Run `npm test` for unit and Node Worker tests, and `npm run test:package` for an isolated packed consumer. For real browser tests, first run `npx playwright install chromium firefox`, then `npm run test:browser`. These check recording, offline MP4/AAC, WebM/Opus, GIF and APNG export, cancellation/retry, resource cleanup and independently decoded timing/audio. `npm run test:next` checks the packed library with Next.js/Turbopack; add `-- --apng-browser` for actual default/package/copied APNG Worker checks. `npm run test:apng:package` verifies public APNG types and actual Workers from an installed tarball. See [GIF verification](docs/gif-encoder.md#verification) and [AAC/sample-count verification](docs/offline-aac.md#independent-verification).
 
