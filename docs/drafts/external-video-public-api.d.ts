@@ -1,4 +1,4 @@
-/** DESIGN ONLY. Proposed future declarations, not implemented or exported by CanvasTake. */
+/** PUBLIC DESIGN ONLY. No public runtime exports; the private controller is verified separately. */
 import type {
     Awaitable, CodecEvent, FrameTiming, MuxerConfig, MuxerContext, MuxerFactory,
     OfflineVideoExporter, OfflineVideoOptions, OfflineVideoState, Support, TimelineSummary

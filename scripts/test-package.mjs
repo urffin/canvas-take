@@ -53,8 +53,8 @@ try {
     for (const file of ['dist/video-aac.js','dist/video-aac.d.ts','dist/video-aac-worker.js','dist/video-aac-worker.js.map','dist/aac-PROVENANCE.md','dist/aac-licenses/MPL-2.0.txt','dist/aac-licenses/COPYING.LGPLv2.1','dist/aac-licenses/bridge.c','docs/offline-aac.md']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing AAC file: '+file);
     await writeFile(join(workspace, 'consumer.ts'), `
 import { createApngExporter, type ApngExportOptions, type ApngExporter } from '@grundyjs/canvas-take/apng';
-for (const path of ['/internal/webp-controller.js', '/internal/webp-worker.js']) {
-    try { await import('@grundyjs/canvas-take' + path); throw new Error('Private WebP unexpectedly exported'); }
+for (const path of ['/internal/webp-controller.js', '/internal/webp-worker.js', '/internal/video-external.js', '/internal/video-external-types.js']) {
+    try { await import('@grundyjs/canvas-take' + path); throw new Error('Private implementation unexpectedly exported'); }
     catch (error) { if ((error as {code?:string}).code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED') throw error; }
 }
 import { createWebpExporter, type WebpEncoderFactory, type WebpExportOptions, type WebpExporter } from '@grundyjs/canvas-take/webp';

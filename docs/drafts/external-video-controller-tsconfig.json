@@ -1,0 +1,9 @@
+{
+  "extends": "./external-video-public-tsconfig.json",
+  "files": [
+    "./external-video-public-api.d.ts",
+    "./external-video-public-example.ts",
+    "./external-video-public-types.ts",
+    "./external-video-controller-types.ts"
+  ]
+}

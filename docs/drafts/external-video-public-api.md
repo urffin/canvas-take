@@ -1,7 +1,7 @@
 # Public external MP4/WebM output: proposed API
 
 Status: **design only**, started 2026-11-14, verified 2026-11-16, based on 0.8.1 / commit
-`efc5f66f8d03168a7f99945ccb4f2d1f2062a25c`. No runtime implementation, public exports,
+`efc5f66f8d03168a7f99945ccb4f2d1f2062a25c`. No public runtime implementation or exports,
 package/version change or release. The proposed names below are unavailable in the current package.
 The [declarations](external-video-public-api.d.ts), [compile-only example](external-video-public-example.ts)
 and [compatibility criteria](external-video-public-compatibility.md) specify the next implementation.
@@ -9,6 +9,11 @@ The [verification record](external-video-public-verification.md) separates desig
 the future runtime gates.
 The earlier [receiver prototype](external-video-output.md) and [Opus correction](opus-backpressure-verification.md)
 are evidence, not implementations of this public lifecycle.
+
+Private follow-up (2026-11-17): the controller is now implemented only under `src/internal`,
+with controlled destinations/muxers for P1–P23; see the
+[private-controller verification](external-video-controller-verification.md). Public entry points,
+real MP4/WebM integration and concrete filesystem publication capabilities remain separate stages.
 
 ## Selected shape
 

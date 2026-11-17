@@ -4,6 +4,9 @@ Status: design-only criteria, verified 2026-11-16 / baseline `efc5f66` / version
 See the [selected API](external-video-public-api.md), [draft types](external-video-public-api.d.ts)
 and [compile-only checks](external-video-public-types.ts). The type checks validate the proposal;
 they do not establish any new runtime behavior. Existing receiver/Opus experiments are baselines.
+The later [private-controller verification](external-video-controller-verification.md) covers
+controller obligations using test destinations/muxers. Actual storage capability proofs and
+real container/package integration are not implied by those controlled tests.
 
 ## Before implementing the controller
 
