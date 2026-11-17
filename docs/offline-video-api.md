@@ -2,6 +2,8 @@
 
 An experimental [external MP4/WebM destination design and memory study](drafts/external-video-output.md)
 investigates long exports separately. It is not a public option: the API below still returns a Blob.
+The subsequent [public destination API project](drafts/external-video-public-api.md) specifies
+proposed creation/overwrite/commit/result contracts only; none of its additions are implemented.
 
 Status: controller and real H.264/AAC adapters available in 0.5.0 (2026-11-02). `src/video.ts` and `/video` implement this protocol. Separate `/video/webcodecs`, `/video/aac` and `/video/mp4` providers export actual H.264 Baseline / AAC-LC MP4; see [adapter usage, limits and verification](offline-video-adapters.md). The [contract reference](drafts/offline-video-api.d.ts) re-exports the canonical declarations; the [narrated usage example](drafts/offline-video-example.ts) uses real factories, with caller-supplied canvas/rendering/PCM. This is an API specification, not the personal development roadmap.
 

@@ -5,6 +5,11 @@ Status: repository research, 2026-11-14, based on CanvasTake **0.8.1** / commit
 runtime source, dependency, export map or package-version change. The
 [draft contract](external-video-output-api.d.ts) is not a package entry point.
 
+The later [public API project](external-video-public-api.md) selects acquisition, overwrite,
+commit outcomes, result ownership and proposed public types. This page and its receiver contract
+remain the earlier prototype record; in particular, its commit-cancellation race is not the
+selected public policy.
+
 ## Why investigate a destination
 
 The current MP4/WebM adapters already write incrementally through Mediabunny 1.65.0
@@ -119,12 +124,13 @@ Original source and harness hashes are recorded. Ordinary source/shipped adapter
 - Container creation time/random identifiers are fixed in both bundles. The performance clock,
   native encoders and browser/OS memory are real and unmodified.
 
-A future API should opt in explicitly to a destination-capable muxer/result specialization.
+The [public API project](external-video-public-api.md) now specifies explicit opt-in to a
+destination-capable muxer and a separate external exporter/result type.
 Default `createOfflineVideoExporter` and custom Blob factories keep the current Blob result,
 Promise identity, errors, cleanup and progress meanings. Unsupported destinations must fail
-capability checks rather than silently fall back. Public overload names and the precise factory
-acquisition/ownership point remain later implementation decisions; this draft defines only the
-receiver/receipt boundary.
+capability checks rather than silently fall back. Names and acquisition/ownership rules are
+selected in that later design; this prototype defines only its original receiver/receipt boundary
+and remains unchanged.
 
 ## Compatibility gates before public implementation
 
