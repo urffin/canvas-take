@@ -7,6 +7,9 @@ they do not establish any new runtime behavior. Existing receiver/Opus experimen
 The later [private-controller verification](external-video-controller-verification.md) covers
 controller obligations using test destinations/muxers. Actual storage capability proofs and
 real container/package integration are not implied by those controlled tests.
+The later [private real-container verification](external-video-containers-verification.md)
+adds P24–P26 and actual-file evidence scoped to a test receiver/platform. Public external
+entry points and their installed/Next checks P27/P28 are still pending.
 
 ## Before implementing the controller
 

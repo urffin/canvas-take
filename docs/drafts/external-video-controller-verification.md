@@ -5,6 +5,8 @@ Implementation: `src/internal/video-external.ts` and `video-external-types.ts`.
 These are private modules, not package entry points. The [public proposal](external-video-public-api.md)
 and [P1–P28 criteria](external-video-public-compatibility.md) remain the contract reference.
 No real MP4/WebM backend is connected in this stage and no public API/version is added.
+The subsequent [real-container stage](external-video-containers-verification.md) connects
+private MP4/WebM adapters and records actual-file/browser/decoder checks separately.
 
 ## Structure
 

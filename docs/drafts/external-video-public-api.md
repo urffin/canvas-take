@@ -12,8 +12,10 @@ are evidence, not implementations of this public lifecycle.
 
 Private follow-up (2026-11-17): the controller is now implemented only under `src/internal`,
 with controlled destinations/muxers for P1–P23; see the
-[private-controller verification](external-video-controller-verification.md). Public entry points,
-real MP4/WebM integration and concrete filesystem publication capabilities remain separate stages.
+[private-controller verification](external-video-controller-verification.md). Public entry points
+and concrete production filesystem adapters remain separate stages. The later
+[private real-container verification](external-video-containers-verification.md) connects
+MP4/WebM and tests actual-file policies on a controlled local filesystem; it exposes no public API.
 
 ## Selected shape
 

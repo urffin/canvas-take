@@ -1,4 +1,4 @@
-// Private external-output controller. No package entry point or real container adapter yet.
+// Private external-output controller. No package entry point.
 import {blendRange} from './rgba.js';
 import type {
     Awaitable, Support, VideoEncodeConfig, AudioEncodeConfig, VideoDescription, AudioDescription,

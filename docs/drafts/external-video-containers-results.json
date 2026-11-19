@@ -1,0 +1,2186 @@
+{
+  "date": "2026-11-18",
+  "baseline": "f4fe7f7d4406ceb702d5e832a26e8e67539c8173",
+  "version": "0.8.1",
+  "status": "private real-container integration verified; no public API/release",
+  "node": "v22.17.0",
+  "typescript": "6.0.3",
+  "tests": {
+    "allNode": 346,
+    "newNode": 20,
+    "browser": 92,
+    "browserPassed": 92,
+    "successfulByteComparisons": 64,
+    "negativeTypeCases": 36
+  },
+  "publicDeclarations": 14,
+  "localLinks": 22,
+  "publicApiAndBlobSourcesUnchanged": true,
+  "dependenciesExportsLockDefaultsUnchanged": true,
+  "browsers": {
+    "chromium": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+    "firefox": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0"
+  },
+  "filesystem": "same-directory local hard-link no-replace / rename replace; test-only receiver",
+  "resourcePeaks": {
+    "pendingNativeInputs": 3,
+    "unacknowledgedNativeInputs": 4,
+    "physicalWrites": 1,
+    "borrowedBytes": 747558
+  },
+  "minimumCorrelation": 0.9770068861549368,
+  "hashes": {
+    "src/internal/video-external.ts": "3a8460ac295e32c973663b142b69c6a58ee8d7ef4a6f3046e5327037277a2651",
+    "src/internal/video-external-mp4.ts": "e31bd09b99ad2a01e972226d23671346c5d1c7b0f88e0658d55f94b871a993c0",
+    "src/internal/video-external-webm.ts": "24b543afe7acda8f540a36a8a023bd77079e91feeab2012a5973a828c8077431",
+    "src/internal/video-external-target.ts": "b0d0b6774612480761857b9403964c82c68b618afcfbe76d1e757243e925beef",
+    "scripts/external-video-containers/browser.mjs": "fa7ecd6803157c85adf446d3200332e9315405a9b4458ad1e81552ed8dc14180",
+    "scripts/verify-external-video-containers.mjs": "71b7f8b1b75b754e72f5b5a4a1048823aa0f6408e78947da3f33098cbe0730fb",
+    "test/fixtures/video-external-file.mjs": "223db348d95eda8d17b9e134809238e60786b5250a1863d027362d56049647fa",
+    "test/video-external-containers.test.mjs": "0660d64027e37acdf5ee8062bbd7ae721bd1e9f37caf2dadff85a131e3ed0f2c",
+    "scripts/external-video-containers/media-source-patch.mjs": "e0d44d760b4dd5331700346db8d7a05b70d96069bee4f1420c0beeb33f8f8aac",
+    "scripts/build-adapters.mjs": "df819fc3d89a206d2ce17d3a08aa3230e4ad71722f36692c36244069bcf3f39c",
+    "docs/drafts/external-video-controller-types.ts": "315087a20f7c26697b4941289121fa0583bd67e0d4af64d9a8cb4ddce319dcb1"
+  },
+  "cases": [
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "silent",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 1265,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "correlations": []
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "limit-1",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 38693,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "limit-2",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 38693,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "defaults",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 38693,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "stereo-slow",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 57352,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.983815090369605
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9818257846405911
+            }
+          },
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9845177782448359
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9811871714006124
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "tiny",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 1827,
+        "frames": 1,
+        "pts": [
+          0
+        ],
+        "samples": 1,
+        "first": 0,
+        "correlations": []
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "partial",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 2069,
+        "frames": 1,
+        "pts": [
+          0
+        ],
+        "samples": 961,
+        "first": 0,
+        "correlations": []
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "long-stereo",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 728781,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 1440001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.983815090369605
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9791783512253105
+            }
+          },
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9845177782448359
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.983242434801992
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "cancel-commit",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 38693,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "cancel-ready",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "cancel-ready-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10379,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "cancel-write",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "cancel-write-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10379,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "cancel-flush",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "cancel-flush-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10379,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "fail-write",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "fail-write-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10379,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "fail-truncate",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "fail-truncate-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10379,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "unknown",
+      "success": false,
+      "publication": "indeterminate",
+      "decoded": {
+        "size": 38693,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "unknown-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10379,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "collision",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "mp4",
+      "id": "collision-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10379,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "silent",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 607,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "correlations": []
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "limit-1",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 40794,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9882263431307613
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "limit-2",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 40794,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9882263431307613
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "defaults",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 40794,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9882263431307613
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "stereo-slow",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 58928,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9802119635958297
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9826789179350465
+            }
+          },
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9809778077510892
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9829932964986154
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "tiny",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 1034,
+        "frames": 1,
+        "pts": [
+          0
+        ],
+        "samples": 1,
+        "first": 0,
+        "correlations": []
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "partial",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 1502,
+        "frames": 1,
+        "pts": [
+          0
+        ],
+        "samples": 961,
+        "first": 0,
+        "correlations": []
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "long-stereo",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 773806,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 1440001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9802119635958297
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9805184895552699
+            }
+          },
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9809778077510892
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9809379916876291
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "cancel-commit",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 40794,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9882263431307613
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "cancel-ready",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "cancel-ready-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10015,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "cancel-write",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "cancel-write-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10015,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "cancel-flush",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "cancel-flush-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10015,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "fail-write",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "fail-write-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10015,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "fail-truncate",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "fail-truncate-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10015,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "unknown",
+      "success": false,
+      "publication": "indeterminate",
+      "decoded": {
+        "size": 40794,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9882263431307613
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "unknown-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10015,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "collision",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "chromium",
+      "container": "webm",
+      "id": "collision-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10015,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.988178087356081
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9885615392566441
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "silent",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 1669,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "correlations": []
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "limit-1",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 39097,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "limit-2",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 39097,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "defaults",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 39097,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "stereo-slow",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 57756,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.983815090369605
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9818257846405911
+            }
+          },
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9845177782448359
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9811871714006124
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "tiny",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 2126,
+        "frames": 1,
+        "pts": [
+          0
+        ],
+        "samples": 1,
+        "first": 0,
+        "correlations": []
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "partial",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 2368,
+        "frames": 1,
+        "pts": [
+          0
+        ],
+        "samples": 961,
+        "first": 0,
+        "correlations": []
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "long-stereo",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 729185,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 1440001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.983815090369605
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9791783512253105
+            }
+          },
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9845177782448359
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.983242434801992
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "cancel-commit",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 39097,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "cancel-ready",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "cancel-ready-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10783,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "cancel-write",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "cancel-write-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10783,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "cancel-flush",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "cancel-flush-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10783,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "fail-write",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "fail-write-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10783,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "fail-truncate",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "fail-truncate-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10783,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "unknown",
+      "success": false,
+      "publication": "indeterminate",
+      "decoded": {
+        "size": 39097,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9890469503487335
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "unknown-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10783,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "collision",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "mp4",
+      "id": "collision-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 10783,
+        "frames": 3,
+        "pts": [
+          0,
+          33333.3,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9886554408208403
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9889736670489186
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "silent",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 685,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "correlations": []
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "limit-1",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 37733,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9866763849574759
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "limit-2",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 37733,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9866763849574759
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "defaults",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 37733,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9866763849574759
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "stereo-slow",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 54644,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9801713671454376
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9790342579768002
+            }
+          },
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9806646427109866
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9798338588176128
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "tiny",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 1118,
+        "frames": 1,
+        "pts": [
+          0
+        ],
+        "samples": 1,
+        "first": 0,
+        "correlations": []
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "partial",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 1667,
+        "frames": 1,
+        "pts": [
+          0
+        ],
+        "samples": 961,
+        "first": 0,
+        "correlations": []
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "long-stereo",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 709983,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 1440001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9801713671454376
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9770068861549368
+            }
+          },
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9806646427109866
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9780735643390613
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "cancel-commit",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 37733,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9866763849574759
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "cancel-ready",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "cancel-ready-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 9621,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "cancel-write",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "cancel-write-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 9621,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "cancel-flush",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "cancel-flush-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 9621,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "fail-write",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "fail-write-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 9621,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "fail-truncate",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "fail-truncate-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 9621,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "unknown",
+      "success": false,
+      "publication": "indeterminate",
+      "decoded": {
+        "size": 37733,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 108001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9866763849574759
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "unknown-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 9621,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ]
+      }
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "collision",
+      "success": false,
+      "publication": "not-committed"
+    },
+    {
+      "browser": "firefox",
+      "container": "webm",
+      "id": "collision-retry",
+      "success": true,
+      "publication": "committed",
+      "decoded": {
+        "size": 9621,
+        "frames": 3,
+        "pts": [
+          0,
+          33333,
+          100000
+        ],
+        "samples": 24001,
+        "first": 0,
+        "correlations": [
+          {
+            "beginning": {
+              "lag": 0,
+              "correlation": 0.9877513540624031
+            },
+            "end": {
+              "lag": 0,
+              "correlation": 0.9868386703221235
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "boundaries": [
+    "Test-only same-directory local filesystem receiver; no production storage capability claim.",
+    "No crash durability or universal atomicity proof.",
+    "No constant-total-memory claim: MP4 metadata/WebM cues/vendor staging remain.",
+    "P27/P28 for new public external imports not implemented.",
+    "No commit/push or release in this stage."
+  ]
+}
