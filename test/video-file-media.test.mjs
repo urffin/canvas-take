@@ -31,7 +31,7 @@ async function decode(path,kind){
  if(kind==='mp4'){const h=mp4Headers(file),video=h.tracks.find(t=>t.type==='vide');assert.equal(video.duration/video.timescale,1.5);}else{const h=readWebm(file);assert.equal(h.duration,1500000);assert.deepEqual(h.blocks.map(b=>b.duration),durations);}
 }
 for(const kind of ['mp4','webm'])for(const lost of [false,true])test('D20: new receiver '+kind+' decodes '+(lost?'recovered commit and fresh retry':'committed result after target overwrite'),async()=>{
- const root=await mkdtemp(join(tmpdir(),'canvastake-receiver-media-'));let lose=lost;
+ const root=await realpath(await mkdtemp(join(tmpdir(),'canvastake-receiver-media-')));let lose=lost;
  try{
   const receiver=await provisionNodeVideoDestination(root,{trust:'controlled-local-directory',shortWrite:17,fault(point){if(lose&&point==='before-ack')throw Error('lost ack');}});
   for(let round=0;round<(lost?2:1);round++){

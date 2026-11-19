@@ -269,12 +269,12 @@
     "scripts/test-package.mjs": "8846f876a29d28230ef5a8ddf28dbd6be9dadede9ff466a90f7071421d74068b",
     "docs/drafts/external-video-file-tsconfig.json": "6150bebd1eafde09921c53572692f10cb3fccf67a1d6afa3c72d1118b0b2fdcc",
     "docs/drafts/external-video-file-types.ts": "8db38524cda19f19c186b981e95348e7bbe0c4564f7b7aa91ab7e6d6729dcd32",
-    "docs/drafts/external-video-file-verification.md": "9c72bef3797fe84242ae31cfd04c767b5d3b9d0270decb26340470d80d44bb82",
+    "docs/drafts/external-video-file-verification.md": "c4397fee3ad78d5cafe198a3636741a336ddeabadf5ec2ccdc13abd3e4e0ae84",
     "src/internal/video-file-node.d.mts": "b289b4f6d71bac55d7bf621d6278f7119388725a063b052c9675b219337e95ce",
     "src/internal/video-file-node.mjs": "2297c2e52a0005c458c1d9eac638a67014717efb9d03a5505b2825a152ea46c6",
     "test/fixtures/video-file-process.mjs": "2bb58d94011c5c52fd1707b7f64ed37e9056bb63d729cf1c63f1180090dd9c9c",
-    "test/video-file-destination.test.mjs": "c5e55327b33770fa98bd9e0bb23a225b7d32b84dde9f75b9d4cb300b5a5d6ae2",
-    "test/video-file-media.test.mjs": "cba0ff0a778b58ba3af5fbc4e8b1193a648b10f4420846dcb2b0ae36d49342cd"
+    "test/video-file-destination.test.mjs": "cf18b927378d3537438f4a1484b00ea3a778346b1ab774cc3c735a739aa34431",
+    "test/video-file-media.test.mjs": "54c419d46968d380f8346609682a90d6b12d535eb7f55f4c7437d4c98165738f"
   },
   "limitations": [
     "Not a hostile-directory sandbox; no atomic dirfd containment/conditional target-kind replacement.",
@@ -285,5 +285,15 @@
     "Journal and committed version files are intentionally retained; separate copy costs roughly one extra output file.",
     "No new browser/AAC/Opus matrix, RSS/GC benchmark or P27/P28 public integration run.",
     "No commit/push/new CI/tag/release/npm publication in this stage."
-  ]
+  ],
+  "ciFollowUp": {
+    "date": "2026-11-20",
+    "initialCommit": "11be18f1a1a050252972758f36f9f49817e36a97",
+    "initialRun": "https://github.com/urffin/canvas-take/actions/runs/44634951418",
+    "failure": "Windows Node22/24 fixtures passed a noncanonical temporary directory to the canonical-root receiver",
+    "correction": "Resolve new temporary directories with realpath before provisioning; no runtime or contract relaxation",
+    "localNodeTests": 386,
+    "receiverRuntimeUnchanged": true,
+    "exactFinalCi": "tracked in external roadmap after correction commit"
+  }
 }

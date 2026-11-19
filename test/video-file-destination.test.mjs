@@ -12,7 +12,7 @@ import {fixtures,canvas,deferred,turn} from './fixtures/video-external.mjs';
 const bytes=new Uint8Array([1,2,3,4]),signal=()=>new AbortController().signal;
 const request=(extra={})=>({format:{mimeType:'video/mp4',extension:'mp4'},ifExists:'error',maxWriteBytes:4096,...extra});
 async function fixture(options={}){
- const root=await mkdtemp(join(tmpdir(),'canvastake-receiver-')),receiver=await provisionNodeVideoDestination(root,{trust:'controlled-local-directory',...options});
+ const root=await realpath(await mkdtemp(join(tmpdir(),'canvastake-receiver-'))),receiver=await provisionNodeVideoDestination(root,{trust:'controlled-local-directory',...options});
  return {root,receiver,bind:(name='movie.mp4')=>receiver.bind(name),async dispose(){const target=await realpath(root);assert.equal(dirname(target),await realpath(tmpdir()));assert.ok(basename(target).startsWith('canvastake-receiver-'));await rm(target,{recursive:true,force:true});}};
 }
 async function prepared(binding,extra={}){const context={...request(extra),signal:signal()},tx=await binding.destination.create(context);await tx.ready(context.signal);await tx.writeAt(0,bytes,context.signal);await tx.truncate(bytes.length,context.signal);return tx;}

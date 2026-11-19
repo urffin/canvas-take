@@ -131,6 +131,12 @@ test was needed or performed. The [evidence matrix/results](external-video-file-
 D gate to concrete case names and preserve hashes/verification boundaries. Raw logs are ignored under
 `benchmark-results/file-receiver-*.log`.
 
+CI follow-up (2026-11-20): [the first committed run](https://github.com/urffin/canvas-take/actions/runs/44634951418)
+passed the Linux jobs but rejected noncanonical Windows temporary paths in all new fixtures.
+Fixtures now resolve their newly created directory with realpath before provisioning, matching the
+receiver's existing canonical-root precondition. Runtime scope validation is unchanged. A separate
+correction commit and exact-SHA CI verification are recorded in the external roadmap.
+
 ```sh
 npm run test:video:file
 npm test
