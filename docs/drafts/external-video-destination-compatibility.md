@@ -4,6 +4,10 @@ Date: 2026-11-20, baseline `c6f7ef7`, version 0.8.1. Design criteria, **not a ba
 See the [refined contract](external-video-destination-contract.md),
 [companion types](external-video-destination-contract.d.ts) and [compile-only fixture](external-video-destination-types.ts).
 These gates supplement [P1–P28](external-video-public-compatibility.md), especially P6–P8/P13–P21/P26.
+The subsequent [private Node verification](external-video-file-verification.md) and
+[gate evidence](external-video-file-results.json) record implementation checks for its explicit
+controlled-local-directory/process-lifetime profile. The original design-stage evidence column
+below remains historical; it is not a universal filesystem certification.
 
 | Gate | Required future receiver proof | Evidence in this design stage |
 | --- | --- | --- |

@@ -1,0 +1,289 @@
+{
+  "date": "2026-11-20",
+  "baseline": "6fa3bcf2b146252f7ec13496fddd1a1acf5ac7d0",
+  "version": "0.8.1",
+  "status": "private process-lifetime Node receiver verified; no public entry/release",
+  "node": "v22.17.0",
+  "typescript": "6.0.3",
+  "platform": "win32",
+  "tests": {
+    "allNode": 386,
+    "newReceiverAndMedia": 40,
+    "negativeTypeCases": 57,
+    "newNegativeTypeCases": 5,
+    "realContainerCases": 4,
+    "skips": 0
+  },
+  "checks": {
+    "build": "passed",
+    "strictNoEmit": "passed",
+    "packedConsumer": "passed",
+    "publicDeclarationsUnchanged": 14,
+    "privateControllerMuxerEncoderSourcesUnchanged": true,
+    "exportsDependenciesLockDefaultsUnchanged": true,
+    "privateNodeArtifactsPackedAndImportsBlocked": true,
+    "localLinks": 23
+  },
+  "profile": {
+    "runtime": [
+      "Node22",
+      "Node24"
+    ],
+    "platformCandidates": [
+      "win32",
+      "linux"
+    ],
+    "locallyExecuted": "win32 v22.17.0",
+    "trust": "controlled-local-directory; stable parent/root/private namespace",
+    "recovery": "same owning receiver instance/process lifetime",
+    "publication": "native exclusive hard link / same-directory rename; no fallback",
+    "permissionTransitions": "native readonly access query plus injected permission/revocation states",
+    "retainedVersion": "separate file copy, 64 KiB copy/hash buffers; full read only on caller request",
+    "journal": "ordered 5-checkpoint bounded log, no fsync/restart adoption",
+    "attemptLimitDefault": 1024
+  },
+  "gates": {
+    "D1": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D1/D2: explicit scoped provisioning; exact-request checks are read-only and reusable"
+      ]
+    },
+    "D2": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D1/D2: explicit scoped provisioning; exact-request checks are read-only and reusable"
+      ]
+    },
+    "D3": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D3: permission-required/denied and revocation reject without prompting/acquiring"
+      ]
+    },
+    "D4": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D4: unsupported policy/format/bounds, detached/shared views, admission and retention quota",
+        "D4/D19: invalid positions, extents, detached views and parallel operations terminate safely",
+        "D4/D19: overlapping I/O/cleanup admission never queues unbounded work"
+      ]
+    },
+    "D5": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D5: scope moved between support and acquisition rejects; original target preserved",
+        "D5/D11: partial acquisition failure before-journal-registered closes unreturned handles",
+        "D5/D11: partial acquisition failure after-journal-registered closes unreturned handles",
+        "D5/D11: partial acquisition failure after-stage-open closes unreturned handles",
+        "D5/D11: partial acquisition failure after-journal-prepared closes unreturned handles"
+      ]
+    },
+    "D6": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D6: concurrent create-new and intervening creator preserve exactly one winner",
+        "D6: publication-time no-replace holds against another receiver process"
+      ]
+    },
+    "D7": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D7: invalid names, aliases, symlink/reparse/non-regular targets and parent rebinding"
+      ]
+    },
+    "D8": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D8/D9: positioned rewrites, short writes and atomic whole replacement preserve old value until commit"
+      ]
+    },
+    "D9": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D8/D9: positioned rewrites, short writes and atomic whole replacement preserve old value until commit",
+        "D9: failed replacement never restores old snapshot over a concurrent writer"
+      ]
+    },
+    "D10": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D10/D11/D12: journal/publication fault before-journal-publishing reconciles independently",
+        "D10/D11/D12: journal/publication fault after-journal-publishing reconciles independently",
+        "D10/D11/D12: journal/publication fault before-publish reconciles independently",
+        "D10/D11/D12: journal/publication fault after-publish reconciles independently",
+        "D10/D11/D12: journal/publication fault before-journal-committed reconciles independently",
+        "D10/D11/D12: journal/publication fault after-journal-committed reconciles independently",
+        "D10/D11/D12: journal/publication fault before-ack reconciles independently",
+        "D10/D20: malformed commit acknowledgement still has independent attempt recovery"
+      ]
+    },
+    "D11": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D5/D11: partial acquisition failure before-journal-registered closes unreturned handles",
+        "D5/D11: partial acquisition failure after-journal-registered closes unreturned handles",
+        "D5/D11: partial acquisition failure after-stage-open closes unreturned handles",
+        "D5/D11: partial acquisition failure after-journal-prepared closes unreturned handles",
+        "D10/D11/D12: journal/publication fault before-journal-publishing reconciles independently",
+        "D10/D11/D12: journal/publication fault after-journal-publishing reconciles independently",
+        "D10/D11/D12: journal/publication fault before-publish reconciles independently",
+        "D10/D11/D12: journal/publication fault after-publish reconciles independently",
+        "D10/D11/D12: journal/publication fault before-journal-committed reconciles independently",
+        "D10/D11/D12: journal/publication fault after-journal-committed reconciles independently",
+        "D10/D11/D12: journal/publication fault before-ack reconciles independently",
+        "D11: publication observes the complete ordered journal and retained original version"
+      ]
+    },
+    "D12": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D10/D11/D12: journal/publication fault before-journal-publishing reconciles independently",
+        "D10/D11/D12: journal/publication fault after-journal-publishing reconciles independently",
+        "D10/D11/D12: journal/publication fault before-publish reconciles independently",
+        "D10/D11/D12: journal/publication fault after-publish reconciles independently",
+        "D10/D11/D12: journal/publication fault before-journal-committed reconciles independently",
+        "D10/D11/D12: journal/publication fault after-journal-committed reconciles independently",
+        "D10/D11/D12: journal/publication fault before-ack reconciles independently",
+        "D12/D14/D20: post-admission cancel/dispose does not interrupt publication",
+        "D12/D13: an uncertain falsy failure reason is preserved by the recovery channel"
+      ]
+    },
+    "D13": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D13: byte equality, target absence and missing/corrupt journal cannot resolve lost native evidence",
+        "D12/D13: an uncertain falsy failure reason is preserved by the recovery channel"
+      ]
+    },
+    "D14": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D14: a timed-out caller cannot infer non-publication; late commit remains fenced",
+        "D14/D19/D20: controller cancellation fences before-ready before releasing real handles",
+        "D14/D19/D20: controller cancellation fences before-write before releasing real handles",
+        "D14/D19/D20: controller cancellation fences before-truncate before releasing real handles",
+        "D12/D14/D20: post-admission cancel/dispose does not interrupt publication"
+      ]
+    },
+    "D15": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D15/D16: historical publication survives in-place overwrite/delete and receipt is independent"
+      ]
+    },
+    "D16": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D15/D16: historical publication survives in-place overwrite/delete and receipt is independent"
+      ]
+    },
+    "D17": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D17: inspect is read-only, rejects foreign/versioned keys and preserves state after inspector failure"
+      ]
+    },
+    "D18": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D18/D19: explicit recovery cleanup rejects stale/foreign state and preserves receipt/evidence",
+        "D18: cleanup revalidates a concurrent artifact change inside the mutation boundary"
+      ]
+    },
+    "D19": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D18/D19: explicit recovery cleanup rejects stale/foreign state and preserves receipt/evidence",
+        "D14/D19/D20: controller cancellation fences before-ready before releasing real handles",
+        "D14/D19/D20: controller cancellation fences before-write before releasing real handles",
+        "D14/D19/D20: controller cancellation fences before-truncate before releasing real handles",
+        "D4/D19: invalid positions, extents, detached views and parallel operations terminate safely",
+        "D4/D19: overlapping I/O/cleanup admission never queues unbounded work"
+      ]
+    },
+    "D20": {
+      "status": "passed for scoped private candidate",
+      "cases": [
+        "D20: unchanged private exporter consumes destination and closes resources after commit exception",
+        "D14/D19/D20: controller cancellation fences before-ready before releasing real handles",
+        "D14/D19/D20: controller cancellation fences before-write before releasing real handles",
+        "D14/D19/D20: controller cancellation fences before-truncate before releasing real handles",
+        "D12/D14/D20: post-admission cancel/dispose does not interrupt publication",
+        "D10/D20: malformed commit acknowledgement still has independent attempt recovery",
+        "D20: new receiver mp4 decodes committed result after target overwrite",
+        "D20: new receiver mp4 decodes recovered commit and fresh retry",
+        "D20: new receiver webm decodes committed result after target overwrite",
+        "D20: new receiver webm decodes recovered commit and fresh retry"
+      ]
+    }
+  },
+  "cases": [
+    "D1/D2: explicit scoped provisioning; exact-request checks are read-only and reusable",
+    "D3: permission-required/denied and revocation reject without prompting/acquiring",
+    "D4: unsupported policy/format/bounds, detached/shared views, admission and retention quota",
+    "D5: scope moved between support and acquisition rejects; original target preserved",
+    "D5/D11: partial acquisition failure before-journal-registered closes unreturned handles",
+    "D5/D11: partial acquisition failure after-journal-registered closes unreturned handles",
+    "D5/D11: partial acquisition failure after-stage-open closes unreturned handles",
+    "D5/D11: partial acquisition failure after-journal-prepared closes unreturned handles",
+    "D6: concurrent create-new and intervening creator preserve exactly one winner",
+    "D6: publication-time no-replace holds against another receiver process",
+    "D7: invalid names, aliases, symlink/reparse/non-regular targets and parent rebinding",
+    "D8/D9: positioned rewrites, short writes and atomic whole replacement preserve old value until commit",
+    "D9: failed replacement never restores old snapshot over a concurrent writer",
+    "D10/D11/D12: journal/publication fault before-journal-publishing reconciles independently",
+    "D10/D11/D12: journal/publication fault after-journal-publishing reconciles independently",
+    "D10/D11/D12: journal/publication fault before-publish reconciles independently",
+    "D10/D11/D12: journal/publication fault after-publish reconciles independently",
+    "D10/D11/D12: journal/publication fault before-journal-committed reconciles independently",
+    "D10/D11/D12: journal/publication fault after-journal-committed reconciles independently",
+    "D10/D11/D12: journal/publication fault before-ack reconciles independently",
+    "D13: byte equality, target absence and missing/corrupt journal cannot resolve lost native evidence",
+    "D14: a timed-out caller cannot infer non-publication; late commit remains fenced",
+    "D15/D16: historical publication survives in-place overwrite/delete and receipt is independent",
+    "D17: inspect is read-only, rejects foreign/versioned keys and preserves state after inspector failure",
+    "D18/D19: explicit recovery cleanup rejects stale/foreign state and preserves receipt/evidence",
+    "D20: unchanged private exporter consumes destination and closes resources after commit exception",
+    "D14/D19/D20: controller cancellation fences before-ready before releasing real handles",
+    "D14/D19/D20: controller cancellation fences before-write before releasing real handles",
+    "D14/D19/D20: controller cancellation fences before-truncate before releasing real handles",
+    "D12/D14/D20: post-admission cancel/dispose does not interrupt publication",
+    "D18: cleanup revalidates a concurrent artifact change inside the mutation boundary",
+    "D4/D19: invalid positions, extents, detached views and parallel operations terminate safely",
+    "D4/D19: overlapping I/O/cleanup admission never queues unbounded work",
+    "D12/D13: an uncertain falsy failure reason is preserved by the recovery channel",
+    "D11: publication observes the complete ordered journal and retained original version",
+    "D10/D20: malformed commit acknowledgement still has independent attempt recovery",
+    "D20: new receiver mp4 decodes committed result after target overwrite",
+    "D20: new receiver mp4 decodes recovered commit and fresh retry",
+    "D20: new receiver webm decodes committed result after target overwrite",
+    "D20: new receiver webm decodes recovered commit and fresh retry"
+  ],
+  "hashes": {
+    "docs/drafts/external-video-destination-compatibility.md": "0f0874024edce32143ca56e9269c14ee5a4a255bf27e52d072f611cf70d9ea83",
+    "docs/drafts/external-video-destination-contract.md": "ddf53eadda82037c7a511ccf9ae48a7ec9c7ac7ee718b04daee535b15fb1b9ee",
+    "docs/drafts/external-video-destination-verification.md": "b3e71809524a66b6ed5b80794e00b2aedafb75c09121d8dfb3893fe77081cd6c",
+    "package.json": "54da4b8caf0bc488ded21da802a5677dc083d7a11303b79f914d90cedc7c373f",
+    "scripts/build-adapters.mjs": "5927df399d47235c9b96cfac696a141b5d3f12de45061c297b22a750cb75be98",
+    "scripts/test-package.mjs": "8846f876a29d28230ef5a8ddf28dbd6be9dadede9ff466a90f7071421d74068b",
+    "docs/drafts/external-video-file-tsconfig.json": "6150bebd1eafde09921c53572692f10cb3fccf67a1d6afa3c72d1118b0b2fdcc",
+    "docs/drafts/external-video-file-types.ts": "8db38524cda19f19c186b981e95348e7bbe0c4564f7b7aa91ab7e6d6729dcd32",
+    "docs/drafts/external-video-file-verification.md": "9c72bef3797fe84242ae31cfd04c767b5d3b9d0270decb26340470d80d44bb82",
+    "src/internal/video-file-node.d.mts": "b289b4f6d71bac55d7bf621d6278f7119388725a063b052c9675b219337e95ce",
+    "src/internal/video-file-node.mjs": "2297c2e52a0005c458c1d9eac638a67014717efb9d03a5505b2825a152ea46c6",
+    "test/fixtures/video-file-process.mjs": "2bb58d94011c5c52fd1707b7f64ed37e9056bb63d729cf1c63f1180090dd9c9c",
+    "test/video-file-destination.test.mjs": "c5e55327b33770fa98bd9e0bb23a225b7d32b84dde9f75b9d4cb300b5a5d6ae2",
+    "test/video-file-media.test.mjs": "cba0ff0a778b58ba3af5fbc4e8b1193a648b10f4420846dcb2b0ae36d49342cd"
+  },
+  "limitations": [
+    "Not a hostile-directory sandbox; no atomic dirfd containment/conditional target-kind replacement.",
+    "No arbitrary/network/removable filesystem certificate; explicit controlled-local profile required.",
+    "Linux/Node24 local execution not claimed; subsequent CI can verify the candidate branches.",
+    "No crash/power-loss/restart recovery or remote publisher fencing protocol.",
+    "Unknown native outcomes without an authoritative witness remain unresolved; no automatic republish/rollback.",
+    "Journal and committed version files are intentionally retained; separate copy costs roughly one extra output file.",
+    "No new browser/AAC/Opus matrix, RSS/GC benchmark or P27/P28 public integration run.",
+    "No commit/push/new CI/tag/release/npm publication in this stage."
+  ]
+}

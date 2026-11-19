@@ -5,6 +5,10 @@ import { patchWebmMuxer } from './webm-muxer-patch.mjs';
 import {patchExternalMediaSource} from './external-video-containers/media-source-patch.mjs';
 import { apngPlugin, copyApngNotices } from './apng-build.mjs';
 import { buildPrivateWebp } from './webp-build.mjs';
+// Node-only private receiver stays outside browser entry graphs and package exports.
+await mkdir('dist/internal',{recursive:true});
+await copyFile('src/internal/video-file-node.mjs','dist/internal/video-file-node.mjs');
+await copyFile('src/internal/video-file-node.d.mts','dist/internal/video-file-node.d.mts');
 await buildPrivateWebp(build);
 // Public controller/adapter stay standalone and codec-free. Keep private entries for contract tests.
 await build({ entryPoints: ['src/apng.ts', 'src/apng-worker.ts'], outdir: 'dist',

@@ -11,6 +11,10 @@ The [companion declarations](external-video-destination-contract.d.ts) and
 and recovery. They are not new core-required methods or a proposed universal storage implementation.
 A type assertion or `supported:true` cannot establish a filesystem guarantee.
 
+The later [private Node candidate](external-video-file-verification.md) implements these mechanisms
+under an explicit controlled-local-directory/process-lifetime profile. Its evidence and exclusions
+are separate from the portable design below; it adds no public entry or restart-recovery guarantee.
+
 ## Selected boundary
 
 The core continues to call `checkSupport(request) -> Support`, then `create(context)` and the

@@ -59,3 +59,7 @@ to production by its existing tests. Crash persistence requires an explicit stro
 its own storage/fencing proofs. Public external entries and installed/Next P27/P28 remain later work.
 
 The roadmap is updated outside the repository. No commit/push, public API or release is performed.
+
+Subsequent implementation: the [private Node candidate](external-video-file-verification.md)
+records D1–D20 tests and its process-lifetime/controlled-directory scope separately. It does not
+turn this earlier design-only record into evidence for crash recovery or broader platform guarantees.
