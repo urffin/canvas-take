@@ -50,7 +50,9 @@ export interface ExternalVideoTransaction<Value> {
 
 export interface ExternalVideoDestination<Value> {
     readonly kind: 'positioned-transactional';
-    /** Read-only preflight: no writer acquisition, picker, truncation or target mutation. */
+    /** Read-only exact-request preflight; no probes, prompts, journals, writers or mutation.
+     * Scoped profile evidence is not a reservation; create revalidates identity/availability.
+     * Production diagnostics/recovery refinement: external-video-destination-contract.md. */
     checkSupport(request: ExternalVideoDestinationRequest): Awaitable<Support>;
     /** Fresh isolated transaction each call. Clean up unreturned resources if creation rejects. */
     create(context: ExternalVideoDestinationContext): Awaitable<ExternalVideoTransaction<Value>>;

@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-20",
+  "baseline": "c6f7ef75a2d95ffdeed574b2310b752f814400a2",
+  "version": "0.8.1",
+  "status": "contract design verified; no runtime or public API implementation",
+  "node": "v22.17.0",
+  "typescript": "6.0.3",
+  "checks": {
+    "build": "passed",
+    "strictNoEmit": "passed",
+    "negativeTypeCases": 52,
+    "newNegativeTypeCases": 16,
+    "publicDeclarationsUnchanged": 14,
+    "coreProposalSyntaxUnchanged": true,
+    "localLinks": 36,
+    "receiverAcceptanceGates": 20
+  },
+  "decisions": [
+    "Read-only scoped exact-request capability checks; provisioning/acquisition separate.",
+    "Atomic create-new at publication and explicit whole replacement; no weaker fallback.",
+    "Caller-known attempt identity and independent journal/recovery access before exporter creation.",
+    "Unknown commit never triggers republish/rollback or automatic deletion.",
+    "Historical publication, current target, quiescence and original receipt availability are separate.",
+    "Explicit cleanup revalidates revision, quiescence and staging ownership; never mutates target or invalidates receipts/evidence."
+  ],
+  "verificationBoundary": {
+    "runtimeSourceTestsScriptsCiUnchanged": true,
+    "packageMetadataExportsDependenciesLockDefaultsUnchanged": true,
+    "privateControllerAbiUnchanged": true,
+    "publicRuntimeSymbols": [
+      "createOfflineVideoExporter"
+    ],
+    "mediaBrowserFilesystemCrashTests": "not run; design-only changes",
+    "receiverBehaviorGates": "D1–D19 specified; candidate implementation proofs pending",
+    "previous346Node92Browser64ByteComparisons": "historical baseline evidence only"
+  },
+  "sources": [
+    {
+      "url": "https://nodejs.org/docs/latest-v22.x/api/fs.html",
+      "checked": "2026-11-20",
+      "scope": "documented primitives/check-use races, not a portable capability certificate"
+    },
+    {
+      "url": "https://fs.spec.whatwg.org/#api-filesystemfilehandle-createwritable",
+      "checked": "2026-11-20",
+      "scope": "writable visibility/locks, not generic named no-replace certification"
+    },
+    {
+      "url": "https://wicg.github.io/file-system-access/#api-filesystemhandle-querypermission",
+      "checked": "2026-11-20",
+      "scope": "query/request permission distinction"
+    }
+  ],
+  "hashes": {
+    "docs/drafts/external-video-containers-verification.md": "88de4fcb3f4b466e0a88e935e4b1d49f536c46f31e11cc49ca3c32f90353c7cf",
+    "docs/drafts/external-video-public-api.d.ts": "0b72620f327315ecd66e3618b73f701ca9f38dccd17e5e131563a6f5163a82a9",
+    "docs/drafts/external-video-public-api.md": "23e573224cd1dcb3330b68633f6fd9534274f6e19dfd8558f0ccc924bb2e5b57",
+    "docs/drafts/external-video-public-compatibility.md": "80fb1a1f760966d65943ec5728c887ac931a2c3fc9a5a7fd146ea6e695f59b73",
+    "docs/drafts/external-video-destination-compatibility.md": "b669f1474c732875e3d91cad72bc405439aea0d6987805b65a5cc65dbdf06a3d",
+    "docs/drafts/external-video-destination-contract.d.ts": "9e650c0fb58de97c114bf5758ac39c562563c6a1f41104b4b87f239f4fddc564",
+    "docs/drafts/external-video-destination-contract.md": "e6eea833c497dd44644b48fef0827cb3f31a91958c3d1decda689cfb41dd4758",
+    "docs/drafts/external-video-destination-tsconfig.json": "fbf2c00876a8d623e7a31681a6cb67f088672ed4dc0881bce1fae568806353ee",
+    "docs/drafts/external-video-destination-types.ts": "1d29fe5189e4ebd74cd31bb3fbb1e900527025a57a0b0e5e6ba58a33c919aa29",
+    "docs/drafts/external-video-destination-verification.md": "94da14414361cc2ec0569754bec1614b705432630794049b1e18e28b0faac955"
+  },
+  "remaining": [
+    "Separately authorized private receiver with scoped profile/attempt journal/recovery implementation and D1–D20 proofs.",
+    "Public external entry points/installed/Next P27/P28 remain pending."
+  ],
+  "commitPushRelease": "not performed"
+}

@@ -128,3 +128,7 @@ receiver on the tested platform. Production destination capability negotiation a
 semantics remain separate work. P27/P28 for a **new public API** are still pending; current
 installed-package checks protect the existing API, not unimplemented external public imports.
 No commit/push, public API, version change or release is part of this stage.
+
+The later [production destination refinement](external-video-destination-contract.md) selects
+caller-known attempt identity and an independent journal/reconciliation service. This test receiver
+does not implement those additions; its passing file-policy checks do not certify production recovery.
