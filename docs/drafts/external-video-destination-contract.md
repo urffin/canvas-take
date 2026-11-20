@@ -14,6 +14,8 @@ A type assertion or `supported:true` cannot establish a filesystem guarantee.
 The later [private Node candidate](external-video-file-verification.md) implements these mechanisms
 under an explicit controlled-local-directory/process-lifetime profile. Its evidence and exclusions
 are separate from the portable design below; it adds no public entry or restart-recovery guarantee.
+The [private browser prototype](external-video-browser-prototype.md) uses immutable OPFS objects
+and atomic logical-name metadata publication. It does not claim native user-file no-replace semantics.
 
 ## Selected boundary
 

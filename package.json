@@ -119,6 +119,7 @@
     "test:video:external": "npm run build && node --test test/video-external.test.mjs",
     "test:video:external:containers": "npm run build && node --test test/video-external-containers.test.mjs",
     "test:video:file": "npm run build && node --test test/video-file-destination.test.mjs test/video-file-media.test.mjs",
+    "test:video:browser-receiver": "npm run build && node scripts/verify-browser-video-receiver.mjs",
     "test:video:external:browser": "npm run build && node scripts/verify-external-video-containers.mjs",
     "test:opus:backpressure": "npm run build && node scripts/verify-opus-backpressure.mjs",
     "benchmark:video:output": "npm run build && node scripts/benchmark-video-output.mjs",

@@ -1,0 +1,156 @@
+{
+  "date": "2026-11-20",
+  "baseline": "6bcb9815f74173bdae1acba1d882d941644ad820",
+  "version": "0.8.1",
+  "status": "private browser OPFS catalogue prototype verified; no public entry/release",
+  "node": "v22.17.0",
+  "typescript": "6.0.3",
+  "platform": "win32",
+  "browsers": {
+    "chromium": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+    "firefox": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0"
+  },
+  "tests": {
+    "allNode": 391,
+    "newNode": 5,
+    "negativeTypeCases": 62,
+    "newNegativeTypeCases": 5,
+    "browserCases": 128,
+    "independentlyDecodedFiles": 84,
+    "nativeDownloadSmokes": 4,
+    "chunkTransfers": 80,
+    "namespaceTeardowns": 4,
+    "minimumAudioCorrelation": 0.9770068861549368,
+    "audioLagSamples": 0,
+    "skips": 0
+  },
+  "checks": {
+    "build": "passed",
+    "strictNoEmit": "passed",
+    "packedConsumer": "passed",
+    "publicDeclarationsUnchanged": 14,
+    "privateControllerMuxerEncoderSourcesUnchanged": true,
+    "exportsDependenciesLockDefaultsUnchanged": true,
+    "privateArtifactsPackedAndImportsBlocked": true,
+    "readOnlyPreflight": true,
+    "originalReceiptsPreserved": true,
+    "closedNativeResourceCounters": 0,
+    "closedCatalogueConnections": 0,
+    "localLinks": 22
+  },
+  "profile": {
+    "publication": "OPFS immutable byte objects + IndexedDB atomic logical-name/outcome transaction",
+    "nativeUserFilenameSemantics": "explicitly unsupported; logical catalogue names only",
+    "trust": "dedicated stable cooperating-origin namespace",
+    "defaultBindingLimitPerConnection": 256,
+    "maxWriteBytes": 16777216,
+    "filesystemWrites": "real OPFS native writable stream: positioned write + truncate + close",
+    "recovery": "persisted outcome inspection in the live namespace; no crash/restart adoption",
+    "retention": "committed objects and attempt tombstones retained; explicit failed-attempt cleanup only"
+  },
+  "groups": [
+    {
+      "browser": "chromium",
+      "kind": "mp4",
+      "cases": 32,
+      "decodedFiles": 21,
+      "long": {
+        "durationUs": 30000021,
+        "frames": 121,
+        "presentationSamples": 1440001
+      },
+      "positionedRewrites": 27,
+      "peakBorrowedWriteBytes": 12603
+    },
+    {
+      "browser": "chromium",
+      "kind": "webm",
+      "cases": 32,
+      "decodedFiles": 21,
+      "long": {
+        "durationUs": 30000021,
+        "frames": 121,
+        "presentationSamples": 1440001
+      },
+      "positionedRewrites": 25,
+      "peakBorrowedWriteBytes": 52166
+    },
+    {
+      "browser": "firefox",
+      "kind": "mp4",
+      "cases": 32,
+      "decodedFiles": 21,
+      "long": {
+        "durationUs": 30000021,
+        "frames": 121,
+        "presentationSamples": 1440001
+      },
+      "positionedRewrites": 27,
+      "peakBorrowedWriteBytes": 12603
+    },
+    {
+      "browser": "firefox",
+      "kind": "webm",
+      "cases": 32,
+      "decodedFiles": 21,
+      "long": {
+        "durationUs": 30000021,
+        "frames": 121,
+        "presentationSamples": 1440001
+      },
+      "positionedRewrites": 25,
+      "peakBorrowedWriteBytes": 48773
+    }
+  ],
+  "scenarios": [
+    "create-new",
+    "collision preserves old version",
+    "explicit replace preserves old receipts",
+    "cross-tab create-new race has one winner",
+    "readonly capability calls",
+    "silent/mono/stereo",
+    "pending limits 1/2/default",
+    "1 and 961 audio samples",
+    "30-second stereo with 121 frames/final hold",
+    "cancel acquisition/ready/write/truncate",
+    "late cancel at commit",
+    "write/truncate/close/post-close failure",
+    "actual IndexedDB publication transaction abort",
+    "lost acknowledgement after commit",
+    "fresh successful retry after each interruption",
+    "explicit repeated cleanup",
+    "catalogue close/reopen and independent receipts",
+    "zero native API lifetime counters after teardown"
+  ],
+  "verificationTransport": {
+    "source": "actual OPFS File receipt",
+    "nativeDownloads": 4,
+    "otherFiles": "64KiB chunks through test driver; browser/Node SHA-256 agreement",
+    "earlierTimeout": "Firefox download event timeout after successful export/commit/hash/resource checks; cause not established; no bulk download UI claim",
+    "timing": "integer decoded PTS/timebase for long files; avoids FFmpeg pts_time text precision loss"
+  },
+  "hashes": {
+    "docs/drafts/external-video-destination-contract.md": "386d34d4812073e3cbae24058ec7adf6bac3d218b8aadbebe2f0b606f95eb8d4",
+    "docs/drafts/external-video-public-api.md": "905ecc5b84af96d6d91a2087cb4d37d37d00e8afa433b84494a5bf3d97e657d4",
+    "package.json": "188841848fcaffbcdd9728fbe6b203d0e9c057fdb3eac5217b3770dadb411bab",
+    "scripts/test-package.mjs": "ca42938296ee5a11190ba76041a2d04eaa8c470e5465de3bbf4ad362d81e9c19",
+    "docs/drafts/external-video-browser-prototype.md": "bd73268e00e16583aca8984890ef85e2e061aacd7a10396fdba78df7877f5af1",
+    "docs/drafts/external-video-browser-tsconfig.json": "541a6739567ddfe8f597b41caa09fdb866bfb93b007b0518c4ea20dd1105c74d",
+    "docs/drafts/external-video-browser-types.ts": "4b2dff8e23ee23fe7a3b5ab8636cecafbc891c425ff45c18990c0da37f6ba8f0",
+    "scripts/browser-video-receiver/browser.mjs": "63785e48768e22f5772e77cbce03ba8e54ac391f47df492af0db0da55d6d9ca3",
+    "scripts/verify-browser-video-receiver.mjs": "3f4ef338c2cbbd7b3748ae1e9e08f6c9c6d126e31c22480c1d6dd286ba188303",
+    "src/internal/video-browser-catalog.ts": "b5db03cc09a19877b8341d729d43bab994af522c618f44845a55778417f8db5a",
+    "test/video-browser-catalog.test.mjs": "480bf5ed157314f02b29c478485634a8a2ff06b50915d891bdb0473f9d790061"
+  },
+  "rawEvidence": "benchmark-results/browser-video-receiver/results.json (ignored)",
+  "limitations": [
+    "Not Downloads or user-picked native filenames; no native file exclusive-create/replace certification.",
+    "No cross-store crash/power-loss/fsync durability or storage eviction guarantee.",
+    "No hostile same-origin mutation protection; private namespace/schema ownership required.",
+    "No public retention/GC API or persistent quota; committed versions/tombstones cost storage.",
+    "API resource lifetime counts are not OS descriptor/RSS/GC/cache measurements; harness full-file hashing is not a streaming-memory benchmark.",
+    "Browser receiver matrix executed locally on Windows Chromium/Firefox; it is not part of the existing CI browser jobs.",
+    "No public external API/P27/P28, version/tag/release/npm in this stage; commit/push and existing CI verification are separate delivery steps."
+  ],
+  "next": "Review user-visible save and retention/recovery profile separately before public external entries; do not start next stage automatically."
+}

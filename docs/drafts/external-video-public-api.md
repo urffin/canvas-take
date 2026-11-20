@@ -21,6 +21,9 @@ Production contract refinement (2026-11-20): [capabilities and independent attem
 clarify read-only preflight, publication policies and reconciliation after thrown/unknown commit.
 The core signatures below are unchanged; richer diagnostics/recovery are adapter/application-side
 design artifacts. The existing test file receiver is not a production implementation of that contract.
+The subsequent [private OPFS browser prototype](external-video-browser-prototype.md) verifies
+catalogue-based creation/replacement and real media writes; it adds no public entry or native
+user-folder guarantee.
 
 ## Selected shape
 
