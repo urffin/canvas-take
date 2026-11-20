@@ -4,6 +4,9 @@ The same offline controller can export VP8 video with optional prepared Opus aud
 VP8/Opus providers and the WebM muxer are available from version 0.6.0.
 Providers are explicit and replaceable; unsupported native configurations reject without switching formats.
 
+For external output in 0.9.0 or later, use the same VP8 and Opus factories with
+`createWebmMuxer({output: 'external'})` and a destination. [External video guide](external-video.md)
+
 ```js
 import { createOfflineVideoExporter } from '@grundyjs/canvas-take/video';
 import { createWebCodecsVideoEncoder } from '@grundyjs/canvas-take/video/webcodecs';

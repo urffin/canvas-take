@@ -1,5 +1,8 @@
 # Public external MP4/WebM output: proposed API
 
+The [implemented public API guide](../external-video.md) documents the package entry points and
+verified adapters. The proposal below records the original controller and muxer design.
+
 Status: **design only**, started 2026-11-14, verified 2026-11-16, based on 0.8.1 / commit
 `efc5f66f8d03168a7f99945ccb4f2d1f2062a25c`. No public runtime implementation or exports,
 package/version change or release. The proposed names below are unavailable in the current package.

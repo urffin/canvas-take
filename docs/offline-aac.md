@@ -1,5 +1,9 @@
 # Offline AAC-LC in MP4 (since 0.5.0)
 
+The AAC factory also works with external MP4 output in 0.9.0 and later. The external workflow uses
+the same `audio` options with `createMp4Muxer({output: 'external'})` and a destination. See the
+[external video guide](external-video.md#nextjs-and-the-aac-worker) for the Next.js asset setup.
+
 Use the optional AAC factory with the existing controller, H.264 provider and MP4 writer:
 
 ```js

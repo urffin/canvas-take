@@ -7,6 +7,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { prepareApngNext, verifyApngNext } from './apng-next.mjs';
 import { prepareWebpNext, verifyWebpNext } from './webp-next.mjs';
+import { prepareVideoNext, verifyVideoNext } from './video-next.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const npm = process.env.npm_execpath;
 if (!npm) throw Error('Use npm run test:next');
@@ -27,7 +28,9 @@ await writeFile(join(workspace, 'package.json'), JSON.stringify({ private: true,
 run(['install', ...(process.argv.includes('--offline-install') ? ['--offline'] : []), '--no-audit', '--no-fund'], workspace);
 await prepareApngNext(root, workspace);
 await prepareWebpNext(root, workspace);
+if (process.argv.includes('--video-browser')) await prepareVideoNext(root, workspace);
 run(['run', 'build'], workspace);
 if (process.argv.includes('--apng-browser')) await verifyApngNext(root, workspace);
 if (process.argv.includes('--webp-browser')) await verifyWebpNext(root, workspace);
+if (process.argv.includes('--video-browser')) await verifyVideoNext(root, workspace);
 console.log(`Next integration build passed. Browser check: npm start --prefix "${workspace}"`);

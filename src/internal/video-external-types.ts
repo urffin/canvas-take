@@ -1,4 +1,4 @@
-/** Private external-output contracts. Not a package entry point. */
+/** External video contracts re-exported by the public video entry. */
 import type {
     Awaitable, CodecEvent, FrameTiming, MuxerConfig, MuxerContext, MuxerFactory,
     OfflineVideoExporter, OfflineVideoOptions, OfflineVideoState, Support, TimelineSummary

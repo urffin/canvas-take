@@ -1,12 +1,7 @@
-/** Private managed browser-result contract. No package entry point. */
+/** Managed browser result contracts re-exported by the browser entry. */
 import type {ExternalVideoDestination,ExternalVideoFormat} from './video-external-types.js';
-import type {Awaitable} from '../video.js';
-export interface DestinationRecoveryKey {readonly version:1;readonly backendId:string;readonly scopeId:string;readonly attemptId:string}
-export type RecoveredReceipt<V>={readonly status:'available';readonly value:V}|{readonly status:'unavailable';readonly reason:unknown};
-export type ReconciledPublication<V>={readonly status:'committed';readonly receipt:RecoveredReceipt<V>}|{readonly status:'not-committed';readonly reason:unknown}|{readonly status:'indeterminate';readonly reason:unknown};
-export type DestinationRecoverySnapshot<V>={readonly key:DestinationRecoveryKey;readonly revision:string;readonly currentTarget:'this-attempt'|'other-publication'|'absent'|'unknown';readonly staging:'retained'|'absent'|'unknown'} & ({readonly quiescent:false;readonly publication:{readonly status:'indeterminate';readonly reason:unknown}}|{readonly quiescent:true;readonly publication:ReconciledPublication<V>});
-export type DestinationRecoveryCleanup={readonly status:'cleaned'|'already-clean'}|{readonly status:'blocked';readonly reason:unknown};
-export interface DestinationRecoveryService<V> {inspect(key:DestinationRecoveryKey):Awaitable<DestinationRecoverySnapshot<V>>;cleanup(key:DestinationRecoveryKey,request:{readonly expectedRevision:string}):Awaitable<DestinationRecoveryCleanup>}
+import type {DestinationRecoveryKey,DestinationRecoveryService,DestinationRecoverySnapshot} from './video-destination-contract.js';
+export type {DestinationRecoveryKey,DestinationRecoveryCleanup} from './video-destination-contract.js';
 
 declare const revisionBrand:unique symbol;
 declare const cursorBrand:unique symbol;
@@ -135,8 +130,8 @@ export type BrowserStoreClose=
     | {readonly status:'closed'}
     | {readonly status:'busy';readonly readers:number;readonly downloads:number;readonly attempts:number};
 
-/** No factory is proposed here: provisioning/reopen is explicit, and no v1 auto-upgrade is allowed. */
-export interface BrowserResultStoreDraft {
+/** Provisioning and reopen are explicit. This store does not upgrade v1 catalogues. */
+export interface BrowserResultStore {
     readonly profile:'opfs-managed-v2';
     readonly recovery:BrowserResultRecoveryService;
     /** Read-only: no new database/directory, lock, writer, prompt or probing mutation. */
@@ -158,3 +153,6 @@ export interface BrowserResultStoreDraft {
     /** Busy does not poison the connection or invalidate outstanding leases/downloads. */
     close():Promise<BrowserStoreClose>;
 }
+
+/** Historical internal name used by the controlled implementation and design fixtures. */
+export type BrowserResultStoreDraft = BrowserResultStore;

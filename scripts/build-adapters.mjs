@@ -5,7 +5,7 @@ import { patchWebmMuxer } from './webm-muxer-patch.mjs';
 import {patchExternalMediaSource} from './external-video-containers/media-source-patch.mjs';
 import { apngPlugin, copyApngNotices } from './apng-build.mjs';
 import { buildPrivateWebp } from './webp-build.mjs';
-// Node-only private receiver stays outside browser entry graphs and package exports.
+// Node-only implementation stays outside browser entry graphs.
 await mkdir('dist/internal',{recursive:true});
 await copyFile('src/internal/video-file-node.mjs','dist/internal/video-file-node.mjs');
 await copyFile('src/internal/video-file-node.d.mts','dist/internal/video-file-node.d.mts');
@@ -36,40 +36,49 @@ await build({ entryPoints: ['src/gifenc.ts'], outfile: 'dist/gifenc.js', bundle:
     format: 'esm', platform: 'browser', target: 'es2022', minify: true,
     banner: { js: '/*! Includes gifenc (MIT). See gifenc-LICENSE.txt. */' } });
 await copyFile('node_modules/gifenc/LICENSE.md', 'dist/gifenc-LICENSE.txt');
-for (const name of await readdir('dist')) if (/^video-container-[A-Z0-9]+\.js(?:\.map)?$/.test(name)) await unlink(resolve('dist',name));
-await build({ entryPoints: { 'video-mp4':'src/video-mp4.ts', 'video-webm':'src/video-webm.ts' }, outdir: 'dist', bundle: true,
-    format: 'esm', platform: 'browser', target: 'es2022', minify: true, sourcemap: true, splitting:true, chunkNames:'video-container-[hash]',
-    plugins:[{name:'pinned-webm-muxer',setup(build){build.onLoad({filter:/[\\/]matroska[\\/]matroska-muxer\.js$/},async({path})=>({
-        contents:patchWebmMuxer((await readFile(path,'utf8')).replaceAll('\r\n','\n').replace(/^\/\/# sourceMappingURL=.*$/gm,'')),loader:'js',resolveDir:dirname(path)
-    }));}}],
-    banner: { js: '/*! Includes Mediabunny 1.65.0 (MPL-2.0) with WebM integration changes. Source in video-container-*.js.map; see mediabunny-LICENSE.txt. */' } });
-await copyFile('node_modules/mediabunny/LICENSE', 'dist/mediabunny-LICENSE.txt');
-// Private real-container integration: separate bundles preserve the public Blob adapters.
+// Both output modes share one Mediabunny graph and load it only when called.
 await mkdir('dist/internal',{recursive:true});
-for(const name of await readdir('dist/internal'))if(/^external-container-[A-Z0-9]+\.js(?:\.map)?$/.test(name))await unlink(resolve('dist/internal',name));
-await build({entryPoints:['src/internal/video-external-mp4.ts','src/internal/video-external-webm.ts'],outdir:'dist/internal',bundle:true,
-    format:'esm',platform:'browser',target:'es2022',minify:true,sourcemap:true,splitting:true,chunkNames:'external-container-[hash]',
-    plugins:[{name:'private-pinned-webm-muxer',setup(build){build.onLoad({filter:/[\\/]media-source\.js$/},async({path})=>({contents:patchExternalMediaSource((await readFile(path,'utf8')).replaceAll('\r\n','\n').replace(/^\/\/# sourceMappingURL=.*$/gm,'')),loader:'js',resolveDir:dirname(path)}));build.onLoad({filter:/[\\/]matroska[\\/]matroska-muxer\.js$/},async({path})=>({
-        contents:patchWebmMuxer((await readFile(path,'utf8')).replaceAll('\r\n','\n').replace(/^\/\/# sourceMappingURL=.*$/gm,'')),loader:'js',resolveDir:dirname(path)
-    }));}}],
-    banner:{js:'/*! Private integration; includes Mediabunny 1.65.0 (MPL-2.0). Source in external-container-*.js.map; see ../mediabunny-LICENSE.txt and ../webm-PROVENANCE.md. */'}});
+for (const [dir, pattern] of [['dist', /^video-container-[A-Z0-9]+\.js(?:\.map)?$/],
+    ['dist/internal', /^external-container-[A-Z0-9]+\.js(?:\.map)?$/]]) {
+    for (const name of await readdir(dir)) if (pattern.test(name)) await unlink(resolve(dir, name));
+}
+await build({
+    entryPoints: {'video-mp4': 'src/video-mp4.ts', 'video-webm': 'src/video-webm.ts',
+        'internal/video-external-mp4': 'src/internal/video-external-mp4.ts',
+        'internal/video-external-webm': 'src/internal/video-external-webm.ts',
+        'internal/video-muxer-vendor': 'src/internal/video-muxer-vendor.ts'},
+    outdir: 'dist', bundle: true, format: 'esm', platform: 'browser', target: 'es2022', minify: true,
+    sourcemap: true, splitting: true, chunkNames: 'video-container-[hash]',
+    plugins: [{name: 'pinned-video-container-transforms', setup(builder) {
+        function transform(filter, patch) {
+            builder.onLoad({filter}, async ({path}) => ({
+                contents: patch((await readFile(path, 'utf8')).replaceAll('\r\n', '\n').replace(/^\/\/# sourceMappingURL=.*$/gm, '')),
+                loader: 'js', resolveDir: dirname(path)
+            }));
+        }
+        transform(/[\\/]media-source\.js$/, patchExternalMediaSource);
+        transform(/[\\/]matroska[\\/]matroska-muxer\.js$/, patchWebmMuxer);
+    }}],
+    banner: {js: '/*! Includes Mediabunny 1.65.0 (MPL-2.0). Source in video-container-*.js.map; see mediabunny-LICENSE.txt. */'}
+});
+await copyFile('node_modules/mediabunny/LICENSE', 'dist/mediabunny-LICENSE.txt');
 await mkdir('dist/internal/external-video-sources',{recursive:true});
 await copyFile('scripts/external-video-containers/media-source-patch.mjs','dist/internal/external-video-sources/media-source-patch.mjs');
 await copyFile('node_modules/mediabunny/src/media-source.ts','dist/internal/external-video-sources/media-source.ts');
 await copyFile('node_modules/mediabunny/dist/modules/src/media-source.js','dist/internal/external-video-sources/media-source.js');
-await writeFile('dist/internal/external-video-PROVENANCE.md',`# Private external container integration
+await writeFile('dist/internal/external-video-PROVENANCE.md',`# External container integration
 
-Not a public package entry point. Mediabunny 1.65.0 (MPL-2.0), pinned npm source:
+Loaded through the external mode of the public MP4 and WebM adapters. Mediabunny 1.65.0 (MPL-2.0), pinned npm source:
 https://registry.npmjs.org/mediabunny/-/mediabunny-1.65.0.tgz
 
-The public Blob bundles are unchanged. These private bundles also apply the WebM
-transform documented in ../webm-PROVENANCE.md and a separate MediaSource transform.
+The Blob and external adapters share the same Mediabunny modules. The build applies the WebM
+transform documented in ../webm-PROVENANCE.md and a MediaSource transform.
 external-video-sources/media-source.ts and .js are pristine upstream sources;
 media-source-patch.mjs is the preferred CanvasTake integration source (MIT).
 Normalize upstream JS to LF, remove its sourceMappingURL comment and invoke
 patchExternalMediaSource(source). It makes close() return the existing closing
 Promise and await onTrackClose work so cancellation cannot close the writer early.
-The modified module remains MPL-2.0 and is included in external-container-*.js.map
+The modified module remains MPL-2.0 and is included in ../video-container-*.js.map
 sourcesContent. Bundled with esbuild 0.28.2. See ../mediabunny-LICENSE.txt.
 `);
 await mkdir('dist/webm-sources',{recursive:true});

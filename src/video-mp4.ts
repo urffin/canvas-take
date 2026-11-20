@@ -1,6 +1,8 @@
-import { Output, StreamTarget, Mp4OutputFormat, EncodedVideoPacketSource, EncodedAudioPacketSource, EncodedPacket } from 'mediabunny';
+import type { Output, EncodedVideoPacketSource, EncodedAudioPacketSource } from 'mediabunny';
 import type { MuxerFactory, MuxerConfig, VideoDescription, AudioDescription, EncodedPacket as Packet } from './video.js';
 import { createPagedByteStore } from './internal/paged-bytes.js';
+import { lazyExternalVideoMuxer } from './internal/video-external-lazy.js';
+import type { ExternalVideoMuxerFactory } from './internal/video-external-types.js';
 
 // Mediabunny 1.65 uses this movie/track timebase when no frameRate snapping is requested.
 const TIMESCALE = 57_600;
@@ -12,12 +14,25 @@ function unsupported(config: MuxerConfig): string | undefined {
 }
 
 /** Optional, bundled Mediabunny MP4 writer. No encoding or implicit format selection. */
-export function createMp4Muxer(): MuxerFactory {
+export function createMp4Muxer(options: {readonly output: 'external'}): ExternalVideoMuxerFactory<'mp4'>;
+export function createMp4Muxer(): MuxerFactory;
+export function createMp4Muxer(options?: {readonly output: 'external'}): MuxerFactory | ExternalVideoMuxerFactory<'mp4'> {
+    if (options !== undefined) {
+        if (options?.output !== 'external') throw new TypeError('MP4 output must be external when specified');
+        return lazyExternalVideoMuxer({mimeType: 'video/mp4', extension: 'mp4'},
+            async () => (await import('./internal/video-external-mp4.js')).createExternalMp4Muxer());
+    }
+    return createBlobMp4Muxer();
+}
+
+function createBlobMp4Muxer(): MuxerFactory {
     return {
         format: Object.freeze({ mimeType: 'video/mp4', extension: 'mp4' }),
         async checkSupport(config) { const reason = unsupported(config); return reason ? { supported: false, reason } : { supported: true }; },
         async create(config, context) {
             const reason = unsupported(config); if (reason) throw new DOMException(reason, 'NotSupportedError');
+            const {Output, StreamTarget, Mp4OutputFormat, EncodedVideoPacketSource, EncodedAudioPacketSource, EncodedPacket} =
+                await import('./internal/video-muxer-vendor.js');
             let output: Output | undefined, source: EncodedVideoPacketSource | undefined, audio: EncodedAudioPacketSource | undefined;
             let disposed = false, ended = false, description: VideoDescription | undefined, frames = 0, endUs = 0, mediaBytes = 0;
             let audioDescription: AudioDescription | undefined, audioEnded = false, audioSamples: number | undefined;

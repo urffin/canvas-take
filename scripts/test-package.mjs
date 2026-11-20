@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, writeFile, rm, realpath } from 'node:fs/promises';
+import { copyFile, mkdtemp, readFile, writeFile, rm, realpath } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve, relative, isAbsolute } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -30,6 +30,11 @@ try {
     assert.ok(packed.files.some(file => file.path === 'docs/video-recording.md'), 'Missing video verification documentation');
     for (const file of ['dist/video.js', 'dist/video.d.ts', 'dist/video-webcodecs.js', 'dist/video-webcodecs.d.ts', 'dist/video-mp4.js', 'dist/video-mp4.d.ts', 'dist/video-mp4.js.map', 'dist/mediabunny-LICENSE.txt', 'docs/offline-video-api.md', 'docs/offline-video-adapters.md']) assert.ok(packed.files.some(entry => entry.path === file), 'Missing offline video package file: ' + file);
     assert.equal(installed.version, pkg.version);
+    for (const path of ['dist/video-browser.js','dist/video-browser.d.ts','dist/video-node.js','dist/video-node.d.ts',
+        'dist/internal/video-destination-contract.d.ts','dist/internal/external-video-PROVENANCE.md','docs/external-video.md']) {
+        assert.ok(packed.files.some(file => file.path === path), `Missing external video package file: ${path}`);
+    }
+    assert.equal(installed.exports['./video/node'].node.default, './dist/video-node.js');
     const documentation=await verifyPackageDocumentation(join(workspace,'node_modules/@grundyjs/canvas-take'));
     console.log(`Packed documentation passed: ${documentation.files.length} current documents for ${documentation.version}`);
     assert.equal(installed.exports['./webp'].import, './dist/webp.js');
@@ -44,16 +49,21 @@ try {
     for(const file of ['dist/video-webm.js','dist/video-webm.d.ts','dist/video-opus.js','dist/video-opus.d.ts','docs/offline-webm.md','dist/webm-PROVENANCE.md','dist/webm-sources/matroska-muxer.ts','dist/webm-sources/matroska-muxer.js','dist/webm-sources/webm-muxer-patch.mjs']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing WebM file: '+file);
     const sharedMaps=packed.files.filter(entry=>/^dist\/video-container-[A-Z0-9]+\.js\.map$/.test(entry.path));
     assert.ok(sharedMaps.length>0,'Missing shared container sources');
+    const sharedSources = [];
     for(const file of sharedMaps){
         assert.ok(packed.files.some(entry=>entry.path===file.path.slice(0,-4)),'Missing shared runtime');
         const map=JSON.parse(await readFile(join(workspace,'node_modules/@grundyjs/canvas-take',file.path),'utf8'));
         assert.equal(map.sources.length,map.sourcesContent.length);assert.ok(map.sourcesContent.every(s=>typeof s==='string'&&s.length));
-        assert.ok(map.sourcesContent.some(s=>s.includes('canvastakeDiscardPaddingNs')),'Missing modified MPL source');
+        sharedSources.push(...map.sourcesContent);
     }
+    assert.ok(sharedSources.some(source => source.includes('canvastakeDiscardPaddingNs')), 'Missing modified WebM MPL source');
+    assert.ok(sharedSources.some(source => source.includes('await connectedTrack.output._muxer.onTrackClose')), 'Missing modified MediaSource MPL source');
     const muxerMap = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/dist/video-mp4.js.map'), 'utf8'));
     assert.equal(muxerMap.sourcesContent.length, muxerMap.sources.length);
     assert.ok(muxerMap.sourcesContent.every(source => typeof source === 'string' && source.length > 0), 'Missing bundled MPL source text');
     for (const file of ['dist/video-aac.js','dist/video-aac.d.ts','dist/video-aac-worker.js','dist/video-aac-worker.js.map','dist/aac-PROVENANCE.md','dist/aac-licenses/MPL-2.0.txt','dist/aac-licenses/COPYING.LGPLv2.1','dist/aac-licenses/bridge.c','docs/offline-aac.md']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing AAC file: '+file);
+    await copyFile(join(root, 'test/fixtures/video-public-types.ts'), join(workspace, 'video-public-types.ts'));
+    await copyFile(join(root, 'test/fixtures/video-public-node.mjs'), join(workspace, 'video-public-node.mjs'));
     await writeFile(join(workspace, 'consumer.ts'), `
 import { createApngExporter, type ApngExportOptions, type ApngExporter } from '@grundyjs/canvas-take/apng';
 for (const path of ['/internal/webp-controller.js', '/internal/webp-worker.js', '/internal/video-external.js', '/internal/video-external-types.js', '/internal/video-external-mp4.js', '/internal/video-external-webm.js', '/internal/video-external-target.js', '/internal/video-file-node.mjs', '/internal/video-file-node.d.mts', '/internal/video-browser-catalog.js', '/internal/video-browser-catalog.d.ts', '/internal/video-browser-results.js', '/internal/video-browser-results.d.ts', '/internal/video-browser-results-types.js', '/internal/video-browser-results-types.d.ts', '/internal/video-browser-results-ports.js', '/internal/video-browser-results-ports.d.ts', '/internal/video-browser-results-native.js', '/internal/video-browser-results-native.d.ts']) {
@@ -141,10 +151,11 @@ void record;
 `);
     await writeFile(join(workspace, 'tsconfig.json'), JSON.stringify({
         compilerOptions: { target: 'ES2022', module: 'NodeNext', strict: true,
-            exactOptionalPropertyTypes: true, types: [], outDir: 'output' }, files: ['consumer.ts']
+            exactOptionalPropertyTypes: true, types: [], outDir: 'output' }, files: ['consumer.ts','video-public-types.ts']
     }));
     execFileSync(process.execPath, [join(root, 'node_modules/typescript/bin/tsc'), '-p', join(workspace, 'tsconfig.json')], { stdio: 'inherit' });
     execFileSync(process.execPath, [join(workspace, 'output/consumer.js')], { cwd: workspace, stdio: 'inherit' });
+    execFileSync(process.execPath, [join(workspace, 'video-public-node.mjs')], {cwd: workspace, stdio: 'inherit'});
     console.log(`Packed consumer passed: ${pkg.name}@${pkg.version}`);
 } finally {
     const parent = await realpath(tmpdir());

@@ -1,5 +1,5 @@
-/** Private Node candidate; no public package export. See the scoped receiver verification. */
-import type {DestinationAttemptBinding,DestinationRecoveryService,DestinationScope,DestinationRequest,DestinationSupport} from '../../docs/drafts/external-video-destination-contract.js';
+/** Internal Node implementation including test hooks. */
+import type {DestinationAttemptBinding,DestinationRecoveryService,DestinationScope,DestinationRequest,DestinationSupport} from './video-destination-contract.js';
 import type {ExternalVideoDestination,ExternalVideoIfExists} from './video-external-types.js';
 export interface NodeVideoReceipt {
     readonly attemptId:string;

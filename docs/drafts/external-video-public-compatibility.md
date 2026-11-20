@@ -8,8 +8,9 @@ The later [private-controller verification](external-video-controller-verificati
 controller obligations using test destinations/muxers. Actual storage capability proofs and
 real container/package integration are not implied by those controlled tests.
 The later [private real-container verification](external-video-containers-verification.md)
-adds P24–P26 and actual-file evidence scoped to a test receiver/platform. Public external
-entry points and their installed/Next checks P27/P28 are still pending.
+adds P24–P26 and actual-file evidence scoped to a test receiver/platform. The
+[public-entry verification](external-video-public-implementation-verification.md) records the
+installed-package and Next.js checks for P27 and P28.
 The [production destination D1–D20 gates](external-video-destination-compatibility.md) refine
 capability evidence, target identity and recovery requirements before a candidate storage receiver
 can be approved for actual use. They do not change the core ABI or certify existing test receivers.

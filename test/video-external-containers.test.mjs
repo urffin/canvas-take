@@ -102,14 +102,15 @@ test('external target serializes and splits vendor chunks, retains exact failure
  bridge.target._start();bridge.target._write(new Uint8Array([1,2,3,4,5,6,7,8]),0);await bridge.target._flush();await bridge.target._finalize();
  assert.deepEqual(calls,[[0,[1,2,3]],[3,[4,5,6]],[6,[7,8]]]);assert.equal(fail,reason);assert.throws(bridge.check,e=>e===reason);bridge.stop();
 });
-test('private MediaSource transform is pinned, shipped and absent from public bundles',async()=>{
+test('the pinned MediaSource transform ships once in the shared container graph',async()=>{
  const path='node_modules/mediabunny/dist/modules/src/media-source.js',source=(await readFile(path,'utf8')).replaceAll('\r\n','\n'),patched=patchExternalMediaSource(source);
  assert.match(patched,/await connectedTrack.output._muxer.onTrackClose/);assert.throws(()=>patchExternalMediaSource(patched),/anchor changed/);
  assert.equal((await readFile(path,'utf8')).replaceAll('\r\n','\n'),source);
  assert.equal(await readFile('dist/internal/external-video-sources/media-source-patch.mjs','utf8'),await readFile('scripts/external-video-containers/media-source-patch.mjs','utf8'));
- const maps=(await readdir('dist/internal')).filter(n=>/^external-container-.*\.js.map$/.test(n));assert.ok(maps.length);
- const modified=(await Promise.all(maps.map(n=>readFile('dist/internal/'+n,'utf8')))).join('');assert.match(modified,/await connectedTrack.output._muxer.onTrackClose/);
- const publicMaps=(await readdir('dist')).filter(n=>/^video-container-.*\.js.map$/.test(n));for(const n of publicMaps)assert.doesNotMatch(await readFile('dist/'+n,'utf8'),/await connectedTrack.output._muxer.onTrackClose/);
+ const maps=(await readdir('dist')).filter(n=>/^video-container-.*\.js\.map$/.test(n));assert.ok(maps.length);
+ const sources=(await Promise.all(maps.map(async n=>JSON.parse(await readFile('dist/'+n,'utf8')).sourcesContent))).flat();
+ assert.equal(sources.filter(value=>value.includes('await connectedTrack.output._muxer.onTrackClose')).length,1);
+ assert.equal((await readdir('dist/internal')).filter(n=>/^external-container-/.test(n)).length,0);
 });
 for(const kind of ['mp4','webm'])test('real '+kind+' rejects unsupported config and header byte limits without leaking acquisition',async()=>{
  const directory=await mkdtemp(join(tmpdir(),'canvastake-container-limits-')),path=join(directory,'movie.'+kind);

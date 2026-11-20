@@ -1,5 +1,14 @@
 import { blendRange } from './internal/rgba.js';
 
+export { createExternalVideoExporter } from './internal/video-external.js';
+export type {
+    ExternalVideoContainer, ExternalVideoFormat, ExternalVideoIfExists, ExternalVideoDestinationRequest,
+    ExternalVideoDestinationContext, ExternalVideoCommit, ExternalVideoReleaseContext, ExternalVideoTransaction,
+    ExternalVideoDestination, ExternalVideoWriteSink, ExternalVideoMuxerContext, ExternalVideoContainerResult,
+    ExternalVideoMuxer, ExternalVideoMuxerFactory, ExternalVideoOptions, ExternalVideoOutput, ExternalVideoResult,
+    ExternalVideoCleanupIssue, ExternalVideoCloseReport, ExternalVideoOutputPhase, ExternalVideoExporter
+} from './internal/video-external-types.js';
+
 /** Adapter-neutral offline video contracts. Concrete codecs and containers are supplied by the caller. */
 export type Awaitable<T> = T | Promise<T>;
 export type Support = { readonly supported: true } | { readonly supported: false; readonly reason: string };

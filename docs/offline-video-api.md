@@ -1,17 +1,16 @@
 # Offline video API and adapter protocol
 
-An experimental [external MP4/WebM destination design and memory study](drafts/external-video-output.md)
-investigates long exports separately. It is not a public option: the API below still returns a Blob.
-The subsequent [public destination API project](drafts/external-video-public-api.md) specifies
-proposed creation/overwrite/commit/result contracts only; none of its additions are implemented.
+This reference covers `createOfflineVideoExporter`, which returns a Blob, and the shared encoder
+protocol. For positioned writes to a browser store, a Node directory or a custom destination, use
+`createExternalVideoExporter`, available since 0.9.0. See the [external video guide](external-video.md).
 
 Status: controller and real H.264/AAC adapters available in 0.5.0 (2026-11-02). `src/video.ts` and `/video` implement this protocol. Separate `/video/webcodecs`, `/video/aac` and `/video/mp4` providers export actual H.264 Baseline / AAC-LC MP4; see [adapter usage, limits and verification](offline-video-adapters.md). The [contract reference](drafts/offline-video-api.d.ts) re-exports the canonical declarations; the [narrated usage example](drafts/offline-video-example.ts) uses real factories, with caller-supplied canvas/rendering/PCM. This is an API specification, not the personal development roadmap.
 
 ## Goal and scope
 
-Export a supplied timeline to a complete video file, with optional prepared audio, regardless of rendering/encoding speed. The first integration target is portrait MP4 H.264/AAC for Shorts; WebM VP8/Opus follows using the same controller. Codec and container implementations are separate, caller-selected adapters. There is no implicit codec choice, real-time capture, audio device or MediaRecorder dependency in the offline controller.
+Export a supplied timeline to a complete video file, with optional prepared audio, regardless of rendering or encoding speed. The bundled adapters support MP4 H.264/AAC and WebM VP8/Opus. The caller chooses the codec and container adapters and supplies the input frames and audio samples.
 
-The existing recorder and GIF APIs keep their own lifecycles. `/video` is the controller entry point and bundles no codec, muxer, FFmpeg or Worker implementation. `/video/webcodecs` supplies a native video encoder factory; `/video/mp4` separately bundles Mediabunny 1.65.0 as an MP4 writer with optional AAC-LC audio. `/video/aac` loads a dedicated libavcodec WASM Worker, with packet-derived priming and padding. These remain optional, independently replaceable factories; see the [AAC guide](offline-aac.md).
+`/video` is the controller entry point. `/video/webcodecs` supplies a native video encoder factory, and `/video/mp4` and `/video/webm` supply the optional Mediabunny container adapters. `/video/aac` loads a dedicated libavcodec WASM Worker with packet-derived priming and padding. See the [AAC guide](offline-aac.md) and [WebM guide](offline-webm.md).
 
 The first version accepts fixed-size 2D HTMLCanvasElement/OffscreenCanvas frames and one prepared PCM audio track. Native VideoFrame input, multiple tracks, mixing, resampling, arbitrary gaps, B-frame reordering, streaming file sinks and HDR are deferred. This bounds the first implementation without tying the adapter interfaces to WebCodecs objects.
 

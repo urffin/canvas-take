@@ -4,7 +4,9 @@
 
 [Website](https://grundyjs.ru/en/canvas-take/) · [npm](https://www.npmjs.com/package/@grundyjs/canvas-take) · [Issues](https://github.com/urffin/canvas-take/issues)
 
-Independent TypeScript library for HTML canvas recording with audio, offline H.264/AAC MP4, VP8/Opus WebM, GIF and APNG export through separate entry points. ESM with TypeScript declarations, no external runtime npm dependencies or dependency on AlgiViz. CanvasTake source is MIT licensed; optional adapters include [Mediabunny MPL-2.0](docs/offline-video-adapters.md#distribution-and-sources), [AAC WASM / FFmpeg LGPL components](docs/offline-aac.md#distribution-and-source) and [UPNG/Pako MIT/Zlib](docs/apng-export.md#custom-encoders). The package does not start or draw your animation.
+[`H.264`](docs/offline-video-adapters.md) · [`OPFS`](docs/external-video.md#write-a-file-in-browser-storage)
+
+Independent TypeScript library for HTML canvas recording with audio and offline export to H.264/AAC MP4, VP8/Opus WebM, GIF, APNG and animated WebP. Each format has a separate entry point. ESM with TypeScript declarations, no external runtime npm dependencies or dependency on AlgiViz. CanvasTake source is MIT licensed; optional adapters include [Mediabunny MPL-2.0](docs/offline-video-adapters.md#distribution-and-sources), [AAC WASM / FFmpeg LGPL components](docs/offline-aac.md#distribution-and-source) and [UPNG/Pako MIT/Zlib](docs/apng-export.md#custom-encoders). The package does not start or draw your animation.
 
 ## Install
 
@@ -145,6 +147,22 @@ try {
 ```
 
 Frames form a contiguous timeline from zero in integer microseconds; durations and audio sample positions do not depend on encoding speed. The controller snapshots inputs, limits queues, serializes muxing and releases owned adapters on completion/failure/abort. Audio uses an explicit strict or trim/pad policy. See [real adapters, usage and timing precision](docs/offline-video-adapters.md), [AAC delay and sample-count verification](docs/offline-aac.md), the [runnable example](examples/offline-video.html) and [API details](docs/offline-video-api.md). Video boundaries use 57,600 Hz ticks; audio uses sample positions, a priming edit and a shortened final sample duration. MP4 presentation length excludes AAC padding; raw decoders that return full AAC frames must apply the container endpoint.
+
+## Write offline video to a destination (0.9.0+)
+
+`createExternalVideoExporter` writes MP4 or WebM as it encodes. Pair it with
+`createMp4Muxer({ output: 'external' })` or `createWebmMuxer({ output: 'external' })`
+and a destination. `finish()` returns the committed result in `result.output.value`.
+For a Blob, use `createOfflineVideoExporter` with a zero-argument muxer factory.
+
+- Browser apps can store files in private storage for their origin with `/video/browser`, then
+  open a `File` or prepare a download.
+- Node apps can write to a controlled local directory with `/video/node` and use their own encoders.
+- Apps with another storage backend can supply an `ExternalVideoDestination` that stages
+  positioned writes and publishes the completed file.
+
+See the [external video guide](docs/external-video.md) for a browser example, overwrite and
+recovery behavior, and the AAC Worker setup in Next.js.
 
 ## Offline GIF export
 

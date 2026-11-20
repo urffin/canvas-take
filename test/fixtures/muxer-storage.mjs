@@ -16,6 +16,7 @@ export async function storageHarness(kind, { real = false, maxOutputBytes, maxPe
     if (!compiled.has(key)) compiled.set(key, (async () => (await build({
         entryPoints: [fileURLToPath(new URL(`../../src/video-${kind}.ts`, import.meta.url))],
         bundle: true, write: false, format: 'cjs', platform: 'browser', target: 'es2022',
+        supported: {'dynamic-import': false}, // The isolated VM provides its vendor double through require.
         external: real ? [] : ['mediabunny'],
         plugins: real ? [{ name: 'real-pinned-webm', setup(b) {
             b.onLoad({ filter: /[\\/]matroska[\\/]matroska-muxer\.js$/ }, async ({ path }) => ({

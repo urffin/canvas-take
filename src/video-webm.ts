@@ -1,6 +1,8 @@
-import {Output,StreamTarget,WebMOutputFormat,EncodedVideoPacketSource,EncodedAudioPacketSource,EncodedPacket} from 'mediabunny';
+import type {Output,EncodedVideoPacketSource,EncodedAudioPacketSource} from 'mediabunny';
 import type {MuxerFactory,MuxerConfig,VideoDescription,AudioDescription,EncodedPacket as Packet} from './video.js';
 import {createPagedByteStore} from './internal/paged-bytes.js';
+import {lazyExternalVideoMuxer} from './internal/video-external-lazy.js';
+import type {ExternalVideoMuxerFactory} from './internal/video-external-types.js';
 
 function unsupported(c:MuxerConfig):string|undefined {
     if(c.video.codec!=='vp8'||c.video.bitstreamFormat!=='vp8')return 'WebM requires vp8/vp8 video';
@@ -10,12 +12,25 @@ function unsupported(c:MuxerConfig):string|undefined {
 const sample=(us:number)=>Math.sign(us)*Number((BigInt(Math.abs(us))*48000n+500000n)/1000000n);
 const ns=(samples:number)=>Number((BigInt(samples)*1000000000n+24000n)/48000n);
 /** VP8 with optional Opus; microsecond WebM timebase, CodecDelay and final DiscardPadding. */
-export function createWebmMuxer():MuxerFactory {
+export function createWebmMuxer(options:{readonly output:'external'}):ExternalVideoMuxerFactory<'webm'>;
+export function createWebmMuxer():MuxerFactory;
+export function createWebmMuxer(options?:{readonly output:'external'}):MuxerFactory|ExternalVideoMuxerFactory<'webm'> {
+    if (options !== undefined) {
+        if (options?.output !== 'external') throw new TypeError('WebM output must be external when specified');
+        return lazyExternalVideoMuxer({mimeType:'video/webm',extension:'webm'},
+            async () => (await import('./internal/video-external-webm.js')).createExternalWebmMuxer());
+    }
+    return createBlobWebmMuxer();
+}
+
+function createBlobWebmMuxer(): MuxerFactory {
     return {
         format:Object.freeze({mimeType:'video/webm',extension:'webm'}),
         async checkSupport(config){const reason=unsupported(config);return reason?{supported:false,reason}:{supported:true};},
         async create(config,context){
             const reason=unsupported(config);if(reason)throw new DOMException(reason,'NotSupportedError');
+            const {Output,StreamTarget,WebMOutputFormat,EncodedVideoPacketSource,EncodedAudioPacketSource,EncodedPacket}=
+                await import('./internal/video-muxer-vendor.js');
             let output:Output|undefined,video:EncodedVideoPacketSource|undefined,audio:EncodedAudioPacketSource|undefined;
             let videoConfig:VideoDescription|undefined,audioConfig:AudioDescription|undefined,lastAudio:Packet|undefined;
             let endedVideo=false,endedAudio=false,frames=0,videoEnd=0,audioNext:number|undefined,preSkip:number|undefined,audioSamples:number|undefined;

@@ -6,8 +6,7 @@ import type {OfflineVideoOptions,MuxerFactory} from '@grundyjs/canvas-take/video
 import {createExternalMp4Muxer} from '../../dist/internal/video-external-mp4.js';
 import {createExternalWebmMuxer} from '../../dist/internal/video-external-webm.js';
 import {createMp4Muxer as publicMp4} from '@grundyjs/canvas-take/video/mp4';
-// @ts-expect-error this stage must not export the new controller from the public entry point
-import {createExternalVideoExporter as notPublic} from '@grundyjs/canvas-take/video';
+import {createExternalVideoExporter as publicExporter} from '@grundyjs/canvas-take/video';
 
 const matchesProposal: typeof proposed = implemented;
 const matchesImplementation: typeof implemented = proposed;
@@ -21,8 +20,10 @@ const realMp4:ExternalVideoMuxerFactory<'mp4'>=createExternalMp4Muxer();
 const realWebm:ExternalVideoMuxerFactory<'webm'>=createExternalWebmMuxer();
 // @ts-expect-error concrete containers must not be widened or interchangeable
 const wrongContainer:ExternalVideoMuxerFactory<'mp4'>=createExternalWebmMuxer();
-// @ts-expect-error private integration must not change the public Blob factory
-publicMp4({output:'external'});
+const publicMatchesProposal: typeof proposed = publicExporter;
+const publicExternal:ExternalVideoMuxerFactory<'mp4'>=publicMp4({output:'external'});
+const publicBlob:MuxerFactory=publicMp4();
+void publicMatchesProposal;void publicExternal;void publicBlob;
 void realMp4;void realWebm;void wrongContainer;
 const session=implemented({...options,muxer:mp4,destination});
 const other=implemented({...options,muxer:webm,destination});

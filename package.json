@@ -17,6 +17,7 @@
     "docs/video-recording.md",
     "docs/offline-video-api.md",
     "docs/offline-video-adapters.md",
+    "docs/external-video.md",
     "docs/offline-aac.md",
     "docs/offline-webm.md",
     "docs/apng-export.md",
@@ -78,6 +79,17 @@
       "types": "./dist/video.d.ts",
       "import": "./dist/video.js",
       "default": "./dist/video.js"
+    },
+    "./video/browser": {
+      "types": "./dist/video-browser.d.ts",
+      "import": "./dist/video-browser.js",
+      "default": "./dist/video-browser.js"
+    },
+    "./video/node": {
+      "node": {
+        "types": "./dist/video-node.d.ts",
+        "default": "./dist/video-node.js"
+      }
     },
     ".": {
       "types": "./dist/index.d.ts",
@@ -157,11 +169,13 @@
     "typescript",
     "webcodecs",
     "mp4",
+    "h264",
     "aac",
     "webm",
     "vp8",
     "opus",
-    "offline-video"
+    "offline-video",
+    "opfs"
   ],
   "sideEffects": false,
   "publishConfig": {

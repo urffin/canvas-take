@@ -1,4 +1,4 @@
-// Private Node-only candidate. Process-lifetime recovery; no package entry point.
+// Internal Node implementation. Recovery is scoped to the live receiver instance.
 import {open,mkdir,lstat,realpath,access,link,rename,unlink,readFile} from 'node:fs/promises';
 import {constants} from 'node:fs';
 import {resolve,join,parse} from 'node:path';

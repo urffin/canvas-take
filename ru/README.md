@@ -4,8 +4,11 @@
 
 [Сайт](https://grundyjs.ru/canvas-take/) · [npm](https://www.npmjs.com/package/@grundyjs/canvas-take) · [Ошибки и предложения](https://github.com/urffin/canvas-take/issues)
 
+[`H.264`](../docs/offline-video-adapters.md) · [`OPFS`](../docs/external-video.md#write-a-file-in-browser-storage)
+
 Независимая TypeScript-библиотека для записи видео с HTML canvas с необязательными
-аудиодорожками, офлайн-экспорта MP4 H.264/AAC, WebM VP8/Opus, GIF и APNG через отдельные точки входа.
+аудиодорожками и офлайн-экспорта MP4 H.264/AAC, WebM VP8/Opus, GIF, APNG и анимированного WebP.
+У каждого формата своя точка входа.
 Без внешних runtime npm-зависимостей и без зависимости от AlgiViz. Только ESM,
 с декларациями TypeScript. Код CanvasTake — MIT; опциональные адаптеры включают
 [Mediabunny MPL-2.0](../docs/offline-video-adapters.md#distribution-and-sources),
@@ -240,6 +243,22 @@ flush, отмену и лимиты. [Реальные адаптеры и то�
 ошибки. [AAC: задержка и число сэмплов](../docs/offline-aac.md) описывает проверку
 44,1/48 кГц, mono/stereo, priming и padding. Длительность представления MP4 исключает
 AAC padding; при выводе полных AAC-кадров в сырой PCM нужно применять конечную границу контейнера.
+
+## Офлайн-экспорт видео во внешний приёмник (с 0.9.0)
+
+`createExternalVideoExporter` записывает MP4 или WebM по мере кодирования. Передайте ему
+`createMp4Muxer({ output: 'external' })` или `createWebmMuxer({ output: 'external' })`
+и приёмник. После успешной публикации `finish()` возвращает результат в `result.output.value`.
+Для получения `Blob` используйте `createOfflineVideoExporter` и фабрику упаковщика без аргументов.
+
+- В браузере `/video/browser` сохраняет файлы в приватное хранилище текущего сайта. Из него можно
+  получить `File` и подготовить скачивание.
+- В Node.js `/video/node` записывает в контролируемый локальный каталог. Кодировщики предоставляет приложение.
+- Приложение может передать свой `ExternalVideoDestination` для записи по позициям во временное
+  хранилище и публикации готового файла.
+
+Пример для браузера, правила замены и восстановления файла и настройка AAC Worker в Next.js
+описаны в [руководстве по внешнему экспорту](../docs/external-video.md).
 
 ## Покадровый экспорт GIF
 
