@@ -36,17 +36,16 @@ await build({ entryPoints: ['src/gifenc.ts'], outfile: 'dist/gifenc.js', bundle:
     format: 'esm', platform: 'browser', target: 'es2022', minify: true,
     banner: { js: '/*! Includes gifenc (MIT). See gifenc-LICENSE.txt. */' } });
 await copyFile('node_modules/gifenc/LICENSE.md', 'dist/gifenc-LICENSE.txt');
-// Both output modes share one Mediabunny graph and load it only when called.
+// Emit lazy dependencies as shared chunks alongside the public muxer entries.
 await mkdir('dist/internal',{recursive:true});
 for (const [dir, pattern] of [['dist', /^video-container-[A-Z0-9]+\.js(?:\.map)?$/],
-    ['dist/internal', /^external-container-[A-Z0-9]+\.js(?:\.map)?$/]]) {
+    ['dist/internal', /^(?:external-container-[A-Z0-9]+\.js|video-muxer-vendor\.(?:js|d\.ts))(?:\.map)?$/]]) {
     for (const name of await readdir(dir)) if (pattern.test(name)) await unlink(resolve(dir, name));
 }
 await build({
     entryPoints: {'video-mp4': 'src/video-mp4.ts', 'video-webm': 'src/video-webm.ts',
         'internal/video-external-mp4': 'src/internal/video-external-mp4.ts',
-        'internal/video-external-webm': 'src/internal/video-external-webm.ts',
-        'internal/video-muxer-vendor': 'src/internal/video-muxer-vendor.ts'},
+        'internal/video-external-webm': 'src/internal/video-external-webm.ts'},
     outdir: 'dist', bundle: true, format: 'esm', platform: 'browser', target: 'es2022', minify: true,
     sourcemap: true, splitting: true, chunkNames: 'video-container-[hash]',
     plugins: [{name: 'pinned-video-container-transforms', setup(builder) {
