@@ -1,4 +1,4 @@
-/** Private controlled-adapter boundary. No native OPFS/IDB/Web Locks adapter is supplied here. */
+/** Private port boundary shared by the native browser adapter and the controlled tests. */
 import type {BrowserResultKey,BrowserOwnerHoldKey,BrowserResultReference,BrowserHoldKey} from './video-browser-results-types.js';
 export interface ManagedScope {schema:2;backendId:'canvastake-opfs-managed-v2';scopeId:string;directoryId:string;sequence:number;revision:number}
 export interface ManagedAttempt {

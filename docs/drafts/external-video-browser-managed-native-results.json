@@ -1,0 +1,266 @@
+{
+  "status": "passed",
+  "node": "v22.17.0",
+  "browsers": {
+    "chromium": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+    "firefox": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:157.0) Gecko/20100101 Firefox/157.0"
+  },
+  "groups": [
+    {
+      "browser": "chromium",
+      "kind": "mp4",
+      "scenarios": [
+        "two-tab create-new, one winner",
+        "user-gesture download and decoded result",
+        "lost commit acknowledgement recovered from IndexedDB",
+        "replacement preserves original, reader and holds block deletion",
+        "deletion resumes after native transaction abort",
+        "cancel during write preserves exact error and prior result",
+        "native publication abort and fresh decoded retry"
+      ]
+    },
+    {
+      "browser": "chromium",
+      "kind": "webm",
+      "scenarios": [
+        "two-tab create-new, one winner",
+        "user-gesture download and decoded result",
+        "lost commit acknowledgement recovered from IndexedDB",
+        "replacement preserves original, reader and holds block deletion",
+        "deletion resumes after native transaction abort",
+        "cancel during write preserves exact error and prior result",
+        "native publication abort and fresh decoded retry"
+      ]
+    },
+    {
+      "browser": "chromium",
+      "scenarios": [
+        "namespace create/reopen/refuse adoption/cleanup",
+        "abandoned tab fences publication, staging cleanup remains blocked",
+        "native connections, URLs and locks released"
+      ]
+    },
+    {
+      "browser": "firefox",
+      "kind": "mp4",
+      "scenarios": [
+        "two-tab create-new, one winner",
+        "user-gesture download and decoded result",
+        "lost commit acknowledgement recovered from IndexedDB",
+        "replacement preserves original, reader and holds block deletion",
+        "deletion resumes after native transaction abort",
+        "cancel during write preserves exact error and prior result",
+        "native publication abort and fresh decoded retry"
+      ]
+    },
+    {
+      "browser": "firefox",
+      "kind": "webm",
+      "scenarios": [
+        "two-tab create-new, one winner",
+        "user-gesture download and decoded result",
+        "lost commit acknowledgement recovered from IndexedDB",
+        "replacement preserves original, reader and holds block deletion",
+        "deletion resumes after native transaction abort",
+        "cancel during write preserves exact error and prior result",
+        "native publication abort and fresh decoded retry"
+      ]
+    },
+    {
+      "browser": "firefox",
+      "scenarios": [
+        "namespace create/reopen/refuse adoption/cleanup",
+        "abandoned tab fences publication, staging cleanup remains blocked",
+        "native connections, URLs and locks released"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "browser": "chromium",
+      "kind": "mp4",
+      "label": "original",
+      "method": "download",
+      "bytes": 57352,
+      "sha256": "c3e864bbc86136d17cffbbaaff94c53934434913187440ac75c5e48cf3bb222b",
+      "videoFrames": 3,
+      "durationUs": 2250021,
+      "presentationSamples": 108001,
+      "leading": 1024,
+      "trailing": 543,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9811871714006124
+    },
+    {
+      "browser": "chromium",
+      "kind": "mp4",
+      "label": "recovered",
+      "method": "file-lease",
+      "bytes": 14986,
+      "sha256": "333ca0ad9ef1e458d248b0d1a1fe90f7f822166903b6545920ea2c97fa6f3041",
+      "videoFrames": 3,
+      "durationUs": 500021,
+      "presentationSamples": 24001,
+      "leading": 1024,
+      "trailing": 575,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9813408723476106
+    },
+    {
+      "browser": "chromium",
+      "kind": "mp4",
+      "label": "retry",
+      "method": "file-lease",
+      "bytes": 51200,
+      "sha256": "3c5df710beb08489f234f8fb55b71d5dc49ec49c1fb41326aabe5e78f3739082",
+      "videoFrames": 3,
+      "durationUs": 2000021,
+      "presentationSamples": 96001,
+      "leading": 1024,
+      "trailing": 255,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.980969233705335
+    },
+    {
+      "browser": "chromium",
+      "kind": "webm",
+      "label": "original",
+      "method": "download",
+      "bytes": 58928,
+      "sha256": "d05e7784b5a73c97ba92f2579509a033440d74735ad7b882c2c40f90a589bef5",
+      "videoFrames": 3,
+      "durationUs": 2250021,
+      "presentationSamples": 108001,
+      "leading": 312,
+      "trailing": 167,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9802119635958297
+    },
+    {
+      "browser": "chromium",
+      "kind": "webm",
+      "label": "recovered",
+      "method": "file-lease",
+      "bytes": 14233,
+      "sha256": "a73eb6a1f5c65a18e1f6c0a4410f5cbd37ab006ce5fefa36f13f7d424c61c84c",
+      "videoFrames": 3,
+      "durationUs": 500021,
+      "presentationSamples": 24001,
+      "leading": 312,
+      "trailing": 647,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9802119635958297
+    },
+    {
+      "browser": "chromium",
+      "kind": "webm",
+      "label": "retry",
+      "method": "file-lease",
+      "bytes": 52828,
+      "sha256": "1cb78c61c885819ff5653cb901869ac44ad79828f8f7c8b53b687eb3c7743376",
+      "videoFrames": 3,
+      "durationUs": 2000021,
+      "presentationSamples": 96001,
+      "leading": 312,
+      "trailing": 647,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9802119635958297
+    },
+    {
+      "browser": "firefox",
+      "kind": "mp4",
+      "label": "original",
+      "method": "download",
+      "bytes": 57756,
+      "sha256": "7afd41c4edee0999bafba2512167891046c3c2a35768e6b28735904ad62ba5bd",
+      "videoFrames": 3,
+      "durationUs": 2250021,
+      "presentationSamples": 108001,
+      "leading": 1024,
+      "trailing": 543,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9811871714006124
+    },
+    {
+      "browser": "firefox",
+      "kind": "mp4",
+      "label": "recovered",
+      "method": "file-lease",
+      "bytes": 15390,
+      "sha256": "3e24ff4cb6148fef2b9345e47d41d68c579ff54efc8a8064ed709b003428eb83",
+      "videoFrames": 3,
+      "durationUs": 500021,
+      "presentationSamples": 24001,
+      "leading": 1024,
+      "trailing": 575,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9813408723476106
+    },
+    {
+      "browser": "firefox",
+      "kind": "mp4",
+      "label": "retry",
+      "method": "file-lease",
+      "bytes": 51604,
+      "sha256": "6ce85cb381f67274722bc6de6d1f3ed67efaa12c0dd2bfd4d3a13791fc6faad3",
+      "videoFrames": 3,
+      "durationUs": 2000021,
+      "presentationSamples": 96001,
+      "leading": 1024,
+      "trailing": 255,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.980969233705335
+    },
+    {
+      "browser": "firefox",
+      "kind": "webm",
+      "label": "original",
+      "method": "download",
+      "bytes": 54644,
+      "sha256": "d3ec4cc7d99cc4e520d86a56dd6dde57bd93a54820ea2bf0b8de5e3b67982def",
+      "videoFrames": 3,
+      "durationUs": 2250021,
+      "presentationSamples": 108001,
+      "leading": 312,
+      "trailing": 167,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9790342579768002
+    },
+    {
+      "browser": "firefox",
+      "kind": "webm",
+      "label": "recovered",
+      "method": "file-lease",
+      "bytes": 13721,
+      "sha256": "f2cf5aacb2deb1a1de03237179f186b56c8c536a94dd82af602b6a8cbd22ea22",
+      "videoFrames": 3,
+      "durationUs": 500021,
+      "presentationSamples": 24001,
+      "leading": 312,
+      "trailing": 647,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9770235877589328
+    },
+    {
+      "browser": "firefox",
+      "kind": "webm",
+      "label": "retry",
+      "method": "file-lease",
+      "bytes": 49052,
+      "sha256": "bdb2a08b3373f99635e546f67fce4fd7d7ccc98e2f3c4521a1b9d41858260356",
+      "videoFrames": 3,
+      "durationUs": 2000021,
+      "presentationSamples": 96001,
+      "leading": 312,
+      "trailing": 647,
+      "firstAudioTimestamp": 0,
+      "minAudioCorrelation": 0.9761499950430275
+    }
+  ],
+  "sourceHashes": {
+    "scripts/verify-browser-video-managed.mjs": "9084b69b5be53bc12b4c9a8ae74034ea7a53d37994f0b4154263f3472a1e9d1e",
+    "scripts/browser-video-managed/browser.mjs": "5d28bfbc24787cd3d07a8151a3df90a56488e022c16610fb0175e2aa275fefb5",
+    "src/internal/video-browser-results-native.ts": "9b95798c31277e4cea442d46ba999a6baed2f1d912954b3bf6e4f921a44a02ee",
+    "src/internal/video-browser-results.ts": "5364106f06ebc8f14512cab4386dadc781f258c26029ebf9433c543e8a060a0e"
+  }
+}

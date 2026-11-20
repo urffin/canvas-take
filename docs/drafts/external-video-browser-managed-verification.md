@@ -8,6 +8,9 @@ Implements the [lifecycle project](external-video-browser-lifecycle.md) using pr
 [B1–B32](external-video-browser-lifecycle-compatibility.md) remains the acceptance contract;
 [results](external-video-browser-managed-results.json) maps B1–B28 to executed test names.
 
+The subsequent [native browser verification](external-video-browser-managed-native-verification.md)
+records the scope and results for OPFS, IndexedDB, Web Locks and browser downloads.
+
 ## Scope and data model
 
 This stage provides the managed-store algorithm with explicit **testable ports**, not a native

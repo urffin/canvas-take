@@ -76,6 +76,35 @@ jobs:
             webp-package-ci.log
           retention-days: 7
 
+  browser-managed-storage:
+    name: Native browser result storage (Chromium / Firefox)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox
+      - name: Verify native MP4 and WebM result storage
+        shell: bash
+        timeout-minutes: 7
+        run: |
+          set -o pipefail
+          (npm run build && node scripts/verify-browser-video-managed.mjs) 2>&1 | tee browser-managed-native-ci.log
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: browser-managed-native-results
+          path: |
+            benchmark-results/browser-video-managed-native/results.json
+            browser-managed-native-ci.log
+          retention-days: 7
+
   next-integration:
     name: Next.js packed WebP Worker consumer (Chromium / Firefox)
     runs-on: ubuntu-latest
