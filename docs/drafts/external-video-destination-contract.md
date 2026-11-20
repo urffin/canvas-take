@@ -16,6 +16,8 @@ under an explicit controlled-local-directory/process-lifetime profile. Its evide
 are separate from the portable design below; it adds no public entry or restart-recovery guarantee.
 The [private browser prototype](external-video-browser-prototype.md) uses immutable OPFS objects
 and atomic logical-name metadata publication. It does not claim native user-file no-replace semantics.
+The follow-up [browser result-lifecycle project](external-video-browser-lifecycle.md) defines a
+separate managed profile and B1–B32 gates for saving, retention and recovery; no runtime is added.
 
 ## Selected boundary
 

@@ -144,6 +144,10 @@ benchmark. Result counts, versions, source hashes and decoder/resource evidence 
 
 ## Limitations and next boundary
 
+The subsequent [result-lifecycle project](external-video-browser-lifecycle.md) specifies a separate
+managed profile for File leases, explicit downloads, retention/deletion and uncertain-commit recovery.
+It is design-only; the v1 implementation and the verification results above are unchanged.
+
 1. OPFS is origin-private storage. It is not the Downloads folder or a user-picked directory, and
    logical-name replacement is not native filename replacement. User-visible saving requires a
    separate explicit download/picker flow. Picker selection/permissions and their possible file

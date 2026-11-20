@@ -1,0 +1,15 @@
+{
+  "extends": "./external-video-browser-tsconfig.json",
+  "files": [
+    "./external-video-public-api.d.ts",
+    "./external-video-public-example.ts",
+    "./external-video-public-types.ts",
+    "./external-video-controller-types.ts",
+    "./external-video-destination-contract.d.ts",
+    "./external-video-destination-types.ts",
+    "./external-video-file-types.ts",
+    "./external-video-browser-types.ts",
+    "./external-video-browser-lifecycle.d.ts",
+    "./external-video-browser-lifecycle-types.ts"
+  ]
+}

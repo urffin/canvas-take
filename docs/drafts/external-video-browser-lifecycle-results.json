@@ -1,0 +1,228 @@
+{
+  "date": "2026-11-20",
+  "baseline": "423b758fa36813fc53dd8745e6f27d74c607fd4e",
+  "version": "0.8.1",
+  "status": "design verified; private managed implementation pending",
+  "node": "v22.17.0",
+  "typescript": "6.0.3",
+  "platform": "win32",
+  "checks": {
+    "build": "passed",
+    "strictNoEmit": "passed",
+    "negativeTypeCases": 95,
+    "newNegativeTypeCases": 33,
+    "publicDeclarationsUnchanged": 14,
+    "runtimeScriptsTestsWorkflowsAndMetadataUnchanged": true,
+    "noRuntimeFactoryOrPublicEntry": true,
+    "packedConsumer": "passed",
+    "packedDesignArtifacts": 7,
+    "localLinks": 29
+  },
+  "typeFixtures": {
+    "docs/drafts/external-video-public-types.ts": 29,
+    "docs/drafts/external-video-controller-types.ts": 7,
+    "docs/drafts/external-video-destination-types.ts": 16,
+    "docs/drafts/external-video-file-types.ts": 5,
+    "docs/drafts/external-video-browser-types.ts": 5,
+    "docs/drafts/external-video-browser-lifecycle-types.ts": 33
+  },
+  "design": {
+    "profile": "opfs-managed-v2; fresh namespace only, v1 unchanged",
+    "result": "serializable reference with default persistent commit-owner hold",
+    "file": "borrowed File under shared per-version Web Lock until explicit release",
+    "download": "async preparation, synchronous user-gesture one-shot request; completion unobservable; explicit disposal",
+    "retention": "caller-known idempotent hold keys; no TTL/force; old references preserved by holds",
+    "deletion": "superseded + no holds/readers + exact revision + physical settlement; resumable owned tombstone",
+    "recovery": "independent readonly inspection; explicit IDB publication epoch fence; physicalIO proof separate",
+    "schema": "design only, no existing store migration"
+  },
+  "gates": {
+    "B1": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B2": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B3": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B4": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B5": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B6": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B7": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B8": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B9": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B10": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B11": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B12": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B13": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B14": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B15": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B16": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B17": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B18": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B19": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B20": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B21": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B22": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B23": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B24": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B25": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B26": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B27": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B28": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B29": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B30": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B31": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    },
+    "B32": {
+      "design": "specified",
+      "runtime": "pending for managed v2 profile"
+    }
+  },
+  "historicalBaseline": {
+    "commit": "423b758fa36813fc53dd8745e6f27d74c607fd4e",
+    "nodeTests": 391,
+    "localBrowserCases": 128,
+    "independentlyDecodedFiles": 84,
+    "ci": "https://github.com/urffin/canvas-take/actions/runs/44643680664",
+    "ciJobsPassed": 6,
+    "note": "Prior v1 runtime evidence, not rerun or claimed for managed v2; existing CI does not run the local OPFS receiver matrix"
+  },
+  "commands": [
+    "npm run build",
+    "node node_modules/typescript/bin/tsc -p docs/drafts/external-video-browser-lifecycle-tsconfig.json",
+    "npm run test:package",
+    "npm pack --ignore-scripts --dry-run --json"
+  ],
+  "sources": [
+    {
+      "title": "File API: File snapshot state",
+      "url": "https://w3c.github.io/FileAPI/#file-section"
+    },
+    {
+      "title": "File API: blob URL lifetime",
+      "url": "https://w3c.github.io/FileAPI/#lifeTime"
+    },
+    {
+      "title": "Web Locks: modes, requests and termination",
+      "url": "https://w3c.github.io/web-locks/"
+    },
+    {
+      "title": "HTML: downloading resources",
+      "url": "https://html.spec.whatwg.org/multipage/links.html#downloading-resources"
+    },
+    {
+      "title": "IndexedDB: transactions and durability",
+      "url": "https://www.w3.org/TR/IndexedDB-3/"
+    }
+  ],
+  "hashes": {
+    "docs/drafts/external-video-browser-lifecycle.md": "1d02eb797633088dc1c1b857a946576f354559ee861adebfd4ad08775ad835de",
+    "docs/drafts/external-video-browser-lifecycle.d.ts": "9e33d97ddfd4cec3c1a0f97ba21d741f1b243af267015170550ac3bf80022728",
+    "docs/drafts/external-video-browser-lifecycle-types.ts": "33ac02c85cea0d4383c0b42d5d269f7cedb83e14a5345d254bd54e280a2a0f24",
+    "docs/drafts/external-video-browser-lifecycle-tsconfig.json": "ce0eb9e9d4ca6281a17cc121d35776df4168cb175b236a8e2ae45a81158d59c6",
+    "docs/drafts/external-video-browser-lifecycle-compatibility.md": "f8302f8eee0e05b2bbf9049dde9333b13f1d7168fd841ae56cad2b9d7a805b73",
+    "docs/drafts/external-video-browser-lifecycle-verification.md": "86966447486eeafaee47c1794a88b98525ecc3a5bacaabbbd447e37b1846116d",
+    "docs/drafts/external-video-browser-prototype.md": "9afab48685e7bdb28ec14504028c6e098553e802f48fc2af0a5facc9c8ecc003",
+    "docs/drafts/external-video-destination-contract.md": "3df8fe554b8479f59a8073c2140dd29dc0146b0d270f7b935b3dd7a4a8abb353"
+  },
+  "limitations": [
+    "Design/type evidence only: no v2 browser storage, hold/deletion/recovery runtime implemented or executed.",
+    "No public API/factory, package exports, runtime changes or version update.",
+    "No OS/user-folder save/overwrite/completion guarantee; native picker is separate.",
+    "Context loss, missing Web Lock or elapsed time is not physical I/O settlement evidence.",
+    "Unsettled staging remains quarantined after publication fencing; no unsafe cleanup fallback.",
+    "No OPFS+IDB crash transaction, power-loss/fsync durability, eviction or hostile-origin guarantee.",
+    "External File/URL consumers must observe lease lifetime; native downloads surviving both retention release and context loss are outside the profile.",
+    "Holds and outcome/tombstone history remain until explicit supported operations; no persistent quota or compaction contract.",
+    "No managed-v2 runtime proof, public integration, tag/release/npm in this design stage; commit/push and existing CI regressions are separate delivery steps."
+  ],
+  "next": "Separately authorize a private managed-v2 implementation with controlled storage/lock/fault/race tests for B1–B28, then real browser/decode and bounded CI; public P27/P28 stays gated."
+}
