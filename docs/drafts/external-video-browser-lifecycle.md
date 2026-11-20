@@ -6,6 +6,10 @@ Date: 2026-11-20. Baseline: `423b758fa36813fc53dd8745e6f27d74c607fd4e`, version 
 [acceptance gates B1–B32](external-video-browser-lifecycle-compatibility.md).
 No runtime implementation, factory, package export, new version or release is added.
 
+The statement above describes the original design stage. A subsequent
+[private controlled-adapter implementation](external-video-browser-managed-verification.md)
+implements the algorithm and checks B1–B28 without native browser adapters or public exports.
+
 ## Selected boundary
 
 The [private v1 prototype](external-video-browser-prototype.md) writes actual OPFS files and

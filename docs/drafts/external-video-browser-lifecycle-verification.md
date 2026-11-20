@@ -5,6 +5,10 @@ See [project](external-video-browser-lifecycle.md), [draft types](external-video
 [B1–B32 gates](external-video-browser-lifecycle-compatibility.md) and
 [machine-readable record](external-video-browser-lifecycle-results.json).
 
+This is the historical design-stage record. The subsequent
+[managed-store verification](external-video-browser-managed-verification.md) documents the private
+algorithm, reused types and controlled B1–B28 proofs; native browser implementation remains pending.
+
 ## What this change verifies
 
 - Strict noEmit compilation includes all previous external/public/controller/destination/file/browser

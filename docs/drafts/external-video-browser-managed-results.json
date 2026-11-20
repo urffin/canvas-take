@@ -1,0 +1,384 @@
+{
+  "date": "2026-11-20",
+  "baseline": "15d7a051c91d9722fb18e9893f9a735740d024e3",
+  "version": "0.8.1",
+  "status": "private controlled-adapter result store verified; native integration pending",
+  "node": "v22.17.0",
+  "typescript": "6.0.3",
+  "platform": "win32",
+  "tests": {
+    "allNode": 452,
+    "newControlledCases": 61,
+    "previousNodeRegressions": 391,
+    "negativeTypeCases": 101,
+    "newNegativeTypeCases": 6,
+    "controlledGates": 28,
+    "skips": 0
+  },
+  "checks": {
+    "build": "passed",
+    "strictNoEmit": "passed",
+    "packedConsumer": "passed",
+    "privateJsAndDeclarationArtifacts": 6,
+    "privatePackageImportsBlocked": true,
+    "publicDeclarationsUnchanged": 14,
+    "existingRuntimeSourcesCodecsControllersMuxersUnchanged": true,
+    "metadataDependenciesLockExportsDefaultsVersionUnchanged": true,
+    "localMarkdownLinks": 27,
+    "actualPrivateStoreAssignableToOriginalDraft": true
+  },
+  "profile": {
+    "algorithm": "opfs-managed-v2 protocol; freshly provisioned exact scope only",
+    "adapters": "controlled memory objects + shared serial atomic metadata + non-waiting shared/exclusive locks + simulated document downloads",
+    "connections": "independent store connections over one test backend; not actual browser tabs",
+    "metadata": "synchronous callbacks; actual-abort vs lost-acknowledgement outcomes, including still-live queued work",
+    "retention": "default persistent owner hold, explicit idempotent holds and released tombstones",
+    "file": "named File wrapper + explicit shared-lock lease; no whole-file arrayBuffer in the algorithm",
+    "download": "prepared own lease/URL; synchronous one-shot requested/unobservable; explicit retryable disposal",
+    "deletion": "revision-checked selected/hold/read/identity guards; owned deleting/deleted tombstone protocol",
+    "recovery": "readonly original-attempt inspection; transaction publication fence; physical settlement separately evidenced",
+    "resources": "each scenario explicitly closes tracked connections/locks/writers/URLs/borrowed work; retained committed/quarantined objects are intentional"
+  },
+  "gates": {
+    "B1": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B1: managed import is SSR-safe/private and rejects legacy schema without adoption"
+      ]
+    },
+    "B2": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B2: repeated preflight is readonly and unsupported ports never fall back"
+      ]
+    },
+    "B3": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B3/B4: binding precedes acquisition and publication atomically retains its original version",
+        "B3/B13/B25: owner holds survive replacement and connection close/reopen",
+        "B3/B13: concurrent create-new has exactly one publication and one owner hold"
+      ]
+    },
+    "B4": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B3/B4: binding precedes acquisition and publication atomically retains its original version",
+        "B4: destination snapshots policy, format and limits before its first yield"
+      ]
+    },
+    "B5": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B5: missing or changed bytes never become a fabricated original File"
+      ]
+    },
+    "B6": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B6/B7: shared read ownership blocks cross-connection deletion and busy close is reversible"
+      ]
+    },
+    "B7": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B6/B7: shared read ownership blocks cross-connection deletion and busy close is reversible",
+        "B7: pending acquisition prevents close before it hands off an owning lease"
+      ]
+    },
+    "B8": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B8: pre-abort preserves exact reason null",
+        "B8: pre-abort preserves exact reason 0",
+        "B8: pre-abort preserves exact reason Error: cancelled",
+        "B8: abort after native read starts releases the unhanded lease",
+        "B8/B28: failed download preparation revokes partial URL and preserves pre-handoff abort",
+        "B8/B28: permission-denied File read returns no fabricated File and releases its lock"
+      ]
+    },
+    "B9": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B9/B10/B11: download owns a distinct lease and only reports a synchronous request"
+      ]
+    },
+    "B10": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B9/B10/B11: download owns a distinct lease and only reports a synchronous request",
+        "B10: uncertain UI dispatch is one-shot without a false saved acknowledgement"
+      ]
+    },
+    "B11": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B9/B10/B11: download owns a distinct lease and only reports a synchronous request",
+        "B11/B28: failed URL revocation keeps its lease and can be explicitly retried"
+      ]
+    },
+    "B12": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B12: filenames and missing document reject before allocating download resources"
+      ]
+    },
+    "B13": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B3/B13/B25: owner holds survive replacement and connection close/reopen",
+        "B13/B14/B15: selected and explicitly retained results cannot be removed",
+        "B3/B13: concurrent create-new has exactly one publication and one owner hold"
+      ]
+    },
+    "B14": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B13/B14/B15: selected and explicitly retained results cannot be removed",
+        "B14: idempotent hold identities cannot resurrect after release, including delayed retain",
+        "B14: commit-owner hold cannot be released before definitive publication",
+        "B14/B28: lost retain acknowledgement retains its caller-known identity",
+        "B14/B28: lost releaseHold acknowledgement retains its caller-known identity"
+      ]
+    },
+    "B15": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B13/B14/B15: selected and explicitly retained results cannot be removed",
+        "B15/B18: stale revisions and force/TTL options cannot authorize deletion",
+        "B15/B26: missing or corrupt selection evidence never authorizes deletion"
+      ]
+    },
+    "B16": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.commit:version.deleting",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.ack:version.deleting",
+        "B16/B27/B28: deletion fault resumes without changing publication history at object.remove.before",
+        "B16/B27/B28: deletion fault resumes without changing publication history at object.remove.after",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.commit:version.deleted",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.ack:version.deleted"
+      ]
+    },
+    "B17": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B17: a read admitted before deletion wins protection across independent connections",
+        "B17: deletion claim blocks a later retain and duplicate deleter without deadlock",
+        "B17: an earlier retain invalidates a concurrently prepared deletion revision"
+      ]
+    },
+    "B18": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B15/B18: stale revisions and force/TTL options cannot authorize deletion",
+        "B18: bounded weak scan uses sequence and scope-bound canonical cursors"
+      ]
+    },
+    "B19": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B19: readonly inspection never infers publication from matching bytes, absence or stale owner"
+      ]
+    },
+    "B20": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B20: lost commit ack followed by replacement recovers only the historical original"
+      ]
+    },
+    "B21": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B21/B27: missing bytes do not negate commit and absence without a deleting claim cannot be swept"
+      ]
+    },
+    "B22": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B22: active publisher remains unresolved and cannot be stolen by recovery or cleanup"
+      ]
+    },
+    "B23": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B23: indeterminate-but-live queued publication still serializes before recovery",
+        "B23: recovery fences a later stale publisher before its transaction is created",
+        "B23/B24: lost recovery acknowledgement is reinspected without deleting uncertain physical work",
+        "B23: lost acknowledgement of an aborted publication cannot retry that identity"
+      ]
+    },
+    "B24": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B23/B24: lost recovery acknowledgement is reinspected without deleting uncertain physical work",
+        "B24: lost owner lock does not settle a delayed physical write or authorize early deletion",
+        "B24: cancellation after commit admission cannot undo successful publication"
+      ]
+    },
+    "B25": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B3/B13/B25: owner holds survive replacement and connection close/reopen",
+        "B25: missing schema and moved object scope do not recreate or migrate storage",
+        "B25/B28: invalidated metadata connection never fabricates cleanup settlement on reopen"
+      ]
+    },
+    "B26": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B26: malformed foreign keys, hold kinds and ownership mismatches reject without mutation",
+        "B15/B26: missing or corrupt selection evidence never authorizes deletion",
+        "B26: reused global attempt identity cannot overwrite an earlier object or tombstone"
+      ]
+    },
+    "B27": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.commit:version.deleting",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.ack:version.deleting",
+        "B16/B27/B28: deletion fault resumes without changing publication history at object.remove.before",
+        "B16/B27/B28: deletion fault resumes without changing publication history at object.remove.after",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.commit:version.deleted",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.ack:version.deleted",
+        "B21/B27: missing bytes do not negate commit and absence without a deleting claim cannot be swept",
+        "B27: an owned deleting tombstone permits idempotent absence recovery only for that version"
+      ]
+    },
+    "B28": {
+      "status": "passed for controlled-adapter algorithm; native obligations pending",
+      "cases": [
+        "B11/B28: failed URL revocation keeps its lease and can be explicitly retried",
+        "B14/B28: lost retain acknowledgement retains its caller-known identity",
+        "B14/B28: lost releaseHold acknowledgement retains its caller-known identity",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.commit:version.deleting",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.ack:version.deleting",
+        "B16/B27/B28: deletion fault resumes without changing publication history at object.remove.before",
+        "B16/B27/B28: deletion fault resumes without changing publication history at object.remove.after",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.commit:version.deleted",
+        "B16/B27/B28: deletion fault resumes without changing publication history at tx.ack:version.deleted",
+        "B28: partial acquisition failure cleans unreturned resources and preserves its first error",
+        "B28: failed constructor abort stays visible and explicit close retries its owned cleanup",
+        "B28: failed native close never marks physical settlement; release retries after abort failure",
+        "B28: failed acquisition cleanup lock release preserves abort reason and is retried by close",
+        "B28: connection close can fail and be retried without poisoning the store",
+        "B28: acquisition/write errors preserve controller ready/closed cancellation and allow fresh export",
+        "B28: released transaction cannot publish again or mutate caller retention",
+        "B8/B28: failed download preparation revokes partial URL and preserves pre-handoff abort",
+        "B8/B28: permission-denied File read returns no fabricated File and releases its lock",
+        "B28: failed session release plus lost metadata permits concurrent close after physical cleanup",
+        "B28: lost registration ack preserves unresolved metadata without creating native bytes",
+        "B28: quota and permission failures reject exact writes, clean resources and allow retry",
+        "B25/B28: invalidated metadata connection never fabricates cleanup settlement on reopen"
+      ]
+    }
+  },
+  "cases": [
+    "B1: managed import is SSR-safe/private and rejects legacy schema without adoption",
+    "B2: repeated preflight is readonly and unsupported ports never fall back",
+    "B3/B4: binding precedes acquisition and publication atomically retains its original version",
+    "B3/B13/B25: owner holds survive replacement and connection close/reopen",
+    "B5: missing or changed bytes never become a fabricated original File",
+    "B6/B7: shared read ownership blocks cross-connection deletion and busy close is reversible",
+    "B7: pending acquisition prevents close before it hands off an owning lease",
+    "B8: pre-abort preserves exact reason null",
+    "B8: pre-abort preserves exact reason 0",
+    "B8: pre-abort preserves exact reason Error: cancelled",
+    "B8: abort after native read starts releases the unhanded lease",
+    "B9/B10/B11: download owns a distinct lease and only reports a synchronous request",
+    "B10: uncertain UI dispatch is one-shot without a false saved acknowledgement",
+    "B11/B28: failed URL revocation keeps its lease and can be explicitly retried",
+    "B12: filenames and missing document reject before allocating download resources",
+    "B13/B14/B15: selected and explicitly retained results cannot be removed",
+    "B14: idempotent hold identities cannot resurrect after release, including delayed retain",
+    "B14: commit-owner hold cannot be released before definitive publication",
+    "B14/B28: lost retain acknowledgement retains its caller-known identity",
+    "B14/B28: lost releaseHold acknowledgement retains its caller-known identity",
+    "B15/B18: stale revisions and force/TTL options cannot authorize deletion",
+    "B16/B27/B28: deletion fault resumes without changing publication history at tx.commit:version.deleting",
+    "B16/B27/B28: deletion fault resumes without changing publication history at tx.ack:version.deleting",
+    "B16/B27/B28: deletion fault resumes without changing publication history at object.remove.before",
+    "B16/B27/B28: deletion fault resumes without changing publication history at object.remove.after",
+    "B16/B27/B28: deletion fault resumes without changing publication history at tx.commit:version.deleted",
+    "B16/B27/B28: deletion fault resumes without changing publication history at tx.ack:version.deleted",
+    "B17: a read admitted before deletion wins protection across independent connections",
+    "B17: deletion claim blocks a later retain and duplicate deleter without deadlock",
+    "B17: an earlier retain invalidates a concurrently prepared deletion revision",
+    "B18: bounded weak scan uses sequence and scope-bound canonical cursors",
+    "B19: readonly inspection never infers publication from matching bytes, absence or stale owner",
+    "B20: lost commit ack followed by replacement recovers only the historical original",
+    "B21/B27: missing bytes do not negate commit and absence without a deleting claim cannot be swept",
+    "B22: active publisher remains unresolved and cannot be stolen by recovery or cleanup",
+    "B23: indeterminate-but-live queued publication still serializes before recovery",
+    "B23: recovery fences a later stale publisher before its transaction is created",
+    "B23/B24: lost recovery acknowledgement is reinspected without deleting uncertain physical work",
+    "B24: lost owner lock does not settle a delayed physical write or authorize early deletion",
+    "B25: missing schema and moved object scope do not recreate or migrate storage",
+    "B26: malformed foreign keys, hold kinds and ownership mismatches reject without mutation",
+    "B27: an owned deleting tombstone permits idempotent absence recovery only for that version",
+    "B28: partial acquisition failure cleans unreturned resources and preserves its first error",
+    "B28: failed constructor abort stays visible and explicit close retries its owned cleanup",
+    "B28: failed native close never marks physical settlement; release retries after abort failure",
+    "B28: failed acquisition cleanup lock release preserves abort reason and is retried by close",
+    "B28: connection close can fail and be retried without poisoning the store",
+    "B28: acquisition/write errors preserve controller ready/closed cancellation and allow fresh export",
+    "B28: released transaction cannot publish again or mutate caller retention",
+    "B3/B13: concurrent create-new has exactly one publication and one owner hold",
+    "B4: destination snapshots policy, format and limits before its first yield",
+    "B8/B28: failed download preparation revokes partial URL and preserves pre-handoff abort",
+    "B8/B28: permission-denied File read returns no fabricated File and releases its lock",
+    "B15/B26: missing or corrupt selection evidence never authorizes deletion",
+    "B23: lost acknowledgement of an aborted publication cannot retry that identity",
+    "B24: cancellation after commit admission cannot undo successful publication",
+    "B26: reused global attempt identity cannot overwrite an earlier object or tombstone",
+    "B28: failed session release plus lost metadata permits concurrent close after physical cleanup",
+    "B28: lost registration ack preserves unresolved metadata without creating native bytes",
+    "B28: quota and permission failures reject exact writes, clean resources and allow retry",
+    "B25/B28: invalidated metadata connection never fabricates cleanup settlement on reopen"
+  ],
+  "typeFixtures": {
+    "docs/drafts/external-video-public-types.ts": 29,
+    "docs/drafts/external-video-controller-types.ts": 7,
+    "docs/drafts/external-video-destination-types.ts": 16,
+    "docs/drafts/external-video-file-types.ts": 5,
+    "docs/drafts/external-video-browser-types.ts": 5,
+    "docs/drafts/external-video-browser-lifecycle-types.ts": 33,
+    "docs/drafts/external-video-browser-managed-types.ts": 6
+  },
+  "evidence": {
+    "rawNodeLog": "benchmark-results/browser-managed-all-tests.log (ignored)",
+    "rawTypeLog": "benchmark-results/browser-managed-types.log (ignored)",
+    "rawPackageLog": "benchmark-results/browser-managed-package.log (ignored)",
+    "activeResourceCountersAtTeardown": 0,
+    "indeterminateLiveTransaction": "logical failure does not cancel queued metadata; recovery serializes after it",
+    "physicalQuarantine": "owner lock loss/invalidation cannot manufacture a persistent I/O settlement marker",
+    "twoContainerMetadata": "MP4/WebM exact request/policy snapshots tested; fake bytes are not decode evidence"
+  },
+  "hashes": {
+    "docs/drafts/external-video-browser-lifecycle-compatibility.md": "6854cc1b2956e7b781760d0af5a1379a47b43632218a81091fa9cd8a8ecf2456",
+    "docs/drafts/external-video-browser-lifecycle-verification.md": "e38cadfdca293c5b7fbca98468a58b18c6a1e3a22ec84eca10427351744f58de",
+    "docs/drafts/external-video-browser-lifecycle.d.ts": "cf96f15ae99801cfed1805f269f6d08aa4f607dd5678f9fdf9674d9058c9c712",
+    "docs/drafts/external-video-browser-lifecycle.md": "8307806de2c510f4ea395455a1b9be8782766d01eed7ff17eb6371c08c497b73",
+    "scripts/test-package.mjs": "e11a5aee459df97b8df3cf5a7cfad1d5dd8910f228efc29f739a17af61631741",
+    "docs/drafts/external-video-browser-managed-tsconfig.json": "6d2549e9951bcd867ad3a78fdc8689abc4086cd701c72b419c3f89243f962d99",
+    "docs/drafts/external-video-browser-managed-types.ts": "facce187cf1f4a3323236b172537dc20b64fe33d86e145066d99fe37a51fe637",
+    "docs/drafts/external-video-browser-managed-verification.md": "d82bf4d6d56cada6923b928452c6e457f41fc41b85aeed911bd13e4eed09a8a5",
+    "src/internal/video-browser-results-ports.ts": "483ecd663f5669beb0714bd5272d4bca7b7160ef2bf70267e6471090cd2d3c84",
+    "src/internal/video-browser-results-types.ts": "519b08ba6eb642c64838220aa81c12183e70e17391b035b95b10f90655573943",
+    "src/internal/video-browser-results.ts": "5364106f06ebc8f14512cab4386dadc781f258c26029ebf9433c543e8a060a0e",
+    "test/fixtures/video-browser-results.mjs": "bcc51c29e8bcefb58b03fd1ec1b9f13ce36a0e1f765f4bb072c983c3262bc321",
+    "test/video-browser-results.test.mjs": "39b792b7fc01b4f300bc319dd5834b834ae68568315598d0f2e0d29927608c97"
+  },
+  "limitations": [
+    "No native OPFS/IndexedDB/Web Locks adapter or real browser/tab/download test in this stage.",
+    "B1–B28 pass only for controlled port semantics; native-platform obligations and B30/B31 remain pending.",
+    "No real MP4/WebM encoding/decoding or audio regression evidence added; prior v1 measurements are historical only.",
+    "Controlled map snapshots/Blob bytes are test allocations, not a production metadata schema/index or memory/GC benchmark.",
+    "Already provisioned connection ownership transfers on successful open only; caller owns cleanup on rejected open.",
+    "Unknown physical I/O is quarantined; no automatic timer/force sweep, future-publication retry or rollback.",
+    "Persistent holds/outcome/tombstone history is retained; no compaction/persistent quota or storage eviction guarantee.",
+    "No hostile-origin containment, native user-folder overwrite, download completion, crash/power-loss/fsync guarantee.",
+    "No public API/factory/exports/version change, native managed-storage certification, tag/release/npm; commit/push and existing CI regressions are separate delivery steps."
+  ],
+  "next": "Separately authorize native OPFS/IDB/Web Locks/document adapters and scoped real-browser MP4/WebM decode, download, cancellation, retention/deletion/recovery tests; public P27/P28 remains later."
+}

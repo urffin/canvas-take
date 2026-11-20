@@ -6,6 +6,9 @@ See the [project](external-video-browser-lifecycle.md), [types](external-video-b
 [verification record](external-video-browser-lifecycle-verification.md).
 These supplement [P1–P28](external-video-public-compatibility.md) and
 [D1–D20](external-video-destination-compatibility.md); their existing runtime evidence is unchanged.
+The subsequent [controlled implementation](external-video-browser-managed-verification.md) and
+[gate/test mapping](external-video-browser-managed-results.json) check B1–B28 for injected ports.
+The design-stage column below remains historical; native browser obligations are not certified.
 
 | Gate | Required future observable proof | Evidence now |
 | --- | --- | --- |

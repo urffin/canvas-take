@@ -26,6 +26,7 @@ try {
     const installed = JSON.parse(await readFile(join(workspace, 'node_modules/@grundyjs/canvas-take/package.json'), 'utf8'));
     for(const file of ['dist/internal/video-file-node.mjs','dist/internal/video-file-node.d.mts'])assert.ok(packed.files.some(entry=>entry.path===file),'Missing private Node receiver artifact: '+file);
     for(const file of ['dist/internal/video-browser-catalog.js','dist/internal/video-browser-catalog.d.ts'])assert.ok(packed.files.some(entry=>entry.path===file),'Missing private browser receiver artifact: '+file);
+    for(const name of ['video-browser-results','video-browser-results-types','video-browser-results-ports'])for(const ext of ['js','d.ts'])assert.ok(packed.files.some(entry=>entry.path==='dist/internal/'+name+'.'+ext),'Missing private managed result artifact: '+name+'.'+ext);
     assert.ok(packed.files.some(file => file.path === 'docs/video-recording.md'), 'Missing video verification documentation');
     for (const file of ['dist/video.js', 'dist/video.d.ts', 'dist/video-webcodecs.js', 'dist/video-webcodecs.d.ts', 'dist/video-mp4.js', 'dist/video-mp4.d.ts', 'dist/video-mp4.js.map', 'dist/mediabunny-LICENSE.txt', 'docs/offline-video-api.md', 'docs/offline-video-adapters.md']) assert.ok(packed.files.some(entry => entry.path === file), 'Missing offline video package file: ' + file);
     assert.equal(installed.version, pkg.version);
@@ -55,7 +56,7 @@ try {
     for (const file of ['dist/video-aac.js','dist/video-aac.d.ts','dist/video-aac-worker.js','dist/video-aac-worker.js.map','dist/aac-PROVENANCE.md','dist/aac-licenses/MPL-2.0.txt','dist/aac-licenses/COPYING.LGPLv2.1','dist/aac-licenses/bridge.c','docs/offline-aac.md']) assert.ok(packed.files.some(entry=>entry.path===file),'Missing AAC file: '+file);
     await writeFile(join(workspace, 'consumer.ts'), `
 import { createApngExporter, type ApngExportOptions, type ApngExporter } from '@grundyjs/canvas-take/apng';
-for (const path of ['/internal/webp-controller.js', '/internal/webp-worker.js', '/internal/video-external.js', '/internal/video-external-types.js', '/internal/video-external-mp4.js', '/internal/video-external-webm.js', '/internal/video-external-target.js', '/internal/video-file-node.mjs', '/internal/video-file-node.d.mts', '/internal/video-browser-catalog.js', '/internal/video-browser-catalog.d.ts']) {
+for (const path of ['/internal/webp-controller.js', '/internal/webp-worker.js', '/internal/video-external.js', '/internal/video-external-types.js', '/internal/video-external-mp4.js', '/internal/video-external-webm.js', '/internal/video-external-target.js', '/internal/video-file-node.mjs', '/internal/video-file-node.d.mts', '/internal/video-browser-catalog.js', '/internal/video-browser-catalog.d.ts', '/internal/video-browser-results.js', '/internal/video-browser-results.d.ts', '/internal/video-browser-results-types.js', '/internal/video-browser-results-types.d.ts', '/internal/video-browser-results-ports.js', '/internal/video-browser-results-ports.d.ts']) {
     try { await import('@grundyjs/canvas-take' + path); throw new Error('Private implementation unexpectedly exported'); }
     catch (error) { if ((error as {code?:string}).code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED') throw error; }
 }
