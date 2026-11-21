@@ -1,5 +1,5 @@
 import { createFramePreparation } from './gif-preparation.js';
-import { rawPreparation, type InternalGifEncoder } from './gif-internal.js';
+import { rawPreparation, sampledPalettePreparation, type InternalGifEncoder } from './gif-internal.js';
 
 /** An immutable frame description; the encoder may use the owned pixel copy until addFrame settles. */
 export interface GifFrame {
@@ -143,9 +143,14 @@ export function createGifExporter(options: GifExportOptions): GifExporter {
                 let raw: InternalGifEncoder[typeof rawPreparation] = undefined;
                 // Optional optimization discovery must not break strict third-party Proxy objects.
                 try { if (Object.hasOwn(owned, rawPreparation)) raw = owned[rawPreparation]; } catch {}
+                let preparePalette: InternalGifEncoder[typeof sampledPalettePreparation] = undefined;
+                if (!frames) {
+                    try { if (Object.hasOwn(owned, sampledPalettePreparation)) preparePalette = owned[sampledPalettePreparation]; } catch {}
+                }
                 active();
                 const encoded = await preparation.prepare(background, active, typeof raw === 'function'
-                    ? data => raw.call(owned, { width: w, height: h, data, durationMs: frameDuration }, background) : undefined);
+                    ? data => raw.call(owned, { width: w, height: h, data, durationMs: frameDuration }, background) : undefined,
+                    typeof preparePalette === 'function' ? () => preparePalette.call(owned, w, h, background) : undefined);
                 active();
                 if (!encoded) await encoder!.addFrame({ width: w, height: h, data: preparation.take(), durationMs: frameDuration });
                 active();

@@ -37,9 +37,11 @@ export function createFramePreparation() {
             if (pixels.length !== expectedBytes) throw new Error('Invalid canvas pixel data');
         },
         async prepare(background: readonly number[], active: () => void,
-            tryRaw?: (data: Uint8ClampedArray) => Promise<'declined' | 'encoded'>): Promise<boolean> {
+            tryRaw?: (data: Uint8ClampedArray) => Promise<'declined' | 'encoded'>,
+            preparePalette?: () => Promise<void>): Promise<boolean> {
             // Always yield once after the immediate snapshot, even for tiny/opaque frames.
             await yieldTask(true); active();
+            if (preparePalette) { await preparePalette(); active(); }
             if (tryRaw) {
                 const outcome = await tryRaw(pixels!);
                 active();

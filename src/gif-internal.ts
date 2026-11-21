@@ -2,7 +2,9 @@ import type { GifFrame, GifFrameEncoder } from './gif.js';
 
 // Private convention shared by independently bundled entries. Not a plugin API.
 export const rawPreparation = Symbol.for('@grundyjs/canvas-take/gif/raw-preparation/v1');
+export const sampledPalettePreparation = Symbol.for('@grundyjs/canvas-take/gif/sampled-palette-preparation/v1');
 export interface InternalGifEncoder extends GifFrameEncoder {
+    [sampledPalettePreparation]?: (width: number, height: number, background: readonly number[]) => Promise<void>;
     [rawPreparation]?: (frame: GifFrame, background: readonly number[]) => Promise<'declined' | 'encoded'>;
 }
 

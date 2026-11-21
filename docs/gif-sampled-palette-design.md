@@ -222,3 +222,26 @@ A local gifenc 1.0.3 and gifuct-js check confirmed a one-entry logical palette
 with a padded global table, no local tables, two frame delays and the loop
 count for both RGB565 and RGB444. A second check confirmed why a shortened
 sample needs a full-span buffer. G1–G9 are implementation gates.
+
+## Synchronous implementation verification
+
+The private `createSampledGifencEncoder` factory is built under `dist/internal`.
+The controller discovers its preparation callback only on the first frame,
+after taking ownership of the snapshot and before handing pixels to the encoder.
+The public GIF option types and package export map remain at 0.10.0.
+
+| Gate | Synchronous result |
+| --- | --- |
+| G1 | Matches 24 frozen `29851ca` cases byte for byte with omitted and undefined palette, including Bayer, mixed alpha, repeats, and progress order. A strict third-party Proxy still receives the opaque frame through its public methods. |
+| G2 | Checks descriptor validation, copied inputs, ordered deduplication, one remaining slot, a fully reserved palette, all-reserved samples, omission, and exact-length compaction with both quantizers. |
+| G3 | Checks grid positions and sample indices including the safe-integer boundary. One replay canvas can serve all samples. The largest compact input in the test is 64 KiB. Snapshot mutations, invalid dimensions, tainted canvas, and reader failures are covered. |
+| G4 | Matches the SHA-256 of all 12 archived exact GIFs at 32/64/128/256 colors in high quality without dithering. Focused cases cover both quantizers and Bayer, matching and nonmatching RGB with the same blue value, and correction indices 0 and 255. |
+| G5 | gifuct-js verifies one global table, zero local tables, exact opaque and composited accents, rounded delays, repeat, final hold and one-frame output. Controller tests cover limits, progress, empty exports and caller pixel ownership. |
+
+Cancellation tests cover disposal between grid chunks and abort during an
+uncooperative async read. The pending export rejects with the original abort
+reason, and a fresh export produces the expected bytes after a late rejection.
+The build and all 51 Node GIF tests passed.
+An isolated extraction of the packed artifact also passed public GIF imports,
+private subpath rejection and a decoded Bayer export. The full packaged
+consumer script stalled during its offline npm install step.

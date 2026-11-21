@@ -36,6 +36,9 @@ await build({ entryPoints: ['src/gifenc.ts'], outfile: 'dist/gifenc.js', bundle:
     format: 'esm', platform: 'browser', target: 'es2022', minify: true,
     banner: { js: '/*! Includes gifenc (MIT). See gifenc-LICENSE.txt. */' } });
 await copyFile('node_modules/gifenc/LICENSE.md', 'dist/gifenc-LICENSE.txt');
+await build({ entryPoints: ['src/internal/gif-sampled-encoder.ts'], outdir: 'dist/internal',
+    bundle: true, format: 'esm', platform: 'browser', target: 'es2022', minify: true,
+    banner: { js: '/*! Includes gifenc (MIT). See ../gifenc-LICENSE.txt. */' } });
 // Emit lazy dependencies as shared chunks alongside the public muxer entries.
 await mkdir('dist/internal',{recursive:true});
 for (const [dir, pattern] of [['dist', /^video-container-[A-Z0-9]+\.js(?:\.map)?$/],
