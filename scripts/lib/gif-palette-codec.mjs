@@ -29,16 +29,38 @@ function applyPalette(data, palette) {
     return gifenc.applyPalette(data, palette, 'rgb565');
 }
 
-export function createExactAccentMapper(palette, accents) {
-    const indices = new Map(accents.map(color => {
+function findAccentIndices(palette, accents) {
+    return new Map(accents.map(color => {
         const index = palette.findIndex(entry => entry.every((channel, i) => channel === color[i]));
         assert.ok(index >= 0, 'An exact accent must have an entry in the GIF palette');
         return [(color[0] << 16) | (color[1] << 8) | color[2], index];
     }));
+}
+
+export function createExactAccentMapper(palette, accents) {
+    const indices = findAccentIndices(palette, accents);
     return (data, colors) => {
         const mapped = applyPalette(data, colors);
         for (let pixel = 0, offset = 0; pixel < mapped.length; pixel++, offset += 4) {
             const exact = indices.get((data[offset] << 16) | (data[offset + 1] << 8) | data[offset + 2]);
+            if (exact !== undefined) mapped[pixel] = exact;
+        }
+        return mapped;
+    };
+}
+
+// Exact RGB equality requires the same blue byte. Keep all full-RGB checks
+// for blue values that occur in the accent list.
+export function createBlueFilteredAccentMapper(palette, accents) {
+    const indices = findAccentIndices(palette, accents);
+    const blues = new Uint8Array(256);
+    for (const color of accents) blues[color[2]] = 1;
+    return (data, colors) => {
+        const mapped = applyPalette(data, colors);
+        for (let pixel = 0, offset = 0; pixel < mapped.length; pixel++, offset += 4) {
+            const blue = data[offset + 2];
+            if (!blues[blue]) continue;
+            const exact = indices.get((data[offset] << 16) | (data[offset + 1] << 8) | blue);
             if (exact !== undefined) mapped[pixel] = exact;
         }
         return mapped;

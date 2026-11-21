@@ -1,0 +1,2456 @@
+{
+  "metadata": {
+    "startedAt": "2026-11-21T21:34:53.058Z",
+    "node": "v22.17.0",
+    "os": "win32 10.0.19045",
+    "cpu": "AMD FX(tm)-8350 Eight-Core Processor",
+    "baseline": "908ce62b697e6f8ebc96f74b0b1fc0eedf4a9cfa",
+    "packageVersion": "0.10.0",
+    "gifenc": "1.0.3",
+    "gifuct": "2.1.2",
+    "settings": {
+      "width": 640,
+      "height": 360,
+      "count": 24,
+      "repeats": 8
+    },
+    "quality": "high",
+    "dither": "none"
+  },
+  "namedAccents": [
+    {
+      "name": "title",
+      "rgb": [
+        242,
+        245,
+        249
+      ]
+    },
+    {
+      "name": "counter",
+      "rgb": [
+        98,
+        212,
+        185
+      ]
+    },
+    {
+      "name": "footer",
+      "rgb": [
+        173,
+        194,
+        215
+      ]
+    },
+    {
+      "name": "highlight",
+      "rgb": [
+        249,
+        218,
+        112
+      ]
+    }
+  ],
+  "controls": {
+    "collisionSha256": "5ef76e578f4567bd323560e26513b6898307191de2bc1d42cc20eae7c2862032",
+    "accentMetrics": {
+      "pixels": 3,
+      "exact": 3,
+      "exactPixelPercent": 100,
+      "rgbRmse": 0,
+      "staticPairs": 1,
+      "staticPixelDelta": 0,
+      "otherRgbRmse": 0,
+      "colors": [
+        {
+          "color": [
+            242,
+            245,
+            249
+          ],
+          "pixels": 3,
+          "exact": 3,
+          "exactPixelPercent": 100,
+          "rgbRmse": 0,
+          "staticPairs": 1,
+          "staticPixelDelta": 0
+        }
+      ]
+    },
+    "sharedBlueIndices": [
+      1,
+      0,
+      255,
+      255,
+      0
+    ]
+  },
+  "sources": [
+    {
+      "scene": "flat-text",
+      "sha256": "d25c61bd267ba19ac455961562a7ec953e35aa0d0556bcc54fc291e6088026fe",
+      "blueHitPercent": 2.842013888888889,
+      "executionOrder": [
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            128,
+            256,
+            64,
+            32
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            256,
+            32,
+            128,
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            128,
+            256,
+            64,
+            32
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            256,
+            32,
+            128,
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "sha256": "5bab59df75613be10c76685e4b75b68d52800f096d233e2eb5659729c5a92aa9",
+      "blueHitPercent": 4.078577112268518,
+      "executionOrder": [
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            128,
+            256,
+            64,
+            32
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            256,
+            32,
+            128,
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            128,
+            256,
+            64,
+            32
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            256,
+            32,
+            128,
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "sha256": "691846e3a9395e0b099162011f9ce6e09fbf64cb0c43025290451a694e21f3be",
+      "blueHitPercent": 3.493634259259259,
+      "executionOrder": [
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            128,
+            256,
+            64,
+            32
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            256,
+            32,
+            128,
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            128,
+            256,
+            64,
+            32
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            256,
+            32,
+            128,
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "same-blue",
+      "sha256": "8877bf3a3c5e8bba28cbe0f9e2c0f6a14ab1dbdd2be8d672390921961567d204",
+      "blueHitPercent": 100,
+      "executionOrder": [
+        {
+          "limits": [
+            64
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            64
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            64
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        },
+        {
+          "limits": [
+            64
+          ],
+          "modes": [
+            "reference",
+            "filtered"
+          ]
+        },
+        {
+          "limits": [
+            64
+          ],
+          "modes": [
+            "filtered",
+            "reference"
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "scene": "flat-text",
+      "maxColors": 32,
+      "file": "flat-text-32.gif",
+      "sizeBytes": 215256,
+      "sha256": "acda354dea6926d5548042ff4bc6143618651ca25f4612f6fb88eda22e90efbd",
+      "paletteSha256": "b7658b78a6b6b8337682be2469d27bd04c7539bd789d3555993946ecf90662a0",
+      "paletteRgbHex": "10192a14203019263a2f5dad3764b23e69b6456fba4d73be537ac254bd4e5b7dc66182ca6788ce65af576f8cd27791d673a45f7e98db819a67859bde8ba1e2928c7093a5e697aeeba08178ae7780bf6989d15b93f2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 1.9412374346735068,
+      "block8Rmse": 1.1007790013087198,
+      "exactPixelPercent": 87.17708333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.9685807595635085,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 445.02319999999963,
+            "mappingMs": 198.30119999999624
+          },
+          {
+            "encodeMs": 374.1268,
+            "mappingMs": 193.1358999999993
+          },
+          {
+            "encodeMs": 374.3770000000004,
+            "mappingMs": 192.55270000000382
+          },
+          {
+            "encodeMs": 391.14660000000003,
+            "mappingMs": 193.65250000000742
+          },
+          {
+            "encodeMs": 410.33470000000307,
+            "mappingMs": 207.36389999999665
+          },
+          {
+            "encodeMs": 408.87880000000223,
+            "mappingMs": 196.9984000000004
+          },
+          {
+            "encodeMs": 549.6102000000028,
+            "mappingMs": 222.14670000001206
+          },
+          {
+            "encodeMs": 391.71749999999884,
+            "mappingMs": 194.07740000000922
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 604.1924999999992,
+            "mappingMs": 149.17870000000403
+          },
+          {
+            "encodeMs": 403.89640000000145,
+            "mappingMs": 146.62330000000475
+          },
+          {
+            "encodeMs": 387.6166000000012,
+            "mappingMs": 139.6269000000102
+          },
+          {
+            "encodeMs": 387.22629999999845,
+            "mappingMs": 135.60619999999108
+          },
+          {
+            "encodeMs": 377.4044999999969,
+            "mappingMs": 134.54879999999685
+          },
+          {
+            "encodeMs": 661.9917999999998,
+            "mappingMs": 180.64630000000034
+          },
+          {
+            "encodeMs": 400.7943000000014,
+            "mappingMs": 148.4615000000049
+          },
+          {
+            "encodeMs": 387.5737999999983,
+            "mappingMs": 138.4887000000308
+          }
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 64,
+      "file": "flat-text-64.gif",
+      "sizeBytes": 223601,
+      "sha256": "8e0ba13a901c165a441f8a4c6cd0b9e070c9e6e984e7f9fb13aa20c590adde7a",
+      "paletteSha256": "ecd76f7356ed1a24626ca5f8f13e1265b21632b88eee1f3ae9243ef6556e3a0c",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b2556987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7db27382bb6c87c4658ccd5e91d65796f2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 468.76510000000053,
+            "mappingMs": 197.16769999999815
+          },
+          {
+            "encodeMs": 402.01820000000043,
+            "mappingMs": 189.40849999999773
+          },
+          {
+            "encodeMs": 438.9509999999973,
+            "mappingMs": 202.70349999999962
+          },
+          {
+            "encodeMs": 406.9789000000019,
+            "mappingMs": 199.1157000000021
+          },
+          {
+            "encodeMs": 377.4881999999998,
+            "mappingMs": 190.00050000000192
+          },
+          {
+            "encodeMs": 465.6167000000023,
+            "mappingMs": 199.65030000000843
+          },
+          {
+            "encodeMs": 423.851200000001,
+            "mappingMs": 199.6494000000057
+          },
+          {
+            "encodeMs": 538.7768999999971,
+            "mappingMs": 226.82280000002356
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 389.5534000000007,
+            "mappingMs": 136.8336000000072
+          },
+          {
+            "encodeMs": 394.42219999999907,
+            "mappingMs": 140.68079999999645
+          },
+          {
+            "encodeMs": 385.8522000000012,
+            "mappingMs": 136.40150000000358
+          },
+          {
+            "encodeMs": 397.85819999999876,
+            "mappingMs": 147.94840000000113
+          },
+          {
+            "encodeMs": 377.6913999999997,
+            "mappingMs": 138.52099999999336
+          },
+          {
+            "encodeMs": 428.8633000000009,
+            "mappingMs": 161.74340000000666
+          },
+          {
+            "encodeMs": 402.96450000000186,
+            "mappingMs": 152.8544000000038
+          },
+          {
+            "encodeMs": 383.47260000000097,
+            "mappingMs": 140.38989999997284
+          }
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 128,
+      "file": "flat-text-128.gif",
+      "sizeBytes": 223601,
+      "sha256": "8e0ba13a901c165a441f8a4c6cd0b9e070c9e6e984e7f9fb13aa20c590adde7a",
+      "paletteSha256": "ecd76f7356ed1a24626ca5f8f13e1265b21632b88eee1f3ae9243ef6556e3a0c",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b2556987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7db27382bb6c87c4658ccd5e91d65796f2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 407.9269000000004,
+            "mappingMs": 191.2122999999956
+          },
+          {
+            "encodeMs": 405.2065999999995,
+            "mappingMs": 195.5572000000011
+          },
+          {
+            "encodeMs": 390.6291000000001,
+            "mappingMs": 191.24480000000403
+          },
+          {
+            "encodeMs": 420.0519999999997,
+            "mappingMs": 195.96559999999954
+          },
+          {
+            "encodeMs": 388.731200000002,
+            "mappingMs": 194.32320000000982
+          },
+          {
+            "encodeMs": 649.7243000000017,
+            "mappingMs": 252.28220000000147
+          },
+          {
+            "encodeMs": 411.09280000000217,
+            "mappingMs": 195.26010000000315
+          },
+          {
+            "encodeMs": 413.91799999999785,
+            "mappingMs": 194.6151999999929
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 548.7515000000003,
+            "mappingMs": 234.5831999999973
+          },
+          {
+            "encodeMs": 386.27989999999954,
+            "mappingMs": 142.29849999999897
+          },
+          {
+            "encodeMs": 387.19520000000193,
+            "mappingMs": 136.53930000000219
+          },
+          {
+            "encodeMs": 381.8786,
+            "mappingMs": 144.49870000000737
+          },
+          {
+            "encodeMs": 376.30569999999716,
+            "mappingMs": 138.51840000000448
+          },
+          {
+            "encodeMs": 418.40970000000016,
+            "mappingMs": 151.98959999999352
+          },
+          {
+            "encodeMs": 389.2546000000002,
+            "mappingMs": 139.18520000000717
+          },
+          {
+            "encodeMs": 372.8359000000055,
+            "mappingMs": 133.41290000001754
+          }
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 256,
+      "file": "flat-text-256.gif",
+      "sizeBytes": 223601,
+      "sha256": "8e0ba13a901c165a441f8a4c6cd0b9e070c9e6e984e7f9fb13aa20c590adde7a",
+      "paletteSha256": "ecd76f7356ed1a24626ca5f8f13e1265b21632b88eee1f3ae9243ef6556e3a0c",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b2556987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7db27382bb6c87c4658ccd5e91d65796f2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 472.3551000000007,
+            "mappingMs": 200.03059999999277
+          },
+          {
+            "encodeMs": 420.310300000001,
+            "mappingMs": 204.5277999999944
+          },
+          {
+            "encodeMs": 433.5691000000006,
+            "mappingMs": 192.99090000000433
+          },
+          {
+            "encodeMs": 408.7955000000002,
+            "mappingMs": 199.29650000000765
+          },
+          {
+            "encodeMs": 400.41359999999986,
+            "mappingMs": 193.48760000000402
+          },
+          {
+            "encodeMs": 378.4759000000013,
+            "mappingMs": 190.97900000000664
+          },
+          {
+            "encodeMs": 388.0764999999992,
+            "mappingMs": 193.93469999998706
+          },
+          {
+            "encodeMs": 376.1507999999958,
+            "mappingMs": 192.41430000001128
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 388.1167000000005,
+            "mappingMs": 135.11359999999695
+          },
+          {
+            "encodeMs": 387.7434999999987,
+            "mappingMs": 137.83050000000185
+          },
+          {
+            "encodeMs": 385.15490000000136,
+            "mappingMs": 145.60319999998683
+          },
+          {
+            "encodeMs": 379.60729999999967,
+            "mappingMs": 133.65659999999843
+          },
+          {
+            "encodeMs": 387.6961999999985,
+            "mappingMs": 138.16040000000794
+          },
+          {
+            "encodeMs": 375.65239999999903,
+            "mappingMs": 138.0180999999866
+          },
+          {
+            "encodeMs": 386.7682999999997,
+            "mappingMs": 138.9282000000021
+          },
+          {
+            "encodeMs": 382.6838000000025,
+            "mappingMs": 144.2968000000219
+          }
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 32,
+      "file": "moving-gradient-32.gif",
+      "sizeBytes": 192278,
+      "sha256": "c5f00940db18a49535be6790c85f77ab38c2ede5956894d90498b5fd0f172798",
+      "paletteSha256": "2c7c1bb3f58fbe1269635f637110f74cd1ee6f0d554c942afac2bcfce24846db",
+      "paletteRgbHex": "20262f2339b139308d4a46c15766555a28766874ca699c317f2d507a87667a9acc835c8a94bf378ccba5a19397b5a170a2b4c4b04036ae7167c3c858c2c9c3cb9d3fd57439d1c39cd75663dbb4cadcca7ae5e5e5f2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 12.161217134177257,
+      "block8Rmse": 11.252400265931996,
+      "exactPixelPercent": 2.822410300925926,
+      "staticPixelDelta": 0.067836485520658,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 12.327235474137217,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 566.2200999999986,
+            "mappingMs": 212.6356999999989
+          },
+          {
+            "encodeMs": 500.44579999999405,
+            "mappingMs": 212.53409999999712
+          },
+          {
+            "encodeMs": 424.71070000000327,
+            "mappingMs": 208.76980000000185
+          },
+          {
+            "encodeMs": 452.71949999999924,
+            "mappingMs": 211.19599999998172
+          },
+          {
+            "encodeMs": 485.39390000000276,
+            "mappingMs": 220.1695999999647
+          },
+          {
+            "encodeMs": 658.8225000000093,
+            "mappingMs": 237.13800000004994
+          },
+          {
+            "encodeMs": 542.857799999998,
+            "mappingMs": 232.51819999996223
+          },
+          {
+            "encodeMs": 436.48129999999946,
+            "mappingMs": 213.48379999992903
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 433.10310000000027,
+            "mappingMs": 156.66489999998885
+          },
+          {
+            "encodeMs": 389.20910000000003,
+            "mappingMs": 147.97020000001794
+          },
+          {
+            "encodeMs": 396.2330000000002,
+            "mappingMs": 163.8683999999921
+          },
+          {
+            "encodeMs": 396.88090000000375,
+            "mappingMs": 153.52560000000813
+          },
+          {
+            "encodeMs": 416.22839999999997,
+            "mappingMs": 173.6889999999985
+          },
+          {
+            "encodeMs": 396.116200000004,
+            "mappingMs": 155.60630000004312
+          },
+          {
+            "encodeMs": 388.0326999999961,
+            "mappingMs": 159.74709999997867
+          },
+          {
+            "encodeMs": 387.3972000000067,
+            "mappingMs": 155.00430000001506
+          }
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 64,
+      "file": "moving-gradient-64.gif",
+      "sizeBytes": 263171,
+      "sha256": "921c19c860d5c6c361be93aab4b88d343566d2ef119921b4bba383a235478825",
+      "paletteSha256": "55998c2f2a4cfa7648d7145020304910e41ad8e8263dfa9e15abdaaff2b08d5c",
+      "paletteRgbHex": "151e2a262dc02044a43437833a3a3a4147d34122a24f654a5a28765544ac5469d8628e306483d274264f626763776ab97990516e9fc36fa7337353978422318739617b7f778387c37f9cd584bc2f8ccba58f61819588969e9e6797b6d799b944a13431a1adc1a3cc31ae7167a99a98a2d0c3ba4838afc05ab1abafbac2bcc1a633c8a477c0cb47c5d0d3ca7349c6b89bc8ce64cf6174d8934fdc4f57dbb4cad0cfb6dcca7ada602ddd842fddcd9ce0b75ce5e5e5f2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 8.476046282355513,
+      "block8Rmse": 7.576528901336064,
+      "exactPixelPercent": 2.85888671875,
+      "staticPixelDelta": 0.08446491387358192,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 8.591756668716908,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 601.5677999999971,
+            "mappingMs": 214.58449999998993
+          },
+          {
+            "encodeMs": 644.6457999999984,
+            "mappingMs": 227.0544000000009
+          },
+          {
+            "encodeMs": 657.4026000000013,
+            "mappingMs": 239.6984999999695
+          },
+          {
+            "encodeMs": 579.502800000002,
+            "mappingMs": 221.68000000000757
+          },
+          {
+            "encodeMs": 505.64340000000084,
+            "mappingMs": 220.0976000000228
+          },
+          {
+            "encodeMs": 618.0503999999928,
+            "mappingMs": 224.0560000000114
+          },
+          {
+            "encodeMs": 735.8873000000021,
+            "mappingMs": 278.48360000003595
+          },
+          {
+            "encodeMs": 668.0793999999878,
+            "mappingMs": 231.72470000000612
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 428.6444000000047,
+            "mappingMs": 160.6427999999869
+          },
+          {
+            "encodeMs": 438.6756000000023,
+            "mappingMs": 166.0565999999817
+          },
+          {
+            "encodeMs": 392.2549999999974,
+            "mappingMs": 172.21669999998994
+          },
+          {
+            "encodeMs": 390.5803999999989,
+            "mappingMs": 172.34109999999782
+          },
+          {
+            "encodeMs": 384.1923999999999,
+            "mappingMs": 161.7651999999871
+          },
+          {
+            "encodeMs": 446.94950000000244,
+            "mappingMs": 179.02510000001348
+          },
+          {
+            "encodeMs": 572.6437000000005,
+            "mappingMs": 197.98110000001907
+          },
+          {
+            "encodeMs": 455.8944000000047,
+            "mappingMs": 173.64499999998952
+          }
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 128,
+      "file": "moving-gradient-128.gif",
+      "sizeBytes": 342369,
+      "sha256": "db64f290809fe3fb2bd4e5e77ebfdf3158f14fd20d2968503ed197277563c980",
+      "paletteSha256": "6ae9a8a196fbd261a183826e4cf3be5dcbad07e2c315573961e7402eaf8200c6",
+      "paletteRgbHex": "1919191420301f2fc5203bac204d9b2a3d8a332ab83a3a3a383fd54122a23c2d893e396e4a4fd04e6f485425844b3caf5469d85728645050505681325f459e5c4fb8607bcf6395286a24536267636f64c06d8455668fb8688cd66aa83c6b2d7b73508f7259a56b8e3e72a5c773a62b8422317f35677176717880c87796d781b22f80284a80837a839c4e84bfb380ce3d8957778372ae86a2d48cc2288acf98956c8b928e908d8ebe91967191b2d793b93ca13431974154997fa09ca8c19ad32fa8665da29aa3a5a2629eb84ca2d0c3a2bed69cd3a8a9a284a9c732af4d41b47b6fafc05aaeafaeaab5c2b4c4afb53241b28c8ab39e98b5a341b1b42cbbb77bbdc2c1b9d24ab4d3d9c24b31c27654ba9cb1bcb19bc3cc67cf7143cd676bcb8c51c5997bcba130c8b5abcbc042cbcfd1cf4152d15981d0a7c1cbbe94d0cfb6d4ce7bda602ddd842fd6a56edacca3d4d55de09d55e1bb7ddfb7d7e0b75ce44d69e15b4be39341e1bcbde2d091e3d076e0e0e0edededf2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 128,
+      "localTables": 0,
+      "colorTableBytes": 384,
+      "rgbRmse": 6.3426469604109075,
+      "block8Rmse": 5.431949039115795,
+      "exactPixelPercent": 25.560167100694443,
+      "staticPixelDelta": 0.13035583748309248,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 6.429233336404493,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 942.3213000000032,
+            "mappingMs": 326.4050999999963
+          },
+          {
+            "encodeMs": 754.7649999999994,
+            "mappingMs": 264.6480999999985
+          },
+          {
+            "encodeMs": 767.8338000000003,
+            "mappingMs": 306.1417000000365
+          },
+          {
+            "encodeMs": 703.0967000000019,
+            "mappingMs": 262.5256999999838
+          },
+          {
+            "encodeMs": 796.786500000002,
+            "mappingMs": 287.9221999999936
+          },
+          {
+            "encodeMs": 763.1138000000064,
+            "mappingMs": 281.53600000000733
+          },
+          {
+            "encodeMs": 731.4512000000104,
+            "mappingMs": 285.8901000000624
+          },
+          {
+            "encodeMs": 737.0620999999956,
+            "mappingMs": 256.6588000000338
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 401.9570999999996,
+            "mappingMs": 186.1077999999834
+          },
+          {
+            "encodeMs": 421.40759999999864,
+            "mappingMs": 193.9802999999738
+          },
+          {
+            "encodeMs": 434.5633000000016,
+            "mappingMs": 209.60220000000118
+          },
+          {
+            "encodeMs": 406.4586999999956,
+            "mappingMs": 191.80160000001342
+          },
+          {
+            "encodeMs": 614.8157999999967,
+            "mappingMs": 242.6656000000221
+          },
+          {
+            "encodeMs": 440.1056000000099,
+            "mappingMs": 195.175900000002
+          },
+          {
+            "encodeMs": 510.94680000000517,
+            "mappingMs": 208.0634000000282
+          },
+          {
+            "encodeMs": 806.5872999999992,
+            "mappingMs": 240.53820000000997
+          }
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 256,
+      "file": "moving-gradient-256.gif",
+      "sizeBytes": 455570,
+      "sha256": "736f78cda81e7e5790877fb5580bce00c35d632c8e1018174d496fa37b6d6bac",
+      "paletteSha256": "e180e19c0efeffbdb96a44ade21a3b3b046cea9ac86b7ff8dbf148d584b9c0ea",
+      "paletteRgbHex": "111111142030202cca1e35bb1d40ad1a49931f1f1f2752a42730a92939932c417f2e23b63131313539d13a22a63931ba3c2d893e396e3c47da4040404853d54c69504a219c4c267a463bb74d4ac8526dd84a713c5420864f2e65513da7505050567747568132592b595f459e5c4fb8585edb577ec15d8e2a5f1f6d5e2b8e66274a6060606661ca656e66657e51657ad6608db3688cd666a2366d215b6b2d7b6f4c8f7259a56b8e3e6b92be689927689bc973a62b6eae407e2136782e646f61b97176717880c87287577098db6fa7be75b8277922487d598f7b6dbc7f896b7d9b447997cf7aaacb78b8ad7cc7367f3a7181537c8168a881817f8579b38091d9889c5487a1c880a5dc83b2287eb63587c82984ca9e83d443882f4b893c628d68908b8a8b8d8ebe9196718ba0d587aa378cb1d38fc23d8bc3b791d592902326932f37974154905b729678a19690929387a791b04199a4be90bc2698b93796d0379f62659e7184a396ab99a75f97b2db9db1529cc54a9ccbc6a2bed69dd5299cd3a8a12f2ba03e3ca47f96a9a2849f989aa4a56ca1acb59eaccca1b7479fc32ca9d6c0a94d4bae654faa7271ae9c5aa4a4a4aeb960adadacaab5c2a8c43da8c85aaeccb0b53241af3a2cb34d3ab06e5fb5807ab28c8ab39e98b0a547b1b42cbbb77bb1b4b3b5c552b0c6cdb2c928aecf36b6d145b4d3d9bc4827c27654ba7d67ba9cb1bba13bb9b79fbbbabdb8beaebac9bfbbc869bfd452c24436c15632c46f3cc66b70c1934cc4a080c4a329beac98c8b5abc3c23ac6d062c3d1cfc73d4dcb5c85d1744bcd875dc78e75d29730cca7baccaa39cbb592c6c19bc7c671c8ccafc7c1c5c9ccdacfd372d04c3ed54556d15a2bd66265d87729d58239d5894ad6a56ed6a7cbd2bd4ad1c48ed6c880d5c4a2d0cfcfcfd658d6d57dd0d5bdd7567cdd6f3edf985ee1a04ed9b686e3b3d6dabf5dd7c1d9dad4a2d9d362e34b6fe05a45e4662fe35d54e3882ce39341dfb8b9decb91e1cf6fe4c1c4deceb8e0e0e0e55161e5af5ae5b96fe6c182e6caa9e5d27fe6d491edededf2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 256,
+      "localTables": 0,
+      "colorTableBytes": 768,
+      "rgbRmse": 5.1129962662203745,
+      "block8Rmse": 4.251769855241268,
+      "exactPixelPercent": 25.852882667824073,
+      "staticPixelDelta": 0.16830969192839831,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 5.182796117910697,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 733.9547999999995,
+            "mappingMs": 289.56920000000537
+          },
+          {
+            "encodeMs": 798.5999000000011,
+            "mappingMs": 366.87330000000657
+          },
+          {
+            "encodeMs": 719.4294999999984,
+            "mappingMs": 295.4418000000005
+          },
+          {
+            "encodeMs": 780.3001999999979,
+            "mappingMs": 352.17440000001807
+          },
+          {
+            "encodeMs": 848.7263999999996,
+            "mappingMs": 343.06599999998434
+          },
+          {
+            "encodeMs": 770.994399999996,
+            "mappingMs": 328.80449999999837
+          },
+          {
+            "encodeMs": 834.8791000000056,
+            "mappingMs": 392.3007999999827
+          },
+          {
+            "encodeMs": 766.8825999999972,
+            "mappingMs": 314.5803999999189
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 732.990899999997,
+            "mappingMs": 268.42720000000554
+          },
+          {
+            "encodeMs": 682.4254999999976,
+            "mappingMs": 242.32139999999345
+          },
+          {
+            "encodeMs": 747.2720999999947,
+            "mappingMs": 267.5558999999921
+          },
+          {
+            "encodeMs": 662.2263999999996,
+            "mappingMs": 237.94719999997324
+          },
+          {
+            "encodeMs": 599.1942000000054,
+            "mappingMs": 236.29430000000139
+          },
+          {
+            "encodeMs": 682.854600000006,
+            "mappingMs": 266.36249999998836
+          },
+          {
+            "encodeMs": 712.0215000000026,
+            "mappingMs": 259.91660000002594
+          },
+          {
+            "encodeMs": 674.4293999999936,
+            "mappingMs": 239.0745999999781
+          }
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 32,
+      "file": "scene-cut-32.gif",
+      "sizeBytes": 181356,
+      "sha256": "5b474e26be1e0d930e0d8de83253a107ef543c8bddc4bc8f2d25693c5609aca4",
+      "paletteSha256": "5cc7b576c95a903cec08e88c4110078f03b5530a72dc6af3a91230ee0464933d",
+      "paletteRgbHex": "19222e5765cd4723195656566ca032759d547190cd8577947dbaa489abd48ac42f9eb3b898ba48a3ac6f9f93abb37e86aec739be632db4c3c3c8946fc8b99ec8ca64d1cfc9cdac2fddcf91e29d4be0c875e5e5e5f2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 9.489276809168055,
+      "block8Rmse": 8.779620040363469,
+      "exactPixelPercent": 2.8274739583333335,
+      "staticPixelDelta": 0.07047194200520596,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 150242,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 9.620878937471996,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 562.1630000000005,
+            "mappingMs": 218.42059999996854
+          },
+          {
+            "encodeMs": 403.3267999999953,
+            "mappingMs": 201.06620000003022
+          },
+          {
+            "encodeMs": 432.0368000000017,
+            "mappingMs": 213.08210000002873
+          },
+          {
+            "encodeMs": 1225.4631000000081,
+            "mappingMs": 400.0001000000193
+          },
+          {
+            "encodeMs": 403.4508999999962,
+            "mappingMs": 201.06020000003628
+          },
+          {
+            "encodeMs": 394.3326000000088,
+            "mappingMs": 200.27850000002945
+          },
+          {
+            "encodeMs": 1005.8276000000042,
+            "mappingMs": 420.39740000000165
+          },
+          {
+            "encodeMs": 437.69400000000314,
+            "mappingMs": 208.57350000001315
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 387.8475000000035,
+            "mappingMs": 150.73479999999108
+          },
+          {
+            "encodeMs": 376.40720000000147,
+            "mappingMs": 148.68780000001425
+          },
+          {
+            "encodeMs": 389.8220000000001,
+            "mappingMs": 156.9160000000411
+          },
+          {
+            "encodeMs": 1069.1935000000085,
+            "mappingMs": 359.6050000000396
+          },
+          {
+            "encodeMs": 488.9331000000093,
+            "mappingMs": 174.928000000029
+          },
+          {
+            "encodeMs": 398.95599999999104,
+            "mappingMs": 150.44310000000405
+          },
+          {
+            "encodeMs": 589.9964000000036,
+            "mappingMs": 198.38340000000608
+          },
+          {
+            "encodeMs": 397.9912999999942,
+            "mappingMs": 148.46720000002824
+          }
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 64,
+      "file": "scene-cut-64.gif",
+      "sizeBytes": 237203,
+      "sha256": "a5fe2f4946720ae98c44f6d4ee178ffdf2dd0d65f60bde3a212b17193aea14d9",
+      "paletteSha256": "72e33ae6308cd8c49bfbb50fe282e70a5e5f61adeac4681ac4417e171420a362",
+      "paletteRgbHex": "19222e4c5bd2381b154a4a4a626ec85c893b59b95051291c6464646b9ec16b95d8689e297a82d179995575aa348271a67dbaa478787880a5d188d1308baebc9081898db82d98ba4893b1d793a1689890bd9cbdc1a395a1ae8484acad82aaaeafa0cd2fae4d23acba62abc6ceb2bb2fb5c945bf8967c3aa97c5c772bcc1b9cacb59c9d1d1be632dd09f77cdac2fc7c09bcd5e91cd7836d1c7acd7ca8adb9045e0a55ee0bb72e1d277e3d499e1ccbae9a446e5e5e5f2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 5.872552840863223,
+      "block8Rmse": 5.2138171345108875,
+      "exactPixelPercent": 31.14482060185185,
+      "staticPixelDelta": 0.07806090668773358,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 150242,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 5.9539963974141585,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 535.6506000000081,
+            "mappingMs": 221.95260000003327
+          },
+          {
+            "encodeMs": 623.2678999999916,
+            "mappingMs": 233.8288999999495
+          },
+          {
+            "encodeMs": 548.0959000000003,
+            "mappingMs": 220.64559999998892
+          },
+          {
+            "encodeMs": 464.6097000000009,
+            "mappingMs": 212.64159999997355
+          },
+          {
+            "encodeMs": 527.4774999999936,
+            "mappingMs": 222.99169999996957
+          },
+          {
+            "encodeMs": 693.0113999999885,
+            "mappingMs": 270.8341999999975
+          },
+          {
+            "encodeMs": 492.3496000000014,
+            "mappingMs": 208.70279999998456
+          },
+          {
+            "encodeMs": 539.4043999999994,
+            "mappingMs": 208.07360000003246
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 452.17510000000766,
+            "mappingMs": 179.2720999999874
+          },
+          {
+            "encodeMs": 430.0865000000049,
+            "mappingMs": 157.761100000047
+          },
+          {
+            "encodeMs": 402.83179999999993,
+            "mappingMs": 164.2499000000389
+          },
+          {
+            "encodeMs": 409.87170000000333,
+            "mappingMs": 171.1178999999538
+          },
+          {
+            "encodeMs": 386.79599999998754,
+            "mappingMs": 159.08689999999478
+          },
+          {
+            "encodeMs": 752.1313999999984,
+            "mappingMs": 341.4443000000465
+          },
+          {
+            "encodeMs": 436.7493000000104,
+            "mappingMs": 164.5838000000076
+          },
+          {
+            "encodeMs": 386.68159999999625,
+            "mappingMs": 156.920999999973
+          }
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 128,
+      "file": "scene-cut-128.gif",
+      "sizeBytes": 293266,
+      "sha256": "3ce7ce27bc02f9421ea7a24f34b38295ebe29a2810c8968d1c79202cb8f68130",
+      "paletteSha256": "b6d2f07ffd532515c820eb067a1ac4a8828a4ba57b681f1373c479c29ff5a7b7",
+      "paletteRgbHex": "1420302121212f2f2f4153d9381b154040404f61d45050505976c656863559b95051291c595ac16464645f6bd6628b416899c76b95d861992a6c69bf6f7ed76f8e516ea4bb6ea2286ca83b7567a878ab2b6fa75d77b3a77878788075b18380c28098607c9f4681a8cb83c1a07bc82b8a739c838bd97fa2d883b3bb82ae3684d5408787878ab82893b1458dabd78dd32d9197729391c895a96095a7be92b73695c7b491c4529dc23f99798a9e879f9b90b798989899b7d89fb9c7af8c8aa8a983a7aaaaa1b8529fca2ca1d537ae4d23a77e79ae99a8acba62adb4b7a9c2d8b2c02aafc54eabd2c5b9876fb2b437aebfc8b2ce42b76f85bcab9db7b77fc0c56cbbbfafbcc2bfc0ce58bfd2d7be632dc68b5fc89875c5af29c4bc9ac2c03fcd5e91cd7836cda88ed1bb54cdcb7acdceaccbd0c6d4aa35d6bdacd7ca8acec69cd3d461d5d0d3dc944be0a55ed7a77ad9bf68ded371dfd2a1dfd3b3db8b3ee6a144e3c6c1e4b977dfdfdfe5d280e6d693f2ac4dedededf2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 128,
+      "localTables": 0,
+      "colorTableBytes": 384,
+      "rgbRmse": 4.351783548118181,
+      "block8Rmse": 3.723562868640443,
+      "exactPixelPercent": 53.71766493055556,
+      "staticPixelDelta": 0.09570350085584353,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 150242,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 4.412136300848202,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 628.7027999999991,
+            "mappingMs": 239.14459999997052
+          },
+          {
+            "encodeMs": 741.4296000000031,
+            "mappingMs": 297.69839999996475
+          },
+          {
+            "encodeMs": 630.5715000000055,
+            "mappingMs": 253.42589999998745
+          },
+          {
+            "encodeMs": 660.0696999999927,
+            "mappingMs": 241.73369999999704
+          },
+          {
+            "encodeMs": 608.1900000000023,
+            "mappingMs": 234.0063999999984
+          },
+          {
+            "encodeMs": 561.6666000000114,
+            "mappingMs": 229.06459999996878
+          },
+          {
+            "encodeMs": 744.321100000001,
+            "mappingMs": 309.1958000000013
+          },
+          {
+            "encodeMs": 575.4639000000025,
+            "mappingMs": 234.03249999994296
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 541.5898000000016,
+            "mappingMs": 181.84030000001076
+          },
+          {
+            "encodeMs": 726.1567000000068,
+            "mappingMs": 243.2207999999955
+          },
+          {
+            "encodeMs": 431.8787000000011,
+            "mappingMs": 178.0581999999995
+          },
+          {
+            "encodeMs": 523.8706999999995,
+            "mappingMs": 214.10939999998664
+          },
+          {
+            "encodeMs": 449.4463000000105,
+            "mappingMs": 179.17799999998533
+          },
+          {
+            "encodeMs": 495.1851999999926,
+            "mappingMs": 193.76929999998538
+          },
+          {
+            "encodeMs": 702.8779000000068,
+            "mappingMs": 240.9156999999832
+          },
+          {
+            "encodeMs": 456.34809999998834,
+            "mappingMs": 177.4054000000324
+          }
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 256,
+      "file": "scene-cut-256.gif",
+      "sizeBytes": 371746,
+      "sha256": "3535dbbf488fa0e9160e8a725a7d59b9c99b9b9a5bf560f9951d2931e74ec57b",
+      "paletteSha256": "ce622fd2a458c9c48f070d29a7b48f93d248aff0ca0a8aa7802c0008eaf5eee2",
+      "paletteRgbHex": "1420302121212a2a2a3333333e4dd7381b154040404458d94d68cf4b4b4b5059cf5162dd5173c054803d54bc4e51291c555555595ac1588a2f6060605f67cf6070dd5d75d0607dc661874764903a6294c06390d661992a6663bd6979d76f8c556a9ac96aa2b26ea22868a6376eae4061b2557567a86f69b76c6c6c7071c77381d76f9c356f93487098da70a5bd76a9306fa75d72afa57474747b73b87e7fc87a945b779e4077a6cb7aae277abd987bc82b816a9a8476ad7b7b7b7c88dd81a04d849a647ea1d37fa2dd7fb2b785b0ce7cb6367db8a984d5408881bb838383868dd789a1c985ab3686b52a8dac4388b5c189abd988c3a58cd2278ad5378b6f918d79a28c946f8c8c8c9391c890a95695a7be92b73691bd2690c2b591c45294c9419b7886967b949883a2978ab2978873949494959f7498a96694acd398b5469ab7d397b7dd94bec794d2309accb3a6848ba38a9da097bca0a3809c9c9ca1abb19dafc79fb456a0c62ea1bf3fa2bb4e9fc6c89ed226a1d537aa4620a77e79a996a9ada98ca3a3a3a8b36fa8ac7ba8b4bba9b863a5b7c7a6c0d9abc327afc54ea6d1c0b5826dae8e90b0969eb09fb1adaeababb83bb1b4b3b0be5daebfc8aecb3cafc7d5b0d4caabd746b25225b76f85b89185be9f97b7b134b9b29cb6be2bb7b77fb9c06bb8bdb0b9bcbbb9c75dbbc6beb9d047b8d0ddbcd5d4ba5d2ac1672ec18861be8d71c5987abfa8a5c2b129c3bb92bfc03ac2c473c4bda1c0c2adbecccdc0ce58c9618fc97234cb976fc7a189cbab96c5bf46cdc159c6ca66c9c77fc3c3c3c9ccafc8cebec7d651ced6c6c8d3ddd07c38cb8e5ccca927cdb237d1b94ed0b6b0cfc088cec69cd0ce76d4c88fccccccd0d65acfd565d2d4d2d65796d49253df9547da9e62d7a371d8a32ed7aa80d6ae40d6b18ed9bf68d9c1abd9cf83d3d0a7d9cbd5d8d671dfd2a1d8d5b9db8b3edfa948dbb457e3c3bbe0c177ddce8fddd162e3c8c6dfd6afdbdbdbe49c3aeaa047e6a655e5ad61e6b16fe6b77fe5ce70e5d280e7cdafe6d68ce6d697e4e4e4f2ac4dedededf2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 256,
+      "localTables": 0,
+      "colorTableBytes": 768,
+      "rgbRmse": 3.342489260924302,
+      "block8Rmse": 2.753541133360908,
+      "exactPixelPercent": 55.03264250578704,
+      "staticPixelDelta": 0.11965329896454749,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 150242,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 3.3888446059539388,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 557.2943999999989,
+            "mappingMs": 242.5512999999919
+          },
+          {
+            "encodeMs": 666.5436000000045,
+            "mappingMs": 299.60319999993953
+          },
+          {
+            "encodeMs": 593.89390000001,
+            "mappingMs": 263.5120999999781
+          },
+          {
+            "encodeMs": 804.0627999999997,
+            "mappingMs": 355.8157000000356
+          },
+          {
+            "encodeMs": 546.8030999999901,
+            "mappingMs": 249.55669999998645
+          },
+          {
+            "encodeMs": 560.3904000000039,
+            "mappingMs": 260.14329999998154
+          },
+          {
+            "encodeMs": 808.4968999999983,
+            "mappingMs": 363.4640999999974
+          },
+          {
+            "encodeMs": 574.7918999999965,
+            "mappingMs": 253.9156999999832
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 572.1119999999937,
+            "mappingMs": 223.0753000000259
+          },
+          {
+            "encodeMs": 592.7189000000071,
+            "mappingMs": 217.56999999997788
+          },
+          {
+            "encodeMs": 520.7621000000072,
+            "mappingMs": 203.56700000001
+          },
+          {
+            "encodeMs": 657.6839000000036,
+            "mappingMs": 251.92830000002868
+          },
+          {
+            "encodeMs": 559.3541000000114,
+            "mappingMs": 204.8811000000278
+          },
+          {
+            "encodeMs": 521.7406999999948,
+            "mappingMs": 196.21779999994033
+          },
+          {
+            "encodeMs": 649.1959999999963,
+            "mappingMs": 229.78100000000268
+          },
+          {
+            "encodeMs": 539.1565999999875,
+            "mappingMs": 189.35909999992873
+          }
+        ]
+      }
+    },
+    {
+      "scene": "same-blue",
+      "maxColors": 64,
+      "file": "same-blue-64.gif",
+      "sizeBytes": 149471,
+      "sha256": "0f843ec20bdadcba284749b5b1f0b21d2f4cc9a23e97fb41923fac7baeef2cc1",
+      "paletteSha256": "72e33ae6308cd8c49bfbb50fe282e70a5e5f61adeac4681ac4417e171420a362",
+      "paletteRgbHex": "19222e4c5bd2381b154a4a4a626ec85c893b59b95051291c6464646b9ec16b95d8689e297a82d179995575aa348271a67dbaa478787880a5d188d1308baebc9081898db82d98ba4893b1d793a1689890bd9cbdc1a395a1ae8484acad82aaaeafa0cd2fae4d23acba62abc6ceb2bb2fb5c945bf8967c3aa97c5c772bcc1b9cacb59c9d1d1be632dd09f77cdac2fc7c09bcd5e91cd7836d1c7acd7ca8adb9045e0a55ee0bb72e1d277e3d499e1ccbae9a446e5e5e5f2f5f962d4b9adc2d7f9da70",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 37.99940103615299,
+      "block8Rmse": 37.33792402452407,
+      "exactPixelPercent": 0.4166666666666667,
+      "staticPixelDelta": 0.12829181141732415,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 23040,
+        "exact": 23040,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 22080,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 38.07881470905547,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "timings": {
+        "reference": [
+          {
+            "encodeMs": 396.24499999999534,
+            "mappingMs": 193.85370000000694
+          },
+          {
+            "encodeMs": 452.2548999999999,
+            "mappingMs": 199.88500000002387
+          },
+          {
+            "encodeMs": 716.4078000000009,
+            "mappingMs": 308.0346000000427
+          },
+          {
+            "encodeMs": 379.6611999999732,
+            "mappingMs": 192.25329999995301
+          },
+          {
+            "encodeMs": 421.5260000000126,
+            "mappingMs": 197.35880000004545
+          },
+          {
+            "encodeMs": 391.679999999993,
+            "mappingMs": 201.05409999992116
+          },
+          {
+            "encodeMs": 390.76519999999437,
+            "mappingMs": 197.54569999998785
+          },
+          {
+            "encodeMs": 378.42089999999735,
+            "mappingMs": 195.9199999999837
+          }
+        ],
+        "filtered": [
+          {
+            "encodeMs": 409.7573999999877,
+            "mappingMs": 210.42890000005718
+          },
+          {
+            "encodeMs": 452.33630000000994,
+            "mappingMs": 212.0923999999941
+          },
+          {
+            "encodeMs": 426.1999000000069,
+            "mappingMs": 212.09939999997732
+          },
+          {
+            "encodeMs": 428.09580000001006,
+            "mappingMs": 210.6921999999904
+          },
+          {
+            "encodeMs": 393.21710000000894,
+            "mappingMs": 207.22000000011758
+          },
+          {
+            "encodeMs": 472.2740000000049,
+            "mappingMs": 215.80149999988498
+          },
+          {
+            "encodeMs": 438.95879999999306,
+            "mappingMs": 211.49830000000657
+          },
+          {
+            "encodeMs": 387.51940000001923,
+            "mappingMs": 210.18490000010934
+          }
+        ]
+      }
+    }
+  ]
+}
