@@ -1,10 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.9.0 — 2026-11-21
 
 - Add `createExternalVideoExporter` and external output modes for MP4 H.264/AAC and WebM VP8/Opus. Applications can supply a transactional destination while continuing to use the existing encoder factories.
 - Add `/video/browser` for origin-private file storage with reopening, downloads and version retention, and `/video/node` for a controlled local directory. Document create and replace policies, cancellation and commit recovery.
-- Verify the new entry points from an installed tarball and a production Next.js build in Chromium and Firefox, including cancellation, retry, AAC Worker cleanup and independent decoding.
+- Run CI checks for the new entry points from an installed tarball and a production Next.js build in Chromium and Firefox, including cancellation, retry, AAC Worker cleanup and independent decoding.
 
 ## 0.8.1 — 2026-11-14
 
