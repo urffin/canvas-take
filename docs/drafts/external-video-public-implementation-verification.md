@@ -24,7 +24,7 @@ points, existing Blob calls, custom destinations and invalid calls. `npm run tes
 against an installed tarball, including documentation, source maps, licenses, runtime imports,
 Node positioned writes, publication and recovery.
 
-Run `npm run test:next -- --video-browser` for the two browser consumers. The script builds an
+Run `npm run test:next:video` for the two browser consumers. The script builds an
 independent browser bundle and a production Next.js application from the same installed tarball.
 The server-rendered route imports both platform adapters, renders a marker and serves an AAC Worker
 whose bytes must match the installed asset. Each browser exercise cancels after a positioned write,
@@ -33,6 +33,10 @@ catalogue, acquires and releases a `File` lease, and decodes the result with FFm
 PCM checks cover the final frame duration, timestamps, exact presented audio sample count and
 sample-aligned audio. Raw results and the production server log go to
 `benchmark-results/video-public-next/`.
+
+GitHub Actions runs the same command in the `public-video-next` job. The
+`public-video-next-results` artifact includes the console log, results JSON, Next.js server log
+and media files produced before the run ended.
 
 Chromium 156.0.8078.4 and Firefox 157.0 passed all eight cases. Each independently decoded
 file presented three frames across 1,000,021 µs and 48,001 audio samples at 48 kHz. Audio lag

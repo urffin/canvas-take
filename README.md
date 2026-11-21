@@ -396,6 +396,10 @@ Next.js build. CI runs both browser commands in Chromium and Firefox, verifies c
 Worker closure and independently decoded retry output, and uploads results and failure diagnostics.
 See [WebP CI verification](docs/drafts/webp-ci-verification.md).
 
+`npm run test:next:video` checks the public external MP4/WebM API from an installed tarball
+and a production Next.js build in Chromium and Firefox. CI saves the decoded export results
+and logs. [External video verification](docs/drafts/external-video-public-implementation-verification.md)
+
 Run `npm run benchmark:gif:preparation` for paired comparisons against the pre-chunking controller
 (`-- --tune` compares schedulers/budgets; `-- --quick` is a smoke run). See the
 [preparation latency report](docs/gif-preparation-benchmark.md) for results and timing boundaries.

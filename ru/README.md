@@ -529,6 +529,10 @@ CI выполняет обе браузерные команды в Chromium и 
 декодирование повторного экспорта. Результаты и диагностика сбоев сохраняются в артефактах.
 Подробности — в [отчёте о проверках WebP в CI](../docs/drafts/webp-ci-verification.md).
 
+`npm run test:next:video` проверяет публичный API внешнего экспорта MP4/WebM из установленного
+tarball и production-сборки Next.js в Chromium и Firefox. CI сохраняет результаты декодирования
+и журналы. [Отчёт о проверке](../docs/drafts/external-video-public-implementation-verification.md)
+
 `npm run test:apng:package` проверяет публичные APNG-типы и реальные Worker из установленного tarball.
 `npm run test:next -- --apng-browser` дополнительно проверяет в браузерах сборку Next.js и
 три варианта URL Worker: автоматический, через package entry и явно скопированный файл.

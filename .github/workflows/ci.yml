@@ -130,3 +130,32 @@ jobs:
             benchmark-results/webp-public-next/
             webp-next-ci.log
           retention-days: 7
+
+  public-video-next:
+    name: Public MP4/WebM from tarball and Next.js (Chromium / Firefox)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox
+      - name: Verify installed and Next.js external MP4/WebM export
+        shell: bash
+        timeout-minutes: 10
+        run: |
+          set -o pipefail
+          npm run test:next:video 2>&1 | tee public-video-next-ci.log
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: public-video-next-results
+          path: |
+            benchmark-results/video-public-next/
+            public-video-next-ci.log
+          retention-days: 7
