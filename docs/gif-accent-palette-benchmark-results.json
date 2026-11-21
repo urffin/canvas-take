@@ -1,0 +1,5293 @@
+{
+  "metadata": {
+    "startedAt": "2026-11-21T21:05:06.072Z",
+    "node": "v22.17.0",
+    "os": "win32 10.0.19045",
+    "cpu": "AMD FX(tm)-8350 Eight-Core Processor",
+    "baseline": "b58bdf7fcfeb5d076ea66d40daf2bb38545199ca",
+    "packageVersion": "0.10.0",
+    "gifenc": "1.0.3",
+    "gifuct": "2.1.2",
+    "settings": {
+      "width": 640,
+      "height": 360,
+      "count": 24,
+      "repeats": 6
+    },
+    "sampling": {
+      "maxFrames": 4,
+      "gridSide": 64,
+      "rowsPerTurn": 16
+    },
+    "quality": "high",
+    "dither": "none"
+  },
+  "namedAccents": [
+    {
+      "name": "title",
+      "rgb": [
+        242,
+        245,
+        249
+      ]
+    },
+    {
+      "name": "counter",
+      "rgb": [
+        98,
+        212,
+        185
+      ]
+    },
+    {
+      "name": "footer",
+      "rgb": [
+        173,
+        194,
+        215
+      ]
+    },
+    {
+      "name": "highlight",
+      "rgb": [
+        249,
+        218,
+        112
+      ]
+    }
+  ],
+  "collision": {
+    "neighbor": [
+      240,
+      244,
+      248
+    ],
+    "accent": [
+      242,
+      245,
+      249
+    ],
+    "rows": [
+      {
+        "mode": "reserved",
+        "sha256": "e91bae91245dcb6e23418c1f2873574492e1b3c4fde8ee64438e995103afa71c",
+        "pixels": 3,
+        "exact": 2,
+        "exactPixelPercent": 66.66666666666667,
+        "rgbRmse": 0.816496580927726,
+        "staticPairs": 1,
+        "staticPixelDelta": 1.3333333333333333,
+        "otherRgbRmse": 0,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 3,
+            "exact": 2,
+            "exactPixelPercent": 66.66666666666667,
+            "rgbRmse": 0.816496580927726,
+            "staticPairs": 1,
+            "staticPixelDelta": 1.3333333333333333
+          }
+        ]
+      },
+      {
+        "mode": "exact",
+        "sha256": "5ef76e578f4567bd323560e26513b6898307191de2bc1d42cc20eae7c2862032",
+        "pixels": 3,
+        "exact": 3,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 1,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 0,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 3,
+            "exact": 3,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 1,
+            "staticPixelDelta": 0
+          }
+        ]
+      }
+    ]
+  },
+  "sources": [
+    {
+      "scene": "flat-text",
+      "sha256": "d25c61bd267ba19ac455961562a7ec953e35aa0d0556bcc54fc291e6088026fe",
+      "cutFrame": null,
+      "preview": "flat-text-64-comparison.png",
+      "previewFrames": [
+        12
+      ],
+      "executionOrder": [
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "sampled",
+            "reserved",
+            "exact"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "reserved",
+            "exact",
+            "sampled"
+          ]
+        },
+        {
+          "limits": [
+            128,
+            256,
+            64,
+            32
+          ],
+          "modes": [
+            "exact",
+            "sampled",
+            "reserved"
+          ]
+        },
+        {
+          "limits": [
+            256,
+            32,
+            128,
+            64
+          ],
+          "modes": [
+            "exact",
+            "reserved",
+            "sampled"
+          ]
+        },
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "sampled",
+            "exact",
+            "reserved"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "reserved",
+            "sampled",
+            "exact"
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "sha256": "5bab59df75613be10c76685e4b75b68d52800f096d233e2eb5659729c5a92aa9",
+      "cutFrame": null,
+      "preview": "moving-gradient-64-comparison.png",
+      "previewFrames": [
+        12
+      ],
+      "executionOrder": [
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "sampled",
+            "reserved",
+            "exact"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "reserved",
+            "exact",
+            "sampled"
+          ]
+        },
+        {
+          "limits": [
+            128,
+            256,
+            64,
+            32
+          ],
+          "modes": [
+            "exact",
+            "sampled",
+            "reserved"
+          ]
+        },
+        {
+          "limits": [
+            256,
+            32,
+            128,
+            64
+          ],
+          "modes": [
+            "exact",
+            "reserved",
+            "sampled"
+          ]
+        },
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "sampled",
+            "exact",
+            "reserved"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "reserved",
+            "sampled",
+            "exact"
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "sha256": "691846e3a9395e0b099162011f9ce6e09fbf64cb0c43025290451a694e21f3be",
+      "cutFrame": 12,
+      "preview": "scene-cut-64-comparison.png",
+      "previewFrames": [
+        11,
+        12
+      ],
+      "executionOrder": [
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "sampled",
+            "reserved",
+            "exact"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "reserved",
+            "exact",
+            "sampled"
+          ]
+        },
+        {
+          "limits": [
+            128,
+            256,
+            64,
+            32
+          ],
+          "modes": [
+            "exact",
+            "sampled",
+            "reserved"
+          ]
+        },
+        {
+          "limits": [
+            256,
+            32,
+            128,
+            64
+          ],
+          "modes": [
+            "exact",
+            "reserved",
+            "sampled"
+          ]
+        },
+        {
+          "limits": [
+            32,
+            64,
+            256,
+            128
+          ],
+          "modes": [
+            "sampled",
+            "exact",
+            "reserved"
+          ]
+        },
+        {
+          "limits": [
+            64,
+            128,
+            32,
+            256
+          ],
+          "modes": [
+            "reserved",
+            "sampled",
+            "exact"
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "scene": "flat-text",
+      "maxColors": 32,
+      "mode": "sampled",
+      "file": "flat-text-32-sampled.gif",
+      "sizeBytes": 215256,
+      "sha256": "68d64411bf322ddf1c5293a13286a1263d182a3925511b2ffb3d21c4dade648c",
+      "paletteRgbHex": "10192a14203019263a2f5dad3764b23e69b6456fba4d73be537ac254bd4e5b7dc66182ca6788ce65af5762d4b96f8cd27791d673a45f7e98db819a67859bde8ba1e2928c7093a5e697aeeba08178ae7780adc2d7bf6989d15b93f2f5f9f9da70",
+      "paletteSize": 32,
+      "paletteSha256": "aeef1ce05edf845528f22ef79a58ae8f4034cf0809754a0c0f4cc0fdd1139a37",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 1.9412374346735068,
+      "block8Rmse": 1.1007790013087198,
+      "exactPixelPercent": 87.17708333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.9685807595635085,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 296.1395999999986,
+          "sampleMs": 8.859699999997247,
+          "quantizeMs": 39.89769999999771,
+          "encodeMs": 504.17389999999796,
+          "totalMs": 800.3189999999995
+        },
+        {
+          "prepMs": 165.55189999999857,
+          "sampleMs": 2.8168000000005122,
+          "quantizeMs": 10.631500000003143,
+          "encodeMs": 476.5822999999946,
+          "totalMs": 642.1401999999944
+        },
+        {
+          "prepMs": 571.6094999999987,
+          "sampleMs": 1.235000000000582,
+          "quantizeMs": 16.37090000000171,
+          "encodeMs": 1236.5374000000083,
+          "totalMs": 1808.1531000000032
+        },
+        {
+          "prepMs": 152.56470000000263,
+          "sampleMs": 0.8070000000006985,
+          "quantizeMs": 16.359899999995832,
+          "encodeMs": 411.6794000000082,
+          "totalMs": 564.2476000000024
+        },
+        {
+          "prepMs": 138.90519999999378,
+          "sampleMs": 1.1549999999988358,
+          "quantizeMs": 11.451400000005378,
+          "encodeMs": 438.79929999999877,
+          "totalMs": 577.7091999999975
+        },
+        {
+          "prepMs": 180.72219999998924,
+          "sampleMs": 1.0276999999914551,
+          "quantizeMs": 12.048399999999674,
+          "encodeMs": 501.74069999999483,
+          "totalMs": 682.4674999999988
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 32,
+      "mode": "reserved",
+      "file": "flat-text-32-reserved.gif",
+      "sizeBytes": 215256,
+      "sha256": "acda354dea6926d5548042ff4bc6143618651ca25f4612f6fb88eda22e90efbd",
+      "paletteRgbHex": "10192a14203019263a2f5dad3764b23e69b6456fba4d73be537ac254bd4e5b7dc66182ca6788ce65af576f8cd27791d673a45f7e98db819a67859bde8ba1e2928c7093a5e697aeeba08178ae7780bf6989d15b93f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 32,
+      "paletteSha256": "b7658b78a6b6b8337682be2469d27bd04c7539bd789d3555993946ecf90662a0",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 1.9412374346735068,
+      "block8Rmse": 1.1007790013087198,
+      "exactPixelPercent": 87.17708333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.9685807595635085,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15754,
+      "timings": [
+        {
+          "prepMs": 173.00380000000223,
+          "sampleMs": 3.3967000000011467,
+          "quantizeMs": 19.826600000000326,
+          "encodeMs": 561.5672999999988,
+          "totalMs": 734.5792000000001
+        },
+        {
+          "prepMs": 127.15179999999964,
+          "sampleMs": 0.8657000000021071,
+          "quantizeMs": 14.702499999999418,
+          "encodeMs": 399.14689999999973,
+          "totalMs": 526.3035000000018
+        },
+        {
+          "prepMs": 1013.1156999999948,
+          "sampleMs": 1.183599999989383,
+          "quantizeMs": 154.34460000001127,
+          "encodeMs": 1077.0450000000128,
+          "totalMs": 2090.1676000000007
+        },
+        {
+          "prepMs": 187.6475000000064,
+          "sampleMs": 1.2932000000000698,
+          "quantizeMs": 16.20889999999781,
+          "encodeMs": 435.8301999999967,
+          "totalMs": 623.4826999999932
+        },
+        {
+          "prepMs": 150.064200000008,
+          "sampleMs": 0.9931000000069616,
+          "quantizeMs": 16.62290000000212,
+          "encodeMs": 384.05229999999574,
+          "totalMs": 534.1211999999941
+        },
+        {
+          "prepMs": 179.02720000001136,
+          "sampleMs": 0.8357000000105472,
+          "quantizeMs": 37.49320000001171,
+          "encodeMs": 406.1061000000045,
+          "totalMs": 585.1393000000098
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 32,
+      "mode": "exact",
+      "file": "flat-text-32-exact.gif",
+      "sizeBytes": 215256,
+      "sha256": "acda354dea6926d5548042ff4bc6143618651ca25f4612f6fb88eda22e90efbd",
+      "paletteRgbHex": "10192a14203019263a2f5dad3764b23e69b6456fba4d73be537ac254bd4e5b7dc66182ca6788ce65af576f8cd27791d673a45f7e98db819a67859bde8ba1e2928c7093a5e697aeeba08178ae7780bf6989d15b93f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 32,
+      "paletteSha256": "b7658b78a6b6b8337682be2469d27bd04c7539bd789d3555993946ecf90662a0",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 1.9412374346735068,
+      "block8Rmse": 1.1007790013087198,
+      "exactPixelPercent": 87.17708333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.9685807595635085,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15754,
+      "timings": [
+        {
+          "prepMs": 154.71849999999904,
+          "sampleMs": 0.941899999997986,
+          "quantizeMs": 22.03189999999813,
+          "encodeMs": 681.6254000000008,
+          "totalMs": 836.3492000000006
+        },
+        {
+          "prepMs": 135.9019000000044,
+          "sampleMs": 0.7880999999979394,
+          "quantizeMs": 13.963700000000244,
+          "encodeMs": 553.1513999999952,
+          "totalMs": 689.057799999995
+        },
+        {
+          "prepMs": 304.3608999999997,
+          "sampleMs": 1.1384999999936554,
+          "quantizeMs": 41.858500000002095,
+          "encodeMs": 2058.0890999999974,
+          "totalMs": 2362.455900000001
+        },
+        {
+          "prepMs": 172.25969999999506,
+          "sampleMs": 0.895699999993667,
+          "quantizeMs": 15.884500000000116,
+          "encodeMs": 603.6235000000015,
+          "totalMs": 775.8880000000063
+        },
+        {
+          "prepMs": 131.0069999999978,
+          "sampleMs": 0.9860000000044238,
+          "quantizeMs": 16.904200000004494,
+          "encodeMs": 518.5976999999984,
+          "totalMs": 649.6108999999997
+        },
+        {
+          "prepMs": 213.3362999999954,
+          "sampleMs": 0.9916999999986729,
+          "quantizeMs": 47.03379999999015,
+          "encodeMs": 711.1304000000091,
+          "totalMs": 924.4721000000136
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 64,
+      "mode": "sampled",
+      "file": "flat-text-64-sampled.gif",
+      "sizeBytes": 223601,
+      "sha256": "bf58ed061d8771acbfd6b49a5747f936ff9a6e1fc3f32afe9e7d303a8a8703ae",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b25562d4b96987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7dadc2d7b27382bb6c87c4658ccd5e91d65796f2f5f9f9da70",
+      "paletteSize": 49,
+      "paletteSha256": "fd2db61f6abe187475d0789f04a2f048b6ee3f4abbc131b989affd76c7984b67",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 186.45520000000033,
+          "sampleMs": 1.190999999998894,
+          "quantizeMs": 13.702799999999115,
+          "encodeMs": 566.3712000000014,
+          "totalMs": 752.832400000003
+        },
+        {
+          "prepMs": 165.59709999999905,
+          "sampleMs": 0.7471999999979744,
+          "quantizeMs": 11.63579999999638,
+          "encodeMs": 367.31059999999707,
+          "totalMs": 532.9119999999966
+        },
+        {
+          "prepMs": 832.8703999999998,
+          "sampleMs": 1.137300000002142,
+          "quantizeMs": 109.71199999999953,
+          "encodeMs": 1025.944399999993,
+          "totalMs": 1858.827999999994
+        },
+        {
+          "prepMs": 134.96020000000135,
+          "sampleMs": 0.8809999999939464,
+          "quantizeMs": 9.338000000003376,
+          "encodeMs": 400.6110999999946,
+          "totalMs": 535.5766999999905
+        },
+        {
+          "prepMs": 428.053899999999,
+          "sampleMs": 1.150099999998929,
+          "quantizeMs": 11.08060000000114,
+          "encodeMs": 398.4164000000019,
+          "totalMs": 826.4812999999995
+        },
+        {
+          "prepMs": 152.35379999999714,
+          "sampleMs": 1.5561000000016065,
+          "quantizeMs": 9.214899999991758,
+          "encodeMs": 443.7300000000105,
+          "totalMs": 596.0884000000078
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 64,
+      "mode": "reserved",
+      "file": "flat-text-64-reserved.gif",
+      "sizeBytes": 223601,
+      "sha256": "8e0ba13a901c165a441f8a4c6cd0b9e070c9e6e984e7f9fb13aa20c590adde7a",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b2556987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7db27382bb6c87c4658ccd5e91d65796f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 49,
+      "paletteSha256": "ecd76f7356ed1a24626ca5f8f13e1265b21632b88eee1f3ae9243ef6556e3a0c",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15754,
+      "timings": [
+        {
+          "prepMs": 158.3224999999984,
+          "sampleMs": 0.822199999998702,
+          "quantizeMs": 17.222499999999854,
+          "encodeMs": 402.84560000000056,
+          "totalMs": 561.1735000000008
+        },
+        {
+          "prepMs": 142.84869999999864,
+          "sampleMs": 1.5743000000002212,
+          "quantizeMs": 17.002599999999802,
+          "encodeMs": 401.7505000000019,
+          "totalMs": 544.6052000000018
+        },
+        {
+          "prepMs": 373.05059999999503,
+          "sampleMs": 3.992500000000291,
+          "quantizeMs": 20.96679999999469,
+          "encodeMs": 811.9965999999986,
+          "totalMs": 1185.0550000000003
+        },
+        {
+          "prepMs": 133.4076999999961,
+          "sampleMs": 1.3018000000010943,
+          "quantizeMs": 14.112799999988056,
+          "encodeMs": 414.61419999999634,
+          "totalMs": 548.0301000000036
+        },
+        {
+          "prepMs": 134.0159999999887,
+          "sampleMs": 0.9130000000004657,
+          "quantizeMs": 16.301900000005844,
+          "encodeMs": 392.8433999999979,
+          "totalMs": 526.8631999999925
+        },
+        {
+          "prepMs": 152.61529999999038,
+          "sampleMs": 0.6903999999922235,
+          "quantizeMs": 33.00489999999991,
+          "encodeMs": 397.2737999999954,
+          "totalMs": 549.8948999999993
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 64,
+      "mode": "exact",
+      "file": "flat-text-64-exact.gif",
+      "sizeBytes": 223601,
+      "sha256": "8e0ba13a901c165a441f8a4c6cd0b9e070c9e6e984e7f9fb13aa20c590adde7a",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b2556987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7db27382bb6c87c4658ccd5e91d65796f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 49,
+      "paletteSha256": "ecd76f7356ed1a24626ca5f8f13e1265b21632b88eee1f3ae9243ef6556e3a0c",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15754,
+      "timings": [
+        {
+          "prepMs": 173.98769999999786,
+          "sampleMs": 0.8523999999997613,
+          "quantizeMs": 15.31460000000152,
+          "encodeMs": 767.0484999999971,
+          "totalMs": 941.040399999998
+        },
+        {
+          "prepMs": 135.5899999999965,
+          "sampleMs": 0.8517999999967287,
+          "quantizeMs": 13.864900000000489,
+          "encodeMs": 617.9534000000058,
+          "totalMs": 753.5486000000019
+        },
+        {
+          "prepMs": 1046.0504999999976,
+          "sampleMs": 1.151400000002468,
+          "quantizeMs": 46.91739999999845,
+          "encodeMs": 1903.0958000000028,
+          "totalMs": 2949.1517999999996
+        },
+        {
+          "prepMs": 156.3225999999995,
+          "sampleMs": 1.3306000000011409,
+          "quantizeMs": 14.59309999999823,
+          "encodeMs": 579.9943000000058,
+          "totalMs": 736.3234000000084
+        },
+        {
+          "prepMs": 130.71869999999763,
+          "sampleMs": 0.8900999999896158,
+          "quantizeMs": 19.476999999998952,
+          "encodeMs": 622.1486000000004,
+          "totalMs": 752.8709999999992
+        },
+        {
+          "prepMs": 144.25620000000345,
+          "sampleMs": 1.0212000000028638,
+          "quantizeMs": 16.144200000009732,
+          "encodeMs": 574.9827000000078,
+          "totalMs": 719.2433000000019
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 128,
+      "mode": "sampled",
+      "file": "flat-text-128-sampled.gif",
+      "sizeBytes": 223601,
+      "sha256": "bf58ed061d8771acbfd6b49a5747f936ff9a6e1fc3f32afe9e7d303a8a8703ae",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b25562d4b96987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7dadc2d7b27382bb6c87c4658ccd5e91d65796f2f5f9f9da70",
+      "paletteSize": 49,
+      "paletteSha256": "fd2db61f6abe187475d0789f04a2f048b6ee3f4abbc131b989affd76c7984b67",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 193.6152000000002,
+          "sampleMs": 3.3918999999987136,
+          "quantizeMs": 13.59780000000319,
+          "encodeMs": 481.575499999999,
+          "totalMs": 675.1954000000005
+        },
+        {
+          "prepMs": 175.80979999999545,
+          "sampleMs": 1.3871999999973923,
+          "quantizeMs": 9.28240000000369,
+          "encodeMs": 451.76980000000185,
+          "totalMs": 627.5864999999976
+        },
+        {
+          "prepMs": 876.1124999999956,
+          "sampleMs": 2.444499999997788,
+          "quantizeMs": 9.916799999999057,
+          "encodeMs": 1228.4529000000039,
+          "totalMs": 2104.574400000005
+        },
+        {
+          "prepMs": 171.96399999999267,
+          "sampleMs": 2.021999999997206,
+          "quantizeMs": 11.256999999997788,
+          "encodeMs": 496.9516000000003,
+          "totalMs": 668.9213000000018
+        },
+        {
+          "prepMs": 207.34470000000147,
+          "sampleMs": 0.9208000000071479,
+          "quantizeMs": 10.135399999999208,
+          "encodeMs": 508.85299999998824,
+          "totalMs": 716.2036999999982
+        },
+        {
+          "prepMs": 136.56070000000182,
+          "sampleMs": 1.414199999999255,
+          "quantizeMs": 11.30340000000433,
+          "encodeMs": 378.7335000000021,
+          "totalMs": 515.2992000000086
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 128,
+      "mode": "reserved",
+      "file": "flat-text-128-reserved.gif",
+      "sizeBytes": 223601,
+      "sha256": "8e0ba13a901c165a441f8a4c6cd0b9e070c9e6e984e7f9fb13aa20c590adde7a",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b2556987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7db27382bb6c87c4658ccd5e91d65796f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 49,
+      "paletteSha256": "ecd76f7356ed1a24626ca5f8f13e1265b21632b88eee1f3ae9243ef6556e3a0c",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15754,
+      "timings": [
+        {
+          "prepMs": 270.72379999999976,
+          "sampleMs": 0.9269000000022061,
+          "quantizeMs": 80.74750000000131,
+          "encodeMs": 513.9802000000018,
+          "totalMs": 784.7102000000014
+        },
+        {
+          "prepMs": 137.05589999999938,
+          "sampleMs": 0.7502999999996973,
+          "quantizeMs": 13.416700000001583,
+          "encodeMs": 543.1267000000007,
+          "totalMs": 680.1857999999993
+        },
+        {
+          "prepMs": 687.2766000000047,
+          "sampleMs": 5.8004000000000815,
+          "quantizeMs": 34.44759999999951,
+          "encodeMs": 693.7219000000041,
+          "totalMs": 1381.0050000000047
+        },
+        {
+          "prepMs": 150.80740000000515,
+          "sampleMs": 1.3936000000103377,
+          "quantizeMs": 13.93300000000454,
+          "encodeMs": 459.1561999999976,
+          "totalMs": 609.9726999999984
+        },
+        {
+          "prepMs": 131.0752999999968,
+          "sampleMs": 0.7673999999969965,
+          "quantizeMs": 14.919899999993504,
+          "encodeMs": 388.83289999999397,
+          "totalMs": 519.9121000000014
+        },
+        {
+          "prepMs": 147.25530000000435,
+          "sampleMs": 3.395700000008219,
+          "quantizeMs": 17.83860000000277,
+          "encodeMs": 393.77159999999276,
+          "totalMs": 541.0329999999958
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 128,
+      "mode": "exact",
+      "file": "flat-text-128-exact.gif",
+      "sizeBytes": 223601,
+      "sha256": "8e0ba13a901c165a441f8a4c6cd0b9e070c9e6e984e7f9fb13aa20c590adde7a",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b2556987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7db27382bb6c87c4658ccd5e91d65796f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 49,
+      "paletteSha256": "ecd76f7356ed1a24626ca5f8f13e1265b21632b88eee1f3ae9243ef6556e3a0c",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15754,
+      "timings": [
+        {
+          "prepMs": 135.67119999999704,
+          "sampleMs": 0.9452999999994063,
+          "quantizeMs": 13.832800000000134,
+          "encodeMs": 627.1942999999992,
+          "totalMs": 762.8711000000003
+        },
+        {
+          "prepMs": 163.07970000000205,
+          "sampleMs": 1.1164000000062515,
+          "quantizeMs": 22.61540000000241,
+          "encodeMs": 766.6886000000013,
+          "totalMs": 929.7767000000022
+        },
+        {
+          "prepMs": 505.73019999999815,
+          "sampleMs": 2.1154999999998836,
+          "quantizeMs": 23.3411000000051,
+          "encodeMs": 1159.3595999999961,
+          "totalMs": 1665.097799999996
+        },
+        {
+          "prepMs": 164.6247999999905,
+          "sampleMs": 1.0065000000031432,
+          "quantizeMs": 12.82390000000305,
+          "encodeMs": 588.2146999999968,
+          "totalMs": 752.8439000000071
+        },
+        {
+          "prepMs": 143.3573000000033,
+          "sampleMs": 0.7001000000018394,
+          "quantizeMs": 21.590599999995902,
+          "encodeMs": 619.1538,
+          "totalMs": 762.5149999999994
+        },
+        {
+          "prepMs": 202.9988000000012,
+          "sampleMs": 0.9073999999964144,
+          "quantizeMs": 26.000800000008894,
+          "encodeMs": 591.1181999999972,
+          "totalMs": 794.1224999999977
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 256,
+      "mode": "sampled",
+      "file": "flat-text-256-sampled.gif",
+      "sizeBytes": 223601,
+      "sha256": "bf58ed061d8771acbfd6b49a5747f936ff9a6e1fc3f32afe9e7d303a8a8703ae",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b25562d4b96987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7dadc2d7b27382bb6c87c4658ccd5e91d65796f2f5f9f9da70",
+      "paletteSize": 49,
+      "paletteSha256": "fd2db61f6abe187475d0789f04a2f048b6ee3f4abbc131b989affd76c7984b67",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 169.39689999999973,
+          "sampleMs": 0.9807000000000698,
+          "quantizeMs": 9.697000000000116,
+          "encodeMs": 580.1777999999977,
+          "totalMs": 749.5799999999981
+        },
+        {
+          "prepMs": 182.41990000000078,
+          "sampleMs": 0.8317999999999302,
+          "quantizeMs": 14.657100000003993,
+          "encodeMs": 1329.6731999999975,
+          "totalMs": 1512.0985
+        },
+        {
+          "prepMs": 327.85609999999724,
+          "sampleMs": 13.098100000002887,
+          "quantizeMs": 24.65570000000298,
+          "encodeMs": 958.0889999999999,
+          "totalMs": 1285.950300000004
+        },
+        {
+          "prepMs": 309.51609999999346,
+          "sampleMs": 1.2776999999914551,
+          "quantizeMs": 32.14299999999639,
+          "encodeMs": 693.039300000004,
+          "totalMs": 1002.559699999998
+        },
+        {
+          "prepMs": 145.01570000000356,
+          "sampleMs": 1.2265000000043074,
+          "quantizeMs": 9.901400000002468,
+          "encodeMs": 433.6545000000042,
+          "totalMs": 578.6741000000038
+        },
+        {
+          "prepMs": 143.08950000000186,
+          "sampleMs": 0.8337999999930616,
+          "quantizeMs": 14.262699999992037,
+          "encodeMs": 511.3695000000007,
+          "totalMs": 654.4627999999939
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 256,
+      "mode": "reserved",
+      "file": "flat-text-256-reserved.gif",
+      "sizeBytes": 223601,
+      "sha256": "8e0ba13a901c165a441f8a4c6cd0b9e070c9e6e984e7f9fb13aa20c590adde7a",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b2556987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7db27382bb6c87c4658ccd5e91d65796f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 49,
+      "paletteSha256": "ecd76f7356ed1a24626ca5f8f13e1265b21632b88eee1f3ae9243ef6556e3a0c",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15754,
+      "timings": [
+        {
+          "prepMs": 229.08469999999943,
+          "sampleMs": 1.1396999999997206,
+          "quantizeMs": 20.456200000000536,
+          "encodeMs": 601.112000000001,
+          "totalMs": 830.2023000000008
+        },
+        {
+          "prepMs": 758.5982000000004,
+          "sampleMs": 4.534899999998743,
+          "quantizeMs": 69.85609999999724,
+          "encodeMs": 723.2794000000067,
+          "totalMs": 1481.8857000000062
+        },
+        {
+          "prepMs": 758.7248999999938,
+          "sampleMs": 1.6411999999982072,
+          "quantizeMs": 23.535799999997835,
+          "encodeMs": 1982.3053,
+          "totalMs": 2741.044399999999
+        },
+        {
+          "prepMs": 324.9570999999996,
+          "sampleMs": 7.881699999998091,
+          "quantizeMs": 27.918900000004214,
+          "encodeMs": 889.0829999999987,
+          "totalMs": 1214.046199999997
+        },
+        {
+          "prepMs": 138.4039000000048,
+          "sampleMs": 1.65230000000156,
+          "quantizeMs": 17.710500000001048,
+          "encodeMs": 405.1929000000091,
+          "totalMs": 543.602899999998
+        },
+        {
+          "prepMs": 207.29220000001078,
+          "sampleMs": 1.0477000000100816,
+          "quantizeMs": 38.426800000001094,
+          "encodeMs": 456.7908000000025,
+          "totalMs": 664.0894000000117
+        }
+      ]
+    },
+    {
+      "scene": "flat-text",
+      "maxColors": 256,
+      "mode": "exact",
+      "file": "flat-text-256-exact.gif",
+      "sizeBytes": 223601,
+      "sha256": "8e0ba13a901c165a441f8a4c6cd0b9e070c9e6e984e7f9fb13aa20c590adde7a",
+      "paletteRgbHex": "10192a14203019263a2a5aaa315fae3266b13864b23e69b6466eba4473bb4d73be4e7ac14fc04b5479c35b7dc65c84c958b9506282ca6389cd61b2556987ce6a8ed16aab5a708cd27791d673a45f7e96da7c9d647d9bdc859669859bde86a2e18e8f6e8ca0e297887393a5e694ace99bb1eda08178a97a7db27382bb6c87c4658ccd5e91d65796f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 49,
+      "paletteSha256": "ecd76f7356ed1a24626ca5f8f13e1265b21632b88eee1f3ae9243ef6556e3a0c",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 1.8529724618688872,
+      "block8Rmse": 0.9817710635867694,
+      "exactPixelPercent": 98.05208333333333,
+      "staticPixelDelta": 0,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 152544,
+        "exact": 152544,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 1.8790725293475614,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113664,
+            "exact": 113664,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 4608,
+            "exact": 4608,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15754,
+      "timings": [
+        {
+          "prepMs": 187.5100999999995,
+          "sampleMs": 1.704700000002049,
+          "quantizeMs": 18.22910000000047,
+          "encodeMs": 710.9943999999996,
+          "totalMs": 898.5132999999987
+        },
+        {
+          "prepMs": 711.7188999999998,
+          "sampleMs": 1.1679000000003725,
+          "quantizeMs": 55.70470000000205,
+          "encodeMs": 1471.465200000006,
+          "totalMs": 2183.1942000000054
+        },
+        {
+          "prepMs": 1256.1074000000008,
+          "sampleMs": 3.7854999999981374,
+          "quantizeMs": 112.20490000000427,
+          "encodeMs": 1843.0748999999996,
+          "totalMs": 3099.1886000000013
+        },
+        {
+          "prepMs": 596.1258999999991,
+          "sampleMs": 3.3647000000055414,
+          "quantizeMs": 31.52060000000347,
+          "encodeMs": 1246.4808000000048,
+          "totalMs": 1842.6119000000035
+        },
+        {
+          "prepMs": 145.19509999999718,
+          "sampleMs": 0.861799999998766,
+          "quantizeMs": 16.45560000000114,
+          "encodeMs": 525.5286000000051,
+          "totalMs": 670.7287999999971
+        },
+        {
+          "prepMs": 166.76949999999488,
+          "sampleMs": 0.9841000000014901,
+          "quantizeMs": 25.895099999994272,
+          "encodeMs": 1201.5252000000037,
+          "totalMs": 1368.2992000000086
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 32,
+      "mode": "sampled",
+      "file": "moving-gradient-32-sampled.gif",
+      "sizeBytes": 195822,
+      "sha256": "b608d7341f87ad46f633b9e1ee88785dc647b4ed51702a24ae536022e4342e07",
+      "paletteRgbHex": "20262f2339b139308d4a46c15766555a28766874ca699c317f2d507a87667597c9835c8a89cba694bf378ba9d5a193979e9e67b04036a8acb9ae7167a8c8d1c3c858c4c8c0c1a633c8a477d57439d1c39cd75663d8934fdbb4cadcca7ae7e8e8",
+      "paletteSize": 32,
+      "paletteSha256": "c1ecc3228cb7a33339bb4be16dd1f75466c0601185b6093832e896123a6b0dd8",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 11.75262174832088,
+      "block8Rmse": 10.79100549672029,
+      "exactPixelPercent": 0.0025318287037037037,
+      "staticPixelDelta": 0.08263462563701422,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 0,
+        "exactPixelPercent": 0,
+        "rgbRmse": 10.22644843438786,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 11.791785900343596,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 13.892443989449804,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 25.579940057266228,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 5.686240703077327,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 278.9621000000043,
+          "sampleMs": 1.5487000000139233,
+          "quantizeMs": 156.2091000000073,
+          "encodeMs": 427.6103999999905,
+          "totalMs": 706.5816999999952
+        },
+        {
+          "prepMs": 219.1377999999968,
+          "sampleMs": 0.72530000002007,
+          "quantizeMs": 123.47969999999623,
+          "encodeMs": 404.6681000000099,
+          "totalMs": 623.8109000000113
+        },
+        {
+          "prepMs": 236.7557000000088,
+          "sampleMs": 0.6907000000064727,
+          "quantizeMs": 128.03899999998976,
+          "encodeMs": 402.3776000000071,
+          "totalMs": 639.1383999999962
+        },
+        {
+          "prepMs": 209.20660000000498,
+          "sampleMs": 0.7076999999990221,
+          "quantizeMs": 114.86999999999534,
+          "encodeMs": 383.7244999999821,
+          "totalMs": 592.9358000000066
+        },
+        {
+          "prepMs": 276.1810000000114,
+          "sampleMs": 1.5340000000142027,
+          "quantizeMs": 138.18049999998766,
+          "encodeMs": 398.8222999999998,
+          "totalMs": 675.0090999999957
+        },
+        {
+          "prepMs": 650.8243000000075,
+          "sampleMs": 1.5914000000047963,
+          "quantizeMs": 227.5170999999973,
+          "encodeMs": 604.3681999999972,
+          "totalMs": 1255.1992999999784
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 32,
+      "mode": "reserved",
+      "file": "moving-gradient-32-reserved.gif",
+      "sizeBytes": 192278,
+      "sha256": "c5f00940db18a49535be6790c85f77ab38c2ede5956894d90498b5fd0f172798",
+      "paletteRgbHex": "20262f2339b139308d4a46c15766555a28766874ca699c317f2d507a87667a9acc835c8a94bf378ccba5a19397b5a170a2b4c4b04036ae7167c3c858c2c9c3cb9d3fd57439d1c39cd75663dbb4cadcca7ae5e5e5f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 32,
+      "paletteSha256": "2c7c1bb3f58fbe1269635f637110f74cd1ee6f0d554c942afac2bcfce24846db",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 12.161217134177257,
+      "block8Rmse": 11.252400265931996,
+      "exactPixelPercent": 2.822410300925926,
+      "staticPixelDelta": 0.067836485520658,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 12.327235474137217,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15782,
+      "timings": [
+        {
+          "prepMs": 250.40120000000752,
+          "sampleMs": 0.963000000003376,
+          "quantizeMs": 131.4383000000089,
+          "encodeMs": 528.4095000000088,
+          "totalMs": 778.815499999997
+        },
+        {
+          "prepMs": 224.0739000000176,
+          "sampleMs": 0.8200000000069849,
+          "quantizeMs": 126.15760000000591,
+          "encodeMs": 380.85680000000866,
+          "totalMs": 604.9349999999977
+        },
+        {
+          "prepMs": 248.59010000000126,
+          "sampleMs": 1.2994000000180677,
+          "quantizeMs": 134.52309999999125,
+          "encodeMs": 379.6304999999993,
+          "totalMs": 628.2255000000005
+        },
+        {
+          "prepMs": 227.67660000000615,
+          "sampleMs": 0.8070000000006985,
+          "quantizeMs": 126.29230000000098,
+          "encodeMs": 376.72550000000047,
+          "totalMs": 604.4065999999875
+        },
+        {
+          "prepMs": 241.43719999998575,
+          "sampleMs": 1.546699999977136,
+          "quantizeMs": 131.95740000001388,
+          "encodeMs": 393.0154999999795,
+          "totalMs": 634.4568999999901
+        },
+        {
+          "prepMs": 326.15200000000186,
+          "sampleMs": 2.5750999999872874,
+          "quantizeMs": 150.01250000001164,
+          "encodeMs": 1204.6592000000237,
+          "totalMs": 1530.8203999999969
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 32,
+      "mode": "exact",
+      "file": "moving-gradient-32-exact.gif",
+      "sizeBytes": 192278,
+      "sha256": "c5f00940db18a49535be6790c85f77ab38c2ede5956894d90498b5fd0f172798",
+      "paletteRgbHex": "20262f2339b139308d4a46c15766555a28766874ca699c317f2d507a87667a9acc835c8a94bf378ccba5a19397b5a170a2b4c4b04036ae7167c3c858c2c9c3cb9d3fd57439d1c39cd75663dbb4cadcca7ae5e5e5f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 32,
+      "paletteSha256": "2c7c1bb3f58fbe1269635f637110f74cd1ee6f0d554c942afac2bcfce24846db",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 12.161217134177257,
+      "block8Rmse": 11.252400265931996,
+      "exactPixelPercent": 2.822410300925926,
+      "staticPixelDelta": 0.067836485520658,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 12.327235474137217,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15782,
+      "timings": [
+        {
+          "prepMs": 372.2856999999931,
+          "sampleMs": 0.9818999999988591,
+          "quantizeMs": 195.8750999999902,
+          "encodeMs": 1058.9361999999965,
+          "totalMs": 1431.2266999999993
+        },
+        {
+          "prepMs": 256.69740000000456,
+          "sampleMs": 0.9695000000065193,
+          "quantizeMs": 140.56700000001,
+          "encodeMs": 628.4780999999784,
+          "totalMs": 885.1805999999924
+        },
+        {
+          "prepMs": 268.6842000000179,
+          "sampleMs": 0.8954000000085216,
+          "quantizeMs": 154.88809999998193,
+          "encodeMs": 667.8537000000069,
+          "totalMs": 936.5440999999992
+        },
+        {
+          "prepMs": 244.41760000001523,
+          "sampleMs": 0.9939000000013039,
+          "quantizeMs": 132.54799999998068,
+          "encodeMs": 599.4446999999927,
+          "totalMs": 843.8690999999817
+        },
+        {
+          "prepMs": 236.5556000000215,
+          "sampleMs": 0.8324000000138767,
+          "quantizeMs": 129.92660000000615,
+          "encodeMs": 708.6585999999952,
+          "totalMs": 945.2186999999976
+        },
+        {
+          "prepMs": 847.5621000000101,
+          "sampleMs": 7.772399999987101,
+          "quantizeMs": 422.63450000001467,
+          "encodeMs": 997.5469000000157,
+          "totalMs": 1845.1156000000192
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 64,
+      "mode": "sampled",
+      "file": "moving-gradient-64-sampled.gif",
+      "sizeBytes": 262108,
+      "sha256": "60d80448c475364fa0bb6aa5ea63f7ac057eeb326e026732ac3573488183a68c",
+      "paletteRgbHex": "151e2a262dc02044a43437833a3a3a4147d34122a24f654a5c28815544ac5469d8572864628e306483d274264f626763776ab97990516e9fc36fa7337353977ec2b48422318739617b7f777c90cf84bc2f8f61818ba9d590d19d9588969e9e6799b944a13431a1adc1a3cc31a8665da29aa3a8c8d1af9a8eba4838b47b6fafc05ab1abafbbc2bbb3ac36c8a477c0cb47ca7349c6b89bc8ce64cf6174d8934fcba130cbcfd1dc4f57dbb4cad0cfb6dcca7ada602ddd842fddcd9ce0b75ce7e8e8",
+      "paletteSize": 64,
+      "paletteSha256": "e463af8d14abab4ac073ff07657820ea508df7212274c105fc560f3ea1d5445c",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 8.269501682844119,
+      "block8Rmse": 7.326857595226636,
+      "exactPixelPercent": 0.03882740162037037,
+      "staticPixelDelta": 0.08959492996044634,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 0,
+        "exactPixelPercent": 0,
+        "rgbRmse": 9.141919448314257,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 8.2442158539998,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 13.892443989449804,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 19.433647796197878,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 5.686240703077327,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 522.7090000000026,
+          "sampleMs": 0.9302999999927124,
+          "quantizeMs": 358.4667000000045,
+          "encodeMs": 1245.304799999998,
+          "totalMs": 1768.020000000004
+        },
+        {
+          "prepMs": 229.14909999998054,
+          "sampleMs": 1.0302999999839813,
+          "quantizeMs": 119.83009999999194,
+          "encodeMs": 377.7745999999752,
+          "totalMs": 606.9290999999794
+        },
+        {
+          "prepMs": 264.15789999999106,
+          "sampleMs": 0.6847999999881722,
+          "quantizeMs": 138.91199999998207,
+          "encodeMs": 384.8219000000099,
+          "totalMs": 648.9844000000157
+        },
+        {
+          "prepMs": 252.32639999999083,
+          "sampleMs": 0.7580000000016298,
+          "quantizeMs": 138.24059999999008,
+          "encodeMs": 464.7905000000028,
+          "totalMs": 717.1216000000131
+        },
+        {
+          "prepMs": 257.5420999999915,
+          "sampleMs": 0.7307000000146218,
+          "quantizeMs": 140.53469999998924,
+          "encodeMs": 475.4249000000127,
+          "totalMs": 732.9716999999946
+        },
+        {
+          "prepMs": 220.4242999999842,
+          "sampleMs": 1.085399999981746,
+          "quantizeMs": 119.76970000000438,
+          "encodeMs": 497.85349999999744,
+          "totalMs": 718.2833000000101
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 64,
+      "mode": "reserved",
+      "file": "moving-gradient-64-reserved.gif",
+      "sizeBytes": 263171,
+      "sha256": "921c19c860d5c6c361be93aab4b88d343566d2ef119921b4bba383a235478825",
+      "paletteRgbHex": "151e2a262dc02044a43437833a3a3a4147d34122a24f654a5a28765544ac5469d8628e306483d274264f626763776ab97990516e9fc36fa7337353978422318739617b7f778387c37f9cd584bc2f8ccba58f61819588969e9e6797b6d799b944a13431a1adc1a3cc31ae7167a99a98a2d0c3ba4838afc05ab1abafbac2bcc1a633c8a477c0cb47c5d0d3ca7349c6b89bc8ce64cf6174d8934fdc4f57dbb4cad0cfb6dcca7ada602ddd842fddcd9ce0b75ce5e5e5f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 64,
+      "paletteSha256": "55998c2f2a4cfa7648d7145020304910e41ad8e8263dfa9e15abdaaff2b08d5c",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 8.476046282355513,
+      "block8Rmse": 7.576528901336064,
+      "exactPixelPercent": 2.85888671875,
+      "staticPixelDelta": 0.08446491387358192,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 8.591756668716908,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15782,
+      "timings": [
+        {
+          "prepMs": 486.4637999999977,
+          "sampleMs": 1.2557999999989988,
+          "quantizeMs": 350.7847000000038,
+          "encodeMs": 1315.3901000000042,
+          "totalMs": 1801.8631000000023
+        },
+        {
+          "prepMs": 278.3237000000081,
+          "sampleMs": 1.0319000000017695,
+          "quantizeMs": 167.89220000000205,
+          "encodeMs": 539.6047000000253,
+          "totalMs": 817.9357000000018
+        },
+        {
+          "prepMs": 218.8701000000001,
+          "sampleMs": 0.6435000000055879,
+          "quantizeMs": 126.29170000000158,
+          "encodeMs": 377.3372999999847,
+          "totalMs": 596.2112999999954
+        },
+        {
+          "prepMs": 265.75620000000345,
+          "sampleMs": 0.8467999999993481,
+          "quantizeMs": 141.57710000002407,
+          "encodeMs": 389.1036000000022,
+          "totalMs": 654.8665000000037
+        },
+        {
+          "prepMs": 256.62859999999637,
+          "sampleMs": 0.7642000000050757,
+          "quantizeMs": 133.15889999998035,
+          "encodeMs": 501.581199999986,
+          "totalMs": 758.2145999999775
+        },
+        {
+          "prepMs": 272.4191999999748,
+          "sampleMs": 0.7892999999749009,
+          "quantizeMs": 141.95410000000265,
+          "encodeMs": 386.84210000000894,
+          "totalMs": 659.2673000000068
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 64,
+      "mode": "exact",
+      "file": "moving-gradient-64-exact.gif",
+      "sizeBytes": 263171,
+      "sha256": "921c19c860d5c6c361be93aab4b88d343566d2ef119921b4bba383a235478825",
+      "paletteRgbHex": "151e2a262dc02044a43437833a3a3a4147d34122a24f654a5a28765544ac5469d8628e306483d274264f626763776ab97990516e9fc36fa7337353978422318739617b7f778387c37f9cd584bc2f8ccba58f61819588969e9e6797b6d799b944a13431a1adc1a3cc31ae7167a99a98a2d0c3ba4838afc05ab1abafbac2bcc1a633c8a477c0cb47c5d0d3ca7349c6b89bc8ce64cf6174d8934fdc4f57dbb4cad0cfb6dcca7ada602ddd842fddcd9ce0b75ce5e5e5f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 64,
+      "paletteSha256": "55998c2f2a4cfa7648d7145020304910e41ad8e8263dfa9e15abdaaff2b08d5c",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 8.476046282355513,
+      "block8Rmse": 7.576528901336064,
+      "exactPixelPercent": 2.85888671875,
+      "staticPixelDelta": 0.08446491387358192,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 8.591756668716908,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15782,
+      "timings": [
+        {
+          "prepMs": 428.6707000000024,
+          "sampleMs": 4.765100000004168,
+          "quantizeMs": 136.1149999999907,
+          "encodeMs": 1385.5510000000068,
+          "totalMs": 1816.7358999999997
+        },
+        {
+          "prepMs": 259.52779999998165,
+          "sampleMs": 0.9815999999991618,
+          "quantizeMs": 134.22889999998733,
+          "encodeMs": 750.3042000000132,
+          "totalMs": 1009.8377000000037
+        },
+        {
+          "prepMs": 246.74319999999716,
+          "sampleMs": 0.8391999999876134,
+          "quantizeMs": 133.847299999994,
+          "encodeMs": 701.5714999999909,
+          "totalMs": 948.3220999999903
+        },
+        {
+          "prepMs": 217.53310000000056,
+          "sampleMs": 0.8585000000020955,
+          "quantizeMs": 119.19810000000871,
+          "encodeMs": 685.0190000000002,
+          "totalMs": 902.5572999999858
+        },
+        {
+          "prepMs": 247.19620000000577,
+          "sampleMs": 0.9805000000051223,
+          "quantizeMs": 137.51230000000214,
+          "encodeMs": 751.1152000000002,
+          "totalMs": 998.318100000004
+        },
+        {
+          "prepMs": 246.59890000001178,
+          "sampleMs": 0.7788000000000466,
+          "quantizeMs": 136.30340000000433,
+          "encodeMs": 717.2509999999893,
+          "totalMs": 963.8538999999873
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 128,
+      "mode": "sampled",
+      "file": "moving-gradient-128-sampled.gif",
+      "sizeBytes": 340488,
+      "sha256": "eb7a0026949b5a880c13742ddaa0e4c5fe0a72a642727be3c84242fbcaf343bc",
+      "paletteRgbHex": "1919191420301f2fc5203bac204d9b2a3d8a332ab8313131383fd54122a23c2d893e396e4040404a4fd04e6f485425844b3caf5469d85728645050505681325f459e5c4fb8607bcf6395286a24536267636f64c06d8455668fb8688cd66aa83c6b2d7b73508f7259a56b8e3e6ba1c373a62b62d4b98422317f35677176717880c87796d781b22f80284a80837a839c4e7aaacb84bfb380ce3d8957778372ae86a2d48cc2288acf98956c8b928e908d8ebe91967191b2d793b93c9a363a974154997fa09ca8c19ad32fa8665da29aa3a5a2629eb84ca2d0c3a7c0d59cd3a8a7332ca9a284a9c732af4d41b47b6fafc05aaeafaeaab5c2b4c4afb53241b28c8ab39e98b5a341b1b42cbbb77bb9d24ab4d3d9c24b31c27654ba9cb1bcb19bbec1c0c3cc67cf7143cd676bcb8c51c5997bcba130c8b5abcbc042cbcfd1cf4152d15981d0a7c1cbbe94d0cfb6d4ce7bda602ddd842fd6a56edacca3d4d55de09d55e1bb7ddfb7d7e0b75ce44d69e15b4be39341e1bcbde2d091e3d076e0e0e0eff0f1",
+      "paletteSize": 128,
+      "paletteSha256": "aa22486ea8e83da444185a03618a273edfe8148219f5f07b8ed104fa83a72c7f",
+      "globalEntries": 128,
+      "localTables": 0,
+      "colorTableBytes": 384,
+      "rgbRmse": 6.4478245455410015,
+      "block8Rmse": 5.535409383774729,
+      "exactPixelPercent": 22.82246455439815,
+      "staticPixelDelta": 0.1353749799205202,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 11232,
+        "exactPixelPercent": 7.592369776528005,
+        "rgbRmse": 4.044311515241431,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 6.501358748554957,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 5.715476066494082,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 3.8297084310253524,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 346.44999999998254,
+          "sampleMs": 0.8610999999800697,
+          "quantizeMs": 176.49199999999837,
+          "encodeMs": 827.3438000000024,
+          "totalMs": 1173.7997000000032
+        },
+        {
+          "prepMs": 245.8298000000068,
+          "sampleMs": 0.8415000000095461,
+          "quantizeMs": 131.96059999999125,
+          "encodeMs": 488.1681000000099,
+          "totalMs": 734.0027000000118
+        },
+        {
+          "prepMs": 231.02670000001672,
+          "sampleMs": 1.6972999999998137,
+          "quantizeMs": 116.43909999998868,
+          "encodeMs": 381.1889000000083,
+          "totalMs": 612.2223999999987
+        },
+        {
+          "prepMs": 226.02170000001206,
+          "sampleMs": 0.9021000000066124,
+          "quantizeMs": 121.22370000000228,
+          "encodeMs": 457.81420000002254,
+          "totalMs": 683.8401000000013
+        },
+        {
+          "prepMs": 276.2926000000152,
+          "sampleMs": 0.7724999999918509,
+          "quantizeMs": 142.14400000000023,
+          "encodeMs": 642.7596999999951,
+          "totalMs": 919.0578000000096
+        },
+        {
+          "prepMs": 277.4752000000153,
+          "sampleMs": 0.901400000002468,
+          "quantizeMs": 135.70840000000317,
+          "encodeMs": 688.2667000000074,
+          "totalMs": 965.7546000000148
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 128,
+      "mode": "reserved",
+      "file": "moving-gradient-128-reserved.gif",
+      "sizeBytes": 342369,
+      "sha256": "db64f290809fe3fb2bd4e5e77ebfdf3158f14fd20d2968503ed197277563c980",
+      "paletteRgbHex": "1919191420301f2fc5203bac204d9b2a3d8a332ab83a3a3a383fd54122a23c2d893e396e4a4fd04e6f485425844b3caf5469d85728645050505681325f459e5c4fb8607bcf6395286a24536267636f64c06d8455668fb8688cd66aa83c6b2d7b73508f7259a56b8e3e72a5c773a62b8422317f35677176717880c87796d781b22f80284a80837a839c4e84bfb380ce3d8957778372ae86a2d48cc2288acf98956c8b928e908d8ebe91967191b2d793b93ca13431974154997fa09ca8c19ad32fa8665da29aa3a5a2629eb84ca2d0c3a2bed69cd3a8a9a284a9c732af4d41b47b6fafc05aaeafaeaab5c2b4c4afb53241b28c8ab39e98b5a341b1b42cbbb77bbdc2c1b9d24ab4d3d9c24b31c27654ba9cb1bcb19bc3cc67cf7143cd676bcb8c51c5997bcba130c8b5abcbc042cbcfd1cf4152d15981d0a7c1cbbe94d0cfb6d4ce7bda602ddd842fd6a56edacca3d4d55de09d55e1bb7ddfb7d7e0b75ce44d69e15b4be39341e1bcbde2d091e3d076e0e0e0edededf2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 128,
+      "paletteSha256": "6ae9a8a196fbd261a183826e4cf3be5dcbad07e2c315573961e7402eaf8200c6",
+      "globalEntries": 128,
+      "localTables": 0,
+      "colorTableBytes": 384,
+      "rgbRmse": 6.3426469604109075,
+      "block8Rmse": 5.431949039115795,
+      "exactPixelPercent": 25.560167100694443,
+      "staticPixelDelta": 0.13035583748309248,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 6.429233336404493,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15782,
+      "timings": [
+        {
+          "prepMs": 912.1875,
+          "sampleMs": 3.3383000000030734,
+          "quantizeMs": 404.59659999998985,
+          "encodeMs": 1490.0045999999857,
+          "totalMs": 2402.201399999991
+        },
+        {
+          "prepMs": 237.66599999999744,
+          "sampleMs": 0.6831999999994878,
+          "quantizeMs": 130.87750000000233,
+          "encodeMs": 458.0630999999994,
+          "totalMs": 695.7337000000116
+        },
+        {
+          "prepMs": 212.64710000000196,
+          "sampleMs": 0.8782999999821186,
+          "quantizeMs": 116.19140000001062,
+          "encodeMs": 429.8503999999957,
+          "totalMs": 642.5011999999988
+        },
+        {
+          "prepMs": 250.83689999999478,
+          "sampleMs": 1.3012999999918975,
+          "quantizeMs": 130.82139999998617,
+          "encodeMs": 388.7339000000211,
+          "totalMs": 639.5770000000193
+        },
+        {
+          "prepMs": 252.68480000001728,
+          "sampleMs": 0.9553000000014435,
+          "quantizeMs": 146.14650000000256,
+          "encodeMs": 482.6224999999977,
+          "totalMs": 735.3126000000047
+        },
+        {
+          "prepMs": 266.2088999999978,
+          "sampleMs": 0.9848000000056345,
+          "quantizeMs": 150.29769999999553,
+          "encodeMs": 511.3798999999999,
+          "totalMs": 777.5971000000136
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 128,
+      "mode": "exact",
+      "file": "moving-gradient-128-exact.gif",
+      "sizeBytes": 342369,
+      "sha256": "db64f290809fe3fb2bd4e5e77ebfdf3158f14fd20d2968503ed197277563c980",
+      "paletteRgbHex": "1919191420301f2fc5203bac204d9b2a3d8a332ab83a3a3a383fd54122a23c2d893e396e4a4fd04e6f485425844b3caf5469d85728645050505681325f459e5c4fb8607bcf6395286a24536267636f64c06d8455668fb8688cd66aa83c6b2d7b73508f7259a56b8e3e72a5c773a62b8422317f35677176717880c87796d781b22f80284a80837a839c4e84bfb380ce3d8957778372ae86a2d48cc2288acf98956c8b928e908d8ebe91967191b2d793b93ca13431974154997fa09ca8c19ad32fa8665da29aa3a5a2629eb84ca2d0c3a2bed69cd3a8a9a284a9c732af4d41b47b6fafc05aaeafaeaab5c2b4c4afb53241b28c8ab39e98b5a341b1b42cbbb77bbdc2c1b9d24ab4d3d9c24b31c27654ba9cb1bcb19bc3cc67cf7143cd676bcb8c51c5997bcba130c8b5abcbc042cbcfd1cf4152d15981d0a7c1cbbe94d0cfb6d4ce7bda602ddd842fd6a56edacca3d4d55de09d55e1bb7ddfb7d7e0b75ce44d69e15b4be39341e1bcbde2d091e3d076e0e0e0edededf2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 128,
+      "paletteSha256": "6ae9a8a196fbd261a183826e4cf3be5dcbad07e2c315573961e7402eaf8200c6",
+      "globalEntries": 128,
+      "localTables": 0,
+      "colorTableBytes": 384,
+      "rgbRmse": 6.3426469604109075,
+      "block8Rmse": 5.431949039115795,
+      "exactPixelPercent": 25.560167100694443,
+      "staticPixelDelta": 0.13035583748309248,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 6.429233336404493,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15782,
+      "timings": [
+        {
+          "prepMs": 384.820699999982,
+          "sampleMs": 1.5578000000095926,
+          "quantizeMs": 162.11119999998482,
+          "encodeMs": 739.4349999999977,
+          "totalMs": 1124.2646999999997
+        },
+        {
+          "prepMs": 221.7037999999884,
+          "sampleMs": 0.8514999999897555,
+          "quantizeMs": 122.94439999997849,
+          "encodeMs": 733.0292999999947,
+          "totalMs": 954.7409000000043
+        },
+        {
+          "prepMs": 243.3257000000158,
+          "sampleMs": 0.8346000000019558,
+          "quantizeMs": 123.74439999999595,
+          "encodeMs": 750.9179000000004,
+          "totalMs": 994.2486999999965
+        },
+        {
+          "prepMs": 240.58789999998407,
+          "sampleMs": 0.8117999999958556,
+          "quantizeMs": 128.91849999999977,
+          "encodeMs": 748.0071999999927,
+          "totalMs": 988.5999000000011
+        },
+        {
+          "prepMs": 283.31479999999283,
+          "sampleMs": 1.040099999983795,
+          "quantizeMs": 154.1355999999796,
+          "encodeMs": 761.6749000000127,
+          "totalMs": 1044.9948999999906
+        },
+        {
+          "prepMs": 629.2897999999986,
+          "sampleMs": 1.2119999999995343,
+          "quantizeMs": 246.20809999998892,
+          "encodeMs": 1817.6589000000095,
+          "totalMs": 2446.9565000000002
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 256,
+      "mode": "sampled",
+      "file": "moving-gradient-256-sampled.gif",
+      "sizeBytes": 459549,
+      "sha256": "177c3cd87b1fb65c41ceaa1df6db6da7234555c8809b626c9dfe87ef4cd9c238",
+      "paletteRgbHex": "111111142030202cca1e35bb1d40ad1a49931f1f1f2752a42730a92939932c417f2e23b63131313539d13a22a63931ba3c2d893e396e3c47da4040404853d54c69504a219c4c267a463bb74d4ac8526dd84a713c5420864f2e65513da7505050567747568132592b595f459e5c4fb8585edb577ec15d8e2a5f1f6d5e2b8e66274a6060606661ca656e66657e51657ad6608db3688cd666a2366d215b6b2d7b6f4c8f7259a56b8e3e6b92be689927689bc973a62b6eae4062d4b97e2136782e646f61b97176717279c57287577098db6fa7be75b8277922487d598f7b6dbc7f896b7d85ca7d9b447997cf7aaacb78b8ad7cc7367f3a7181537c8168a881817f8579b38091d9889c5487a1c880a5dc83b2287eb63587c82984ca9e83d443882f4b893c628d68908b8a8b8d8ebe9196718ba0d587aa378cb1d38fc23d8bc3b791d592902326932f37974154905b729678a19690929387a791b04199a4be90bc2698b93796d0379f62659e7184a396ab99a75f97b2db9db1529cc54a9ccbc6a1bdd69dd5299cd3a8a12f2ba03e3ca47f96a9a2849f989aa4a56ca1acb59eaccca1b7479fc32ca9d6c0a94d4bae654faa7271ae9c5aa4a4a4aeb960adadacaeadc2a8b9c2a8c43da8c85aaeccb0b53241af3a2cb34d3ab06e5fb5807ab28c8ab39e98b0a547b1b42cbbb77bb1b4b3b5c552aec3d4b2c928aecf36b6d145b4d3d9bc4827c27654ba7d67ba9cb1bba13bb9b79fbbbabdb8beaebac9bfbbc869bfd452c24436c15632c46f3cc66b70c1934cc4a080c4a329beac98c8b5abc3c23ac6d062c3d1cfc73d4dcb5c85d1744bcd875dc78e75d29730cca7baccaa39cbb592c6c19bc7c671c8ccafc7c1c5c9ccdacfd372d04c3ed54556d15a2bd66265d87729d58239d5894ad6a56ed6a7cbd2bd4ad1c48ed6c880d5c4a2d0cfcfcfd658d6d57dd0d5bdd7567cdd6f3edf985ee1a04ed9b686e3b3d6dabf5dd7c1d9dad4a2d9d362e34b6fe05a45e4662fe35d54e3882ce39341dfb8b9decb91e1cf6fe4c1c4deceb8dbdbdbe55161e5af5ae5b96fe6c182e6caa9e5d27fe6d491e4e4e4eff0f1",
+      "paletteSize": 256,
+      "paletteSha256": "d0fd6163a496f749164a3ae6fcf180511417697aef5607ee568ab2cc43d1d517",
+      "globalEntries": 256,
+      "localTables": 0,
+      "colorTableBytes": 768,
+      "rgbRmse": 5.161236523292013,
+      "block8Rmse": 4.30747413148664,
+      "exactPixelPercent": 23.536295572916668,
+      "staticPixelDelta": 0.16901727533681146,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 11232,
+        "exactPixelPercent": 7.592369776528005,
+        "rgbRmse": 2.811541643147798,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 5.210886246021966,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 5.715476066494082,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 1.9148542155126762,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 730.2073999999993,
+          "sampleMs": 4.357300000003306,
+          "quantizeMs": 257.546399999992,
+          "encodeMs": 1151.2463000000134,
+          "totalMs": 1881.4614000000001
+        },
+        {
+          "prepMs": 229.22200000000885,
+          "sampleMs": 0.8409999999857973,
+          "quantizeMs": 126.06220000001485,
+          "encodeMs": 644.1895999999833,
+          "totalMs": 873.4158999999927
+        },
+        {
+          "prepMs": 238.29780000000028,
+          "sampleMs": 0.817799999989802,
+          "quantizeMs": 140.4592999999877,
+          "encodeMs": 683.067699999985,
+          "totalMs": 921.3703000000096
+        },
+        {
+          "prepMs": 235.56079999997746,
+          "sampleMs": 1.2514999999839347,
+          "quantizeMs": 114.88800000000629,
+          "encodeMs": 471.0970999999845,
+          "totalMs": 706.6625999999815
+        },
+        {
+          "prepMs": 247.8344999999972,
+          "sampleMs": 1.2980000000097789,
+          "quantizeMs": 128.6353999999992,
+          "encodeMs": 741.306899999996,
+          "totalMs": 989.1463999999978
+        },
+        {
+          "prepMs": 841.8276999999944,
+          "sampleMs": 0.8620999999984633,
+          "quantizeMs": 394.77999999999884,
+          "encodeMs": 1215.7621999999974,
+          "totalMs": 2057.5971999999892
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 256,
+      "mode": "reserved",
+      "file": "moving-gradient-256-reserved.gif",
+      "sizeBytes": 455570,
+      "sha256": "c6d8dc02c575483ac81244c99b884a8889b14fbfd05c554b58d81c46fbc6ae5e",
+      "paletteRgbHex": "111111142030202cca1e35bb1d40ad1a49931f1f1f2752a42730a92939932c417f2e23b63131313539d13a22a63931ba3c2d893e396e3c47da4040404853d54c69504a219c4c267a463bb74d4ac8526dd84a713c5420864f2e65513da7505050567747568132592b595f459e5c4fb8585edb577ec15d8e2a5f1f6d5e2b8e66274a6060606661ca656e66657e51657ad6608db3688cd666a2366d215b6b2d7b6f4c8f7259a56b8e3e6b92be689927689bc973a62b6eae407e2136782e646f61b97176717880c87287577098db6fa7be75b8277922487d598f7b6dbc7f896b7d9b447997cf7aaacb78b8ad7cc7367f3a7181537c8168a881817f8579b38091d9889c5487a1c880a5dc83b2287eb63587c82984ca9e83d443882f4b893c628d68908b8a8b8d8ebe9196718ba0d587aa378cb1d38fc23d8bc3b791d592902326932f37974154905b729678a19690929387a791b04199a4be90bc2698b93796d0379f62659e7184a396ab99a75f97b2db9db1529cc54a9ccbc6a2bed69dd5299cd3a8a12f2ba03e3ca47f96a9a2849f989aa4a56ca1acb59eaccca1b7479fc32ca9d6c0a94d4bae654faa7271ae9c5aa4a4a4aeb960adadacaab5c2a8c43da8c85aaeccb0b53241af3a2cb34d3ab06e5fb5807ab28c8ab39e98b0a547b1b42cbbb77bb1b4b3b5c552b0c6cdb2c928aecf36b6d145b4d3d9bc4827c27654ba7d67ba9cb1bba13bb9b79fbbbabdb8beaebac9bfbbc869bfd452c24436c15632c46f3cc66b70c1934cc4a080c4a329beac98c8b5abc3c23ac6d062c3d1cfc73d4dcb5c85d1744bcd875dc78e75d29730cca7baccaa39cbb592c6c19bc7c671c8ccafc7c1c5c9ccdacfd372d04c3ed54556d15a2bd66265d87729d58239d5894ad6a56ed6a7cbd2bd4ad1c48ed6c880d5c4a2d0cfcfcfd658d6d57dd0d5bdd7567cdd6f3edf985ee1a04ed9b686e3b3d6dabf5dd7c1d9dad4a2d9d362e34b6fe05a45e4662fe35d54e3882ce39341dfb8b9decb91e1cf6fe4c1c4deceb8e0e0e0e55161e5af5ae5b96fe6c182e6caa9e5d27fe6d491edededf2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 256,
+      "paletteSha256": "e180e19c0efeffbdb96a44ade21a3b3b046cea9ac86b7ff8dbf148d584b9c0ea",
+      "globalEntries": 256,
+      "localTables": 0,
+      "colorTableBytes": 768,
+      "rgbRmse": 5.175431569395406,
+      "block8Rmse": 4.298723368208613,
+      "exactPixelPercent": 24.31121600115741,
+      "staticPixelDelta": 0.20345401973725563,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 62690,
+        "exactPixelPercent": 42.3758601576336,
+        "rgbRmse": 4.900005945675236,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0.5792563600782779,
+        "otherRgbRmse": 5.182796117910697,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 28418,
+            "exactPixelPercent": 25.001319655833758,
+            "rgbRmse": 5.590120762863948,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0.7391304347826086
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15782,
+      "timings": [
+        {
+          "prepMs": 949.9332999999897,
+          "sampleMs": 15.958099999988917,
+          "quantizeMs": 352.1310999999987,
+          "encodeMs": 1087.8512000000046,
+          "totalMs": 2037.7906000000075
+        },
+        {
+          "prepMs": 227.0896000000066,
+          "sampleMs": 0.676900000020396,
+          "quantizeMs": 126.04750000001513,
+          "encodeMs": 596.4555999999866,
+          "totalMs": 823.5501999999979
+        },
+        {
+          "prepMs": 215.54669999997714,
+          "sampleMs": 0.6832999999751337,
+          "quantizeMs": 120.27589999997872,
+          "encodeMs": 560.9216000000015,
+          "totalMs": 776.4728000000177
+        },
+        {
+          "prepMs": 246.26680000001215,
+          "sampleMs": 0.7656000000133645,
+          "quantizeMs": 134.8141000000178,
+          "encodeMs": 591.1391000000003,
+          "totalMs": 837.4120000000112
+        },
+        {
+          "prepMs": 241.7375999999931,
+          "sampleMs": 0.9187999999849126,
+          "quantizeMs": 134.59010000000126,
+          "encodeMs": 736.9909000000043,
+          "totalMs": 978.7330000000075
+        },
+        {
+          "prepMs": 1184.6794999999984,
+          "sampleMs": 1.5874999999941792,
+          "quantizeMs": 519.0879999999888,
+          "encodeMs": 1326.5914999999804,
+          "totalMs": 2511.278399999981
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "maxColors": 256,
+      "mode": "exact",
+      "file": "moving-gradient-256-exact.gif",
+      "sizeBytes": 455570,
+      "sha256": "736f78cda81e7e5790877fb5580bce00c35d632c8e1018174d496fa37b6d6bac",
+      "paletteRgbHex": "111111142030202cca1e35bb1d40ad1a49931f1f1f2752a42730a92939932c417f2e23b63131313539d13a22a63931ba3c2d893e396e3c47da4040404853d54c69504a219c4c267a463bb74d4ac8526dd84a713c5420864f2e65513da7505050567747568132592b595f459e5c4fb8585edb577ec15d8e2a5f1f6d5e2b8e66274a6060606661ca656e66657e51657ad6608db3688cd666a2366d215b6b2d7b6f4c8f7259a56b8e3e6b92be689927689bc973a62b6eae407e2136782e646f61b97176717880c87287577098db6fa7be75b8277922487d598f7b6dbc7f896b7d9b447997cf7aaacb78b8ad7cc7367f3a7181537c8168a881817f8579b38091d9889c5487a1c880a5dc83b2287eb63587c82984ca9e83d443882f4b893c628d68908b8a8b8d8ebe9196718ba0d587aa378cb1d38fc23d8bc3b791d592902326932f37974154905b729678a19690929387a791b04199a4be90bc2698b93796d0379f62659e7184a396ab99a75f97b2db9db1529cc54a9ccbc6a2bed69dd5299cd3a8a12f2ba03e3ca47f96a9a2849f989aa4a56ca1acb59eaccca1b7479fc32ca9d6c0a94d4bae654faa7271ae9c5aa4a4a4aeb960adadacaab5c2a8c43da8c85aaeccb0b53241af3a2cb34d3ab06e5fb5807ab28c8ab39e98b0a547b1b42cbbb77bb1b4b3b5c552b0c6cdb2c928aecf36b6d145b4d3d9bc4827c27654ba7d67ba9cb1bba13bb9b79fbbbabdb8beaebac9bfbbc869bfd452c24436c15632c46f3cc66b70c1934cc4a080c4a329beac98c8b5abc3c23ac6d062c3d1cfc73d4dcb5c85d1744bcd875dc78e75d29730cca7baccaa39cbb592c6c19bc7c671c8ccafc7c1c5c9ccdacfd372d04c3ed54556d15a2bd66265d87729d58239d5894ad6a56ed6a7cbd2bd4ad1c48ed6c880d5c4a2d0cfcfcfd658d6d57dd0d5bdd7567cdd6f3edf985ee1a04ed9b686e3b3d6dabf5dd7c1d9dad4a2d9d362e34b6fe05a45e4662fe35d54e3882ce39341dfb8b9decb91e1cf6fe4c1c4deceb8e0e0e0e55161e5af5ae5b96fe6c182e6caa9e5d27fe6d491edededf2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 256,
+      "paletteSha256": "e180e19c0efeffbdb96a44ade21a3b3b046cea9ac86b7ff8dbf148d584b9c0ea",
+      "globalEntries": 256,
+      "localTables": 0,
+      "colorTableBytes": 768,
+      "rgbRmse": 5.1129962662203745,
+      "block8Rmse": 4.251769855241268,
+      "exactPixelPercent": 25.852882667824073,
+      "staticPixelDelta": 0.16830969192839831,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "cutStaticPixelDelta": null,
+      "accentMetrics": {
+        "pixels": 147938,
+        "exact": 147938,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 5.182796117910697,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 0,
+            "exact": 0,
+            "exactPixelPercent": null,
+            "rgbRmse": null,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15782,
+      "timings": [
+        {
+          "prepMs": 902.9890000000014,
+          "sampleMs": 9.53639999999723,
+          "quantizeMs": 341.57949999999255,
+          "encodeMs": 1718.3919000000024,
+          "totalMs": 2621.3985000000102
+        },
+        {
+          "prepMs": 242.6596000000136,
+          "sampleMs": 0.7087000000174157,
+          "quantizeMs": 130.937900000019,
+          "encodeMs": 723.3277999999991,
+          "totalMs": 965.9922999999835
+        },
+        {
+          "prepMs": 214.49340000000666,
+          "sampleMs": 0.6773000000102911,
+          "quantizeMs": 119.54809999998542,
+          "encodeMs": 729.6571000000113,
+          "totalMs": 944.1547000000137
+        },
+        {
+          "prepMs": 214.44880000001285,
+          "sampleMs": 0.7005000000062864,
+          "quantizeMs": 121.05950000000303,
+          "encodeMs": 757.2316999999748,
+          "totalMs": 971.688599999994
+        },
+        {
+          "prepMs": 252.0097999999998,
+          "sampleMs": 1.3012999999918975,
+          "quantizeMs": 141.52049999998417,
+          "encodeMs": 760.8963999999978,
+          "totalMs": 1012.9124999999767
+        },
+        {
+          "prepMs": 277.5817999999854,
+          "sampleMs": 0.7667999999830499,
+          "quantizeMs": 147.80910000001313,
+          "encodeMs": 1723.878400000016,
+          "totalMs": 2001.4672000000137
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 32,
+      "mode": "sampled",
+      "file": "scene-cut-32-sampled.gif",
+      "sizeBytes": 182482,
+      "sha256": "078393db8044c893a57adb41dae12634fadb6adc43d8e769ffdcc4382c7e0841",
+      "paletteRgbHex": "19222e5765cd4723195656565c893b759d547190cd71a63084bab18271a6887e8389abd48ac42f98ba48a3ac6f9f93aba8c1ceb37e86b3b7b4a8c52fae4d23bcc84cc8946fc8b99ed6ca71c9d1d1c76f32cdac2fddcf91e29d4be1ccbae8e8e9",
+      "paletteSize": 32,
+      "paletteSha256": "7896acc3c310207de86250f8e8c877bb7e276b4667875235cf147f433995b6e3",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 9.028379433744064,
+      "block8Rmse": 8.232295319719256,
+      "exactPixelPercent": 0.037109375,
+      "staticPixelDelta": 0.07106951323265777,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 0,
+        "exactPixelPercent": 0,
+        "rgbRmse": 10.423241815802882,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 8.986314405063384,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 13.228756555322953,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 25.13961017995307,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 5.972157622389639,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 22.22611077089287,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 152.2711999999883,
+          "sampleMs": 0.83629999999539,
+          "quantizeMs": 55.75779999999213,
+          "encodeMs": 383.17089999999735,
+          "totalMs": 535.448000000004
+        },
+        {
+          "prepMs": 146.59150000000955,
+          "sampleMs": 0.8585000000020955,
+          "quantizeMs": 55.03159999998752,
+          "encodeMs": 386.03169999999227,
+          "totalMs": 532.6291999999958
+        },
+        {
+          "prepMs": 151.4588999999978,
+          "sampleMs": 1.021100000012666,
+          "quantizeMs": 55.74560000002384,
+          "encodeMs": 378.2655000000086,
+          "totalMs": 529.7305000000051
+        },
+        {
+          "prepMs": 147.54129999998258,
+          "sampleMs": 0.677800000004936,
+          "quantizeMs": 54.90340000001015,
+          "encodeMs": 388.83499999999185,
+          "totalMs": 536.3796000000148
+        },
+        {
+          "prepMs": 150.30470000000787,
+          "sampleMs": 0.8237000000081025,
+          "quantizeMs": 60.321300000010524,
+          "encodeMs": 385.59370000002673,
+          "totalMs": 535.9022000000114
+        },
+        {
+          "prepMs": 153.30980000001728,
+          "sampleMs": 0.5978000000177417,
+          "quantizeMs": 58.27669999998761,
+          "encodeMs": 383.9710999999952,
+          "totalMs": 537.2846000000136
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 32,
+      "mode": "reserved",
+      "file": "scene-cut-32-reserved.gif",
+      "sizeBytes": 181356,
+      "sha256": "5b474e26be1e0d930e0d8de83253a107ef543c8bddc4bc8f2d25693c5609aca4",
+      "paletteRgbHex": "19222e5765cd4723195656566ca032759d547190cd8577947dbaa489abd48ac42f9eb3b898ba48a3ac6f9f93abb37e86aec739be632db4c3c3c8946fc8b99ec8ca64d1cfc9cdac2fddcf91e29d4be0c875e5e5e5f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 32,
+      "paletteSha256": "5cc7b576c95a903cec08e88c4110078f03b5530a72dc6af3a91230ee0464933d",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 9.489276809168055,
+      "block8Rmse": 8.779620040363469,
+      "exactPixelPercent": 2.8274739583333335,
+      "staticPixelDelta": 0.07047194200520596,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 150242,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 9.620878937471996,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15768,
+      "timings": [
+        {
+          "prepMs": 164.14000000001397,
+          "sampleMs": 1.1394999999902211,
+          "quantizeMs": 61.15820000000531,
+          "encodeMs": 381.726800000004,
+          "totalMs": 545.8711999999941
+        },
+        {
+          "prepMs": 177.64939999999478,
+          "sampleMs": 0.9431000000040513,
+          "quantizeMs": 62.06899999998859,
+          "encodeMs": 370.08600000001024,
+          "totalMs": 547.7419000000227
+        },
+        {
+          "prepMs": 159.93379999999888,
+          "sampleMs": 0.6526000000012573,
+          "quantizeMs": 62.16339999999036,
+          "encodeMs": 377.69370000000345,
+          "totalMs": 537.6328999999969
+        },
+        {
+          "prepMs": 158.84819999997853,
+          "sampleMs": 1.0570000000006985,
+          "quantizeMs": 62.455099999991944,
+          "encodeMs": 389.69880000001285,
+          "totalMs": 548.5521000000008
+        },
+        {
+          "prepMs": 174.4887999999919,
+          "sampleMs": 0.7430999999924097,
+          "quantizeMs": 71.32100000002538,
+          "encodeMs": 386.917999999976,
+          "totalMs": 561.4116999999969
+        },
+        {
+          "prepMs": 185.14009999998962,
+          "sampleMs": 1.4477999999944586,
+          "quantizeMs": 68.08369999998831,
+          "encodeMs": 388.5989999999874,
+          "totalMs": 573.7439000000013
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 32,
+      "mode": "exact",
+      "file": "scene-cut-32-exact.gif",
+      "sizeBytes": 181356,
+      "sha256": "5b474e26be1e0d930e0d8de83253a107ef543c8bddc4bc8f2d25693c5609aca4",
+      "paletteRgbHex": "19222e5765cd4723195656566ca032759d547190cd8577947dbaa489abd48ac42f9eb3b898ba48a3ac6f9f93abb37e86aec739be632db4c3c3c8946fc8b99ec8ca64d1cfc9cdac2fddcf91e29d4be0c875e5e5e5f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 32,
+      "paletteSha256": "5cc7b576c95a903cec08e88c4110078f03b5530a72dc6af3a91230ee0464933d",
+      "globalEntries": 32,
+      "localTables": 0,
+      "colorTableBytes": 96,
+      "rgbRmse": 9.489276809168055,
+      "block8Rmse": 8.779620040363469,
+      "exactPixelPercent": 2.8274739583333335,
+      "staticPixelDelta": 0.07047194200520596,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 150242,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 9.620878937471996,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15768,
+      "timings": [
+        {
+          "prepMs": 178.24720000001253,
+          "sampleMs": 0.6909000000159722,
+          "quantizeMs": 64.74839999998221,
+          "encodeMs": 435.92480000000796,
+          "totalMs": 614.2193000000261
+        },
+        {
+          "prepMs": 162.2208999999857,
+          "sampleMs": 0.8453999999910593,
+          "quantizeMs": 61.426300000021,
+          "encodeMs": 534.3499000000011,
+          "totalMs": 696.5746999999974
+        },
+        {
+          "prepMs": 163.88469999999506,
+          "sampleMs": 0.6386000000056811,
+          "quantizeMs": 62.84969999999157,
+          "encodeMs": 500.5390999999945,
+          "totalMs": 664.4274999999907
+        },
+        {
+          "prepMs": 152.3619999999937,
+          "sampleMs": 0.7345000000204891,
+          "quantizeMs": 63.78839999999036,
+          "encodeMs": 432.83030000000144,
+          "totalMs": 585.1969999999856
+        },
+        {
+          "prepMs": 162.54099999999744,
+          "sampleMs": 0.635999999998603,
+          "quantizeMs": 64.4771999999939,
+          "encodeMs": 477.1316999999981,
+          "totalMs": 639.676999999996
+        },
+        {
+          "prepMs": 182.8452999999863,
+          "sampleMs": 0.6945999999879859,
+          "quantizeMs": 77.89400000000023,
+          "encodeMs": 484.91830000001937,
+          "totalMs": 667.7675000000163
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 64,
+      "mode": "sampled",
+      "file": "scene-cut-64-sampled.gif",
+      "sizeBytes": 237101,
+      "sha256": "9492127443a334c6810b11d6c2600e9320b658535c547d0a8e15e9bf152db79f",
+      "paletteRgbHex": "19222e4c5bd2381b154a4a4a626ec85c893b59b95051291c6464646b9ec16b95d8689e297a82d179995575aa3462d4b98271a67dbaa478787880a5d188d1308eb6ba9081898db82d98ba4893b1d793a1689890bda395a1a8c1ceae8484acad82aaaeafa0cd2fae4d23acba62b2bb2fb5c945bf8967c3aa97c5c772bcc1b9c0ce58bfd2d7be632dd09f77cdac2fc7c09bcd5e91cd7836d1bb54d1c7acd0d0cdd7ca8ad5d568db9045e0a55ee0bb72e3d499e1ccbae9a446dfdfdfe7d179eff0f2",
+      "paletteSize": 64,
+      "paletteSha256": "6060c070debeb357d4adf80141e5b7fa052627de0881aacd1d94b7086fa102cb",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 5.797732759489951,
+      "block8Rmse": 5.103904303418596,
+      "exactPixelPercent": 28.63422309027778,
+      "staticPixelDelta": 0.08500250254052175,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 11232,
+        "exactPixelPercent": 7.4759388187058216,
+        "rgbRmse": 5.806098703978161,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 5.797498930761298,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 5.259911279353167,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 5.972157622389639,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 12.727922061357855,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 153.04450000001816,
+          "sampleMs": 0.7391000000061467,
+          "quantizeMs": 55.2783000000054,
+          "encodeMs": 382.1649000000034,
+          "totalMs": 535.2135000000126
+        },
+        {
+          "prepMs": 165.64470000000438,
+          "sampleMs": 0.9897000000055414,
+          "quantizeMs": 63.642199999972945,
+          "encodeMs": 379.33279999997467,
+          "totalMs": 544.982399999979
+        },
+        {
+          "prepMs": 164.8121000000101,
+          "sampleMs": 0.6962000000057742,
+          "quantizeMs": 65.93530000001192,
+          "encodeMs": 384.5761999999813,
+          "totalMs": 549.393699999986
+        },
+        {
+          "prepMs": 163.5225999999966,
+          "sampleMs": 0.9997000000148546,
+          "quantizeMs": 57.8298000000068,
+          "encodeMs": 402.9359000000113,
+          "totalMs": 566.4636000000173
+        },
+        {
+          "prepMs": 155.71919999999227,
+          "sampleMs": 0.6351999999897089,
+          "quantizeMs": 60.45650000000023,
+          "encodeMs": 385.27210000000196,
+          "totalMs": 540.9956999999995
+        },
+        {
+          "prepMs": 153.1939999999886,
+          "sampleMs": 0.6725999999907799,
+          "quantizeMs": 58.828100000013364,
+          "encodeMs": 385.9127000000153,
+          "totalMs": 539.1110000000044
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 64,
+      "mode": "reserved",
+      "file": "scene-cut-64-reserved.gif",
+      "sizeBytes": 237203,
+      "sha256": "0ae77a03ec5ec8fc371a4500f64963c1170e6aae92b19d541c82a34c8dd9c217",
+      "paletteRgbHex": "19222e4c5bd2381b154a4a4a626ec85c893b59b95051291c6464646b9ec16b95d8689e297a82d179995575aa348271a67dbaa478787880a5d188d1308baebc9081898db82d98ba4893b1d793a1689890bd9cbdc1a395a1ae8484acad82aaaeafa0cd2fae4d23acba62abc6ceb2bb2fb5c945bf8967c3aa97c5c772bcc1b9cacb59c9d1d1be632dd09f77cdac2fc7c09bcd5e91cd7836d1c7acd7ca8adb9045e0a55ee0bb72e1d277e3d499e1ccbae9a446e5e5e5f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 64,
+      "paletteSha256": "72e33ae6308cd8c49bfbb50fe282e70a5e5f61adeac4681ac4417e171420a362",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 5.889713151294652,
+      "block8Rmse": 5.228195021083026,
+      "exactPixelPercent": 30.545283564814813,
+      "staticPixelDelta": 0.10054579016134423,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 117090,
+        "exactPixelPercent": 77.93426605077143,
+        "rgbRmse": 2.725581973861782,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0.5111085530102452,
+        "otherRgbRmse": 5.9539963974141585,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 80514,
+            "exactPixelPercent": 70.83384653282424,
+            "rgbRmse": 3.1335717108887913,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0.6521739130434783
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15768,
+      "timings": [
+        {
+          "prepMs": 184.96189999999478,
+          "sampleMs": 0.7151000000012573,
+          "quantizeMs": 71.75560000000405,
+          "encodeMs": 383.18559999999707,
+          "totalMs": 568.1516999999876
+        },
+        {
+          "prepMs": 189.39220000000205,
+          "sampleMs": 1.2642000000050757,
+          "quantizeMs": 69.2103000000061,
+          "encodeMs": 385.00209999998333,
+          "totalMs": 574.3990000000049
+        },
+        {
+          "prepMs": 181.70650000000023,
+          "sampleMs": 0.6600000000034925,
+          "quantizeMs": 68.04250000001048,
+          "encodeMs": 369.87100000001374,
+          "totalMs": 551.581600000005
+        },
+        {
+          "prepMs": 154.83909999998286,
+          "sampleMs": 0.7888999999850057,
+          "quantizeMs": 60.08540000001085,
+          "encodeMs": 392.60070000000997,
+          "totalMs": 547.443900000013
+        },
+        {
+          "prepMs": 154.26489999998012,
+          "sampleMs": 0.6802999999781605,
+          "quantizeMs": 59.82039999999688,
+          "encodeMs": 405.92929999998887,
+          "totalMs": 560.198699999979
+        },
+        {
+          "prepMs": 151.9382999999798,
+          "sampleMs": 1.0126999999920372,
+          "quantizeMs": 54.124500000005355,
+          "encodeMs": 360.79610000000685,
+          "totalMs": 512.7387999999919
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 64,
+      "mode": "exact",
+      "file": "scene-cut-64-exact.gif",
+      "sizeBytes": 237203,
+      "sha256": "a5fe2f4946720ae98c44f6d4ee178ffdf2dd0d65f60bde3a212b17193aea14d9",
+      "paletteRgbHex": "19222e4c5bd2381b154a4a4a626ec85c893b59b95051291c6464646b9ec16b95d8689e297a82d179995575aa348271a67dbaa478787880a5d188d1308baebc9081898db82d98ba4893b1d793a1689890bd9cbdc1a395a1ae8484acad82aaaeafa0cd2fae4d23acba62abc6ceb2bb2fb5c945bf8967c3aa97c5c772bcc1b9cacb59c9d1d1be632dd09f77cdac2fc7c09bcd5e91cd7836d1c7acd7ca8adb9045e0a55ee0bb72e1d277e3d499e1ccbae9a446e5e5e5f2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 64,
+      "paletteSha256": "72e33ae6308cd8c49bfbb50fe282e70a5e5f61adeac4681ac4417e171420a362",
+      "globalEntries": 64,
+      "localTables": 0,
+      "colorTableBytes": 192,
+      "rgbRmse": 5.872552840863223,
+      "block8Rmse": 5.2138171345108875,
+      "exactPixelPercent": 31.14482060185185,
+      "staticPixelDelta": 0.07806090668773358,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 150242,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 5.9539963974141585,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15768,
+      "timings": [
+        {
+          "prepMs": 149.45180000000983,
+          "sampleMs": 1.1186000000161584,
+          "quantizeMs": 58.921200000011595,
+          "encodeMs": 500.2468999999983,
+          "totalMs": 649.7041000000027
+        },
+        {
+          "prepMs": 152.1996999999974,
+          "sampleMs": 0.7906000000075437,
+          "quantizeMs": 62.97219999998924,
+          "encodeMs": 552.3369999999995,
+          "totalMs": 704.5414999999921
+        },
+        {
+          "prepMs": 157.9481000000087,
+          "sampleMs": 0.6975000000093132,
+          "quantizeMs": 65.70549999998184,
+          "encodeMs": 544.4200000000128,
+          "totalMs": 702.3728999999876
+        },
+        {
+          "prepMs": 163.09489999999641,
+          "sampleMs": 0.8140000000130385,
+          "quantizeMs": 63.865500000014435,
+          "encodeMs": 608.8484999999928,
+          "totalMs": 771.949099999998
+        },
+        {
+          "prepMs": 191.54369999998016,
+          "sampleMs": 1.0539999999746215,
+          "quantizeMs": 68.68069999999716,
+          "encodeMs": 488.3610000000044,
+          "totalMs": 679.9100000000035
+        },
+        {
+          "prepMs": 185.44550000000163,
+          "sampleMs": 0.7135000000125729,
+          "quantizeMs": 65.897799999977,
+          "encodeMs": 508.3597000000009,
+          "totalMs": 693.8092999999935
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 128,
+      "mode": "sampled",
+      "file": "scene-cut-128-sampled.gif",
+      "sizeBytes": 295524,
+      "sha256": "0bb4646a1dbe27a8fae15dfd8dc1f908a0c30d42a6e5b59189495c01c6c2ccc2",
+      "paletteRgbHex": "1420302121212f2f2f4153d9381b154040404f61d45050505976c656863559b95051291c595ac16464645f6bd6628b416899c76b95d861992a6c69bf6f7ed76f8e516ea4bb6ea2286ca83b62d4b97567a878ab2b6fa75d77b3a77878788075b18380c28098607c9f4681a8cb83c1a07bc82b8a739c838bd97fa2d883b3bb82ae3684d5408787878ab82893b1458dabd78dd32d9197729391c895a96095a7be92b73695c7b491c4529dc23f99798a9e879f9b90b798989899b7d89fb9c7af8c8aa8a983a7aaaaa1b8529fca2ca1d537ae4d23a77e79ae99a8acba62adb4b7abc2d7b2c02aafc54eabd2c5b9876fb2b437aebfc8aecb3cb6d147b76f85bcab9db7b77fc0c56cbbbfafbcc2bfc0ce58bfd2d7be632dc68b5fc89875c5af29c4bc9ac2c03fcd5e91cd7836cda88ed1bb54cdcb7acdceaccbd0c6d4aa35d6bdacd2c48ccec69cd3d461d5d0d3dc944be0a55ed7a77ad9bf68dbce89d8d671dfd2a1dfd3b3db8b3ee6a144e3c6c1e4b977dfdfdfead070e5d280e6d693f2ac4deff0f2",
+      "paletteSize": 128,
+      "paletteSha256": "b768b71a1f89b49bb06067f3a9d622a03843ca25829d2db6687e123f6beee3b8",
+      "globalEntries": 128,
+      "localTables": 0,
+      "colorTableBytes": 384,
+      "rgbRmse": 4.36511588089547,
+      "block8Rmse": 3.7281336121034663,
+      "exactPixelPercent": 51.05815972222222,
+      "staticPixelDelta": 0.10511239909655333,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 11232,
+        "exactPixelPercent": 7.4759388187058216,
+        "rgbRmse": 2.6292226559919056,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 4.403786872792214,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 5.259911279353167,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 1.1547005383792515,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 10.408329997330663,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 170.69149999998626,
+          "sampleMs": 0.8038999999989755,
+          "quantizeMs": 56.608500000002095,
+          "encodeMs": 420.54120000000694,
+          "totalMs": 591.2390000000014
+        },
+        {
+          "prepMs": 154.27060000001802,
+          "sampleMs": 0.6154000000096858,
+          "quantizeMs": 57.616099999984726,
+          "encodeMs": 534.5037000000011,
+          "totalMs": 688.7783000000054
+        },
+        {
+          "prepMs": 162.73829999999725,
+          "sampleMs": 0.6104000000050291,
+          "quantizeMs": 63.05199999999604,
+          "encodeMs": 394.07750000001397,
+          "totalMs": 556.8194000000076
+        },
+        {
+          "prepMs": 157.30770000000484,
+          "sampleMs": 0.6841000000131316,
+          "quantizeMs": 58.19350000002305,
+          "encodeMs": 380.99890000000596,
+          "totalMs": 538.3107000000018
+        },
+        {
+          "prepMs": 150.69700000001467,
+          "sampleMs": 0.7413999999989755,
+          "quantizeMs": 55.498099999997066,
+          "encodeMs": 387.8130999999994,
+          "totalMs": 538.5146999999997
+        },
+        {
+          "prepMs": 167.48459999999614,
+          "sampleMs": 0.714799999987008,
+          "quantizeMs": 61.23730000000796,
+          "encodeMs": 387.9470999999903,
+          "totalMs": 555.4363000000012
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 128,
+      "mode": "reserved",
+      "file": "scene-cut-128-reserved.gif",
+      "sizeBytes": 293237,
+      "sha256": "e1a62d189ba4cba11c55ac34d81802683c51474e28eb73afff32204fdf687fdd",
+      "paletteRgbHex": "1420302121212f2f2f4153d9381b154040404f61d45050505976c656863559b95051291c595ac16464645f6bd6628b416899c76b95d861992a6c69bf6f7ed76f8e516ea4bb6ea2286ca83b7567a878ab2b6fa75d77b3a77878788075b18380c28098607c9f4681a8cb83c1a07bc82b8a739c838bd97fa2d883b3bb82ae3684d5408787878ab82893b1458dabd78dd32d9197729391c895a96095a7be92b73695c7b491c4529dc23f99798a9e879f9b90b798989899b7d89fb9c7af8c8aa8a983a7aaaaa1b8529fca2ca1d537ae4d23a77e79ae99a8acba62adb4b7a9c2d8b2c02aafc54eabd2c5b9876fb2b437aebfc8b2ce42b76f85bcab9db7b77fc0c56cbbbfafbcc2bfc0ce58bfd2d7be632dc68b5fc89875c5af29c4bc9ac2c03fcd5e91cd7836cda88ed1bb54cdcb7acdceaccbd0c6d4aa35d6bdacd7ca8acec69cd3d461d5d0d3dc944be0a55ed7a77ad9bf68ded371dfd2a1dfd3b3db8b3ee6a144e3c6c1e4b977dfdfdfe5d280e6d693f2ac4dedededf2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 128,
+      "paletteSha256": "b6d2f07ffd532515c820eb067a1ac4a8828a4ba57b681f1373c479c29ff5a7b7",
+      "globalEntries": 128,
+      "localTables": 0,
+      "colorTableBytes": 384,
+      "rgbRmse": 4.35289890640377,
+      "block8Rmse": 3.7243780910485937,
+      "exactPixelPercent": 53.54633246527778,
+      "staticPixelDelta": 0.10070014162775702,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 140768,
+        "exactPixelPercent": 93.6941734002476,
+        "rgbRmse": 0.597771004638038,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0.11357967844672115,
+        "otherRgbRmse": 4.412136300848202,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 104192,
+            "exactPixelPercent": 91.66505375398096,
+            "rgbRmse": 0.6872507698124066,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0.14492753623188406
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15768,
+      "timings": [
+        {
+          "prepMs": 189.02090000000317,
+          "sampleMs": 0.7736000000149943,
+          "quantizeMs": 66.45639999999548,
+          "encodeMs": 390.0262999999977,
+          "totalMs": 579.0518999999913
+        },
+        {
+          "prepMs": 185.64990000001853,
+          "sampleMs": 1.1303999999945518,
+          "quantizeMs": 70.82330000001821,
+          "encodeMs": 462.47490000000107,
+          "totalMs": 648.1287000000011
+        },
+        {
+          "prepMs": 154.16659999999683,
+          "sampleMs": 0.7684000000008382,
+          "quantizeMs": 61.06109999999171,
+          "encodeMs": 382.81180000002496,
+          "totalMs": 536.9839000000211
+        },
+        {
+          "prepMs": 161.86670000001322,
+          "sampleMs": 0.6852000000071712,
+          "quantizeMs": 64.14389999999548,
+          "encodeMs": 445.9744999999821,
+          "totalMs": 607.8462999999756
+        },
+        {
+          "prepMs": 161.01780000000144,
+          "sampleMs": 0.9043999999994412,
+          "quantizeMs": 62.56549999999697,
+          "encodeMs": 421.44860000000335,
+          "totalMs": 582.4708000000101
+        },
+        {
+          "prepMs": 166.05299999998533,
+          "sampleMs": 0.7202999999863096,
+          "quantizeMs": 68.8465000000142,
+          "encodeMs": 399.4423999999999,
+          "totalMs": 565.501099999994
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 128,
+      "mode": "exact",
+      "file": "scene-cut-128-exact.gif",
+      "sizeBytes": 293266,
+      "sha256": "3ce7ce27bc02f9421ea7a24f34b38295ebe29a2810c8968d1c79202cb8f68130",
+      "paletteRgbHex": "1420302121212f2f2f4153d9381b154040404f61d45050505976c656863559b95051291c595ac16464645f6bd6628b416899c76b95d861992a6c69bf6f7ed76f8e516ea4bb6ea2286ca83b7567a878ab2b6fa75d77b3a77878788075b18380c28098607c9f4681a8cb83c1a07bc82b8a739c838bd97fa2d883b3bb82ae3684d5408787878ab82893b1458dabd78dd32d9197729391c895a96095a7be92b73695c7b491c4529dc23f99798a9e879f9b90b798989899b7d89fb9c7af8c8aa8a983a7aaaaa1b8529fca2ca1d537ae4d23a77e79ae99a8acba62adb4b7a9c2d8b2c02aafc54eabd2c5b9876fb2b437aebfc8b2ce42b76f85bcab9db7b77fc0c56cbbbfafbcc2bfc0ce58bfd2d7be632dc68b5fc89875c5af29c4bc9ac2c03fcd5e91cd7836cda88ed1bb54cdcb7acdceaccbd0c6d4aa35d6bdacd7ca8acec69cd3d461d5d0d3dc944be0a55ed7a77ad9bf68ded371dfd2a1dfd3b3db8b3ee6a144e3c6c1e4b977dfdfdfe5d280e6d693f2ac4dedededf2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 128,
+      "paletteSha256": "b6d2f07ffd532515c820eb067a1ac4a8828a4ba57b681f1373c479c29ff5a7b7",
+      "globalEntries": 128,
+      "localTables": 0,
+      "colorTableBytes": 384,
+      "rgbRmse": 4.351783548118181,
+      "block8Rmse": 3.723562868640443,
+      "exactPixelPercent": 53.71766493055556,
+      "staticPixelDelta": 0.09570350085584353,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 150242,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 4.412136300848202,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15768,
+      "timings": [
+        {
+          "prepMs": 166.2676999999967,
+          "sampleMs": 0.6258000000088941,
+          "quantizeMs": 62.99460000000545,
+          "encodeMs": 549.8261000000057,
+          "totalMs": 716.0978999999934
+        },
+        {
+          "prepMs": 207.10039999999572,
+          "sampleMs": 0.8310999999812339,
+          "quantizeMs": 70.43369999999413,
+          "encodeMs": 638.2897999999986,
+          "totalMs": 845.3965000000026
+        },
+        {
+          "prepMs": 165.89830000000075,
+          "sampleMs": 0.8374999999941792,
+          "quantizeMs": 63.43149999997695,
+          "encodeMs": 607.5645000000077,
+          "totalMs": 773.4680999999982
+        },
+        {
+          "prepMs": 180.08319999999367,
+          "sampleMs": 0.6653999999980442,
+          "quantizeMs": 66.68859999999404,
+          "encodeMs": 558.1031000000075,
+          "totalMs": 738.190900000016
+        },
+        {
+          "prepMs": 162.03769999998622,
+          "sampleMs": 0.6949000000022352,
+          "quantizeMs": 62.79360000000452,
+          "encodeMs": 596.8183999999892,
+          "totalMs": 758.8603000000003
+        },
+        {
+          "prepMs": 168.95590000000084,
+          "sampleMs": 0.8821999999927357,
+          "quantizeMs": 61.15559999999823,
+          "encodeMs": 529.8803999999946,
+          "totalMs": 698.842799999984
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 256,
+      "mode": "sampled",
+      "file": "scene-cut-256-sampled.gif",
+      "sizeBytes": 371147,
+      "sha256": "99171d02f8d4821b5c999f5c8a2ba84997d72e0604bcbea5758132113206841f",
+      "paletteRgbHex": "1420302121212a2a2a3333333e4dd7381b154040404458d94d68cf4b4b4b5059cf5162dd5173c054803d54bc4e51291c555555595ac1588a2f6060605f67cf6070dd5d75d0607dc661874764903a6294c06390d661992a6663bd6979d76f8c556a9ac96aa2b26ea22868a6376eae4061b25562d4b97567a86f69b76c6c6c7071c77381d76f9c356f93487098da70a5bd76a9306fa75d72afa57474747b73b87e7fc87a945b779e4077a6cb7aae277abd987bc82b816a9a8476ad7b7b7b7c88dd81a04d849a647ea1d37fa2dd7fb2b785b0ce7cb6367db8a984d5408881bb838383868dd789a1c985ab3686b52a8dac4388b5c189abd988c3a58cd2278ad5378b6f918d79a28c946f8c8c8c9391c890a95695a7be92b73691bd2690c2b591c45294c9419b7886967b949883a2978ab2978873949494959f7498a96694acd398b5469ab7d397b7dd94bec794d2309accb3a6848ba38a9da097bca0a3809c9c9ca1abb19dafc79fb456a0c62ea1bf3fa2bb4e9fc6c89ed226a1d537aa4620a77e79a996a9ada98ca3a3a3a8b36fa8ac7ba8b4bba9b863a5b7c7a4bed8abc327afc54ea6d1c0b5826dae8e90b0969eb09fb1adaeababb83bb1b4b3b0be5daebfc8aecb3cadc4d7b0d4caabd746b25225b76f85b89185be9f97b7b134b9b29cb6be2bb7b77fb9c06bb8bdb0b9bcbbb9c75dbbc6beb9d047b8d0ddbcd5d4ba5d2ac1672ec18861be8d71c5987abfa8a5c2b129c3bb92bfc03ac2c473c0bea1c0c2adbecccdc0ce58c9618fc97234cb976fc7a189cbab96c5bf46cdc159c6ca66c9c77fc3c3c3c9ccafc8cebec7d651ced6c6c8d3ddd07c38cb8e5ccca927cdb237d1b94eccbba0d0b6b0cfc088cec69cd0ce76d4c88fccccccd0d65acfd565d2d4d2d65796d49253df9547da9e62d7a371d8a32ed7aa80d6ae40d6b18ed9bf68d9c1abd9cf83d3d0a7d9cbd5d8d671dfd2a1d8d5b9db8b3edfa948dbb457e3c3bbe0c177ddce8fddd162e3c8c6dfd6afdbdbdbe49c3aeaa047e6a655e5ad61e6b16fe6b77fe5ce70e5d280e7cdafe6d68ce6d697e4e4e4f2ac4dedededf2f5f9f9da70",
+      "paletteSize": 256,
+      "paletteSha256": "5434d9a7e2fb9194a61518c2c967b7e319697029fdae90429751709f4e45a579",
+      "globalEntries": 256,
+      "localTables": 0,
+      "colorTableBytes": 768,
+      "rgbRmse": 3.3392099348505524,
+      "block8Rmse": 2.7490065686121747,
+      "exactPixelPercent": 52.977267795138886,
+      "staticPixelDelta": 0.11717808382202506,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 36576,
+        "exactPixelPercent": 24.344723845529213,
+        "rgbRmse": 1.0043590072244803,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 3.3813563765641295,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 0,
+            "exactPixelPercent": 0,
+            "rgbRmse": 1.1547005383792515,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 16384,
+      "timings": [
+        {
+          "prepMs": 164.31870000000345,
+          "sampleMs": 1.1505999999935739,
+          "quantizeMs": 61.89499999998952,
+          "encodeMs": 430.0473999999813,
+          "totalMs": 594.3705999999947
+        },
+        {
+          "prepMs": 153.4543999999878,
+          "sampleMs": 1.0939000000071246,
+          "quantizeMs": 59.44409999999334,
+          "encodeMs": 461.5828000000038,
+          "totalMs": 615.0426999999909
+        },
+        {
+          "prepMs": 156.11629999999423,
+          "sampleMs": 0.6625999999814667,
+          "quantizeMs": 58.18210000000545,
+          "encodeMs": 453.44590000002063,
+          "totalMs": 609.5658000000112
+        },
+        {
+          "prepMs": 147.13959999999497,
+          "sampleMs": 0.6851000000024214,
+          "quantizeMs": 56.302800000004936,
+          "encodeMs": 419.3874000000069,
+          "totalMs": 566.5313000000024
+        },
+        {
+          "prepMs": 184.08209999999963,
+          "sampleMs": 1.0908000000054017,
+          "quantizeMs": 65.82519999999204,
+          "encodeMs": 434.7560999999987,
+          "totalMs": 618.8452000000107
+        },
+        {
+          "prepMs": 174.55400000000373,
+          "sampleMs": 0.9814000000187661,
+          "quantizeMs": 66.05199999999604,
+          "encodeMs": 455.97119999999995,
+          "totalMs": 630.5500000000175
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 256,
+      "mode": "reserved",
+      "file": "scene-cut-256-reserved.gif",
+      "sizeBytes": 371746,
+      "sha256": "3a37f98991936d756c47425d80c7e5185be25c57517710804d7c08a226814ec6",
+      "paletteRgbHex": "1420302121212a2a2a3333333e4dd7381b154040404458d94d68cf4b4b4b5059cf5162dd5173c054803d54bc4e51291c555555595ac1588a2f6060605f67cf6070dd5d75d0607dc661874764903a6294c06390d661992a6663bd6979d76f8c556a9ac96aa2b26ea22868a6376eae4061b2557567a86f69b76c6c6c7071c77381d76f9c356f93487098da70a5bd76a9306fa75d72afa57474747b73b87e7fc87a945b779e4077a6cb7aae277abd987bc82b816a9a8476ad7b7b7b7c88dd81a04d849a647ea1d37fa2dd7fb2b785b0ce7cb6367db8a984d5408881bb838383868dd789a1c985ab3686b52a8dac4388b5c189abd988c3a58cd2278ad5378b6f918d79a28c946f8c8c8c9391c890a95695a7be92b73691bd2690c2b591c45294c9419b7886967b949883a2978ab2978873949494959f7498a96694acd398b5469ab7d397b7dd94bec794d2309accb3a6848ba38a9da097bca0a3809c9c9ca1abb19dafc79fb456a0c62ea1bf3fa2bb4e9fc6c89ed226a1d537aa4620a77e79a996a9ada98ca3a3a3a8b36fa8ac7ba8b4bba9b863a5b7c7a6c0d9abc327afc54ea6d1c0b5826dae8e90b0969eb09fb1adaeababb83bb1b4b3b0be5daebfc8aecb3cafc7d5b0d4caabd746b25225b76f85b89185be9f97b7b134b9b29cb6be2bb7b77fb9c06bb8bdb0b9bcbbb9c75dbbc6beb9d047b8d0ddbcd5d4ba5d2ac1672ec18861be8d71c5987abfa8a5c2b129c3bb92bfc03ac2c473c4bda1c0c2adbecccdc0ce58c9618fc97234cb976fc7a189cbab96c5bf46cdc159c6ca66c9c77fc3c3c3c9ccafc8cebec7d651ced6c6c8d3ddd07c38cb8e5ccca927cdb237d1b94ed0b6b0cfc088cec69cd0ce76d4c88fccccccd0d65acfd565d2d4d2d65796d49253df9547da9e62d7a371d8a32ed7aa80d6ae40d6b18ed9bf68d9c1abd9cf83d3d0a7d9cbd5d8d671dfd2a1d8d5b9db8b3edfa948dbb457e3c3bbe0c177ddce8fddd162e3c8c6dfd6afdbdbdbe49c3aeaa047e6a655e5ad61e6b16fe6b77fe5ce70e5d280e7cdafe6d68ce6d697e4e4e4f2ac4dedededf2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 256,
+      "paletteSha256": "ce622fd2a458c9c48f070d29a7b48f93d248aff0ca0a8aa7802c0008eaf5eee2",
+      "globalEntries": 256,
+      "localTables": 0,
+      "colorTableBytes": 768,
+      "rgbRmse": 3.356552907725015,
+      "block8Rmse": 2.764212704363093,
+      "exactPixelPercent": 54.17616102430556,
+      "staticPixelDelta": 0.14213818243815812,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0.2476296709425544,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 102882,
+        "exactPixelPercent": 68.47752292967346,
+        "rgbRmse": 1.8621150549136107,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0.5111085530102452,
+        "otherRgbRmse": 3.3888446059539388,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 66306,
+            "exactPixelPercent": 58.334066475463196,
+            "rgbRmse": 2.1408532615989935,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0.6521739130434783
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15768,
+      "timings": [
+        {
+          "prepMs": 162.2768999999971,
+          "sampleMs": 0.7347000000008848,
+          "quantizeMs": 60.63589999999385,
+          "encodeMs": 468.0573999999906,
+          "totalMs": 630.3396999999823
+        },
+        {
+          "prepMs": 160.88750000001164,
+          "sampleMs": 0.7919000000110827,
+          "quantizeMs": 61.16750000001048,
+          "encodeMs": 477.8261999999813,
+          "totalMs": 638.7179999999935
+        },
+        {
+          "prepMs": 172.75620000000345,
+          "sampleMs": 0.8562000000092667,
+          "quantizeMs": 70.39299999998184,
+          "encodeMs": 409.4519000000146,
+          "totalMs": 582.214100000012
+        },
+        {
+          "prepMs": 188.0289000000048,
+          "sampleMs": 1.1931999999796972,
+          "quantizeMs": 68.97539999999572,
+          "encodeMs": 504.0497000000032,
+          "totalMs": 692.0844999999972
+        },
+        {
+          "prepMs": 160.8230999999796,
+          "sampleMs": 0.6884999999892898,
+          "quantizeMs": 61.500900000013644,
+          "encodeMs": 482.1457999999984,
+          "totalMs": 642.9726000000082
+        },
+        {
+          "prepMs": 158.92309999998542,
+          "sampleMs": 0.699800000002142,
+          "quantizeMs": 62.133399999991525,
+          "encodeMs": 473.85919999997714,
+          "totalMs": 632.7881999999809
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "maxColors": 256,
+      "mode": "exact",
+      "file": "scene-cut-256-exact.gif",
+      "sizeBytes": 371746,
+      "sha256": "3535dbbf488fa0e9160e8a725a7d59b9c99b9b9a5bf560f9951d2931e74ec57b",
+      "paletteRgbHex": "1420302121212a2a2a3333333e4dd7381b154040404458d94d68cf4b4b4b5059cf5162dd5173c054803d54bc4e51291c555555595ac1588a2f6060605f67cf6070dd5d75d0607dc661874764903a6294c06390d661992a6663bd6979d76f8c556a9ac96aa2b26ea22868a6376eae4061b2557567a86f69b76c6c6c7071c77381d76f9c356f93487098da70a5bd76a9306fa75d72afa57474747b73b87e7fc87a945b779e4077a6cb7aae277abd987bc82b816a9a8476ad7b7b7b7c88dd81a04d849a647ea1d37fa2dd7fb2b785b0ce7cb6367db8a984d5408881bb838383868dd789a1c985ab3686b52a8dac4388b5c189abd988c3a58cd2278ad5378b6f918d79a28c946f8c8c8c9391c890a95695a7be92b73691bd2690c2b591c45294c9419b7886967b949883a2978ab2978873949494959f7498a96694acd398b5469ab7d397b7dd94bec794d2309accb3a6848ba38a9da097bca0a3809c9c9ca1abb19dafc79fb456a0c62ea1bf3fa2bb4e9fc6c89ed226a1d537aa4620a77e79a996a9ada98ca3a3a3a8b36fa8ac7ba8b4bba9b863a5b7c7a6c0d9abc327afc54ea6d1c0b5826dae8e90b0969eb09fb1adaeababb83bb1b4b3b0be5daebfc8aecb3cafc7d5b0d4caabd746b25225b76f85b89185be9f97b7b134b9b29cb6be2bb7b77fb9c06bb8bdb0b9bcbbb9c75dbbc6beb9d047b8d0ddbcd5d4ba5d2ac1672ec18861be8d71c5987abfa8a5c2b129c3bb92bfc03ac2c473c4bda1c0c2adbecccdc0ce58c9618fc97234cb976fc7a189cbab96c5bf46cdc159c6ca66c9c77fc3c3c3c9ccafc8cebec7d651ced6c6c8d3ddd07c38cb8e5ccca927cdb237d1b94ed0b6b0cfc088cec69cd0ce76d4c88fccccccd0d65acfd565d2d4d2d65796d49253df9547da9e62d7a371d8a32ed7aa80d6ae40d6b18ed9bf68d9c1abd9cf83d3d0a7d9cbd5d8d671dfd2a1d8d5b9db8b3edfa948dbb457e3c3bbe0c177ddce8fddd162e3c8c6dfd6afdbdbdbe49c3aeaa047e6a655e5ad61e6b16fe6b77fe5ce70e5d280e7cdafe6d68ce6d697e4e4e4f2ac4dedededf2f5f962d4b9adc2d7f9da70",
+      "paletteSize": 256,
+      "paletteSha256": "ce622fd2a458c9c48f070d29a7b48f93d248aff0ca0a8aa7802c0008eaf5eee2",
+      "globalEntries": 256,
+      "localTables": 0,
+      "colorTableBytes": 768,
+      "rgbRmse": 3.342489260924302,
+      "block8Rmse": 2.753541133360908,
+      "exactPixelPercent": 55.03264250578704,
+      "staticPixelDelta": 0.11965329896454749,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "cutStaticPixelDelta": 0,
+      "accentMetrics": {
+        "pixels": 150242,
+        "exact": 150242,
+        "exactPixelPercent": 100,
+        "rgbRmse": 0,
+        "staticPairs": 138992,
+        "staticPixelDelta": 0,
+        "otherRgbRmse": 3.3888446059539388,
+        "colors": [
+          {
+            "color": [
+              242,
+              245,
+              249
+            ],
+            "pixels": 23040,
+            "exact": 23040,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 22080,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              98,
+              212,
+              185
+            ],
+            "pixels": 11232,
+            "exact": 11232,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 7984,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              173,
+              194,
+              215
+            ],
+            "pixels": 113666,
+            "exact": 113666,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 108928,
+            "staticPixelDelta": 0
+          },
+          {
+            "color": [
+              249,
+              218,
+              112
+            ],
+            "pixels": 2304,
+            "exact": 2304,
+            "exactPixelPercent": 100,
+            "rgbRmse": 0,
+            "staticPairs": 0,
+            "staticPixelDelta": null
+          }
+        ]
+      },
+      "sampleIndices": [
+        0,
+        8,
+        15,
+        23
+      ],
+      "sampleBytes": 65536,
+      "unreservedPixels": 15768,
+      "timings": [
+        {
+          "prepMs": 183.58850000001257,
+          "sampleMs": 1.0645000000076834,
+          "quantizeMs": 66.00459999998566,
+          "encodeMs": 589.8353000000061,
+          "totalMs": 773.4287000000186
+        },
+        {
+          "prepMs": 155.2719999999972,
+          "sampleMs": 0.7767999999923632,
+          "quantizeMs": 61.47509999998147,
+          "encodeMs": 617.188599999994,
+          "totalMs": 772.4648000000161
+        },
+        {
+          "prepMs": 159.50229999999283,
+          "sampleMs": 1.2161999999952968,
+          "quantizeMs": 63.90180000002147,
+          "encodeMs": 635.9377000000095,
+          "totalMs": 795.4445000000123
+        },
+        {
+          "prepMs": 164.6471999999776,
+          "sampleMs": 0.7723999999871012,
+          "quantizeMs": 67.6414999999979,
+          "encodeMs": 581.9316999999864,
+          "totalMs": 746.5828000000038
+        },
+        {
+          "prepMs": 166.65520000000834,
+          "sampleMs": 0.7251000000105705,
+          "quantizeMs": 66.50539999999455,
+          "encodeMs": 590.5407999999879,
+          "totalMs": 757.2021999999997
+        },
+        {
+          "prepMs": 162.67999999999302,
+          "sampleMs": 0.8439000000071246,
+          "quantizeMs": 63.18599999998696,
+          "encodeMs": 574.1413000000175,
+          "totalMs": 736.8264999999956
+        }
+      ]
+    }
+  ]
+}

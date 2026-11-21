@@ -4,10 +4,10 @@ import {Worker} from 'node:worker_threads';
 
 export const sampling = {maxFrames:4, gridSide:64, rowsPerTurn:16};
 
-async function quantize(rgba, maxColors, signal, observe) {
+async function quantize(rgba, maxColors, signal, observe, accents) {
     signal?.throwIfAborted();
     const worker = new Worker(new URL('./gif-palette-quantize-worker.mjs', import.meta.url), {
-        workerData:{rgba, maxColors}, transferList:[rgba.buffer]
+        workerData:{rgba, maxColors, accents}, transferList:[rgba.buffer]
     });
     let onAbort;
     try {
@@ -32,7 +32,7 @@ async function quantize(rgba, maxColors, signal, observe) {
     }
 }
 
-export async function prepareSampledPalette(clip, maxColors, {signal, observe} = {}) {
+export async function prepareSampledPalette(clip, maxColors, {signal, observe, accents} = {}) {
     const start = performance.now();
     signal?.throwIfAborted();
     const {width, height, count, readFrame} = clip;
@@ -65,7 +65,7 @@ export async function prepareSampledPalette(clip, maxColors, {signal, observe} =
         }
     }
     const sampleMs = performance.now() - start;
-    const {palette, quantizeMs} = await quantize(rgba, maxColors, signal, observe);
+    const {palette, quantizeMs, unreservedPixels} = await quantize(rgba, maxColors, signal, observe, accents);
     signal?.throwIfAborted();
-    return {palette, indices, sampleBytes, sampleMs, quantizeMs, prepMs:performance.now() - start};
+    return {palette, indices, sampleBytes, sampleMs, quantizeMs, unreservedPixels, prepMs:performance.now() - start};
 }

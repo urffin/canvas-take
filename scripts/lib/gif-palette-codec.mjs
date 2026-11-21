@@ -3,13 +3,13 @@ import gifenc from 'gifenc';
 import {parseGIF} from 'gifuct-js';
 
 // Keep both benchmark paths on the same codec, writer settings and index mapper.
-export function createBenchmarkEncoder(maxColors, palette) {
+export function createBenchmarkEncoder(maxColors, palette, mapIndices = applyPalette) {
     return ({repeat}) => {
         let encoder = gifenc.GIFEncoder(), firstFrame = true;
         return {
             addFrame({data, width, height, durationMs}) {
                 const colors = palette ?? gifenc.quantize(data, maxColors, {format:'rgb565'});
-                encoder.writeFrame(gifenc.applyPalette(data, colors, 'rgb565'), width, height, {
+                encoder.writeFrame(mapIndices(data, colors), width, height, {
                     palette:palette && !firstFrame ? undefined : colors, delay:durationMs, repeat, dispose:1
                 });
                 firstFrame = false;
@@ -22,6 +22,26 @@ export function createBenchmarkEncoder(maxColors, palette) {
             },
             dispose() { encoder = undefined; }
         };
+    };
+}
+
+function applyPalette(data, palette) {
+    return gifenc.applyPalette(data, palette, 'rgb565');
+}
+
+export function createExactAccentMapper(palette, accents) {
+    const indices = new Map(accents.map(color => {
+        const index = palette.findIndex(entry => entry.every((channel, i) => channel === color[i]));
+        assert.ok(index >= 0, 'An exact accent must have an entry in the GIF palette');
+        return [(color[0] << 16) | (color[1] << 8) | color[2], index];
+    }));
+    return (data, colors) => {
+        const mapped = applyPalette(data, colors);
+        for (let pixel = 0, offset = 0; pixel < mapped.length; pixel++, offset += 4) {
+            const exact = indices.get((data[offset] << 16) | (data[offset + 1] << 8) | data[offset + 2]);
+            if (exact !== undefined) mapped[pixel] = exact;
+        }
+        return mapped;
     };
 }
 
