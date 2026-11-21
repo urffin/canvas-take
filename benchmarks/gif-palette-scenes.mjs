@@ -81,21 +81,24 @@ function drawGradient({data, width, height}, index) {
 
 export const paletteScenes = ['flat-text', 'moving-gradient', 'scene-cut'];
 
+export function makePaletteFrame(scene, width, height, count, index) {
+    const cutFrame = scene === 'scene-cut' ? count / 2 : undefined;
+    const frame = {
+        width, height, data: new Uint8ClampedArray(width * height * 4),
+        durationMs: index === count - 1 ? 560 : 80
+    };
+    if (scene === 'flat-text' || index < cutFrame) drawChart(frame, index, scene === 'scene-cut');
+    else drawGradient(frame, index - (cutFrame ?? 0));
+    rectangle(frame, 0, 0, 320, 28, [20, 32, 48]);
+    rectangle(frame, 0, 163, 320, 17, [20, 32, 48]);
+    rectangle(frame, 12, 167, 296, 4, [173, 194, 215]);
+    label(frame, 'SORT', 12, 7, [242, 245, 249]);
+    label(frame, String(index).padStart(2, '0'), 277, 7, [98, 212, 185]);
+    return frame;
+}
+
 export function makePaletteFrames(scene, width, height, count) {
     const cutFrame = scene === 'scene-cut' ? count / 2 : undefined;
-    const frames = Array.from({length: count}, (_, index) => {
-        const frame = {
-            width, height, data: new Uint8ClampedArray(width * height * 4),
-            durationMs: index === count - 1 ? 560 : 80
-        };
-        if (scene === 'flat-text' || index < cutFrame) drawChart(frame, index, scene === 'scene-cut');
-        else drawGradient(frame, index - (cutFrame ?? 0));
-        rectangle(frame, 0, 0, 320, 28, [20, 32, 48]);
-        rectangle(frame, 0, 163, 320, 17, [20, 32, 48]);
-        rectangle(frame, 12, 167, 296, 4, [173, 194, 215]);
-        label(frame, 'SORT', 12, 7, [242, 245, 249]);
-        label(frame, String(index).padStart(2, '0'), 277, 7, [98, 212, 185]);
-        return frame;
-    });
+    const frames = Array.from({length: count}, (_, index) => makePaletteFrame(scene, width, height, count, index));
     return {frames, cutFrame};
 }

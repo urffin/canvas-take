@@ -6,12 +6,12 @@ import {cpus, platform, release} from 'node:os';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import gifenc from 'gifenc';
-import {parseGIF} from 'gifuct-js';
 import {makePaletteFrames, paletteScenes} from '../benchmarks/gif-palette-scenes.mjs';
 import {createGifExporter} from '../dist/gif.js';
 import {createGifencEncoder} from '../dist/gifenc.js';
 import {writeGifContactSheet} from './lib/gif-contact-sheet.mjs';
 import {measureGifQuality} from './lib/gif-quality-metrics.mjs';
+import {createBenchmarkEncoder, inspectTables} from './lib/gif-palette-codec.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
@@ -63,30 +63,6 @@ function makePaletteFixtures() {
     });
 }
 
-// Both timed paths use the same gifenc build and match the shipped writer settings.
-// The first frame supplies the global table when a shared palette is provided.
-function createBenchmarkEncoder(maxColors, palette) {
-    return ({repeat}) => {
-        let encoder = gifenc.GIFEncoder(), firstFrame = true;
-        return {
-            addFrame({data, width, height, durationMs}) {
-                const colors = palette ?? gifenc.quantize(data, maxColors, {format});
-                encoder.writeFrame(gifenc.applyPalette(data, colors, format), width, height, {
-                    palette:palette && !firstFrame ? undefined : colors, delay:durationMs, repeat, dispose:1
-                });
-                firstFrame = false;
-            },
-            finish() {
-                encoder.finish();
-                const bytes = encoder.bytes();
-                encoder = undefined;
-                return bytes;
-            },
-            dispose() { encoder = undefined; }
-        };
-    };
-}
-
 async function encode(sources, durations, factory) {
     const start = performance.now();
     const gif = createGifExporter({encoder:factory(), repeat:0});
@@ -96,20 +72,6 @@ async function encode(sources, durations, factory) {
         const exportMs = performance.now() - start;
         return {bytes:new Uint8Array(await blob.arrayBuffer()), exportMs};
     } finally { gif.dispose(); }
-}
-
-function inspectTables(bytes, frames, maxColors, shared) {
-    const gif = parseGIF(bytes.buffer);
-    const images = gif.frames.filter(frame => frame.image).map(frame => frame.image);
-    assert.equal(images.length, frames);
-    assert.ok(gif.lsd.gct.exists);
-    assert.equal(gif.frames.find(frame => frame.application).application.blocks[1], 0);
-    const localTables = images.filter(image => image.descriptor.lct.exists).map(image => image.lct);
-    assert.equal(localTables.length, shared ? 0 : frames - 1);
-    assert.ok([gif.gct, ...localTables].every(table => table.length <= maxColors));
-    if (shared) assert.deepEqual(gif.gct.map(color => Array.from(color)), shared);
-    return {globalEntries:gif.gct.length, localTables:localTables.length,
-        colorTableBytes:3 * (gif.gct.length + localTables.reduce((sum, table) => sum + table.length, 0))};
 }
 
 const palettes = makePaletteFixtures();
