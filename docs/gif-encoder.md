@@ -11,7 +11,9 @@ The export controller accepts a `GifEncoderFactory`. Codec-specific tuning belon
 
 Sizes were measured from the installed/published versions on 2026-10-15; they are not comparative speed benchmarks. gifenc's npm unpacked size is 172,516 bytes including sources/maps. gif.js's npm unpacked size is 3,096,699 bytes including its demo media; this is not its browser download cost. The chosen adapter copies gifenc's complete MIT license into `dist/gifenc-LICENSE.txt`.
 
-gifenc was selected for the supplied adapter, not embedded into the controller. It has no dithering and is less suited to photographs. Per-frame palettes may change quantized colors between frames. The current adapter encodes full opaque frames, not changed rectangles; size savings depend on the source. Alpha is composited onto the controller's configurable background before reaching any adapter.
+The supplied adapter uses gifenc for palette generation and encoding. Per-frame palettes may
+change quantized colors between frames. The adapter encodes full opaque frames, and file size
+depends on the source. The controller's background applies before palette mapping.
 
 ## Loading and execution
 
@@ -52,6 +54,21 @@ clears the pending task and owned snapshot. These are tuning details, not API gu
 [measured comparison](gif-preparation-benchmark.md). The [design draft](drafts/gif-frame-preparation.md)
 describes the negotiated raw-RGBA path now implemented locally. Public adapter `addFrame()` calls
 still receive opaque pixels; the raw handoff is private to the supplied controller/Worker adapter.
+
+### Optional Bayer dithering (unreleased)
+
+`createGifencEncoder({ dither: 'bayer-4x4' })` and
+`createGifWorkerEncoder({ dither: 'bayer-4x4' })` use the same anchored 4×4 pattern
+with the palette selected by `quality` and `maxColors`. Pixels that already match
+a palette color retain that color. Omitting `dither` or setting `'none'` keeps the
+existing gifenc mapping and the exact default Worker init message.
+
+Deploy `gif-worker-runtime.js` and `gifenc.js` from the same build to use Bayer. If a
+Worker cannot confirm Bayer during initialization, the first export operation rejects
+before transferring a frame and the adapter terminates the Worker. Raw alpha preparation
+is negotiated independently. A Worker that supports Bayer can accept prepared opaque frames.
+Synchronous mapping runs for a whole frame. The Worker can be terminated on cancellation
+or timeout during mapping.
 
 ## Verification
 

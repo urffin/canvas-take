@@ -89,8 +89,8 @@ const createApng:()=>ApngExporter = () => createApngExporter(apngOptions); void 
 if (!import.meta.resolve('@grundyjs/canvas-take/apng/worker-runtime').endsWith('/apng-worker-runtime.js')) throw new Error('Missing public APNG Worker asset');
 import { createCanvasRecorder, type RecorderOptions, type RecordingResult } from '@grundyjs/canvas-take';
 import { createGifExporter, type GifEncoderFactory } from '@grundyjs/canvas-take/gif';
-import { createGifencEncoder } from '@grundyjs/canvas-take/gif/gifenc';
-import { createGifWorkerEncoder } from '@grundyjs/canvas-take/gif/worker';
+import { createGifencEncoder, type GifencOptions } from '@grundyjs/canvas-take/gif/gifenc';
+import { createGifWorkerEncoder, type GifWorkerOptions } from '@grundyjs/canvas-take/gif/worker';
 import { createOfflineVideoExporter, type OfflineVideoOptions } from '@grundyjs/canvas-take/video';
 import { createWebCodecsVideoEncoder } from '@grundyjs/canvas-take/video/webcodecs';
 import { createMp4Muxer } from '@grundyjs/canvas-take/video/mp4';
@@ -108,9 +108,13 @@ if ((await opus.checkSupport({codec:'opus',bitstreamFormat:'opus',sampleRate:480
 const avcConfig = { codec: 'avc1.42E01F', bitstreamFormat: 'avc', width: 2, height: 2, bitrate: 1000 };
 if ((await nativeVideo.checkSupport(avcConfig)).supported) throw new Error('Unexpected native VideoEncoder in Node consumer');
 if (!(await mp4.checkSupport({ video: avcConfig })).supported || mp4.format.mimeType !== 'video/mp4') throw new Error('Invalid packed MP4 provider');
-const workerFactory: GifEncoderFactory = createGifWorkerEncoder({ maxColors: 128, timeoutMs: 30000 });
+const gifWorkerOptions: GifWorkerOptions = { maxColors: 128, timeoutMs: 30000, dither: 'bayer-4x4' };
+const workerFactory: GifEncoderFactory = createGifWorkerEncoder(gifWorkerOptions);
 void workerFactory;
-const encoder: GifEncoderFactory = createGifencEncoder({ maxColors: 128, quality: 'fast' });
+const gifencOptions: GifencOptions = { maxColors: 128, quality: 'fast', dither: 'bayer-4x4' };
+// @ts-expect-error only built-in dither modes are supported
+const invalidGifencOptions: GifencOptions = { dither: 'floyd-steinberg' }; void invalidGifencOptions;
+const encoder: GifEncoderFactory = createGifencEncoder(gifencOptions);
 const gif = createGifExporter({ encoder, repeat: -1, totalFrames: 1, maxFramePixels: 1, maxFrames: 1, maxDurationMs: 50, onProgress(p) { const count: number = p.framesEncoded; void count; } });
 await gif.addFrame({ width: 1, height: 1, getContext: () => ({ getImageData: () => ({ data: new Uint8ClampedArray([255, 0, 0, 255]) }) }) } as unknown as HTMLCanvasElement, 50);
 const blob = await gif.finish();

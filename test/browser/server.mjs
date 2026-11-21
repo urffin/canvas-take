@@ -11,6 +11,7 @@ const probe = await build({ entryPoints: ['src/apng-worker-runtime.ts'], bundle:
 // Only test page and shipped modules are served; no directory traversal or project files.
 const routes = new Map([
     ['/', new URL('./fixture.html', import.meta.url)],
+    ['/worker-fixture.html', new URL('./worker-fixture.html', import.meta.url)],
     ['/apng-helper.js', new URL('./helpers/apng.mjs', import.meta.url)],
     ['/examples/apng.html', new URL('../../examples/apng.html', import.meta.url)],
     ['/custom-apng-worker.js', new URL('apng-worker-runtime.js', dist)],
@@ -38,7 +39,7 @@ createServer(async (req, res) => {
     try {
         const body = await readFile(file);
         res.writeHead(200, {
-            'Content-Type': path === '/' || path.startsWith('/examples/') ? 'text/html; charset=utf-8' : 'text/javascript',
+            'Content-Type': path === '/' || path.endsWith('.html') ? 'text/html; charset=utf-8' : 'text/javascript',
             'Content-Security-Policy': "worker-src 'self'",
             'Cross-Origin-Opener-Policy': 'same-origin',
             'Cross-Origin-Embedder-Policy': 'require-corp',

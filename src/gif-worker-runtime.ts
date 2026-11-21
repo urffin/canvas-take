@@ -3,6 +3,7 @@ import type { GifFrame, GifFrameEncoder } from './gif.js';
 import type { GifencOptions } from './gifenc.js';
 import { blendRange } from './internal/rgba.js';
 import { validateRawFrame } from './gif-internal.js';
+import { activeGifDither } from './internal/gif-dither.js';
 
 const scope = globalThis as unknown as {
     onmessage: (event: MessageEvent) => void;
@@ -16,7 +17,15 @@ scope.onmessage = event => {
             if (encoder) throw new Error('GIF Worker already initialized');
             const options = value as GifencOptions & { repeat: number };
             encoder = createGifencEncoder(options)({ repeat: options.repeat });
-            scope.postMessage({ id, rawPreparationVersion: 1 });
+            if (options.dither === 'bayer-4x4') {
+                // The runtime and codec can come from independent deployments.
+                if (Object.getOwnPropertyDescriptor(encoder, activeGifDither)?.value !== options.dither) {
+                    throw new Error('GIF Worker codec does not support bayer-4x4 dithering');
+                }
+                scope.postMessage({ id, rawPreparationVersion: 1, activeDither: options.dither });
+            } else {
+                scope.postMessage({ id, rawPreparationVersion: 1 });
+            }
             return;
         } else if (!encoder) throw new Error('GIF Worker is not initialized');
         else if (action === 'frame') encoder.addFrame(value as GifFrame);

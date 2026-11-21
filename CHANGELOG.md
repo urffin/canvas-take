@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Add opt-in `dither: 'bayer-4x4'` to both supplied GIF adapters. Default GIF bytes and the legacy Worker protocol remain compatible. Explicit Bayer requires Worker support before frame transfer.
+
 ## 0.9.0 — 2026-11-21
 
 - Add `createExternalVideoExporter` and external output modes for MP4 H.264/AAC and WebM VP8/Opus. Applications can supply a transactional destination while continuing to use the existing encoder factories.

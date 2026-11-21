@@ -12,7 +12,7 @@ export default function Page() {
         controller.current = new AbortController();
         let gif;
         try {
-            gif = createGifExporter({ encoder: createGifWorkerEncoder(), signal: controller.current.signal,
+            gif = createGifExporter({ encoder: createGifWorkerEncoder({ dither: 'bayer-4x4' }), signal: controller.current.signal,
                 totalFrames: 121, onProgress: p => setStatus(`${p.phase}: ${p.framesEncoded}/${p.totalFrames}, ${p.durationMs} ms`) });
             const ctx = canvas.current.getContext('2d');
             for (let i = 0; i < 121; i++) {

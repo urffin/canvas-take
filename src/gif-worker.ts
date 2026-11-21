@@ -1,6 +1,7 @@
 import type { GifEncoderFactory, GifFrame } from './gif.js';
 import type { GifencOptions } from './gifenc.js';
 import { rawPreparation, validateRawFrame } from './gif-internal.js';
+import { resolveGifDither } from './internal/gif-dither.js';
 
 export interface GifWorkerOptions extends GifencOptions {
     /** Override the module Worker asset URL when copying assets or using a bundler. */
@@ -17,6 +18,7 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
     if (!Number.isInteger(maxColors) || maxColors < 2 || maxColors > 256) throw new RangeError('maxColors must be 2..256');
     if (quality !== 'high' && quality !== 'fast') throw new TypeError('quality must be high or fast');
     if (!Number.isFinite(timeoutMs) || timeoutMs <= 0 || timeoutMs > 2147483647) throw new RangeError('timeoutMs must be in (0, 2147483647]');
+    const dither = resolveGifDither(options.dither);
     return ({ repeat }) => {
         if (typeof Worker === 'undefined') throw new Error('GIF Worker encoding is not supported in this environment');
         let worker: Worker | undefined = workerUrl === undefined
@@ -43,6 +45,9 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
             const request = pending.get(message?.id);
             if (!request) return;
             if (typeof message.error === 'string') { close(new Error(message.error)); return; }
+            if (request.action === 'init' && dither === 'bayer-4x4' && message.activeDither !== dither) {
+                close(new DOMException('GIF Worker did not confirm bayer-4x4 dithering', 'NotSupportedError')); return;
+            }
             if (request.action === 'raw-frame-v1' && message.rawFrameEncoded !== 1) {
                 close(new Error('GIF Worker returned invalid raw frame acknowledgement')); return;
             }
@@ -63,7 +68,8 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
                 catch (error) { close(error instanceof Error ? error : new Error(String(error))); }
             });
         }
-        const initialized = send('init', { repeat, maxColors, quality }).then(reply => reply.rawPreparationVersion === 1);
+        const init = dither === 'none' ? { repeat, maxColors, quality } : { repeat, maxColors, quality, dither };
+        const initialized = send('init', init).then(reply => reply.rawPreparationVersion === 1);
         void initialized.catch(() => {});
         const encoder = {
             async addFrame(frame: GifFrame) {

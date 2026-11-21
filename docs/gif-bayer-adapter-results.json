@@ -1,0 +1,1124 @@
+{
+  "metadata": {
+    "startedAt": "2026-11-21T18:34:51.622Z",
+    "node": "v22.17.0",
+    "os": "win32 10.0.19045",
+    "cpu": "AMD FX(tm)-8350 Eight-Core Processor           ",
+    "logicalCpus": 8,
+    "baseline": "0941341172fd04d49105c34804ab039ea8c87100",
+    "packageVersion": "0.9.0",
+    "gifenc": "1.0.3",
+    "gifuct": "2.1.2",
+    "settings": {
+      "width": 640,
+      "height": 360,
+      "frames": 24,
+      "maxColors": [
+        16,
+        64,
+        256
+      ],
+      "repeats": 8
+    },
+    "order": [
+      [
+        "sync-none",
+        "worker-bayer",
+        "sync-bayer",
+        "worker-none"
+      ],
+      [
+        "worker-bayer",
+        "sync-bayer",
+        "worker-none",
+        "sync-none"
+      ],
+      [
+        "sync-bayer",
+        "worker-none",
+        "sync-none",
+        "worker-bayer"
+      ],
+      [
+        "worker-none",
+        "sync-none",
+        "worker-bayer",
+        "sync-bayer"
+      ],
+      [
+        "worker-none",
+        "sync-bayer",
+        "worker-bayer",
+        "sync-none"
+      ],
+      [
+        "sync-none",
+        "worker-none",
+        "sync-bayer",
+        "worker-bayer"
+      ],
+      [
+        "worker-bayer",
+        "sync-none",
+        "worker-none",
+        "sync-bayer"
+      ],
+      [
+        "sync-bayer",
+        "worker-bayer",
+        "sync-none",
+        "worker-none"
+      ]
+    ],
+    "transport": "Node worker_threads",
+    "timingBoundary": "exporter creation to finalized Blob"
+  },
+  "cases": [
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 16,
+      "method": "sync-none",
+      "file": "flat-16-sync-none.gif",
+      "bytes": 172131,
+      "sha256": "0fd2461ddc78e77bb9d6fa89defa9f7df5ca5c306c8a0a3d4d5359267f8e0dba",
+      "paletteSha256": "a900b3c6d40e6dd91631140f6847591ef402e98331ff0cf4efea5fb9f42bdf86",
+      "medianMs": 427.7061999999987,
+      "timings": [
+        {
+          "exportMs": 453.84299999999985
+        },
+        {
+          "exportMs": 415.2520000000004
+        },
+        {
+          "exportMs": 429.8042999999998
+        },
+        {
+          "exportMs": 453.52959999999985
+        },
+        {
+          "exportMs": 425.60809999999765
+        },
+        {
+          "exportMs": 407.8358999999982
+        },
+        {
+          "exportMs": 423.0188999999991
+        },
+        {
+          "exportMs": 441.1110000000008
+        }
+      ],
+      "rgbRmse": 9.730171923441139,
+      "block8Rmse": 9.479490547208416,
+      "exactPixelPercent": 53.880208333333336,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 16,
+      "method": "worker-bayer",
+      "file": "flat-16-worker-bayer.gif",
+      "bytes": 268623,
+      "sha256": "ca05f01265a2c2bb82f708a1be5200b803b6197390162bbf78d99540e0df86c8",
+      "paletteSha256": "a900b3c6d40e6dd91631140f6847591ef402e98331ff0cf4efea5fb9f42bdf86",
+      "medianMs": 886.5716500000008,
+      "timings": [
+        {
+          "exportMs": 1018.1145999999999
+        },
+        {
+          "exportMs": 938.7021000000004
+        },
+        {
+          "exportMs": 878.5982999999997
+        },
+        {
+          "exportMs": 846.0697
+        },
+        {
+          "exportMs": 1137.7294999999976
+        },
+        {
+          "exportMs": 871.5529000000024
+        },
+        {
+          "exportMs": 865.1242999999995
+        },
+        {
+          "exportMs": 894.5450000000019
+        }
+      ],
+      "rgbRmse": 13.934955858978048,
+      "block8Rmse": 6.130033318444775,
+      "exactPixelPercent": 53.880208333333336,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 16,
+      "method": "sync-bayer",
+      "file": "flat-16-sync-bayer.gif",
+      "bytes": 268623,
+      "sha256": "ca05f01265a2c2bb82f708a1be5200b803b6197390162bbf78d99540e0df86c8",
+      "paletteSha256": "a900b3c6d40e6dd91631140f6847591ef402e98331ff0cf4efea5fb9f42bdf86",
+      "medianMs": 723.8962499999998,
+      "timings": [
+        {
+          "exportMs": 731.4997000000003
+        },
+        {
+          "exportMs": 754.5131999999994
+        },
+        {
+          "exportMs": 686.6335999999992
+        },
+        {
+          "exportMs": 713.7163
+        },
+        {
+          "exportMs": 734.251400000001
+        },
+        {
+          "exportMs": 690.0711999999985
+        },
+        {
+          "exportMs": 732.1096999999972
+        },
+        {
+          "exportMs": 716.2927999999993
+        }
+      ],
+      "rgbRmse": 13.934955858978048,
+      "block8Rmse": 6.130033318444775,
+      "exactPixelPercent": 53.880208333333336,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 16,
+      "method": "worker-none",
+      "file": "flat-16-worker-none.gif",
+      "bytes": 172131,
+      "sha256": "0fd2461ddc78e77bb9d6fa89defa9f7df5ca5c306c8a0a3d4d5359267f8e0dba",
+      "paletteSha256": "a900b3c6d40e6dd91631140f6847591ef402e98331ff0cf4efea5fb9f42bdf86",
+      "medianMs": 575.2160499999991,
+      "timings": [
+        {
+          "exportMs": 667.1804000000002
+        },
+        {
+          "exportMs": 571.2125999999989
+        },
+        {
+          "exportMs": 585.5414000000001
+        },
+        {
+          "exportMs": 561.6828999999998
+        },
+        {
+          "exportMs": 558.9118999999992
+        },
+        {
+          "exportMs": 580.3703999999998
+        },
+        {
+          "exportMs": 529.1010000000024
+        },
+        {
+          "exportMs": 579.2194999999992
+        }
+      ],
+      "rgbRmse": 9.730171923441139,
+      "block8Rmse": 9.479490547208416,
+      "exactPixelPercent": 53.880208333333336,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 64,
+      "method": "sync-none",
+      "file": "flat-64-sync-none.gif",
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "paletteSha256": "2a80ab3ecdfd806a45bb8552b469c6d557957a691c11bfc567eba9acaef275c2",
+      "medianMs": 424.44325000000026,
+      "timings": [
+        {
+          "exportMs": 415.18700000000536
+        },
+        {
+          "exportMs": 452.1319000000003
+        },
+        {
+          "exportMs": 419.6097000000009
+        },
+        {
+          "exportMs": 446.530399999996
+        },
+        {
+          "exportMs": 415.2430000000022
+        },
+        {
+          "exportMs": 434.3394000000044
+        },
+        {
+          "exportMs": 429.27679999999964
+        },
+        {
+          "exportMs": 402.9707000000053
+        }
+      ],
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 64,
+      "method": "worker-bayer",
+      "file": "flat-64-worker-bayer.gif",
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "paletteSha256": "2a80ab3ecdfd806a45bb8552b469c6d557957a691c11bfc567eba9acaef275c2",
+      "medianMs": 659.789499999999,
+      "timings": [
+        {
+          "exportMs": 789.9407999999967
+        },
+        {
+          "exportMs": 657.9438999999984
+        },
+        {
+          "exportMs": 661.6350999999995
+        },
+        {
+          "exportMs": 647.7946999999986
+        },
+        {
+          "exportMs": 656.6872999999978
+        },
+        {
+          "exportMs": 679.5935000000027
+        },
+        {
+          "exportMs": 653.5626000000047
+        },
+        {
+          "exportMs": 747.9327000000048
+        }
+      ],
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 64,
+      "method": "sync-bayer",
+      "file": "flat-64-sync-bayer.gif",
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "paletteSha256": "2a80ab3ecdfd806a45bb8552b469c6d557957a691c11bfc567eba9acaef275c2",
+      "medianMs": 531.689150000002,
+      "timings": [
+        {
+          "exportMs": 548.0668000000005
+        },
+        {
+          "exportMs": 512.7500999999975
+        },
+        {
+          "exportMs": 608.5161000000007
+        },
+        {
+          "exportMs": 573.8738000000012
+        },
+        {
+          "exportMs": 453.07369999999355
+        },
+        {
+          "exportMs": 549.1188000000038
+        },
+        {
+          "exportMs": 434.380799999999
+        },
+        {
+          "exportMs": 515.3115000000034
+        }
+      ],
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 64,
+      "method": "worker-none",
+      "file": "flat-64-worker-none.gif",
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "paletteSha256": "2a80ab3ecdfd806a45bb8552b469c6d557957a691c11bfc567eba9acaef275c2",
+      "medianMs": 570.7367500000037,
+      "timings": [
+        {
+          "exportMs": 569.2738000000027
+        },
+        {
+          "exportMs": 573.3465999999971
+        },
+        {
+          "exportMs": 561.1299999999974
+        },
+        {
+          "exportMs": 542.2825999999986
+        },
+        {
+          "exportMs": 594.7082000000009
+        },
+        {
+          "exportMs": 572.1997000000047
+        },
+        {
+          "exportMs": 576.2444000000032
+        },
+        {
+          "exportMs": 562.2362999999968
+        }
+      ],
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 256,
+      "method": "sync-none",
+      "file": "flat-256-sync-none.gif",
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "paletteSha256": "2a80ab3ecdfd806a45bb8552b469c6d557957a691c11bfc567eba9acaef275c2",
+      "medianMs": 429.2123500000016,
+      "timings": [
+        {
+          "exportMs": 414.1478000000061
+        },
+        {
+          "exportMs": 477.7239999999874
+        },
+        {
+          "exportMs": 437.0155999999988
+        },
+        {
+          "exportMs": 438.5260999999882
+        },
+        {
+          "exportMs": 418.70960000000196
+        },
+        {
+          "exportMs": 380.76239999999234
+        },
+        {
+          "exportMs": 430.274900000004
+        },
+        {
+          "exportMs": 428.14979999999923
+        }
+      ],
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 256,
+      "method": "worker-bayer",
+      "file": "flat-256-worker-bayer.gif",
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "paletteSha256": "2a80ab3ecdfd806a45bb8552b469c6d557957a691c11bfc567eba9acaef275c2",
+      "medianMs": 689.02610000001,
+      "timings": [
+        {
+          "exportMs": 695.6080000000075
+        },
+        {
+          "exportMs": 947.7560000000085
+        },
+        {
+          "exportMs": 704.607400000008
+        },
+        {
+          "exportMs": 758.0654000000068
+        },
+        {
+          "exportMs": 599.0089000000007
+        },
+        {
+          "exportMs": 609.6724000000104
+        },
+        {
+          "exportMs": 682.4442000000126
+        },
+        {
+          "exportMs": 671.8016999999963
+        }
+      ],
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 256,
+      "method": "sync-bayer",
+      "file": "flat-256-sync-bayer.gif",
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "paletteSha256": "2a80ab3ecdfd806a45bb8552b469c6d557957a691c11bfc567eba9acaef275c2",
+      "medianMs": 569.9767999999967,
+      "timings": [
+        {
+          "exportMs": 585.8990000000049
+        },
+        {
+          "exportMs": 594.4847000000009
+        },
+        {
+          "exportMs": 596.5350000000035
+        },
+        {
+          "exportMs": 496.69910000001255
+        },
+        {
+          "exportMs": 571.6682999999903
+        },
+        {
+          "exportMs": 512.7690999999904
+        },
+        {
+          "exportMs": 478.26119999999355
+        },
+        {
+          "exportMs": 568.2853000000032
+        }
+      ],
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "sourceColors": 27,
+      "maxColors": 256,
+      "method": "worker-none",
+      "file": "flat-256-worker-none.gif",
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "paletteSha256": "2a80ab3ecdfd806a45bb8552b469c6d557957a691c11bfc567eba9acaef275c2",
+      "medianMs": 569.7019,
+      "timings": [
+        {
+          "exportMs": 747.1483000000007
+        },
+        {
+          "exportMs": 569.6564000000071
+        },
+        {
+          "exportMs": 566.1431000000011
+        },
+        {
+          "exportMs": 569.7473999999929
+        },
+        {
+          "exportMs": 573.5492000000086
+        },
+        {
+          "exportMs": 560.6500999999989
+        },
+        {
+          "exportMs": 619.9495999999926
+        },
+        {
+          "exportMs": 567.3378000000084
+        }
+      ],
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 16,
+      "method": "sync-none",
+      "file": "gradient-16-sync-none.gif",
+      "bytes": 172820,
+      "sha256": "3c7986d8ed494e8f8e552ddbdd99befe907700368f580ce7e01cafdd782f3a16",
+      "paletteSha256": "16342b2e46d6cc8c9b6fa7e512a9aed8147d8501bbf1d4568126a50c1adc509b",
+      "medianMs": 725.2414999999892,
+      "timings": [
+        {
+          "exportMs": 703.292100000006
+        },
+        {
+          "exportMs": 719.7478999999876
+        },
+        {
+          "exportMs": 702.1580000000104
+        },
+        {
+          "exportMs": 766.1095000000059
+        },
+        {
+          "exportMs": 730.7350999999908
+        },
+        {
+          "exportMs": 740.8876000000018
+        },
+        {
+          "exportMs": 705.8105000000069
+        },
+        {
+          "exportMs": 735.0068000000028
+        }
+      ],
+      "rgbRmse": 10.427148918583281,
+      "block8Rmse": 9.827261736106493,
+      "exactPixelPercent": 0.8337311921296297,
+      "staticPixelDelta": 3.2460406267990107
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 16,
+      "method": "worker-bayer",
+      "file": "gradient-16-worker-bayer.gif",
+      "bytes": 559079,
+      "sha256": "be36a371dd5da0f28a64c7a848366c0006d400184f546fb79fd7d0cfb3f29eda",
+      "paletteSha256": "16342b2e46d6cc8c9b6fa7e512a9aed8147d8501bbf1d4568126a50c1adc509b",
+      "medianMs": 977.1091500000039,
+      "timings": [
+        {
+          "exportMs": 940.902900000001
+        },
+        {
+          "exportMs": 971.6621000000014
+        },
+        {
+          "exportMs": 982.5562000000064
+        },
+        {
+          "exportMs": 970.6490999999951
+        },
+        {
+          "exportMs": 955.4925999999978
+        },
+        {
+          "exportMs": 994.5394000000088
+        },
+        {
+          "exportMs": 1113.6218999999983
+        },
+        {
+          "exportMs": 1013.9134999999951
+        }
+      ],
+      "rgbRmse": 12.183008072869658,
+      "block8Rmse": 6.425917064446064,
+      "exactPixelPercent": 0.8337311921296297,
+      "staticPixelDelta": 4.1102742403826085
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 16,
+      "method": "sync-bayer",
+      "file": "gradient-16-sync-bayer.gif",
+      "bytes": 559079,
+      "sha256": "be36a371dd5da0f28a64c7a848366c0006d400184f546fb79fd7d0cfb3f29eda",
+      "paletteSha256": "16342b2e46d6cc8c9b6fa7e512a9aed8147d8501bbf1d4568126a50c1adc509b",
+      "medianMs": 777.5624500000049,
+      "timings": [
+        {
+          "exportMs": 776.7887000000046
+        },
+        {
+          "exportMs": 755.9544000000024
+        },
+        {
+          "exportMs": 757.659599999999
+        },
+        {
+          "exportMs": 819.2645000000048
+        },
+        {
+          "exportMs": 775.8484000000026
+        },
+        {
+          "exportMs": 778.3362000000052
+        },
+        {
+          "exportMs": 789.9098999999987
+        },
+        {
+          "exportMs": 832.4227000000101
+        }
+      ],
+      "rgbRmse": 12.183008072869658,
+      "block8Rmse": 6.425917064446064,
+      "exactPixelPercent": 0.8337311921296297,
+      "staticPixelDelta": 4.1102742403826085
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 16,
+      "method": "worker-none",
+      "file": "gradient-16-worker-none.gif",
+      "bytes": 172820,
+      "sha256": "3c7986d8ed494e8f8e552ddbdd99befe907700368f580ce7e01cafdd782f3a16",
+      "paletteSha256": "16342b2e46d6cc8c9b6fa7e512a9aed8147d8501bbf1d4568126a50c1adc509b",
+      "medianMs": 896.8941999999952,
+      "timings": [
+        {
+          "exportMs": 804.3957999999984
+        },
+        {
+          "exportMs": 918.1040000000066
+        },
+        {
+          "exportMs": 793.4979999999923
+        },
+        {
+          "exportMs": 795.4862999999896
+        },
+        {
+          "exportMs": 1102.4887000000017
+        },
+        {
+          "exportMs": 891.1610999999975
+        },
+        {
+          "exportMs": 902.6272999999928
+        },
+        {
+          "exportMs": 933.5216000000073
+        }
+      ],
+      "rgbRmse": 10.427148918583281,
+      "block8Rmse": 9.827261736106493,
+      "exactPixelPercent": 0.8337311921296297,
+      "staticPixelDelta": 3.2460406267990107
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 64,
+      "method": "sync-none",
+      "file": "gradient-64-sync-none.gif",
+      "bytes": 367964,
+      "sha256": "bc7df0b627c9a598cd5e556d002bab788f2f070b1f3666b2485d81c7db82357b",
+      "paletteSha256": "47fdd451d85912a1c50cc3d0831ed5494d1655d74709a5d5e10899e9787fd356",
+      "medianMs": 750.6492500000022,
+      "timings": [
+        {
+          "exportMs": 694.3387000000075
+        },
+        {
+          "exportMs": 739.2295999999915
+        },
+        {
+          "exportMs": 739.5279999999912
+        },
+        {
+          "exportMs": 751.4320000000007
+        },
+        {
+          "exportMs": 1196.4929999999877
+        },
+        {
+          "exportMs": 749.8665000000037
+        },
+        {
+          "exportMs": 3717.356999999989
+        },
+        {
+          "exportMs": 785.6398999999801
+        }
+      ],
+      "rgbRmse": 5.203613497996896,
+      "block8Rmse": 4.592389973121068,
+      "exactPixelPercent": 2.6765227141203702,
+      "staticPixelDelta": 0.49253243754467874
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 64,
+      "method": "worker-bayer",
+      "file": "gradient-64-worker-bayer.gif",
+      "bytes": 967031,
+      "sha256": "cf98458e5f1bae7b621dd45fef3c6ac1d542d0a1c9646c6cfcce80ddf44f5d46",
+      "paletteSha256": "47fdd451d85912a1c50cc3d0831ed5494d1655d74709a5d5e10899e9787fd356",
+      "medianMs": 1141.768200000006,
+      "timings": [
+        {
+          "exportMs": 981.1699999999837
+        },
+        {
+          "exportMs": 1349.5909000000102
+        },
+        {
+          "exportMs": 1079.7552999999898
+        },
+        {
+          "exportMs": 1116.964800000016
+        },
+        {
+          "exportMs": 1166.5715999999957
+        },
+        {
+          "exportMs": 1167.0614999999816
+        },
+        {
+          "exportMs": 1251.523199999996
+        },
+        {
+          "exportMs": 1060.4099000000278
+        }
+      ],
+      "rgbRmse": 5.335710140010045,
+      "block8Rmse": 2.7754566903412115,
+      "exactPixelPercent": 3.3421043113425926,
+      "staticPixelDelta": 0.6121292061262834
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 64,
+      "method": "sync-bayer",
+      "file": "gradient-64-sync-bayer.gif",
+      "bytes": 967031,
+      "sha256": "cf98458e5f1bae7b621dd45fef3c6ac1d542d0a1c9646c6cfcce80ddf44f5d46",
+      "paletteSha256": "47fdd451d85912a1c50cc3d0831ed5494d1655d74709a5d5e10899e9787fd356",
+      "medianMs": 887.8619000000035,
+      "timings": [
+        {
+          "exportMs": 853.481300000014
+        },
+        {
+          "exportMs": 1126.8462
+        },
+        {
+          "exportMs": 855.3646000000008
+        },
+        {
+          "exportMs": 786.5914000000048
+        },
+        {
+          "exportMs": 920.3592000000062
+        },
+        {
+          "exportMs": 973.6618000000017
+        },
+        {
+          "exportMs": 1053.6571000000113
+        },
+        {
+          "exportMs": 821.6679000000004
+        }
+      ],
+      "rgbRmse": 5.335710140010045,
+      "block8Rmse": 2.7754566903412115,
+      "exactPixelPercent": 3.3421043113425926,
+      "staticPixelDelta": 0.6121292061262834
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 64,
+      "method": "worker-none",
+      "file": "gradient-64-worker-none.gif",
+      "bytes": 367964,
+      "sha256": "bc7df0b627c9a598cd5e556d002bab788f2f070b1f3666b2485d81c7db82357b",
+      "paletteSha256": "47fdd451d85912a1c50cc3d0831ed5494d1655d74709a5d5e10899e9787fd356",
+      "medianMs": 988.1078500000003,
+      "timings": [
+        {
+          "exportMs": 1063.356999999989
+        },
+        {
+          "exportMs": 1187.6289000000106
+        },
+        {
+          "exportMs": 882.7760999999882
+        },
+        {
+          "exportMs": 829.7731000000203
+        },
+        {
+          "exportMs": 920.4375
+        },
+        {
+          "exportMs": 1029.7180000000226
+        },
+        {
+          "exportMs": 1337.7274000000034
+        },
+        {
+          "exportMs": 946.4976999999781
+        }
+      ],
+      "rgbRmse": 5.203613497996896,
+      "block8Rmse": 4.592389973121068,
+      "exactPixelPercent": 2.6765227141203702,
+      "staticPixelDelta": 0.49253243754467874
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 256,
+      "method": "sync-none",
+      "file": "gradient-256-sync-none.gif",
+      "bytes": 678362,
+      "sha256": "9ec3db1239b66601e963956318131c32badad41f08d28ad7016718fb4a83225e",
+      "paletteSha256": "3cf638408bb228ccecfdd758ac4683ece73e6087fab05558bb2e734c0052631f",
+      "medianMs": 742.022100000002,
+      "timings": [
+        {
+          "exportMs": 711.6322999999975
+        },
+        {
+          "exportMs": 717.2196000000113
+        },
+        {
+          "exportMs": 755.3781000000017
+        },
+        {
+          "exportMs": 740.2017000000051
+        },
+        {
+          "exportMs": 745.0063999999838
+        },
+        {
+          "exportMs": 728.4876999999979
+        },
+        {
+          "exportMs": 754.0897000000114
+        },
+        {
+          "exportMs": 743.8424999999988
+        }
+      ],
+      "rgbRmse": 3.0047598997861136,
+      "block8Rmse": 2.4318283168551478,
+      "exactPixelPercent": 6.035499855324074,
+      "staticPixelDelta": 0.06995489425771637
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 256,
+      "method": "worker-bayer",
+      "file": "gradient-256-worker-bayer.gif",
+      "bytes": 1193937,
+      "sha256": "dd6d1ec2a9f97bf22c46e04ce85e2108d32fa28bc4422f7e5b4fdc91e728df07",
+      "paletteSha256": "3cf638408bb228ccecfdd758ac4683ece73e6087fab05558bb2e734c0052631f",
+      "medianMs": 1028.079500000007,
+      "timings": [
+        {
+          "exportMs": 1019.7462999999989
+        },
+        {
+          "exportMs": 1080.3293000000122
+        },
+        {
+          "exportMs": 1018.075199999992
+        },
+        {
+          "exportMs": 1116.9673000000184
+        },
+        {
+          "exportMs": 993.5280999999959
+        },
+        {
+          "exportMs": 1034.671800000011
+        },
+        {
+          "exportMs": 1360.8711999999941
+        },
+        {
+          "exportMs": 1021.4872000000032
+        }
+      ],
+      "rgbRmse": 2.614313818741479,
+      "block8Rmse": 1.4900104385226525,
+      "exactPixelPercent": 6.276656539351852,
+      "staticPixelDelta": 0.06871059573741246
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 256,
+      "method": "sync-bayer",
+      "file": "gradient-256-sync-bayer.gif",
+      "bytes": 1193937,
+      "sha256": "dd6d1ec2a9f97bf22c46e04ce85e2108d32fa28bc4422f7e5b4fdc91e728df07",
+      "paletteSha256": "3cf638408bb228ccecfdd758ac4683ece73e6087fab05558bb2e734c0052631f",
+      "medianMs": 777.7612499999959,
+      "timings": [
+        {
+          "exportMs": 771.6081999999878
+        },
+        {
+          "exportMs": 792.6180999999924
+        },
+        {
+          "exportMs": 792.1741000000038
+        },
+        {
+          "exportMs": 787.8793000000005
+        },
+        {
+          "exportMs": 772.5138999999908
+        },
+        {
+          "exportMs": 783.008600000001
+        },
+        {
+          "exportMs": 767.0297000000137
+        },
+        {
+          "exportMs": 760.6864999999816
+        }
+      ],
+      "rgbRmse": 2.614313818741479,
+      "block8Rmse": 1.4900104385226525,
+      "exactPixelPercent": 6.276656539351852,
+      "staticPixelDelta": 0.06871059573741246
+    },
+    {
+      "scene": "gradient",
+      "sourceColors": 20768,
+      "maxColors": 256,
+      "method": "worker-none",
+      "file": "gradient-256-worker-none.gif",
+      "bytes": 678362,
+      "sha256": "9ec3db1239b66601e963956318131c32badad41f08d28ad7016718fb4a83225e",
+      "paletteSha256": "3cf638408bb228ccecfdd758ac4683ece73e6087fab05558bb2e734c0052631f",
+      "medianMs": 894.7115499999927,
+      "timings": [
+        {
+          "exportMs": 859.5803000000014
+        },
+        {
+          "exportMs": 883.543399999995
+        },
+        {
+          "exportMs": 926.3236000000034
+        },
+        {
+          "exportMs": 892.3240000000224
+        },
+        {
+          "exportMs": 964.1413000000175
+        },
+        {
+          "exportMs": 894.9472999999998
+        },
+        {
+          "exportMs": 916.5384000000195
+        },
+        {
+          "exportMs": 894.4757999999856
+        }
+      ],
+      "rgbRmse": 3.0047598997861136,
+      "block8Rmse": 2.4318283168551478,
+      "exactPixelPercent": 6.035499855324074,
+      "staticPixelDelta": 0.06995489425771637
+    }
+  ],
+  "prototype": [
+    {
+      "scene": "flat",
+      "maxColors": 16,
+      "bytes": 268623,
+      "sha256": "ca05f01265a2c2bb82f708a1be5200b803b6197390162bbf78d99540e0df86c8",
+      "rgbRmse": 13.934955858978048,
+      "block8Rmse": 6.130033318444775,
+      "exactPixelPercent": 53.880208333333336,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "maxColors": 64,
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "flat",
+      "maxColors": 256,
+      "bytes": 198795,
+      "sha256": "07783322c47fcda8239b1ef613a5a616b80bb2c9c3c5afbac20c82ed076b2339",
+      "rgbRmse": 0,
+      "block8Rmse": 0,
+      "exactPixelPercent": 100,
+      "staticPixelDelta": 0
+    },
+    {
+      "scene": "gradient",
+      "maxColors": 16,
+      "bytes": 559079,
+      "sha256": "be36a371dd5da0f28a64c7a848366c0006d400184f546fb79fd7d0cfb3f29eda",
+      "rgbRmse": 12.183008072869658,
+      "block8Rmse": 6.425917064446064,
+      "exactPixelPercent": 0.8337311921296297,
+      "staticPixelDelta": 4.1102742403826085
+    },
+    {
+      "scene": "gradient",
+      "maxColors": 64,
+      "bytes": 967026,
+      "sha256": "21ce5b9d6656b9df5271183244fb5f978c28749d0eb63410a3b51ddb3e7eda85",
+      "rgbRmse": 5.335704502418916,
+      "block8Rmse": 2.77545828570866,
+      "exactPixelPercent": 3.3421043113425926,
+      "staticPixelDelta": 0.612119716839688
+    },
+    {
+      "scene": "gradient",
+      "maxColors": 256,
+      "bytes": 1191181,
+      "sha256": "8d0f3e119ed1dc074ca2fcaca58c649ab269a9ad26affad6176f9ea6afc5087c",
+      "rgbRmse": 2.6160077668624613,
+      "block8Rmse": 1.4931817163595882,
+      "exactPixelPercent": 6.224663628472222,
+      "staticPixelDelta": 0.06893713663940078
+    }
+  ]
+}

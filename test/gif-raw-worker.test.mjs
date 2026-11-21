@@ -8,6 +8,7 @@ import { createGifExporter } from '../dist/gif.js';
 import { createGifWorkerEncoder } from '../dist/gif-worker.js';
 import { createGifencEncoder } from '../dist/gifenc.js';
 import { createGifWorkerEncoder as legacyAdapter } from './fixtures/gif-worker-legacy-adapter.mjs';
+import { NodeModuleWorker } from './fixtures/node-module-worker.mjs';
 
 const rawKey = Symbol.for('@grundyjs/canvas-take/gif/raw-preparation/v1');
 test('raw initialization, handoff, failure and finish release snapshots with retained exporters', () => {
@@ -19,20 +20,18 @@ const pixelSource = () => {
     for (let p = 0; p < 60; p++) data.set([p * 3 % 256, 210 - p, 40 + p, [0, 1, 128, 254, 255][p % 5]], p * 4);
     return { width: 10, height: 6, data, getContext: () => ({ getImageData: () => ({ data }) }) };
 };
-class RealWorker extends EventTarget {
+class RealWorker extends NodeModuleWorker {
     static instances = [];
     terminated = 0; actions = []; transfers = 0;
     constructor(url) {
-        super(); this.node = new NodeWorker(new URL('./fixtures/browser-worker.mjs', import.meta.url), { workerData: String(url) });
-        this.node.on('message', data => this.dispatchEvent(new MessageEvent('message', { data })));
-        this.node.on('error', error => { const event = new Event('error'); event.message = error.message; this.dispatchEvent(event); });
+        super(url);
         RealWorker.instances.push(this);
     }
     postMessage(message, transfer) {
-        this.actions.push(message.action); this.node.postMessage(message, transfer);
+        this.actions.push(message.action); super.postMessage(message, transfer);
         if (transfer.length) { this.transfers++; assert.equal(message.value.data.byteLength, 0); }
     }
-    terminate() { this.terminated++; this.exited = this.node.terminate(); }
+    terminate() { this.terminated++; super.terminate(); }
 }
 async function exportFrames(factory, background) {
     const source = pixelSource(), original = source.data.slice(), gif = createGifExporter({ encoder: factory, background, repeat: 3 });
@@ -136,7 +135,7 @@ test('strict third-party Proxies and inaccessible private properties use the opa
     }
 });
 
-test('raw handoff cancellation/faults never retry detached buffers and clean listeners/timers', async () => {
+for (const dither of ['none', 'bayer-4x4']) test(`raw handoff (${dither}) cleans up on cancellation/failure without retrying detached buffers`, async () => {
     const previous = globalThis.Worker, nativeSet = globalThis.setTimeout, nativeClear = globalThis.clearTimeout;
     const timers = new Set();
     globalThis.setTimeout = (fn, delay, ...args) => { const id = nativeSet(() => { timers.delete(id); fn(...args); }, delay); timers.add(id); return id; };
@@ -153,7 +152,9 @@ test('raw handoff cancellation/faults never retry detached buffers and clean lis
                 postMessage(message, transfer) {
                     this.actions.push(message.action);
                     if (message.action === 'init') {
-                        this.init = () => this.dispatchEvent(new MessageEvent('message', { data: { id: message.id, rawPreparationVersion: 1 } }));
+                        const reply = { id: message.id, rawPreparationVersion: 1 };
+                        if (dither === 'bayer-4x4') reply.activeDither = dither;
+                        this.init = () => this.dispatchEvent(new MessageEvent('message', { data: reply }));
                         if (!mode.startsWith('init-')) queueMicrotask(this.init);
                         return;
                     }
@@ -171,7 +172,7 @@ test('raw handoff cancellation/faults never retry detached buffers and clean lis
                 terminate() { this.terminated++; }
             }
             globalThis.Worker = FakeWorker;
-            gif = createGifExporter({ encoder: createGifWorkerEncoder({ timeoutMs: 25 }), signal: controller.signal, onProgress: e => events.push([e.phase, e.framesEncoded]) });
+            gif = createGifExporter({ encoder: createGifWorkerEncoder({ timeoutMs: 25, dither }), signal: controller.signal, onProgress: e => events.push([e.phase, e.framesEncoded]) });
             const work = gif.addFrame(pixelSource(), 50);
             if (mode.startsWith('init-')) {
                 await new Promise(resolve => nativeSet(resolve, 3));

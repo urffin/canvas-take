@@ -200,7 +200,14 @@ try {
 | `signal` | Optional AbortSignal; abort rejects pending work and disposes the encoder |
 | `background` | RGB byte tuple, default `[255, 255, 255]`; composites transparency onto an opaque background |
 | Adapter `maxColors` | Maximum palette colors per frame, integer `2..256`, default `256` |
-| Adapter `quality` | `high` (default, RGB565) or `fast` (RGB444); no dithering |
+| Adapter `quality` | `high` (default, RGB565) or `fast` (RGB444) |
+| Adapter `dither` (unreleased) | `none` (default) or `bayer-4x4` (ordered dithering) |
+
+Set `dither: 'bayer-4x4'` in `createGifencEncoder` or `createGifWorkerEncoder` to smooth
+palette-limited gradients. Bayer can add a visible pattern, increase file size and take
+longer. With the Worker adapter, deploy the matching runtime and `gifenc.js`. An unsupported
+Worker rejects explicit Bayer before receiving any frame. The default continues to work
+with older Worker files.
 
 `addFrame(canvas, durationMs)` snapshots a 2D HTMLCanvasElement or OffscreenCanvas immediately, then yields before encoding. Await each call before another frame or `finish()`. All frames must have identical positive dimensions (GIF limit 65535 per axis). Durations must be finite and between 10 and 655350 ms; they are rounded to the nearest 10 ms. GIF players may clamp short delays; 50 ms is a practical timeline step. The drawing time and encoding wall time do not affect the GIF duration. The canvas remains caller-owned and unmodified. Tainted canvases fail with the readback error.
 

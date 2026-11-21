@@ -1,8 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { parseGIF, decompressFrames } from 'gifuct-js';
 
+// These tests install their own exporters. Use a page with no demo lifecycle handlers.
+const fixture = '/worker-fixture.html';
+
 test('raw handoff, old assets, unknown versions and public wrappers preserve GIF bytes', async ({ page }) => {
-    const errors = []; page.on('pageerror', e => errors.push(e.message)); await page.goto('/');
+    const errors = []; page.on('pageerror', e => errors.push(e.message)); await page.goto(fixture);
     const results = await page.evaluate(async () => {
         const { createGifExporter } = await import('/dist/gif.js');
         const { createGifWorkerEncoder } = await import('/dist/gif-worker.js');
@@ -56,9 +59,9 @@ test('raw handoff, old assets, unknown versions and public wrappers preserve GIF
     expect(errors).toEqual([]);
 });
 
-for (const mode of ['abort', 'dispose']) test(`${mode} after raw Worker entry terminates work and permits restart`, async ({ page }) => {
+for (const mode of ['abort', 'dispose', 'bayer-abort']) test(`${mode} after raw Worker entry terminates work and permits restart`, async ({ page }) => {
     const workers = [], closed = [], errors = []; page.on('worker', w => { workers.push(w); w.on('close', () => closed.push(w)); });
-    page.on('pageerror', e => errors.push(e.message)); await page.goto('/');
+    page.on('pageerror', e => errors.push(e.message)); await page.goto(fixture);
     const result = await page.evaluate(async mode => {
         const { createGifExporter } = await import('/dist/gif.js'), { createGifWorkerEncoder } = await import('/dist/gif-worker.js');
         const NativeWorker = Worker; let cancel, entered = false, terminated = 0;
@@ -69,14 +72,15 @@ for (const mode of ['abort', 'dispose']) test(`${mode} after raw Worker entry te
         const canvas = document.createElement('canvas'); canvas.width = 1920; canvas.height = 1080;
         const ctx = canvas.getContext('2d'); ctx.fillStyle = 'rgba(80,120,200,0.5)'; ctx.fillRect(0, 0, 1920, 1080);
         const controller = new AbortController(), events = [];
-        const gif = createGifExporter({ encoder: createGifWorkerEncoder({ workerUrl: '/fixtures/gif-worker-raw-probe.mjs' }), signal: controller.signal,
+        const dither = mode === 'bayer-abort' ? 'bayer-4x4' : 'none';
+        const gif = createGifExporter({ encoder: createGifWorkerEncoder({ workerUrl: '/fixtures/gif-worker-raw-probe.mjs', dither }), signal: controller.signal,
             onProgress: p => events.push([p.phase, p.framesEncoded]) });
-        cancel = () => mode === 'abort' ? controller.abort(new DOMException('raw abort', 'AbortError')) : gif.dispose();
+        cancel = () => mode === 'dispose' ? gif.dispose() : controller.abort(new DOMException('raw abort', 'AbortError'));
         try {
             let error;
             try { await gif.addFrame(canvas, 50); } catch (e) { error = e.name; }
             const cancelled = { error, entered, events, terminated };
-            const fresh = createGifExporter({ encoder: createGifWorkerEncoder() });
+            const fresh = createGifExporter({ encoder: createGifWorkerEncoder({ dither }) });
             try { canvas.width = canvas.height = 2; ctx.fillStyle = '#ff0000'; ctx.fillRect(0, 0, 2, 2);
                 await fresh.addFrame(canvas, 50); cancelled.bytes = Array.from(new Uint8Array(await (await fresh.finish()).arrayBuffer()));
             } finally { fresh.dispose(); }
@@ -84,7 +88,68 @@ for (const mode of ['abort', 'dispose']) test(`${mode} after raw Worker entry te
         } finally { gif.dispose(); window.Worker = NativeWorker; }
     }, mode);
     expect(result.error).toBe('AbortError'); expect(result.entered).toBe(true); expect(result.terminated).toBe(1);
-    expect(result.events).toEqual([[mode === 'abort' ? 'aborted' : 'disposed', 0]]);
+    expect(result.events).toEqual([[mode === 'dispose' ? 'disposed' : 'aborted', 0]]);
     expect(decompressFrames(parseGIF(Uint8Array.from(result.bytes).buffer), true)[0].delay).toBe(50);
     await expect.poll(() => closed.length).toBe(2); expect(workers.length).toBe(2); expect(errors).toEqual([]);
+});
+
+test('Bayer GIFs match with native Workers and an old Worker rejects Bayer before a transfer', async ({ page }) => {
+    const closed = [], errors = [];
+    page.on('worker', worker => worker.on('close', () => closed.push(worker)));
+    page.on('pageerror', error => errors.push(error.message));
+    await page.goto(fixture);
+    const result = await page.evaluate(async () => {
+        const { createGifExporter } = await import('/dist/gif.js');
+        const { createGifencEncoder } = await import('/dist/gifenc.js');
+        const { createGifWorkerEncoder } = await import('/dist/gif-worker.js');
+        const canvas = document.createElement('canvas');
+        canvas.width = 37; canvas.height = 15;
+        const ctx = canvas.getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, '#000');
+        gradient.addColorStop(1, '#fff');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        const NativeWorker = Worker, messages = [];
+        window.Worker = class extends NativeWorker {
+            postMessage(message, transfer) {
+                messages.push([message.action, transfer.length]);
+                return super.postMessage(message, transfer);
+            }
+        };
+        async function run(encoder) {
+            const gif = createGifExporter({ encoder, repeat: 2 });
+            try {
+                await gif.addFrame(canvas, 54);
+                await gif.addFrame(canvas, 150);
+                return Array.from(new Uint8Array(await (await gif.finish()).arrayBuffer()));
+            } finally { gif.dispose(); }
+        }
+        try {
+            const workerUrl = '/fixtures/gif-worker-legacy-runtime.mjs';
+            const options = { dither: 'bayer-4x4', maxColors: 16 };
+            const sync = await run(createGifencEncoder(options));
+            const baseline = await run(createGifencEncoder({ maxColors: 16 }));
+            let error;
+            try { await run(createGifWorkerEncoder({ ...options, workerUrl })); }
+            catch (failure) { error = failure.name; }
+            const unsupported = messages.splice(0);
+            const legacy = await run(createGifWorkerEncoder({ maxColors: 16, workerUrl, dither: 'none' }));
+            const raw = await run(createGifWorkerEncoder(options));
+            const prepared = await run(createGifWorkerEncoder({ ...options, workerUrl: '/fixtures/gif-worker-unknown-version.mjs' }));
+            return { sync, baseline, error, unsupported, legacy, raw, prepared };
+        } finally { window.Worker = NativeWorker; }
+    });
+    expect(result.error).toBe('NotSupportedError');
+    expect(result.unsupported).toEqual([['init', 0]]);
+    expect(result.legacy).toEqual(result.baseline);
+    expect(result.sync).not.toEqual(result.baseline);
+    expect(result.raw).toEqual(result.sync);
+    expect(result.prepared).toEqual(result.sync);
+    const parsed = parseGIF(Uint8Array.from(result.raw).buffer);
+    expect([parsed.lsd.width, parsed.lsd.height]).toEqual([37, 15]);
+    expect(parsed.frames.find(frame => frame.application).application.blocks[1]).toBe(2);
+    expect(decompressFrames(parsed, true).map(frame => frame.delay)).toEqual([50, 150]);
+    await expect.poll(() => closed.length).toBe(4);
+    expect(errors).toEqual([]);
 });

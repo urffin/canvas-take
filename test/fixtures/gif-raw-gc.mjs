@@ -2,12 +2,17 @@ import assert from 'node:assert/strict';
 import { createGifExporter } from '../../dist/gif.js';
 import { createGifWorkerEncoder } from '../../dist/gif-worker.js';
 const NativePixels = Uint8ClampedArray, retained = [], snapshots = [];
-for (const mode of ['init-abort', 'raw-abort', 'failure', 'finish']) {
+const cases = ['init-abort', 'raw-abort', 'failure', 'finish'];
+for (const dither of ['none', 'bayer-4x4']) for (const mode of cases) {
     const controller = new AbortController(); let terminated = 0;
     globalThis.Worker = class extends EventTarget {
         postMessage(message, transfer) {
             const reply = { id: message.id };
-            if (message.action === 'init') { if (mode === 'init-abort') return; reply.rawPreparationVersion = 1; }
+            if (message.action === 'init') {
+                if (mode === 'init-abort') return;
+                reply.rawPreparationVersion = 1;
+                if (dither === 'bayer-4x4') reply.activeDither = dither;
+            }
             if (message.action === 'raw-frame-v1') {
                 structuredClone(message, { transfer });
                 if (mode === 'raw-abort') { queueMicrotask(() => controller.abort()); return; }
@@ -20,7 +25,7 @@ for (const mode of ['init-abort', 'raw-abort', 'failure', 'finish']) {
     };
     const data = new NativePixels(1920 * 1080 * 4).fill(128);
     const canvas = { width: 1920, height: 1080, getContext: () => ({ getImageData: () => ({ data }) }) };
-    const gif = createGifExporter({ encoder: createGifWorkerEncoder(), signal: controller.signal });
+    const gif = createGifExporter({ encoder: createGifWorkerEncoder({ dither }), signal: controller.signal });
     globalThis.Uint8ClampedArray = function (value) { const owned = new NativePixels(value); snapshots.push(new WeakRef(owned)); return owned; };
     let work;
     try { work = gif.addFrame(canvas, 50); } finally { globalThis.Uint8ClampedArray = NativePixels; }
@@ -32,6 +37,8 @@ for (const mode of ['init-abort', 'raw-abort', 'failure', 'finish']) {
     assert.equal(terminated, 1); retained.push(gif);
 }
 for (let i = 0; i < 10; i++) { await new Promise(setImmediate); globalThis.gc(); }
-assert.equal(snapshots.length, 4); assert(snapshots.every(ref => ref.deref() === undefined), 'raw operation retained a snapshot');
-assert.deepEqual(retained.map(g => g.state), ['aborted', 'aborted', 'failed', 'finished']);
+assert.equal(snapshots.length, cases.length * 2);
+assert(snapshots.every(ref => ref.deref() === undefined), 'raw operation retained a snapshot');
+const states = ['aborted', 'aborted', 'failed', 'finished'];
+assert.deepEqual(retained.map(g => g.state), [...states, ...states]);
 console.log('Raw snapshots collectible with retained exporters');
