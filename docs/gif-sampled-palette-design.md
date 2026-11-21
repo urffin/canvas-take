@@ -245,3 +245,34 @@ The build and all 51 Node GIF tests passed.
 An isolated extraction of the packed artifact also passed public GIF imports,
 private subpath rejection and a decoded Bayer export. The full packaged
 consumer script stalled during its offline npm install step.
+
+## Worker implementation verification
+
+The private `createSampledGifWorkerEncoder` factory uses the existing Worker
+adapter and its module Worker URL. The runtime confirms `sampled-v1` after
+checking the codec capability. It installs one compact `palette-sample-v1`
+transfer before either frame route. The synchronous encoder and the Worker
+runtime share the palette installation, exact RGB correction and GIF writing.
+
+- **Negotiation and transfer.** Tests cover legacy runtime and codec assets,
+  unsupported mode and Bayer acknowledgements, unexpected and malformed
+  samples, malformed sample acknowledgement, timeout and transfer failure.
+  The frozen 5bd3b38 matrix preserved default and Bayer GIF bytes across mixed
+  assets. Explicit sampled requests with incompatible assets fail during
+  init, before sample readback or pixel transfer.
+- **Output.** Across five encoder settings, raw and prepared output matched
+  the synchronous GIF byte for byte. Each export transferred one 64 KiB sample
+  and one owned buffer per frame. A fully reserved palette transferred an
+  empty sample. Native structured clone detached the sender buffers, including
+  the empty one. gifuct-js confirmed one global table, the exact accents,
+  frame delays and repeat. The caller's buffers stayed intact.
+- **Cancellation.** Worker threads loaded the built browser runtime and
+  were stopped at init, sample, first raw frame and finish request entry.
+  Cancellation preserved the original reason, removed listeners, stopped
+  each Worker once and allowed byte-identical fresh exports. Disposing during
+  local replay ignored a late canvas before sample handoff.
+
+The build and all 58 Node GIF tests passed. The public declarations and package
+export map match 5bd3b38. The Worker adapter bundle stays codec-free. The
+runtime still imports the adjacent `gifenc.js`. Browser execution and the G8
+timing and memory profiles are separate verification steps.

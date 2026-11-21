@@ -1,7 +1,10 @@
 import type { GifEncoderFactory, GifFrame } from './gif.js';
 import type { GifencOptions } from './gifenc.js';
-import { rawPreparation, validateRawFrame } from './gif-internal.js';
+import { rawPreparation, sampledPalettePreparation, validateRawFrame, type InternalGifEncoder } from './gif-internal.js';
 import { resolveGifDither } from './internal/gif-dither.js';
+import { collectGifPaletteSample, normalizeGifPaletteSampling } from './internal/gif-palette-sampling.js';
+import { readGifPrivateOption, sampledPaletteAction, sampledPaletteMode, sampledPaletteWorkerSource,
+    unsupportedSampledPalette } from './internal/gif-palette-protocol.js';
 
 export interface GifWorkerOptions extends GifencOptions {
     /** Override the module Worker asset URL when copying assets or using a bundler. */
@@ -19,14 +22,19 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
     if (quality !== 'high' && quality !== 'fast') throw new TypeError('quality must be high or fast');
     if (!Number.isFinite(timeoutMs) || timeoutMs <= 0 || timeoutMs > 2147483647) throw new RangeError('timeoutMs must be in (0, 2147483647]');
     const dither = resolveGifDither(options.dither);
+    const request = readGifPrivateOption(options, sampledPaletteWorkerSource);
+    const sampledSource = request && normalizeGifPaletteSampling(request.value, maxColors);
     return ({ repeat }) => {
         if (typeof Worker === 'undefined') throw new Error('GIF Worker encoding is not supported in this environment');
         let worker: Worker | undefined = workerUrl === undefined
             ? new Worker(new URL('./gif-worker-runtime.js', import.meta.url), { type: 'module' })
             : new Worker(workerUrl, { type: 'module' });
+        let samplingAbort = sampledSource ? new AbortController() : undefined;
+        let sampleReady = false;
+        let preparing = false;
         let nextId = 0;
         let failure: Error | undefined;
-        type Reply = { bytes?: unknown; rawPreparationVersion?: unknown; rawFrameEncoded?: unknown };
+        type Reply = { bytes?: unknown; rawPreparationVersion?: unknown };
         const pending = new Map<number, { action: string; resolve: (value: Reply) => void; reject: (error: Error) => void; timer: ReturnType<typeof setTimeout> }>();
         function close(error: Error): void {
             failure ??= error;
@@ -39,14 +47,27 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
             }
             for (const request of pending.values()) { clearTimeout(request.timer); request.reject(failure); }
             pending.clear();
+            const sampling = samplingAbort;
+            samplingAbort = undefined;
+            sampling?.abort(failure);
         }
         function onMessage(event: MessageEvent): void {
             const message = event.data;
             const request = pending.get(message?.id);
             if (!request) return;
-            if (typeof message.error === 'string') { close(new Error(message.error)); return; }
+            if (typeof message.error === 'string') {
+                close(sampledSource && request.action === 'init' && message.errorCode === unsupportedSampledPalette
+                    ? new DOMException(message.error, 'NotSupportedError') : new Error(message.error));
+                return;
+            }
+            if (request.action === 'init' && sampledSource && message.activePalette !== sampledPaletteMode) {
+                close(new DOMException('GIF Worker did not confirm the sampled palette', 'NotSupportedError')); return;
+            }
             if (request.action === 'init' && dither === 'bayer-4x4' && message.activeDither !== dither) {
                 close(new DOMException('GIF Worker did not confirm bayer-4x4 dithering', 'NotSupportedError')); return;
+            }
+            if (request.action === sampledPaletteAction && message.paletteReady !== 1) {
+                close(new Error('GIF Worker returned invalid palette sample acknowledgement')); return;
             }
             if (request.action === 'raw-frame-v1' && message.rawFrameEncoded !== 1) {
                 close(new Error('GIF Worker returned invalid raw frame acknowledgement')); return;
@@ -69,15 +90,50 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
             });
         }
         const init = dither === 'none' ? { repeat, maxColors, quality } : { repeat, maxColors, quality, dither };
-        const initialized = send('init', init).then(reply => reply.rawPreparationVersion === 1);
+        const initialized = send('init', sampledSource
+            ? { ...init, paletteMode: sampledPaletteMode, accentColors: sampledSource.accents } : init)
+            .then(reply => reply.rawPreparationVersion === 1);
         void initialized.catch(() => {});
-        const encoder = {
+
+        async function prepare(width: number, height: number, background?: readonly number[]): Promise<void> {
+            if (!sampledSource || !samplingAbort || sampleReady) return;
+            if (preparing) throw new Error('GIF palette preparation is already in progress');
+            preparing = true;
+            const { signal } = samplingAbort;
+            try {
+                await initialized;
+                signal.throwIfAborted();
+                if (!Number.isInteger(width) || !Number.isInteger(height) || width < 1 || height < 1 || width > 65535 || height > 65535) {
+                    throw new RangeError('Invalid GIF frame dimensions');
+                }
+                const data = sampledSource.accents.length === maxColors ? new Uint8ClampedArray(0)
+                    : await collectGifPaletteSample(sampledSource, width, height, signal, background);
+                signal.throwIfAborted();
+                await send(sampledPaletteAction, { data }, [data.buffer as ArrayBuffer]);
+                signal.throwIfAborted();
+                sampleReady = true;
+                samplingAbort = undefined;
+            } catch (error) {
+                close(error instanceof Error ? error : new Error('GIF palette preparation failed'));
+                throw error;
+            } finally {
+                preparing = false;
+            }
+        }
+
+        const encoder: InternalGifEncoder = {
             async addFrame(frame: GifFrame) {
                 await initialized;
+                if (sampledSource && !sampleReady) await prepare(frame.width, frame.height);
                 await send('frame', frame, [frame.data.buffer as ArrayBuffer]);
             },
             async finish() {
                 await initialized;
+                if (sampledSource && !sampleReady) {
+                    const error = new Error('GIF Worker palette sample is not ready');
+                    close(error);
+                    throw error;
+                }
                 const { bytes } = await send('finish');
                 if (!(bytes instanceof Uint8Array)) { const error = new Error('GIF Worker returned invalid bytes'); close(error); throw error; }
                 close(new Error('GIF Worker finished'));
@@ -85,6 +141,7 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
             },
             dispose() { close(new DOMException('GIF Worker disposed', 'AbortError')); }
         };
+        if (sampledSource) Object.defineProperty(encoder, sampledPalettePreparation, { value: prepare });
         const originalAddFrame = encoder.addFrame;
         return Object.defineProperty(encoder, rawPreparation, {
             configurable: true, // Transparent Proxy wrappers may forward/bind the private operation.
@@ -96,6 +153,7 @@ export function createGifWorkerEncoder(options: GifWorkerOptions = {}): GifEncod
                 if (!supported) return 'declined'; // No transfer or mutation before a decline.
                 try { validateRawFrame(frame, background); }
                 catch (error) { close(error instanceof Error ? error : new Error(String(error))); throw failure; }
+                if (sampledSource && !sampleReady) await prepare(frame.width, frame.height, background);
                 await send('raw-frame-v1', { ...frame, background }, [frame.data.buffer as ArrayBuffer]);
                 return 'encoded';
             }

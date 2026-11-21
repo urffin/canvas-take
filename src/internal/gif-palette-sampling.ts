@@ -4,6 +4,9 @@ type Canvas = HTMLCanvasElement | OffscreenCanvas;
 type SampleReader = (index: number, signal: AbortSignal) => Canvas | Promise<Canvas>;
 export type GifPaletteRgb = [number, number, number];
 
+const sampleFrames = 4, gridSide = 64;
+export const maxGifPaletteSampleBytes = sampleFrames * gridSide * gridSide * 4;
+
 interface PaletteSampling {
     readonly frameCount: number;
     readonly readFrame: SampleReader;
@@ -29,6 +32,10 @@ export function normalizeGifPaletteSampling(value: unknown, maxColors: number): 
     if (typeof readFrame !== 'function') throw new TypeError('GIF palette source requires readFrame');
     if (typeof frameCount !== 'number') throw new TypeError('GIF palette frameCount must be a number');
     if (!Number.isSafeInteger(frameCount) || frameCount < 1) throw new RangeError('GIF palette frameCount must be a positive safe integer');
+    return { frameCount, readFrame: (readFrame as SampleReader).bind(source), accents: normalizeGifAccentColors(accentColors, maxColors) };
+}
+
+export function normalizeGifAccentColors(accentColors: unknown, maxColors: number): GifPaletteRgb[] {
     if (accentColors !== undefined && !Array.isArray(accentColors)) throw new TypeError('GIF accentColors must be an array');
 
     const accents: GifPaletteRgb[] = [];
@@ -42,11 +49,11 @@ export function normalizeGifPaletteSampling(value: unknown, maxColors: number): 
         if (seen.size > maxColors) throw new RangeError('GIF accent colors exceed maxColors');
         accents.push(rgb);
     }
-    return { frameCount, readFrame: (readFrame as SampleReader).bind(source), accents };
+    return accents;
 }
 
 export function gifPaletteSampleIndices(frameCount: number): number[] {
-    const count = Math.min(4, frameCount);
+    const count = Math.min(sampleFrames, frameCount);
     if (count === 1) return [0];
     const intervals = BigInt(count - 1);
     const last = BigInt(frameCount - 1);
@@ -116,7 +123,7 @@ async function readPixels(readFrame: SampleReader, index: number, width: number,
 export async function collectGifPaletteSample(source: PaletteSampling, width: number, height: number,
     signal: AbortSignal, background?: readonly number[]): Promise<Uint8ClampedArray> {
     const indices = gifPaletteSampleIndices(source.frameCount);
-    const cols = Math.min(width, 64), rows = Math.min(height, 64);
+    const cols = Math.min(width, gridSide), rows = Math.min(height, gridSide);
     const sample = new Uint8ClampedArray(indices.length * cols * rows * 4);
     let cursor = 0;
     for (const index of indices) {
