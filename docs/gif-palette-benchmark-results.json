@@ -1,0 +1,1382 @@
+{
+  "metadata": {
+    "startedAt": "2026-11-21T20:03:53.065Z",
+    "node": "v22.17.0",
+    "os": "win32 10.0.19045",
+    "cpu": "AMD FX(tm)-8350 Eight-Core Processor",
+    "logicalCpus": 8,
+    "baseline": "8d67a9276a27b30cb8618fafc1a863acbf9b1c68",
+    "packageVersion": "0.10.0",
+    "gifenc": "1.0.3",
+    "gifuct": "2.1.2",
+    "settings": {
+      "width": 640,
+      "height": 360,
+      "frames": 24,
+      "repeats": 8
+    },
+    "transport": "Node worker_threads",
+    "timingBoundary": "exporter creation to finalized Blob"
+  },
+  "sources": [
+    {
+      "scene": "flat-text",
+      "sha256": "d25c61bd267ba19ac455961562a7ec953e35aa0d0556bcc54fc291e6088026fe",
+      "cutFrame": null,
+      "staticPixels": 4195296,
+      "cutStaticPixels": 0,
+      "preview": "flat-text-64-comparison.png",
+      "previewFrames": [
+        12
+      ],
+      "executionOrder": [
+        {
+          "settings": [
+            "high-32-none",
+            "fast-32-none",
+            "fast-256-none",
+            "high-64-none",
+            "high-256-none",
+            "fast-64-none",
+            "fast-128-none",
+            "high-128-none"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "fast-32-none",
+            "high-64-none",
+            "high-32-none",
+            "fast-64-none",
+            "fast-256-none",
+            "high-128-none",
+            "high-256-none",
+            "fast-128-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        },
+        {
+          "settings": [
+            "high-64-none",
+            "fast-64-none",
+            "fast-32-none",
+            "high-128-none",
+            "high-32-none",
+            "fast-128-none",
+            "fast-256-none",
+            "high-256-none"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "fast-64-none",
+            "high-128-none",
+            "high-64-none",
+            "fast-128-none",
+            "fast-32-none",
+            "high-256-none",
+            "high-32-none",
+            "fast-256-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        },
+        {
+          "settings": [
+            "high-128-none",
+            "fast-128-none",
+            "fast-64-none",
+            "high-256-none",
+            "high-64-none",
+            "fast-256-none",
+            "fast-32-none",
+            "high-32-none"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "fast-128-none",
+            "high-256-none",
+            "high-128-none",
+            "fast-256-none",
+            "fast-64-none",
+            "high-32-none",
+            "high-64-none",
+            "fast-32-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        },
+        {
+          "settings": [
+            "high-256-none",
+            "fast-256-none",
+            "fast-128-none",
+            "high-32-none",
+            "high-128-none",
+            "fast-32-none",
+            "fast-64-none",
+            "high-64-none"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "fast-256-none",
+            "high-32-none",
+            "high-256-none",
+            "fast-32-none",
+            "fast-128-none",
+            "high-64-none",
+            "high-128-none",
+            "fast-64-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "moving-gradient",
+      "sha256": "5bab59df75613be10c76685e4b75b68d52800f096d233e2eb5659729c5a92aa9",
+      "cutFrame": null,
+      "staticPixels": 2290896,
+      "cutStaticPixels": 0,
+      "preview": "moving-gradient-64-comparison.png",
+      "previewFrames": [
+        12
+      ],
+      "executionOrder": [
+        {
+          "settings": [
+            "high-32-none",
+            "fast-32-none",
+            "fast-256-none",
+            "high-64-none",
+            "high-256-none",
+            "fast-64-none",
+            "fast-128-none",
+            "high-128-none",
+            "high-64-bayer-4x4"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "high-64-bayer-4x4",
+            "fast-32-none",
+            "high-64-none",
+            "high-32-none",
+            "fast-64-none",
+            "fast-256-none",
+            "high-128-none",
+            "high-256-none",
+            "fast-128-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        },
+        {
+          "settings": [
+            "high-64-none",
+            "fast-64-none",
+            "fast-32-none",
+            "high-128-none",
+            "high-32-none",
+            "fast-128-none",
+            "fast-256-none",
+            "high-256-none",
+            "high-64-bayer-4x4"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "high-64-bayer-4x4",
+            "fast-64-none",
+            "high-128-none",
+            "high-64-none",
+            "fast-128-none",
+            "fast-32-none",
+            "high-256-none",
+            "high-32-none",
+            "fast-256-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        },
+        {
+          "settings": [
+            "high-128-none",
+            "fast-128-none",
+            "fast-64-none",
+            "high-256-none",
+            "high-64-none",
+            "fast-256-none",
+            "fast-32-none",
+            "high-32-none",
+            "high-64-bayer-4x4"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "high-64-bayer-4x4",
+            "fast-128-none",
+            "high-256-none",
+            "high-128-none",
+            "fast-256-none",
+            "fast-64-none",
+            "high-32-none",
+            "high-64-none",
+            "fast-32-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        },
+        {
+          "settings": [
+            "high-256-none",
+            "fast-256-none",
+            "fast-128-none",
+            "high-32-none",
+            "high-128-none",
+            "fast-32-none",
+            "fast-64-none",
+            "high-64-none",
+            "high-64-bayer-4x4"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "high-64-bayer-4x4",
+            "fast-256-none",
+            "high-32-none",
+            "high-256-none",
+            "fast-32-none",
+            "fast-128-none",
+            "high-64-none",
+            "high-128-none",
+            "fast-64-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        }
+      ]
+    },
+    {
+      "scene": "scene-cut",
+      "sha256": "691846e3a9395e0b099162011f9ce6e09fbf64cb0c43025290451a694e21f3be",
+      "cutFrame": 12,
+      "staticPixels": 3159456,
+      "cutStaticPixels": 57376,
+      "preview": "scene-cut-64-comparison.png",
+      "previewFrames": [
+        11,
+        12
+      ],
+      "executionOrder": [
+        {
+          "settings": [
+            "high-32-none",
+            "fast-32-none",
+            "fast-256-none",
+            "high-64-none",
+            "high-256-none",
+            "fast-64-none",
+            "fast-128-none",
+            "high-128-none"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "fast-32-none",
+            "high-64-none",
+            "high-32-none",
+            "fast-64-none",
+            "fast-256-none",
+            "high-128-none",
+            "high-256-none",
+            "fast-128-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        },
+        {
+          "settings": [
+            "high-64-none",
+            "fast-64-none",
+            "fast-32-none",
+            "high-128-none",
+            "high-32-none",
+            "fast-128-none",
+            "fast-256-none",
+            "high-256-none"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "fast-64-none",
+            "high-128-none",
+            "high-64-none",
+            "fast-128-none",
+            "fast-32-none",
+            "high-256-none",
+            "high-32-none",
+            "fast-256-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        },
+        {
+          "settings": [
+            "high-128-none",
+            "fast-128-none",
+            "fast-64-none",
+            "high-256-none",
+            "high-64-none",
+            "fast-256-none",
+            "fast-32-none",
+            "high-32-none"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "fast-128-none",
+            "high-256-none",
+            "high-128-none",
+            "fast-256-none",
+            "fast-64-none",
+            "high-32-none",
+            "high-64-none",
+            "fast-32-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        },
+        {
+          "settings": [
+            "high-256-none",
+            "fast-256-none",
+            "fast-128-none",
+            "high-32-none",
+            "high-128-none",
+            "fast-32-none",
+            "fast-64-none",
+            "high-64-none"
+          ],
+          "adapters": [
+            "sync",
+            "worker"
+          ]
+        },
+        {
+          "settings": [
+            "fast-256-none",
+            "high-32-none",
+            "high-256-none",
+            "fast-32-none",
+            "fast-128-none",
+            "high-64-none",
+            "high-128-none",
+            "fast-64-none"
+          ],
+          "adapters": [
+            "worker",
+            "sync"
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "scene": "flat-text",
+      "quality": "high",
+      "maxColors": 32,
+      "dither": "none",
+      "file": "flat-text-high-32-none.gif",
+      "sizeBytes": 215055,
+      "sha256": "ae51a3430c7a18caf74f60598521bd2d74218e4b5229f387726d58d71e684271",
+      "paletteSha256": "4e57f35c0b5b1a894e768e36934f10f0b7fc261b3bae04522bfbc4721e5ebb97",
+      "rgbRmse": 0.8670672151313042,
+      "block8Rmse": 0.7818312652451389,
+      "exactPixelPercent": 87.0625,
+      "staticPixelDelta": 0,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          378.8072999999986,
+          389.5845999999983,
+          406.397399999998,
+          375.25159999999596,
+          388.33759999999893,
+          399.44200000000274,
+          390.3784000000014,
+          388.0717000000004
+        ],
+        "worker": [
+          681.4400999999998,
+          593.2199,
+          564.3647999999994,
+          567.154300000002,
+          531.9625999999989,
+          533.0985000000001,
+          552.7914999999994,
+          522.035100000001
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "quality": "fast",
+      "maxColors": 32,
+      "dither": "none",
+      "file": "flat-text-fast-32-none.gif",
+      "sizeBytes": 188430,
+      "sha256": "b001aa1d1daf0c815710631091446b4dab7bc6c6603eec7434604df2664d9f42",
+      "paletteSha256": "c985a9611360fd12de6d5d4114f49df1be4aa12d613906a126387df57fb6a682",
+      "rgbRmse": 3.272587993610856,
+      "block8Rmse": 3.105448973314231,
+      "exactPixelPercent": 26.380208333333332,
+      "staticPixelDelta": 0,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          400.6059000000005,
+          375.77820000000065,
+          389.96290000000226,
+          386.7364000000016,
+          374.1886999999988,
+          408.4264999999941,
+          383.6640999999945,
+          390.81890000000567
+        ],
+        "worker": [
+          529.8336999999992,
+          543.4097000000002,
+          517.7867000000006,
+          532.5836999999956,
+          516.6164000000063,
+          618.398500000003,
+          529.3960000000006,
+          516.9936000000016
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "quality": "high",
+      "maxColors": 64,
+      "dither": "none",
+      "file": "flat-text-high-64-none.gif",
+      "sizeBytes": 228449,
+      "sha256": "a3db9ad01b0b84af42237f98dd1c3e762054f69497dbb900d7c141b7134d4560",
+      "paletteSha256": "2ec0f000b09e6e0ac052aa823bf57894a20bcffb2816880f37fd0cae888263bb",
+      "rgbRmse": 0.4533057589653049,
+      "block8Rmse": 0.3999439341494792,
+      "exactPixelPercent": 98.54166666666667,
+      "staticPixelDelta": 0,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          399.1766000000007,
+          419.9390000000021,
+          384.6840999999986,
+          402.85400000000664,
+          383.8576999999932,
+          477.92529999999533,
+          431.65110000000277,
+          387.9243000000133
+        ],
+        "worker": [
+          577.2469000000001,
+          573.8849000000009,
+          550.3251999999993,
+          533.2881999999954,
+          599.7256999999954,
+          835.5751000000018,
+          531.8608000000022,
+          525.4760999999999
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "quality": "fast",
+      "maxColors": 64,
+      "dither": "none",
+      "file": "flat-text-fast-64-none.gif",
+      "sizeBytes": 198120,
+      "sha256": "6855c30c67442ceadebb83b49aa3cbb7054dd1ef9981ae1ee028563691c84685",
+      "paletteSha256": "49c9c47abc036d49d78405ce5872d855cbb6b54a00a475afa41fd83df398a5b0",
+      "rgbRmse": 3.237238120396482,
+      "block8Rmse": 3.0738924072730858,
+      "exactPixelPercent": 29.526041666666668,
+      "staticPixelDelta": 0,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          381.8734999999997,
+          436.6135000000031,
+          387.4853000000003,
+          381.3257999999987,
+          373.7675999999992,
+          370.8594000000012,
+          362.7797999999966,
+          396.4860999999946
+        ],
+        "worker": [
+          519.1298999999999,
+          555.0455999999976,
+          539.8693999999996,
+          541.9251000000004,
+          519.3919000000024,
+          544.022100000002,
+          552.2975000000006,
+          503.9015999999974
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "quality": "high",
+      "maxColors": 128,
+      "dither": "none",
+      "file": "flat-text-high-128-none.gif",
+      "sizeBytes": 228449,
+      "sha256": "a3db9ad01b0b84af42237f98dd1c3e762054f69497dbb900d7c141b7134d4560",
+      "paletteSha256": "2ec0f000b09e6e0ac052aa823bf57894a20bcffb2816880f37fd0cae888263bb",
+      "rgbRmse": 0.4533057589653049,
+      "block8Rmse": 0.3999439341494792,
+      "exactPixelPercent": 98.54166666666667,
+      "staticPixelDelta": 0,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          426.2978000000003,
+          381.91129999999976,
+          375.54119999999966,
+          387.35839999999735,
+          377.9319000000032,
+          386.0224999999991,
+          376.68679999999586,
+          465.65350000000035
+        ],
+        "worker": [
+          591.1098999999995,
+          599.0962,
+          553.1813000000002,
+          571.5192000000025,
+          534.9847000000009,
+          535.9525999999969,
+          648.1003999999957,
+          539.5077000000019
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "quality": "fast",
+      "maxColors": 128,
+      "dither": "none",
+      "file": "flat-text-fast-128-none.gif",
+      "sizeBytes": 198120,
+      "sha256": "6855c30c67442ceadebb83b49aa3cbb7054dd1ef9981ae1ee028563691c84685",
+      "paletteSha256": "49c9c47abc036d49d78405ce5872d855cbb6b54a00a475afa41fd83df398a5b0",
+      "rgbRmse": 3.237238120396482,
+      "block8Rmse": 3.0738924072730858,
+      "exactPixelPercent": 29.526041666666668,
+      "staticPixelDelta": 0,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          369.07650000000103,
+          401.8148000000001,
+          380.1787000000004,
+          403.06869999999617,
+          384.5825000000041,
+          384.3293000000049,
+          377.1883999999991,
+          375.1103999999905
+        ],
+        "worker": [
+          566.1514000000006,
+          590.1999999999971,
+          512.7574999999997,
+          534.6540999999997,
+          516.3053,
+          513.1266000000032,
+          507.19549999999435,
+          537.7906000000075
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "quality": "high",
+      "maxColors": 256,
+      "dither": "none",
+      "file": "flat-text-high-256-none.gif",
+      "sizeBytes": 228449,
+      "sha256": "a3db9ad01b0b84af42237f98dd1c3e762054f69497dbb900d7c141b7134d4560",
+      "paletteSha256": "2ec0f000b09e6e0ac052aa823bf57894a20bcffb2816880f37fd0cae888263bb",
+      "rgbRmse": 0.4533057589653049,
+      "block8Rmse": 0.3999439341494792,
+      "exactPixelPercent": 98.54166666666667,
+      "staticPixelDelta": 0,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          417.1459999999988,
+          416.85239999999976,
+          386.2605000000003,
+          371.9945000000007,
+          389.4244000000035,
+          448.83230000000185,
+          377.6564999999973,
+          499.5158999999985
+        ],
+        "worker": [
+          629.0742000000009,
+          601.3527000000031,
+          545.1031000000003,
+          499.34309999999823,
+          537.9314999999988,
+          525.8862999999983,
+          520.7940000000017,
+          532.7024999999994
+        ]
+      }
+    },
+    {
+      "scene": "flat-text",
+      "quality": "fast",
+      "maxColors": 256,
+      "dither": "none",
+      "file": "flat-text-fast-256-none.gif",
+      "sizeBytes": 198120,
+      "sha256": "6855c30c67442ceadebb83b49aa3cbb7054dd1ef9981ae1ee028563691c84685",
+      "paletteSha256": "49c9c47abc036d49d78405ce5872d855cbb6b54a00a475afa41fd83df398a5b0",
+      "rgbRmse": 3.237238120396482,
+      "block8Rmse": 3.0738924072730858,
+      "exactPixelPercent": 29.526041666666668,
+      "staticPixelDelta": 0,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          381.8909999999996,
+          384.5146999999997,
+          372.1726000000017,
+          388.09210000000166,
+          375.6450000000041,
+          389.8646000000008,
+          401.99609999999666,
+          383.21749999999884
+        ],
+        "worker": [
+          524.6286,
+          568.3604000000014,
+          513.7944000000025,
+          519.3237000000008,
+          789.1327000000019,
+          573.9475999999995,
+          506.14860000000044,
+          550.4383000000016
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "quality": "high",
+      "maxColors": 32,
+      "dither": "none",
+      "file": "moving-gradient-high-32-none.gif",
+      "sizeBytes": 236514,
+      "sha256": "5dcf0c07c51be1b04790d14f98aea5df21e4f907277c07536c6be29ea0310390",
+      "paletteSha256": "f1bc724d3ff202f9564a19ffa8c2c58011c49aeefa3424db019dad113dddf9b5",
+      "rgbRmse": 8.561613523657337,
+      "block8Rmse": 7.546741175953336,
+      "exactPixelPercent": 18.90424262152778,
+      "staticPixelDelta": 3.0282023569235212,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          1004.6431999999913,
+          991.179999999993,
+          1004.272100000002,
+          1125.8103999999876,
+          973.494800000015,
+          1078.5099000000046,
+          1715.847699999984,
+          1010.2627999999968
+        ],
+        "worker": [
+          1135.3378999999986,
+          1042.988000000012,
+          1185.234999999986,
+          1438.5266999999876,
+          1226.3408000000054,
+          1352.5368999999773,
+          2216.8342999999877,
+          1149.9357999999775
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "quality": "fast",
+      "maxColors": 32,
+      "dither": "none",
+      "file": "moving-gradient-fast-32-none.gif",
+      "sizeBytes": 234316,
+      "sha256": "3c1371048441350fdb96bd2d91573e090fd94d88e7b714c968d86aab1a49906d",
+      "paletteSha256": "f31cba118151fd791a7f550f628def2d4de8f170865beb47ba5e4ff5f3d84faa",
+      "rgbRmse": 9.832697955603559,
+      "block8Rmse": 8.955991889551264,
+      "exactPixelPercent": 19.02616825810185,
+      "staticPixelDelta": 2.2586079856964263,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          393.36269999999786,
+          406.36299999999756,
+          388.15959999999905,
+          389.8130999999994,
+          399.93309999999474,
+          511.80849999998463,
+          1140.5748000000021,
+          386.7786999999953
+        ],
+        "worker": [
+          629.3414000000048,
+          535.3158999999869,
+          550.7378999999928,
+          551.3262999999861,
+          522.946100000001,
+          763.3814999999886,
+          1667.5587999999989,
+          556.2030999999843
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "quality": "high",
+      "maxColors": 64,
+      "dither": "none",
+      "file": "moving-gradient-high-64-none.gif",
+      "sizeBytes": 333986,
+      "sha256": "dc8ff093b58f6f11fe688fa1006e04ae1567271d7eaa5b980bccac0977adfb7f",
+      "paletteSha256": "eb1db7e095d21814419787194b91d70105df2c92b8b5cfa7897e1fdc5feb7f18",
+      "rgbRmse": 6.072246345859115,
+      "block8Rmse": 5.168912272955744,
+      "exactPixelPercent": 22.352629484953702,
+      "staticPixelDelta": 1.7397178512977747,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          1059.0443000000087,
+          1097.4999000000098,
+          1000.6149999999907,
+          1074.5930000000226,
+          1046.0576,
+          1190.475599999976,
+          1144.8620999999985,
+          984.1763999999966
+        ],
+        "worker": [
+          1173.9028000000108,
+          1252.2973999999958,
+          1178.3243000000075,
+          1175.2690000000002,
+          1202.0787000000128,
+          2006.8178999999946,
+          1207.7835000000196,
+          1213.0654000000213
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "quality": "fast",
+      "maxColors": 64,
+      "dither": "none",
+      "file": "moving-gradient-fast-64-none.gif",
+      "sizeBytes": 324098,
+      "sha256": "b2082fc625174db90dd5b99e7233e6c3d3bb35e4d1f2e4b799f1b700b42050f4",
+      "paletteSha256": "2c37c18dfb02301a786135fbfdbddc5d9505dbe29a667e792e183511673c2dd9",
+      "rgbRmse": 8.297112003572472,
+      "block8Rmse": 7.528036466863749,
+      "exactPixelPercent": 23.34053096064815,
+      "staticPixelDelta": 1.3956782266269034,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          396.8274999999994,
+          387.13610000000335,
+          410.5133999999962,
+          423.3996000000043,
+          407.8565000000235,
+          539.7777999999817,
+          800.7829999999958,
+          399.67379999998957
+        ],
+        "worker": [
+          538.0916999999899,
+          534.8692999999912,
+          551.4579999999987,
+          533.7442999999912,
+          552.2710000000079,
+          946.4250999999931,
+          1466.5264999999781,
+          538.8238999999885
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "quality": "high",
+      "maxColors": 128,
+      "dither": "none",
+      "file": "moving-gradient-high-128-none.gif",
+      "sizeBytes": 463800,
+      "sha256": "7d7d3c73aeacc293a9c8324cb9d7b5a16fe5cc5b76d5c4a29d80a7a02f253027",
+      "paletteSha256": "5359df02703862b72028fa5fc7f9a6cff673e5db5cfd0f9dc28ccc565cff79a3",
+      "rgbRmse": 4.640952160652518,
+      "block8Rmse": 3.762743780375306,
+      "exactPixelPercent": 23.81327763310185,
+      "staticPixelDelta": 1.0658330481465186,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          1078.346900000004,
+          1010.9783000000025,
+          1026.0831000000035,
+          1274.7333999999973,
+          1014.354800000001,
+          1064.4451999999874,
+          1783.261200000008,
+          1049.5204999999842
+        ],
+        "worker": [
+          1228.9238000000041,
+          1223.1794999999984,
+          1194.7295000000013,
+          1317.7412000000186,
+          1242.7876999999862,
+          1250.8107999999775,
+          3017.209200000012,
+          1242.0138000000152
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "quality": "fast",
+      "maxColors": 128,
+      "dither": "none",
+      "file": "moving-gradient-fast-128-none.gif",
+      "sizeBytes": 415107,
+      "sha256": "5b0d43ab2fd6aab106205b76d6be8272abdf5eeca1d84c7882ad000dd8f1c32a",
+      "paletteSha256": "d10fba6c6376eced279f94dd76bc3a310b995da04c0e8f1f3622e11752f9862d",
+      "rgbRmse": 7.2396827406244695,
+      "block8Rmse": 6.482088433022289,
+      "exactPixelPercent": 24.867549189814813,
+      "staticPixelDelta": 1.0624410710918348,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          408.4012999999977,
+          457.72189999998955,
+          545.0427000000054,
+          405.66580000001704,
+          457.08660000000964,
+          400.03449999997974,
+          977.0700999999826,
+          397.8771999999881
+        ],
+        "worker": [
+          554.2997999999934,
+          552.244200000001,
+          1652.8401999999915,
+          560.8677000000025,
+          581.8456000000006,
+          527.742499999993,
+          1577.663499999995,
+          574.1678000000247
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "quality": "high",
+      "maxColors": 256,
+      "dither": "none",
+      "file": "moving-gradient-high-256-none.gif",
+      "sizeBytes": 626459,
+      "sha256": "09e46f3a5c33e8212f042457c5caab2161c1d242c8c6b2c63a296fc840a1914c",
+      "paletteSha256": "ca8c79f6d6db977eda82261d9594c9127a895e4978321050af41feb1a28cf85b",
+      "rgbRmse": 3.696660609254192,
+      "block8Rmse": 2.9145648378755813,
+      "exactPixelPercent": 27.25537109375,
+      "staticPixelDelta": 0.6246099051782942,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          1055.1964000000007,
+          1081.1477000000014,
+          1245.4330999999947,
+          1090.6742000000086,
+          1058.0516000000061,
+          1087.6316000000224,
+          1250.331600000005,
+          1089.0682000000088
+        ],
+        "worker": [
+          1274.3205000000016,
+          1227.2012000000104,
+          1564.7458000000042,
+          1235.9649999999965,
+          1278.5319999999774,
+          1269.6753999999783,
+          2280.3150000000023,
+          1229.0365000000165
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "quality": "fast",
+      "maxColors": 256,
+      "dither": "none",
+      "file": "moving-gradient-fast-256-none.gif",
+      "sizeBytes": 463417,
+      "sha256": "058b912cbb2b0455df58890209864eca5cd5e0cc178290b25d03d32e482ee34d",
+      "paletteSha256": "0784a7f6cb9c61959ef69393a5ee01e5060a1e5d14f892acb0af1f766a0552bc",
+      "rgbRmse": 6.924811931799925,
+      "block8Rmse": 6.138729671525157,
+      "exactPixelPercent": 23.76144748263889,
+      "staticPixelDelta": 0.8354515729507872,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          406.6487000000052,
+          374.4349999999977,
+          757.0550999999978,
+          443.49259999999776,
+          379.21609999999055,
+          388.10639999998966,
+          1231.1596999999892,
+          414.6278000000166
+        ],
+        "worker": [
+          534.9189999999944,
+          550.8730000000069,
+          962.3307000000204,
+          567.2032000000181,
+          553.0768000000098,
+          571.3583999999973,
+          1298.0823000000091,
+          589.4519000000146
+        ]
+      }
+    },
+    {
+      "scene": "moving-gradient",
+      "quality": "high",
+      "maxColors": 64,
+      "dither": "bayer-4x4",
+      "file": "moving-gradient-high-64-bayer-4x4.gif",
+      "sizeBytes": 824123,
+      "sha256": "058b4b51bc0c539ec7bd1e9ca5ca0caa40cdfc4ed122d8310c7bc27f6ba80d2e",
+      "paletteSha256": "eb1db7e095d21814419787194b91d70105df2c92b8b5cfa7897e1fdc5feb7f18",
+      "rgbRmse": 6.637899195465887,
+      "block8Rmse": 3.412234170817487,
+      "exactPixelPercent": 22.365360966435187,
+      "staticPixelDelta": 2.0237953476136266,
+      "cutStaticPixelDelta": null,
+      "timingsMs": {
+        "sync": [
+          1199.5353000000032,
+          1181.9514000000054,
+          1166.9964000000036,
+          1148.8501000000106,
+          1141.9627999999793,
+          1211.9247000000032,
+          1133.6031000000075,
+          1094.3782000000065
+        ],
+        "worker": [
+          1314.7356,
+          1336.4428999999946,
+          1352.820000000007,
+          1447.050499999983,
+          1387.3867999999784,
+          1456.0043000000005,
+          1332.1814000000013,
+          1348.8802000000142
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "quality": "high",
+      "maxColors": 32,
+      "dither": "none",
+      "file": "scene-cut-high-32-none.gif",
+      "sizeBytes": 233934,
+      "sha256": "91b1d6af948cf28e2304ffc6501fdd468a3f7dd73d4de65b1bb226808f43e395",
+      "paletteSha256": "9e5e8ed108564b646ab01a6a383be8854df5dd38570b70d43f93339e67432b7a",
+      "rgbRmse": 5.746269212041243,
+      "block8Rmse": 5.0532125800325955,
+      "exactPixelPercent": 54.03470413773148,
+      "staticPixelDelta": 1.3634651028531495,
+      "cutStaticPixelDelta": 5.1565346718720955,
+      "timingsMs": {
+        "sync": [
+          628.6694999999891,
+          623.7500000000291,
+          620.0924000000232,
+          646.9804000000004,
+          602.2233999999589,
+          609.8865000000224,
+          625.6032000000123,
+          622.3203999999678
+        ],
+        "worker": [
+          803.1404000000039,
+          824.9832999999926,
+          822.8598999999813,
+          809.1485000000102,
+          760.10070000001,
+          838.905999999959,
+          764.8658000000287,
+          910.3153000000166
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "quality": "fast",
+      "maxColors": 32,
+      "dither": "none",
+      "file": "scene-cut-fast-32-none.gif",
+      "sizeBytes": 226323,
+      "sha256": "6a1473b254340fe339eabb9c861b24bd1af577fd2961a8e603a6f7399fc3db45",
+      "paletteSha256": "33dece401b59b3a92f984c311d0f53ec133d99fa927f8caf1317690ae00b3beb",
+      "rgbRmse": 6.790198202593035,
+      "block8Rmse": 6.185291475756245,
+      "exactPixelPercent": 51.598415798611114,
+      "staticPixelDelta": 1.2499030423802917,
+      "cutStaticPixelDelta": 3.4759248931028073,
+      "timingsMs": {
+        "sync": [
+          397.4556000000157,
+          402.94470000002184,
+          407.9985999999917,
+          413.95470000000205,
+          400.70880000002217,
+          392.171800000011,
+          375.3032999999705,
+          431.3265000000247
+        ],
+        "worker": [
+          899.7531000000017,
+          575.1984999999986,
+          521.4960000000428,
+          528.735800000024,
+          851.2631999999867,
+          538.7350999999908,
+          531.5618999999715,
+          540.3997999999556
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "quality": "high",
+      "maxColors": 64,
+      "dither": "none",
+      "file": "scene-cut-high-64-none.gif",
+      "sizeBytes": 291029,
+      "sha256": "e02fd9125bc32f4778ca83182ef018ed2116269e5153af8b3ef6b2ff7ca80a25",
+      "paletteSha256": "ad2bc9111ff9f67eabc1e0d2c6df5f5ff9f88231632555333c5a26c2d2031603",
+      "rgbRmse": 4.156112551971691,
+      "block8Rmse": 3.521198223466627,
+      "exactPixelPercent": 59.27922453703704,
+      "staticPixelDelta": 0.9059650353309768,
+      "cutStaticPixelDelta": 0.37664993493214355,
+      "timingsMs": {
+        "sync": [
+          780.0094999999856,
+          661.6686000000045,
+          670.4416000000201,
+          770.9611999999615,
+          642.664300000004,
+          716.305400000012,
+          640.6933999999892,
+          702.0067999999737
+        ],
+        "worker": [
+          1102.0677000000142,
+          869.2256000000052,
+          797.7474999999977,
+          1172.3323000000091,
+          871.6587000000291,
+          989.6755000000121,
+          833.0101000000141,
+          842.0063000000082
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "quality": "fast",
+      "maxColors": 64,
+      "dither": "none",
+      "file": "scene-cut-fast-64-none.gif",
+      "sizeBytes": 276757,
+      "sha256": "9a8be821996315c830d07c7f86bde984b4bb2febe8f606790dd6cccb3109eb0b",
+      "paletteSha256": "50d78ea84753fcd9ae976239148a01ca31918dba29c2878801cad8dc8269585b",
+      "rgbRmse": 5.734069240763524,
+      "block8Rmse": 5.174032519627818,
+      "exactPixelPercent": 56.29401765046296,
+      "staticPixelDelta": 0.8209934452850955,
+      "cutStaticPixelDelta": 0.3543409555679494,
+      "timingsMs": {
+        "sync": [
+          581.4112000000023,
+          429.9505000000354,
+          381.29139999998733,
+          389.0363999999827,
+          415.8864000000176,
+          385.2584999999963,
+          403.0890000000363,
+          395.9272999999812
+        ],
+        "worker": [
+          759.8543000000063,
+          524.4795999999624,
+          530.0705000000307,
+          538.8539999999921,
+          608.5564000000013,
+          533.6040999999968,
+          512.0726000000141,
+          557.9715999999898
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "quality": "high",
+      "maxColors": 128,
+      "dither": "none",
+      "file": "scene-cut-high-128-none.gif",
+      "sizeBytes": 357401,
+      "sha256": "4578a0ef1fe7d118bd6cd3a2a1ca65c5157bda50b7625b5b842faaf6984c363f",
+      "paletteSha256": "70a6ddba0060fd8d62df1b661d1e1f857095646912d835688b907d0801c6a77a",
+      "rgbRmse": 3.252061997966648,
+      "block8Rmse": 2.641582230142085,
+      "exactPixelPercent": 60.541286892361114,
+      "staticPixelDelta": 0.6101212782622494,
+      "cutStaticPixelDelta": 0.32050567019892173,
+      "timingsMs": {
+        "sync": [
+          906.2887000000046,
+          695.3329000000376,
+          681.4026999999769,
+          666.2895000000135,
+          697.2255000000005,
+          769.0180999999866,
+          661.983600000036,
+          668.055699999968
+        ],
+        "worker": [
+          1281.094700000016,
+          826.3409000000102,
+          853.9070000000065,
+          869.1198999999906,
+          892.2103999999817,
+          934.1367999999784,
+          879.7543000000296,
+          838.74099999998
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "quality": "fast",
+      "maxColors": 128,
+      "dither": "none",
+      "file": "scene-cut-fast-128-none.gif",
+      "sizeBytes": 321148,
+      "sha256": "f959aa76793deb3ff55671a6677732b48a257e7189763a9b73a9cef978226b04",
+      "paletteSha256": "bf7ab354fea9be572df9261ec8bb17b8c8320f2868f154da4462c88479de8630",
+      "rgbRmse": 5.2489753475851195,
+      "block8Rmse": 4.686776457127065,
+      "exactPixelPercent": 56.68202039930556,
+      "staticPixelDelta": 0.6582030788422648,
+      "cutStaticPixelDelta": 1.1396170291875813,
+      "timingsMs": {
+        "sync": [
+          390.1692000000039,
+          449.2682999999961,
+          379.9322000000393,
+          403.4099999999744,
+          408.4722999999649,
+          400.9809000000241,
+          390.28409999998985,
+          384.73929999995744
+        ],
+        "worker": [
+          595.5627000000095,
+          549.453899999964,
+          546.5525999999954,
+          528.3667000000132,
+          615.8803000000189,
+          528.3768999999738,
+          533.7544999999809,
+          582.8913000000175
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "quality": "high",
+      "maxColors": 256,
+      "dither": "none",
+      "file": "scene-cut-high-256-none.gif",
+      "sizeBytes": 439323,
+      "sha256": "a958fe2c1ed7ed3e37f15c820ce2af493525822483fff16c8d1540f15434824d",
+      "paletteSha256": "c9cdb563c38240c9d691b4cd295bd8b5fcc7aed19fb6a2d0d061c48622295a29",
+      "rgbRmse": 2.609862059038138,
+      "block8Rmse": 2.051711245168224,
+      "exactPixelPercent": 61.989095052083336,
+      "staticPixelDelta": 0.3902130619954828,
+      "cutStaticPixelDelta": 0,
+      "timingsMs": {
+        "sync": [
+          794.8532999999879,
+          829.6344999999856,
+          738.6109999999753,
+          683.8153000000166,
+          695.6447000000044,
+          680.2085999999545,
+          720.9885999999824,
+          713.3774999999441
+        ],
+        "worker": [
+          1164.1172000000079,
+          1017.8686999999918,
+          838.9829000000027,
+          867.0782000000472,
+          923.8301999999676,
+          859.3322000000044,
+          849.6043000000063,
+          897.8825999999535
+        ]
+      }
+    },
+    {
+      "scene": "scene-cut",
+      "quality": "fast",
+      "maxColors": 256,
+      "dither": "none",
+      "file": "scene-cut-fast-256-none.gif",
+      "sizeBytes": 340734,
+      "sha256": "6e5a0081352f1b43a5a5a456c56c592f5ada8083d5b73339dc0d128e0d9d13bc",
+      "paletteSha256": "1281674f8c3c37ff77d1f6f6bc225bcda5cfd6dd4ea1b939ece01abc9d0ebfa4",
+      "rgbRmse": 5.099807757058164,
+      "block8Rmse": 4.5370039837268274,
+      "exactPixelPercent": 56.552969473379626,
+      "staticPixelDelta": 0.5154260733493361,
+      "cutStaticPixelDelta": 0.5618144636549545,
+      "timingsMs": {
+        "sync": [
+          502.04449999998906,
+          386.51880000001984,
+          386.95509999996284,
+          384.2778999999864,
+          386.594299999997,
+          391.1341000000248,
+          382.4576000000234,
+          519.6646000000183
+        ],
+        "worker": [
+          1119.2018999999855,
+          561.9089999999851,
+          501.73749999998836,
+          558.0568000000203,
+          535.7468999999692,
+          554.0791000000318,
+          559.8145000000368,
+          540.54449999996
+        ]
+      }
+    }
+  ]
+}

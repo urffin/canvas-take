@@ -5,10 +5,10 @@ import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {cpus, platform, release} from 'node:os';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import ffmpeg from 'ffmpeg-static';
 import gifenc from 'gifenc';
-import {decompressFrames, parseGIF} from 'gifuct-js';
 import {floydSteinberg, makeFrames, orderedBayer} from '../benchmarks/gif-dithering.mjs';
+import {writeGifContactSheet} from './lib/gif-contact-sheet.mjs';
+import {measureGifQuality} from './lib/gif-quality-metrics.mjs';
 import {createGifExporter} from '../dist/gif.js';
 import {createGifencEncoder} from '../dist/gifenc.js';
 import {createGifWorkerEncoder} from '../dist/gif-worker.js';
@@ -115,74 +115,6 @@ async function encodeWithAdapter(frames, maxColors, method) {
     }
 }
 
-function measure(bytes, frames) {
-    const gif = parseGIF(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength));
-    const decoded = decompressFrames(gif, true);
-    const {width, height} = frames[0];
-    assert.equal(gif.lsd.width, width);
-    assert.equal(gif.lsd.height, height);
-    assert.equal(decoded.length, frames.length);
-
-    const blocksAcross = width / 8, blocksDown = height / 8;
-    let squared = 0, blockSquared = 0, staticError = 0, staticPixels = 0, exact = 0;
-    for (const [i, frame] of decoded.entries()) {
-        const original = frames[i].data;
-        const previousOriginal = frames[i - 1]?.data;
-        const previousPatch = decoded[i - 1]?.patch;
-        const {patch, dims} = frame;
-        assert.deepEqual([dims.left, dims.top, dims.width, dims.height], [0, 0, width, height]);
-        assert.equal(frame.delay, frames[i].durationMs);
-        assert.equal(patch.length, original.length);
-        const blocks = new Int32Array(blocksAcross * blocksDown * 3);
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                const offset = (y * width + x) * 4;
-                const block = (Math.floor(y / 8) * blocksAcross + Math.floor(x / 8)) * 3;
-                assert.equal(patch[offset + 3], 255);
-                const isStatic = previousOriginal && original[offset] === previousOriginal[offset] &&
-                    original[offset + 1] === previousOriginal[offset + 1] && original[offset + 2] === previousOriginal[offset + 2];
-                let same = true;
-                for (let c = 0; c < 3; c++) {
-                    const error = patch[offset + c] - original[offset + c];
-                    squared += error * error;
-                    blocks[block + c] += error;
-                    if (error !== 0) same = false;
-                    if (isStatic) staticError += Math.abs(patch[offset + c] - previousPatch[offset + c]);
-                }
-                if (same) exact++;
-                if (isStatic) staticPixels++;
-            }
-        }
-        for (const block of blocks) blockSquared += (block / 64) ** 2;
-    }
-    const pixels = width * height * frames.length;
-    return {
-        metrics: {
-            rgbRmse: Math.sqrt(squared / (pixels * 3)),
-            block8Rmse: Math.sqrt(blockSquared / (pixels * 3 / 64)),
-            exactPixelPercent: 100 * exact / pixels,
-            staticPixelDelta: staticError / (staticPixels * 3)
-        },
-        paletteSha256: hash(JSON.stringify(decoded.map(frame => frame.colorTable))),
-        preview: decoded[Math.floor(decoded.length / 2)].patch
-    };
-}
-
-function writePreview(path, panels, width, height) {
-    const gutter = 8;
-    const sheetWidth = width * 2 + gutter, sheetHeight = height * 2 + gutter;
-    const sheet = Buffer.alloc(sheetWidth * sheetHeight * 4, Buffer.from([39, 43, 48, 255]));
-    for (const [index, panel] of panels.entries()) {
-        const startX = (index % 2) * (width + gutter);
-        const startY = Math.floor(index / 2) * (height + gutter);
-        for (let y = 0; y < height; y++) {
-            sheet.set(panel.subarray(y * width * 4, (y + 1) * width * 4), ((startY + y) * sheetWidth + startX) * 4);
-        }
-    }
-    execFileSync(ffmpeg, ['-hide_banner', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgba',
-        '-s', `${sheetWidth}x${sheetHeight}`, '-i', 'pipe:0', '-frames:v', '1', '-threads', '1', '-y', path], {input: sheet});
-}
-
 const median = values => {
     const sorted = [...values].sort((a, b) => a - b);
     const middle = Math.floor(sorted.length / 2);
@@ -220,7 +152,7 @@ for (const scene of ['flat', 'gradient']) {
             assert.equal(outputs.get('worker-none').sha256, outputs.get('sync-none').sha256);
             assert.equal(outputs.get('worker-bayer').sha256, outputs.get('sync-bayer').sha256);
             const {bytes} = encode(frames, maxColors, 'bayer');
-            prototype = {bytes, ...measure(bytes, frames)};
+            prototype = {bytes, ...measureGifQuality(bytes, frames)};
         }
         for (const order of report.metadata.order) {
             for (const method of order) {
@@ -232,7 +164,7 @@ for (const scene of ['flat', 'gradient']) {
         let expectedPalette;
         const panels = [frames[Math.floor(frames.length / 2)].data];
         for (const [method, {bytes, sha256}] of outputs) {
-            const {metrics, paletteSha256, preview} = measure(bytes, frames);
+            const {metrics, paletteSha256, previews: [preview]} = measureGifQuality(bytes, frames);
             expectedPalette ??= paletteSha256;
             assert.equal(paletteSha256, expectedPalette, 'Dithering changed the shared palettes');
             if (!adapters || method.startsWith('sync-')) panels.push(preview);
@@ -248,9 +180,9 @@ for (const scene of ['flat', 'gradient']) {
             assert.equal(prototype.paletteSha256, expectedPalette, 'Prototype used a different palette');
             report.prototype ??= [];
             report.prototype.push({scene, maxColors, bytes: prototype.bytes.length, sha256: hash(prototype.bytes), ...prototype.metrics});
-            panels.push(prototype.preview);
+            panels.push(prototype.previews[0]);
         }
-        if (maxColors < 256) writePreview(join(output, `${scene}-${maxColors}-comparison.png`), panels, width, height);
+        if (maxColors < 256) writeGifContactSheet(join(output, `${scene}-${maxColors}-comparison.png`), panels, width, height);
     }
     assert.equal(sourceHash(), originalHash, 'Encoder mutated source RGBA');
 }
