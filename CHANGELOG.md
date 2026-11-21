@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.10.0 — 2026-11-21
 
 - Add opt-in `dither: 'bayer-4x4'` to both supplied GIF adapters. Default GIF bytes and the legacy Worker protocol remain compatible. Explicit Bayer requires Worker support before frame transfer.
 

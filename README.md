@@ -201,7 +201,7 @@ try {
 | `background` | RGB byte tuple, default `[255, 255, 255]`; composites transparency onto an opaque background |
 | Adapter `maxColors` | Maximum palette colors per frame, integer `2..256`, default `256` |
 | Adapter `quality` | `high` (default, RGB565) or `fast` (RGB444) |
-| Adapter `dither` (unreleased) | `none` (default) or `bayer-4x4` (ordered dithering) |
+| Adapter `dither` (since 0.10.0) | `none` (default) or `bayer-4x4` (ordered dithering) |
 
 Set `dither: 'bayer-4x4'` in `createGifencEncoder` or `createGifWorkerEncoder` to smooth
 palette-limited gradients. Bayer can add a visible pattern, increase file size and take

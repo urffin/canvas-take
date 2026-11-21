@@ -55,7 +55,7 @@ clears the pending task and owned snapshot. These are tuning details, not API gu
 describes the negotiated raw-RGBA path now implemented locally. Public adapter `addFrame()` calls
 still receive opaque pixels; the raw handoff is private to the supplied controller/Worker adapter.
 
-### Optional Bayer dithering (unreleased)
+### Optional Bayer dithering (since 0.10.0)
 
 `createGifencEncoder({ dither: 'bayer-4x4' })` and
 `createGifWorkerEncoder({ dither: 'bayer-4x4' })` use the same anchored 4×4 pattern
