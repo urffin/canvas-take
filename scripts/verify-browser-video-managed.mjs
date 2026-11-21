@@ -6,7 +6,7 @@ import {createServer} from 'node:http';
 import {tmpdir} from 'node:os';
 import {basename, dirname, join, resolve, sep} from 'node:path';
 import {promisify} from 'node:util';
-import {chromium, firefox} from '@playwright/test';
+import {chromium, expect, firefox} from '@playwright/test';
 import ffmpeg from 'ffmpeg-static';
 import {mp4Headers} from '../test/browser/helpers/offline-video.mjs';
 import {bestLag, decodeOfflineAudio, readAudioLayout} from '../test/browser/helpers/offline-audio.mjs';
@@ -292,8 +292,13 @@ try {
             const abandoned = await call(peer, 'abandon', 'abandoned.webm');
             assert.equal((await call(page, 'recover', abandoned)).code, 'busy');
             await peer.close();
-            await page.waitForFunction(async () => !(await navigator.locks.query()).held.some(lock => lock.name.includes('/attempt/')));
-            assert.deepEqual(await call(page, 'recover', abandoned), {
+            // Tab closure and a Web Locks snapshot can precede the next successful acquisition.
+            let recovered;
+            await expect.poll(async () => {
+                recovered = await call(page, 'recover', abandoned);
+                return recovered.code;
+            }, {timeout: 5000, message: 'Abandoned attempt releases its lock'}).not.toBe('busy');
+            assert.deepEqual(recovered, {
                 status: 'fenced', publication: 'not-committed', physicalIO: 'unknown', code: undefined
             });
             assert.deepEqual(await call(page, 'cleanup', abandoned), {status: 'blocked', code: 'io-unsettled'});
